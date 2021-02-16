@@ -1,18 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:padding="16dp"
+    tools:context=".MainActivity"
+    >
 
     <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:hint="0"
+        android:textAlignment="viewEnd"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText"
+        />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="16dp"
+        android:background="#ddd"
+        app:layout_constraintBottom_toTopOf="@id/buttonDelete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonDelete"
+        style="@style/Widget.Calculator.Button.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="16dp"
+        app:icon="@drawable/ic_baseline_keyboard_backspace_24"
+        app:layout_constraintBottom_toTopOf="@id/input"
+        app:layout_constraintEnd_toEndOf="@id/input"
+        />
 
+    <GridLayout
+        android:id="@+id/input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:rowCount="4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <Button
+            android:id="@+id/button7"
+            style="@style/Widget.Calculator.Button.Uncolored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculator_7"
+            />
+
+        <Button
+            android:id="@+id/button8"
+            style="@style/Widget.Calculator.Button.Uncolored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculator_8"
+            />
+
+        <Button
+            android:id="@+id/button9"
+            style="@style/Widget.Calculator.Button.Uncolored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculator_9"
+            />
+
+        <Button
+            android:id="@+id/buttonDivide"
+            style="@style/Widget.Calculator.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculator_divide"
+            />
+
+        <Button
+            android:id="@+id/button4"
+            style="@style/Widget.Calculator.Button.Uncolored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculator_4"
+            />
+
+        <Button
+            android:id="@+id/button5"
+            style="@style/Widget.Calculator.Button.Uncolored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculator_5"
+            />
+
+        <Button
+            android:id="@+id/button6"
+            style="@style/Widget.Calculator.Button.Uncolored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculator_6"
+            />
+
+        <Button
+            android:id="@+id/buttonMultiply"
+            style="@style/Widget.Calculator.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculator_multiply"
+            />
+
+        <Button
+            android:id="@+id/button1"
+            style="@style/Widget.Calculator.Button.Uncolored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculator_1"
+            />
+
+        <Button
+            android:id="@+id/button2"
+            style="@style/Widget.Calculator.Button.Uncolored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculator_2"
+            />
+
+        <Button
+            android:id="@+id/button3"
+            style="@style/Widget.Calculator.Button.Uncolored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculator_3"
+            />
+
+        <Button
+            android:id="@+id/buttonMinus"
+            style="@style/Widget.Calculator.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculator_minus"
+            />
+
+        <Button
+            android:id="@+id/button0"
+            style="@style/Widget.Calculator.Button.Uncolored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculator_0"
+            />
+
+        <Space
+            android:id="@+id/space1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <Button
+            android:id="@+id/buttonEquals"
+            style="@style/Widget.Calculator.Button.BackgroundColored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculator_equals"
+            />
+
+        <Button
+            android:id="@+id/buttonPlus"
+            style="@style/Widget.Calculator.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calculator_plus"
+            />
+    </GridLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
