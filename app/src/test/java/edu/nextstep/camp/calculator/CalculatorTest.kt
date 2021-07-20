@@ -6,9 +6,11 @@ import org.junit.Test
 class CalculatorTest {
 
     @Test
-    fun `number1과 number2를 더한 값은 4이다`() {
+    fun `6과 7을 plus함수로 더하면 13이 나와야 한다`() {
         val calculator = Calculator()
         val result = calculator.plus(6, 7)
         Truth.assertThat(result).isEqualTo(13)
     }
+
+
 }
