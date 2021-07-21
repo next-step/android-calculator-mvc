@@ -1,5 +1,6 @@
 package edu.nextstep.camp.calculator
 
+import edu.nextstep.camp.calculator.Operator.Companion.OPERATORS
 import java.util.*
 
 class Expression private constructor(value: String) {
@@ -18,10 +19,9 @@ class Expression private constructor(value: String) {
             .map { Number(it) }
     }
 
-    fun getOperators(): List<String> {
-        val operators = listOf<String>("+", "-", "×", "÷")
-        return _value.filter { operators.contains(it.toString()) }
-            .map { it.toString() }
+    fun getOperators(): List<Operator> {
+        return _value.filter { OPERATORS.contains(it.toString()) }
+            .map { Operator(it.toString()) }
     }
 
     companion object {

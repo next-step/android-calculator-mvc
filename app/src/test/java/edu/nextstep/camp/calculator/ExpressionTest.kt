@@ -1,6 +1,10 @@
 package edu.nextstep.camp.calculator
 
 import com.google.common.truth.Truth.assertThat
+import edu.nextstep.camp.calculator.Operator.Companion.DIVIDE
+import edu.nextstep.camp.calculator.Operator.Companion.MINUS
+import edu.nextstep.camp.calculator.Operator.Companion.MULTIPLY
+import edu.nextstep.camp.calculator.Operator.Companion.PLUS
 import org.junit.Test
 import java.util.*
 
@@ -48,30 +52,32 @@ class ExpressionTest {
         assertThat(expression._value).isEqualTo("1+3+4")
     }
 
+
     @Test
     fun `수식이 주어지면 해당 수식을 순서대로 계산한다`() {
         var result = Number(0)
         val expression = Expression.create("1 + 3 × 5")
 
         val numbers = expression.getNumbers()
-        val symbols = expression.getOperators()
+        val operators = expression.getOperators()
 
         val numberQueue: Queue<Number> = LinkedList<Number>()
-        val symbolQueue: Queue<String> = LinkedList<String>()
+        val operatorsQueue: Queue<Operator> = LinkedList<Operator>()
 
         numberQueue.addAll(numbers)
-        symbolQueue.addAll(symbols)
+        operatorsQueue.addAll(operators)
 
         if (numberQueue.size > 1) {
             var leftNumber = numberQueue.poll()
             var rightNumber = numberQueue.poll()
 
-            while (symbolQueue.isNotEmpty()) {
-                leftNumber = when (symbolQueue.poll()) {
-                    "+" -> leftNumber.plus(rightNumber)
-                    "-" -> leftNumber.minus(rightNumber)
-                    "×" -> leftNumber.multiply(rightNumber)
-                    "÷" -> leftNumber.divide(rightNumber)
+            while (operatorsQueue.isNotEmpty()) {
+                val operator = operatorsQueue.poll().value
+                leftNumber = when (operator) {
+                    PLUS -> leftNumber.plus(rightNumber)
+                    MINUS -> leftNumber.minus(rightNumber)
+                    MULTIPLY -> leftNumber.multiply(rightNumber)
+                    DIVIDE -> leftNumber.divide(rightNumber)
                     else -> throw IllegalArgumentException("올바른 수식이 아닙니다.")
                 }
 
