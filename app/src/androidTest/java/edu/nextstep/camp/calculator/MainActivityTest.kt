@@ -49,6 +49,13 @@ class MainActivityTest {
         shouldShowText(displayedText = "4")
     }
 
+    @Test
+    fun pressedFiveButton_shouldShowFive() {
+        onView(withId(R.id.button5)).perform(click())
+
+        shouldShowText(displayedText = "5")
+    }
+
     private fun shouldShowText(displayedText: String) {
         onView(withId(R.id.textView)).check(matches(withText(displayedText)))
     }
