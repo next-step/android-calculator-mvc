@@ -3,8 +3,8 @@ package edu.nextstep.camp.calculator
 import edu.nextstep.camp.calculator.Operator.Companion.OPERATORS
 import java.util.*
 
-class Expression private constructor(value: String) {
-    val _value = value
+class Expression private constructor(val value: String) {
+    private val separator = Separator()
 
     init {
         checkBlankExpression(value)
@@ -14,14 +14,42 @@ class Expression private constructor(value: String) {
         if (value.isBlank()) throw IllegalArgumentException("수식은 공백일 수 없습니다.")
     }
 
-    fun getNumbers(): List<Number> {
-        return _value.split("+", "-", "×", "÷")
-            .map { Number(it) }
-    }
+    fun calculate(): Number {
+        var result = Number(0)
+        val numbers = separator.getNumbers(value)
+        val operators = separator.getOperators(value)
 
-    fun getOperators(): List<Operator> {
-        return _value.filter { OPERATORS.contains(it.toString()) }
-            .map { Operator(it.toString()) }
+        val numberQueue: Queue<Number> = LinkedList<Number>()
+        val operatorsQueue: Queue<Operator> = LinkedList<Operator>()
+
+        numberQueue.addAll(numbers)
+        operatorsQueue.addAll(operators)
+
+        if (numberQueue.size > 1) {
+            var leftNumber = numberQueue.poll()
+            var rightNumber = numberQueue.poll()
+
+            while (operatorsQueue.isNotEmpty()) {
+                val operator = operatorsQueue.poll().value
+                leftNumber = when (operator) {
+                    Operator.PLUS -> leftNumber.plus(rightNumber)
+                    Operator.MINUS -> leftNumber.minus(rightNumber)
+                    Operator.MULTIPLY -> leftNumber.multiply(rightNumber)
+                    Operator.DIVIDE -> leftNumber.divide(rightNumber)
+                    else -> throw IllegalArgumentException("올바른 수식이 아닙니다.")
+                }
+
+                if (numberQueue.isNotEmpty()) {
+                    rightNumber = numberQueue.poll()
+                } else {
+                    result = leftNumber
+                }
+            }
+        } else {
+            result = numberQueue.poll()
+        }
+
+        return result
     }
 
     companion object {
