@@ -19,5 +19,9 @@ class MainActivity : AppCompatActivity() {
         binding.button1.setOnClickListener {
             binding.textView.text = "1"
         }
+
+        binding.button2.setOnClickListener {
+            binding.textView.text = "2"
+        }
     }
 }
