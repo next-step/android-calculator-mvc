@@ -18,21 +18,25 @@ class MainActivityTest {
     fun pressedZeroButton_shouldShowZero() {
         onView(withId(R.id.button0)).perform(click())
 
-        onView(withId(R.id.textView)).check(matches(withText("0")))
+        shouldShowText(displayedText = "0")
     }
 
     @Test
     fun pressedOneButton_shouldShowOne() {
         onView(withId(R.id.button1)).perform(click())
 
-        onView(withId(R.id.textView)).check(matches(withText("1")))
+        shouldShowText(displayedText = "1")
     }
 
     @Test
     fun pressedTwoButton_shouldShowTwo() {
         onView(withId(R.id.button2)).perform(click())
 
-        onView(withId(R.id.textView)).check(matches(withText("2")))
+        shouldShowText(displayedText = "2")
+    }
+
+    private fun shouldShowText(displayedText: String) {
+        onView(withId(R.id.textView)).check(matches(withText(displayedText)))
     }
 
 }
