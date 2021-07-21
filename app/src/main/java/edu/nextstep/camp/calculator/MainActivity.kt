@@ -12,6 +12,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.button0.setOnClickListener {
+            binding.textView.text = "0"
+        }
+
         binding.button1.setOnClickListener {
             binding.textView.text = "1"
         }
