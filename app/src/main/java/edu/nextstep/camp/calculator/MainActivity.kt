@@ -12,44 +12,48 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.button0.setOnClickListener {
-            binding.textView.text = "0"
+        setupListener()
+    }
+
+    private fun setupListener() = with(binding){
+        button0.setOnClickListener {
+            textView.text = "0"
         }
 
-        binding.button1.setOnClickListener {
-            binding.textView.text = "1"
+        button1.setOnClickListener {
+            textView.text = "1"
         }
 
-        binding.button2.setOnClickListener {
-            binding.textView.text = "2"
+        button2.setOnClickListener {
+            textView.text = "2"
         }
 
-        binding.button3.setOnClickListener {
-            binding.textView.text = "3"
+        button3.setOnClickListener {
+            textView.text = "3"
         }
 
-        binding.button4.setOnClickListener {
-            binding.textView.text = "4"
+        button4.setOnClickListener {
+            textView.text = "4"
         }
 
-        binding.button5.setOnClickListener {
-            binding.textView.text = "5"
+        button5.setOnClickListener {
+            textView.text = "5"
         }
 
-        binding.button6.setOnClickListener {
-            binding.textView.text = "6"
+        button6.setOnClickListener {
+            textView.text = "6"
         }
 
-        binding.button7.setOnClickListener {
-            binding.textView.text = "7"
+        button7.setOnClickListener {
+            textView.text = "7"
         }
 
-        binding.button8.setOnClickListener {
-            binding.textView.text = "8"
+        button8.setOnClickListener {
+            textView.text = "8"
         }
 
-        binding.button9.setOnClickListener {
-            binding.textView.text = "9"
+        button9.setOnClickListener {
+            textView.text = "9"
         }
     }
 }
