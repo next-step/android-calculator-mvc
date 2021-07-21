@@ -1,6 +1,6 @@
 package edu.nextstep.camp.calculator
 
-class Operator(val value: String) {
+data class Operator(val value: String) {
 
     init {
         isOperator(value)

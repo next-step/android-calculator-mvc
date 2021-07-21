@@ -37,7 +37,7 @@ class ExpressionTest {
         val operators = expression.getOperators()
 
         //then
-        assertThat(operators).isEqualTo(listOf("+", "-"))
+        assertThat(operators).isEqualTo(listOf(Operator("+"), Operator("-")))
     }
 
     @Test
