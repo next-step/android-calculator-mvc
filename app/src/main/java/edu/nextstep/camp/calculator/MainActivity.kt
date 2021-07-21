@@ -27,5 +27,9 @@ class MainActivity : AppCompatActivity() {
         binding.button3.setOnClickListener {
             binding.textView.text = "3"
         }
+
+        binding.button4.setOnClickListener {
+            binding.textView.text = "4"
+        }
     }
 }
