@@ -27,4 +27,12 @@ class MainActivityTest {
 
         onView(withId(R.id.textView)).check(matches(withText("1")))
     }
+
+    @Test
+    fun pressedTwoButton_shouldShowTwo() {
+        onView(withId(R.id.button2)).perform(click())
+
+        onView(withId(R.id.textView)).check(matches(withText("2")))
+    }
+
 }
