@@ -12,7 +12,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private var expression = Stack<String>()
+    private var expression = Expression()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -38,39 +38,24 @@ class MainActivity : AppCompatActivity() {
         buttonMultiply.setOnClickListener { operatorButtonClicked("×") }
         buttonDivide.setOnClickListener { operatorButtonClicked("÷") }
 
-        buttonEquals.setOnClickListener { calculate() }
-        buttonDelete.setOnClickListener { deleteButtonClicked()}
+        buttonEquals.setOnClickListener { calculateButtonClicked() }
+        buttonDelete.setOnClickListener { deleteButtonClicked() }
     }
 
     private fun numberButtonClicked(number: String) {
-        expression.push(number)
-        refreshExpressionTextView()
+        binding.textviewOutput.text = expression.writeNumber(number)
     }
 
     private fun operatorButtonClicked(operator: String) {
-        if(OPERATORS.contains(expression.peek())) {
-            expression.pop()
-            expression.push(operator)
-        } else {
-            expression.push(operator)
-        }
-        refreshExpressionTextView()
+        binding.textviewOutput.text = expression.writeOperator(operator)
     }
 
     private fun deleteButtonClicked() {
-        if(expression.isNotEmpty()) {
-            expression.pop()
-            refreshExpressionTextView()
-        }
+        binding.textviewOutput.text = expression.deleteExpression()
     }
 
-    fun calculate() {
-        val result = Expression.create(expression.joinToString("")).calculate()
+    private fun calculateButtonClicked() {
+        val result = expression.calculate()
         binding.textviewOutput.text = result.value.toString()
-        expression.clear()
-    }
-
-    fun refreshExpressionTextView() {
-        binding.textviewOutput.text = expression.joinToString("")
     }
 }
