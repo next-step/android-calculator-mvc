@@ -77,6 +77,13 @@ class MainActivityTest {
         shouldShowText(displayedText = "8")
     }
 
+    @Test
+    fun pressedNineButton_shouldShowNine() {
+        onView(withId(R.id.button9)).perform(click())
+
+        shouldShowText(displayedText = "9")
+    }
+
     private fun shouldShowText(displayedText: String) {
         onView(withId(R.id.textView)).check(matches(withText(displayedText)))
     }
