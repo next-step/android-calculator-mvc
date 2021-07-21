@@ -7,19 +7,19 @@ class Expression {
     private val value = Stack<String>()
     private val separator = Separator()
 
-    fun writeNumber(number: String): String {
-        value.push(number)
+    fun writeNumber(number: Number): String {
+        value.push(number.value.toString())
         return getValue()
     }
 
-    fun writeOperator(operator: String): String {
+    fun writeOperator(operator: Operator): String {
         when {
             value.isEmpty() -> return getValue()
             OPERATORS.contains(value.peek()) -> {
                 value.pop()
-                value.push(operator)
+                value.push(operator.value)
             }
-            else -> value.push(operator)
+            else -> value.push(operator.value)
         }
         return getValue()
     }

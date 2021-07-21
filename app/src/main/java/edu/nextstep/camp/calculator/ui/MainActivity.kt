@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Expression
+import edu.nextstep.camp.calculator.domain.Number
 import edu.nextstep.camp.calculator.domain.Operator
 import edu.nextstep.camp.calculator.domain.Operator.Companion.OPERATORS
 import java.lang.StringBuilder
@@ -43,11 +44,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun numberButtonClicked(number: String) {
-        binding.textviewOutput.text = expression.writeNumber(number)
+        binding.textviewOutput.text = expression.writeNumber(Number(number))
     }
 
     private fun operatorButtonClicked(operator: String) {
-        binding.textviewOutput.text = expression.writeOperator(operator)
+        binding.textviewOutput.text = expression.writeOperator(Operator(operator))
     }
 
     private fun deleteButtonClicked() {
