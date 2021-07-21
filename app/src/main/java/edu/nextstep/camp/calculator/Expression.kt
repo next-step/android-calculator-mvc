@@ -13,9 +13,9 @@ class Expression private constructor(value: String) {
         if (value.isBlank()) throw IllegalArgumentException("수식은 공백일 수 없습니다.")
     }
 
-    fun getNumbers(): List<Int> {
+    fun getNumbers(): List<Number> {
         return _value.split("+", "-", "×", "÷")
-            .map { it.toInt() }
+            .map { Number(it) }
     }
 
     fun getOperators(): List<String> {

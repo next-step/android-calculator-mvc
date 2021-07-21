@@ -21,7 +21,7 @@ class ExpressionTest {
         val numbers = expression.getNumbers()
 
         //then
-        assertThat(numbers).isEqualTo(listOf(1, 3, 4))
+        assertThat(numbers).isEqualTo(listOf(Number(1), Number(3), Number(4)))
     }
 
     @Test
@@ -50,43 +50,41 @@ class ExpressionTest {
 
     @Test
     fun `수식이 주어지면 해당 수식을 순서대로 계산한다`() {
-        val calculator = Calculator()
-        var result = 0
-        val expression = Expression.create("1 + 3 * 5")
+        var result = Number(0)
+        val expression = Expression.create("1 + 3 × 5")
 
         val numbers = expression.getNumbers()
         val symbols = expression.getOperators()
 
-        val numberQueue: Queue<Int> = LinkedList<Int>()
+        val numberQueue: Queue<Number> = LinkedList<Number>()
         val symbolQueue: Queue<String> = LinkedList<String>()
 
         numberQueue.addAll(numbers)
         symbolQueue.addAll(symbols)
 
         if (numberQueue.size > 1) {
-            var number1 = numberQueue.poll()
-            var number2 = numberQueue.poll()
+            var leftNumber = numberQueue.poll()
+            var rightNumber = numberQueue.poll()
 
             while (symbolQueue.isNotEmpty()) {
-                val tempResult = when (symbolQueue.poll()) {
-                    "+" -> calculator.plus(number1, number2)
-                    "-" -> calculator.minus(number1, number2)
-                    "×" -> calculator.multiply(number1, number2)
-                    "÷" -> calculator.divide(number1, number2)
+                leftNumber = when (symbolQueue.poll()) {
+                    "+" -> leftNumber.plus(rightNumber)
+                    "-" -> leftNumber.minus(rightNumber)
+                    "×" -> leftNumber.multiply(rightNumber)
+                    "÷" -> leftNumber.divide(rightNumber)
                     else -> throw IllegalArgumentException("올바른 수식이 아닙니다.")
                 }
 
-                number1 = tempResult
                 if (numberQueue.isNotEmpty()) {
-                    number2 = numberQueue.poll()
+                    rightNumber = numberQueue.poll()
                 } else {
-                    result = number1
+                    result = leftNumber
                 }
             }
         } else {
             result = numberQueue.poll()
         }
 
-        assertThat(result).isEqualTo(9)
+        assertThat(result).isEqualTo(Number(20))
     }
 }
