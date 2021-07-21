@@ -1,6 +1,5 @@
-package edu.nextstep.camp.calculator
+package edu.nextstep.camp.calculator.domain
 
-import edu.nextstep.camp.calculator.Operator.Companion.OPERATORS
 import java.util.*
 
 class Expression private constructor(val value: String) {

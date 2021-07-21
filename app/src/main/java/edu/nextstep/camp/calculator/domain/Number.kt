@@ -1,4 +1,4 @@
-package edu.nextstep.camp.calculator
+package edu.nextstep.camp.calculator.domain
 
 import java.lang.RuntimeException
 

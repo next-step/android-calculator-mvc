@@ -1,5 +1,6 @@
 package edu.nextstep.camp.calculator
 
+import edu.nextstep.camp.calculator.domain.Operator
 import org.junit.Test
 
 class OperatorTest {

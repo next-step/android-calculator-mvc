@@ -1,7 +1,9 @@
 package edu.nextstep.camp.calculator
 
-import com.google.common.truth.Truth
 import com.google.common.truth.Truth.*
+import edu.nextstep.camp.calculator.domain.Number
+import edu.nextstep.camp.calculator.domain.Operator
+import edu.nextstep.camp.calculator.domain.Separator
 import org.junit.Test
 
 class SeparatorTest {

@@ -1,12 +1,9 @@
 package edu.nextstep.camp.calculator
 
 import com.google.common.truth.Truth.assertThat
-import edu.nextstep.camp.calculator.Operator.Companion.DIVIDE
-import edu.nextstep.camp.calculator.Operator.Companion.MINUS
-import edu.nextstep.camp.calculator.Operator.Companion.MULTIPLY
-import edu.nextstep.camp.calculator.Operator.Companion.PLUS
+import edu.nextstep.camp.calculator.domain.Expression
+import edu.nextstep.camp.calculator.domain.Number
 import org.junit.Test
-import java.util.*
 
 class ExpressionTest {
 

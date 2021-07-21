@@ -1,4 +1,4 @@
-package edu.nextstep.camp.calculator
+package edu.nextstep.camp.calculator.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

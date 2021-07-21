@@ -1,7 +1,7 @@
 package edu.nextstep.camp.calculator
 
-import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
+import edu.nextstep.camp.calculator.domain.Number
 import org.junit.Test
 
 class NumberTest {
