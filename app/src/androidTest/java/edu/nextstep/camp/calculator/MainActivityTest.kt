@@ -63,6 +63,13 @@ class MainActivityTest {
         shouldShowText(displayedText = "6")
     }
 
+    @Test
+    fun pressedSevenButton_shouldShowSeven() {
+        onView(withId(R.id.button7)).perform(click())
+
+        shouldShowText(displayedText = "7")
+    }
+
     private fun shouldShowText(displayedText: String) {
         onView(withId(R.id.textView)).check(matches(withText(displayedText)))
     }
