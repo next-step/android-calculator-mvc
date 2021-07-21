@@ -15,6 +15,13 @@ class MainActivityTest {
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
+    fun pressedZeroButton_shouldShowZero() {
+        onView(withId(R.id.button0)).perform(click())
+
+        onView(withId(R.id.textView)).check(matches(withText("0")))
+    }
+
+    @Test
     fun pressedOneButton_shouldShowOne() {
         onView(withId(R.id.button1)).perform(click())
 
