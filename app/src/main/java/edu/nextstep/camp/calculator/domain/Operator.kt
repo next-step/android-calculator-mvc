@@ -3,11 +3,11 @@ package edu.nextstep.camp.calculator.domain
 data class Operator(val value: String) {
 
     init {
-        isOperator(value)
+        checkOperator(value)
     }
 
     private fun checkOperator(value: String) {
-        if(isOperator(value)) throw IllegalArgumentException("올바른 연산기호가 아닙니다")
+        if(!isOperator(value)) throw IllegalArgumentException("올바른 연산기호가 아닙니다")
     }
 
     companion object {
