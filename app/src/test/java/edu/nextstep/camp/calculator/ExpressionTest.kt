@@ -78,4 +78,35 @@ class ExpressionTest {
         //then
         assertThat(result).isEqualTo(Number(44))
     }
+
+    @Test
+    fun `수식의 마지막이 연산자일때 계산을 하게되면 마지막 연산자는 생략한다`() {
+        //given
+        val expression = Expression().apply {
+            writeNumber(Number("6"))
+            writeOperator(Operator(PLUS))
+            writeNumber(Number("5"))
+            writeOperator(Operator(MULTIPLY))
+        }
+
+        //when
+        val result = expression.calculate()
+
+        //then
+        assertThat(result).isEqualTo(Number(11))
+    }
+
+    @Test
+    fun `수식에 한개의 숫자만 존재할때 계산을 하면 해당 숫자만 출력된다`() {
+        //given
+        val expression = Expression().apply {
+            writeNumber(Number("6"))
+        }
+
+        //when
+        val result = expression.calculate()
+
+        //then
+        assertThat(result).isEqualTo(Number(6))
+    }
 }
