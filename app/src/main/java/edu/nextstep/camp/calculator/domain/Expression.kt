@@ -37,6 +37,10 @@ class Expression {
 
     fun calculate(): Number {
         if (value.isNotEmpty()) {
+            if (isLastExpressionIsOperator()) {
+                value.pop()
+            }
+
             var result = Number(0)
             val numbers = separator.getNumbers(getValue())
             val operators = separator.getOperators(getValue())
@@ -76,5 +80,10 @@ class Expression {
         } else {
             return Number(0)
         }
+    }
+
+    private fun isLastExpressionIsOperator(): Boolean {
+        val lastExpression = value.peek()
+        return Operator.isOperator(lastExpression)
     }
 }
