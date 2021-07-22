@@ -6,8 +6,8 @@ data class Operator(val value: String) {
         isOperator(value)
     }
 
-    private fun isOperator(value: String) {
-        if(!OPERATORS.contains(value)) throw IllegalArgumentException("올바른 연산기호가 아닙니다")
+    private fun checkOperator(value: String) {
+        if(isOperator(value)) throw IllegalArgumentException("올바른 연산기호가 아닙니다")
     }
 
     companion object {
@@ -16,5 +16,9 @@ data class Operator(val value: String) {
         const val MULTIPLY = "×"
         const val DIVIDE = "÷"
         val OPERATORS = listOf<String>("+", "-", "×", "÷")
+
+        fun isOperator(value: String): Boolean {
+            return OPERATORS.contains(value)
+        }
     }
 }

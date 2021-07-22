@@ -8,7 +8,7 @@ class Separator {
     }
 
     fun getOperators(expression: String): List<Operator> {
-        return expression.filter { Operator.OPERATORS.contains(it.toString()) }
+        return expression.filter { Operator.isOperator(it.toString()) }
             .map { Operator(it.toString()) }
     }
 }
