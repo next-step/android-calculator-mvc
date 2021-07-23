@@ -10,41 +10,45 @@ object Calculator {
     private val ASCII_NUMBER_RANGE = ASCII_ZERO..ASCII_NINE
 
     fun calculate(formula: String): Double {
-        val (numberGroup: List<Double>, operatorGroup: List<Operator>) =
-            mutableListOf<Double>() to mutableListOf<Operator>()
+        val (numberGroup, operatorGroup) =
+            numberGroup(formula = formula) to operatorGroup(formula = formula)
+        var result = numberGroup.last()
+        operatorGroup
+            .zip(numberGroup.takeLast(numberGroup.lastIndex))
+            .map {
+                result = it.first.formula(result, it.second)
+            }
+        return result
+    }
 
-        val numberBuilder = StringBuilder()
+    private fun numberGroup(formula: String): List<Double> {
+        val (numberBuilder, numberGroup) =
+            StringBuilder() to mutableListOf<Double>()
         formula.forEachIndexed { index, item ->
             when {
                 index == formula.lastIndex -> {
                     numberBuilder.append(item)
-                    numberGroup.add(
-                        numberBuilder
-                            .toString()
-                            .toDouble()
-                    )
+                    numberGroup.add(numberBuilder.toString().toDouble())
                 }
                 item.code in ASCII_NUMBER_RANGE -> {
                     numberBuilder.append(item)
                 }
                 else -> {
-                    numberGroup.add(
-                        numberBuilder
-                            .toString()
-                            .toDouble()
-                    )
+                    numberGroup.add(numberBuilder.toString().toDouble())
                     numberBuilder.clear()
-                    operatorGroup.add(Operator.findBySymbol(item))
                 }
             }
         }
-        var result = numberGroup.removeAt(0)
-        operatorGroup
-            .zip(numberGroup)
-            .map {
-                result = it.first.formula(result, it.second)
-            }
-        return result
+        return numberGroup
+    }
+
+    private fun operatorGroup(formula: String): List<Operator> {
+        val operatorGroup = mutableListOf<Operator>()
+        formula.forEach { item ->
+            if (item.code in ASCII_NUMBER_RANGE) return@forEach
+            operatorGroup.add(Operator.findBySymbol(item))
+        }
+        return operatorGroup
     }
 }
 
