@@ -19,4 +19,11 @@ internal class CalculatorTest {
             Calculator.calculate(formula)
         }
     }
+
+    @Test
+    fun `불완전한 수식을 계산하면 에러가 발생합니다`() {
+        assertThatIllegalArgumentException().isThrownBy {
+            Calculator.calculate("2+3*")
+        }
+    }
 }
