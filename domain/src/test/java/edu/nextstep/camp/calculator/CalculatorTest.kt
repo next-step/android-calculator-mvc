@@ -3,6 +3,8 @@ package edu.nextstep.camp.calculator
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 
 internal class CalculatorTest {
 
@@ -20,10 +22,11 @@ internal class CalculatorTest {
         }
     }
 
-    @Test
-    fun `불완전한 수식을 계산하면 에러가 발생합니다`() {
+    @ParameterizedTest
+    @ValueSource(strings = ["2+3*", "2+3**3", "*2+3**3"])
+    fun `불완전한 수식을 계산하면 에러가 발생합니다`(formula: String) {
         assertThatIllegalArgumentException().isThrownBy {
-            Calculator.calculate(Formula("2+3*"))
+            Calculator.calculate(Formula(formula))
         }
     }
 }
