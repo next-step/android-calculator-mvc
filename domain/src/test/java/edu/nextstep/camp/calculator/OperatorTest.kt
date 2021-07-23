@@ -3,6 +3,8 @@ package edu.nextstep.camp.calculator
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatExceptionOfType
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 
 internal class OperatorTest {
 
@@ -34,5 +36,14 @@ internal class OperatorTest {
         assertThatExceptionOfType(ArithmeticException::class.java).isThrownBy {
             Operator.DIVIDE.formula(firstOperand, 0.0)
         }
+    }
+
+    @ParameterizedTest
+    @ValueSource(chars = ['+', '-', '*', '/'])
+    fun `연산자가 유효한지 체크합니다`(symbol: Char) {
+        val symbols = Operator
+            .values()
+            .map(Operator::symbol)
+        assertThat(symbols.contains(symbol))
     }
 }
