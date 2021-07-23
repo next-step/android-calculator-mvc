@@ -5,6 +5,10 @@ object Groupings {
     private const val ASCII_ZERO = 48
     private const val ASCII_NINE = 57
     private const val ASCII_SPACE = 32
+    private const val ASCII_PLUS = 43
+    private const val ASCII_MINUS = 45
+    private const val ASCII_MULTIPLE = 42
+    private const val ASCII_DIVIDE = 47
     private val ASCII_NUMBER_RANGE = ASCII_ZERO..ASCII_NINE
 
     fun numberGroup(formula: Formula): List<Double> {
@@ -33,9 +37,11 @@ object Groupings {
         val operatorGroup = mutableListOf<Operator>()
         formula.value.forEach { item ->
             when (item.code) {
-                in ASCII_NUMBER_RANGE,
-                ASCII_SPACE -> return@forEach
-                else -> operatorGroup.add(Operator.findBySymbol(item))
+                ASCII_PLUS,
+                ASCII_MINUS,
+                ASCII_MULTIPLE,
+                ASCII_DIVIDE -> operatorGroup.add(Operator.findBySymbol(item))
+                else -> return@forEach
             }
         }
         return operatorGroup

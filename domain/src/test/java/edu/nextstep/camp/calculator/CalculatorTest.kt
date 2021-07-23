@@ -14,8 +14,8 @@ internal class CalculatorTest {
 
     @Test
     fun `사칙 연산 기호가 아닌 수식이 들어가면 에러가 발생합니다`() {
-        val formula = Formula("2:3*4/2")
         assertThatIllegalArgumentException().isThrownBy {
+            val formula = Formula("2:3*4/2")
             Calculator.calculate(formula)
         }
     }
