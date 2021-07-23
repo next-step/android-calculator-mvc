@@ -43,4 +43,12 @@ internal class OperatorTest {
     fun `연산자가 유효한지 체크합니다`(symbol: Char) {
         assertThat(Operator.findBySymbol(symbol))
     }
+
+    @ParameterizedTest
+    @ValueSource(chars = ['!', '@', '#', '$', '%', '^', '&', '_', '='])
+    fun `연산자가 유효하지 않으면 에러가 발생합니다`(symbol: Char) {
+        assertThatExceptionOfType(IllegalArgumentException::class.java).isThrownBy {
+            Operator.findBySymbol(symbol)
+        }
+    }
 }
