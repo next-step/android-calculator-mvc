@@ -4,6 +4,7 @@ object Groupings {
 
     private const val ASCII_ZERO = 48
     private const val ASCII_NINE = 59
+    private const val ASCII_SPACE = 32
     private val ASCII_NUMBER_RANGE = ASCII_ZERO..ASCII_NINE
 
     fun numberGroup(formula: String): List<Double> {
@@ -18,6 +19,7 @@ object Groupings {
                 item.code in ASCII_NUMBER_RANGE -> {
                     numberBuilder.append(item)
                 }
+                item.code == ASCII_SPACE -> return@forEachIndexed
                 else -> {
                     numberGroup.add(numberBuilder.toString().toDouble())
                     numberBuilder.clear()
