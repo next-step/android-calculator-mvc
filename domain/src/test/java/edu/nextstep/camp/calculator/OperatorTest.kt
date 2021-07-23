@@ -2,6 +2,7 @@ package edu.nextstep.camp.calculator
 
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
@@ -47,7 +48,7 @@ internal class OperatorTest {
     @ParameterizedTest
     @ValueSource(chars = ['!', '@', '#', '$', '%', '^', '&', '_', '='])
     fun `연산자가 유효하지 않으면 에러가 발생합니다`(symbol: Char) {
-        assertThatExceptionOfType(IllegalArgumentException::class.java).isThrownBy {
+        assertThatIllegalArgumentException().isThrownBy {
             Operator.findBySymbol(symbol)
         }
     }

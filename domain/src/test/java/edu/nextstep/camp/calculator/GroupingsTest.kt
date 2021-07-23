@@ -1,6 +1,7 @@
 package edu.nextstep.camp.calculator
 
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatExceptionOfType
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
@@ -35,5 +36,13 @@ internal class GroupingsTest {
             .forEach {
                 assertThat(it.first).isEqualTo(it.second)
             }
+    }
+
+    @Test
+    fun `수식 중에서 연산자가 아닌 것이 포함되어있으면 에러가 발생합니다`() {
+        val formula = "2!3@4#2"
+        assertThatExceptionOfType(IllegalArgumentException::class.java).isThrownBy {
+            Groupings.operatorGroup(formula)
+        }
     }
 }
