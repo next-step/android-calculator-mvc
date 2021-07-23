@@ -30,5 +30,14 @@ enum class Operator(
             }
             firstOperand / secondOperand
         }
-    )
+    );
+
+    companion object {
+
+        fun findBySymbol(symbol: Char): Operator = values()
+            .firstOrNull {
+                it.symbol == symbol
+            }
+            ?: throw IllegalArgumentException("invalid symbol")
+    }
 }

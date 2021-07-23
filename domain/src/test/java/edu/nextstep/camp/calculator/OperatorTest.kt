@@ -41,9 +41,6 @@ internal class OperatorTest {
     @ParameterizedTest
     @ValueSource(chars = ['+', '-', '*', '/'])
     fun `연산자가 유효한지 체크합니다`(symbol: Char) {
-        val symbols = Operator
-            .values()
-            .map(Operator::symbol)
-        assertThat(symbols.contains(symbol))
+        assertThat(Operator.findBySymbol(symbol))
     }
 }
