@@ -3,7 +3,7 @@ package edu.nextstep.camp.calculator
 object Groupings {
 
     private const val ASCII_ZERO = 48
-    private const val ASCII_NINE = 59
+    private const val ASCII_NINE = 57
     private const val ASCII_SPACE = 32
     private val ASCII_NUMBER_RANGE = ASCII_ZERO..ASCII_NINE
 
@@ -32,8 +32,11 @@ object Groupings {
     fun operatorGroup(formula: Formula): List<Operator> {
         val operatorGroup = mutableListOf<Operator>()
         formula.value.forEach { item ->
-            if (item.code in ASCII_NUMBER_RANGE) return@forEach
-            operatorGroup.add(Operator.findBySymbol(item))
+            when (item.code) {
+                in ASCII_NUMBER_RANGE,
+                ASCII_SPACE -> return@forEach
+                else -> operatorGroup.add(Operator.findBySymbol(item))
+            }
         }
         return operatorGroup
     }
