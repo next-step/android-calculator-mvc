@@ -31,7 +31,7 @@ internal class OperatorTest {
 
     @Test
     fun `피연산자를 0으로 나누면 에러가 발생합니다`(){
-        assertThatExceptionOfType(Exception::class.java).isThrownBy {
+        assertThatExceptionOfType(ArithmeticException::class.java).isThrownBy {
             Operator.DIVIDE.formula(firstOperand, 0.0)
         }
     }

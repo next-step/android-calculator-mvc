@@ -25,6 +25,9 @@ enum class Operator(
     DIVIDE(
         symbol = '/',
         formula = { firstOperand, secondOperand ->
+            if (firstOperand == 0.0 || secondOperand == 0.0) {
+                throw ArithmeticException("divide not zero")
+            }
             firstOperand / secondOperand
         }
     )
