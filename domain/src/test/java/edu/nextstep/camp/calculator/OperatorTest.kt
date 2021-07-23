@@ -10,21 +10,21 @@ internal class OperatorTest {
 
     @Test
     fun `두 개의 피연산자를 더합니다`() {
-        assertThat(firstOperand + secondOperand).isEqualTo(30.0)
+        assertThat(Operator.PLUS.formula(firstOperand, secondOperand)).isEqualTo(30.0)
     }
 
     @Test
     fun `두 개의 피연산자를 뺍니다`() {
-        assertThat(firstOperand - secondOperand).isEqualTo(10.0)
+        assertThat(Operator.MINUS.formula(firstOperand, secondOperand)).isEqualTo(10.0)
     }
 
     @Test
     fun `두 개의 피연산자를 곱합니다`() {
-        assertThat(firstOperand * secondOperand).isEqualTo(200.0)
+        assertThat(Operator.MULTIPLE.formula(firstOperand, secondOperand)).isEqualTo(200.0)
     }
 
     @Test
     fun `두 개의 피연산자를 나눕니다`() {
-        assertThat(firstOperand / secondOperand).isEqualTo(2.0)
+        assertThat(Operator.DIVIDE.formula(firstOperand, secondOperand)).isEqualTo(2.0)
     }
 }
