@@ -22,4 +22,9 @@ internal class OperatorTest {
     fun `두 개의 피연산자를 곱합니다`() {
         assertThat(firstOperand * secondOperand).isEqualTo(200.0)
     }
+
+    @Test
+    fun `두 개의 피연산자를 나눕니다`() {
+        assertThat(firstOperand / secondOperand).isEqualTo(2.0)
+    }
 }
