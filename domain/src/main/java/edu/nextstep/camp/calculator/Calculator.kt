@@ -2,7 +2,7 @@ package edu.nextstep.camp.calculator
 
 object Calculator {
 
-    fun calculate(formula: String): Double {
+    fun calculate(formula: Formula): Double {
         val (numberGroup, operatorGroup) =
             Groupings.numberGroup(formula = formula) to Groupings.operatorGroup(formula = formula)
         var result = numberGroup.last()

@@ -7,12 +7,12 @@ object Groupings {
     private const val ASCII_SPACE = 32
     private val ASCII_NUMBER_RANGE = ASCII_ZERO..ASCII_NINE
 
-    fun numberGroup(formula: String): List<Double> {
+    fun numberGroup(formula: Formula): List<Double> {
         val (numberBuilder, numberGroup) =
             StringBuilder() to mutableListOf<Double>()
-        formula.forEachIndexed { index, item ->
+        formula.value.forEachIndexed { index, item ->
             when {
-                index == formula.lastIndex -> {
+                index == formula.value.lastIndex -> {
                     numberBuilder.append(item)
                     numberGroup.add(numberBuilder.toString().toDouble())
                 }
@@ -29,9 +29,9 @@ object Groupings {
         return numberGroup
     }
 
-    fun operatorGroup(formula: String): List<Operator> {
+    fun operatorGroup(formula: Formula): List<Operator> {
         val operatorGroup = mutableListOf<Operator>()
-        formula.forEach { item ->
+        formula.value.forEach { item ->
             if (item.code in ASCII_NUMBER_RANGE) return@forEach
             operatorGroup.add(Operator.findBySymbol(item))
         }
