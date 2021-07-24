@@ -34,19 +34,22 @@ class StringCalculatorTest {
     fun `숫자 자리에 다른 문자가 들어가면 Exception`() {
         // when
         val expression = "+ 1 * 2"
+        val exception = assertThrows(IllegalArgumentException::class.java) {
+            StringCalculator.calculate(expression)
+        }
 
         // then
-        assertThrows(IllegalArgumentException::class.java) { StringCalculator.calculate(expression) }
-            .also { assertThat(it).hasMessageThat().contains("수식의 숫자 자리에 숫자가 아닌 문자 (+)가 존재합니다.") }
+        assertThat(exception).hasMessageThat().contains("수식의 숫자 자리에 숫자가 아닌 문자 (+)가 존재합니다.")
     }
 
     @Test
     fun `연산자 자리에 다른 문자가 들어가면 Exception`() {
         // when
         val expression = "1 2 3"
+        val exception = runCatching { StringCalculator.calculate(expression) }
+            .exceptionOrNull()
 
         // then
-        assertThrows(IllegalArgumentException::class.java) { StringCalculator.calculate(expression) }
-            .also { assertThat(it).hasMessageThat().contains("2 을 가진 연산자를 찾을 수 없습니다.") }
+        assertThat(exception).hasMessageThat().contains("2 을 가진 연산자를 찾을 수 없습니다.")
     }
 }
