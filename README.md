@@ -8,9 +8,10 @@
 
 ### Class
 - Calculator
-    - 사칙 연산 이외의 문자 입력시, 에러
-    - 연산자 순사가 잘못 들어왔을 경우, 에러
 - Operators 연산자
-- Operand 피연산자
+    - 사칙 연산 이외의 문자 입력시, 에러
+    - 0으로 나눌때 에러
+- Operand
 - StringConverter
+    - 연산자 순사가 잘못 들어왔을 경우, 에러
 

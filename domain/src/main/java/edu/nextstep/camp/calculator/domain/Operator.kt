@@ -19,6 +19,8 @@ enum class Operator(
     companion object {
         fun getOperator(code: String): Operator =
             values().find { it.code == code } ?: throw IllegalArgumentException("Unknown Operator")
+
+        fun getOperatorCodes() = values().map { it.code }
     }
 }
 
