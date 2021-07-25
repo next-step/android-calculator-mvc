@@ -145,6 +145,15 @@ class MainActivityTest {
         shouldShowText(displayedText = "32+")
     }
 
+    @Test
+    fun completeInputFormula_pressedEqualsButton_calculate() {
+        onView(withId(R.id.textView)).perform(setTextInTextView("3+2"))
+
+        onView(withId(R.id.buttonEquals)).perform(click())
+
+        shouldShowText(displayedText = "5.0")
+    }
+
     private fun shouldShowText(displayedText: String) {
         onView(withId(R.id.textView)).check(matches(withText(displayedText)))
     }

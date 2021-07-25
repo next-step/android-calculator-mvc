@@ -1,6 +1,7 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 
@@ -92,7 +93,13 @@ class MainActivity : AppCompatActivity() {
             if (textView.text.isNotEmpty()) textView.text = textView.text.dropLast(1)
         }
         buttonEquals.setOnClickListener {
-
+            runCatching {
+                textView.text = Calculator.calculate(Formula(textView.text.toString())).toString()
+            }.getOrElse {
+                Toast
+                    .makeText(this@MainActivity, "완성되지 않은 수식입니다.", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
     }
 }
