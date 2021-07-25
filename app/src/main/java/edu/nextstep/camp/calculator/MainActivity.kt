@@ -63,24 +63,36 @@ class MainActivity : AppCompatActivity() {
         buttonPlus.setOnClickListener {
             textView.text = when {
                 textView.text.isEmpty() -> ""
+                Operator.findBySymbol(symbol = textView.text.last()) != Operator.NONE -> {
+                    getString(R.string.string_string, textView.text.dropLast(1), "+")
+                }
                 else -> getString(R.string.string_string, textView.text, "+")
             }
         }
         buttonMinus.setOnClickListener {
             textView.text = when {
                 textView.text.isEmpty() -> ""
+                Operator.findBySymbol(symbol = textView.text.last()) != Operator.NONE -> {
+                    getString(R.string.string_string, textView.text.dropLast(1), "-")
+                }
                 else -> getString(R.string.string_string, textView.text, "-")
             }
         }
         buttonMultiply.setOnClickListener {
             textView.text = when {
                 textView.text.isEmpty() -> ""
+                Operator.findBySymbol(symbol = textView.text.last()) != Operator.NONE -> {
+                    getString(R.string.string_string, textView.text.dropLast(1), "*")
+                }
                 else -> getString(R.string.string_string, textView.text, "*")
             }
         }
         buttonDivide.setOnClickListener {
             textView.text = when {
                 textView.text.isEmpty() -> ""
+                Operator.findBySymbol(symbol = textView.text.last()) != Operator.NONE -> {
+                    getString(R.string.string_string, textView.text.dropLast(1), "/")
+                }
                 else -> getString(R.string.string_string, textView.text, "/")
             }
         }
