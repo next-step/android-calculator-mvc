@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
         setupNumberButtonListener()
         setupOperatorButtonListener()
+        setupFunctionButtonListener()
     }
 
     private fun setupNumberButtonListener() = with(binding){
@@ -83,6 +84,15 @@ class MainActivity : AppCompatActivity() {
                 beforeText = textView.text,
                 operator = Operator.DIVIDE
             )
+        }
+    }
+
+    private fun setupFunctionButtonListener() = with(binding) {
+        buttonDelete.setOnClickListener {
+            if (textView.text.isNotEmpty()) textView.text = textView.text.dropLast(1)
+        }
+        buttonEquals.setOnClickListener {
+
         }
     }
 }

@@ -122,6 +122,13 @@ class MainActivityTest {
         shouldShowText(displayedText = "1-")
     }
 
+    @Test
+    fun emptyFormula_pressedDeleteButton_noChange() {
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        shouldShowText(displayedText = "")
+    }
+
     private fun shouldShowText(displayedText: String) {
         onView(withId(R.id.textView)).check(matches(withText(displayedText)))
     }
