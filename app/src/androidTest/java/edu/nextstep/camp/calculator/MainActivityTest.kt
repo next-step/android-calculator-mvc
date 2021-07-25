@@ -84,6 +84,15 @@ class MainActivityTest {
         shouldShowText(displayedText = "9")
     }
 
+    @Test
+    fun existInputOperand_InputOtherOperand_shouldShowNumberAfterInputNumber() {
+        onView(withId(R.id.button8)).perform(click())
+
+        onView(withId(R.id.button9)).perform(click())
+
+        shouldShowText(displayedText = "89")
+    }
+
     private fun shouldShowText(displayedText: String) {
         onView(withId(R.id.textView)).check(matches(withText(displayedText)))
     }
