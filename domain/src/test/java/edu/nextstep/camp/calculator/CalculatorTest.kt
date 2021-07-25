@@ -29,4 +29,10 @@ internal class CalculatorTest {
             Calculator.calculate(Formula(formula))
         }
     }
+
+    @Test
+    fun `32 더하기 1을 연산하면 33이 출력됩니다`() {
+        val formula = Formula("32+1")
+        assertThat(Calculator.calculate(formula)).isEqualTo(33.0)
+    }
 }
