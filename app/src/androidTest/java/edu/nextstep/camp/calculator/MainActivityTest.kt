@@ -121,6 +121,13 @@ class MainActivityTest {
         shouldShowText(displayedText = "/")
     }
 
+    @Test
+    fun notExistInputOperand_inputOperator_shouldNotShowOperator() {
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        shouldShowText(displayedText = "")
+    }
+
     private fun shouldShowText(displayedText: String) {
         onView(withId(R.id.textView)).check(matches(withText(displayedText)))
     }
