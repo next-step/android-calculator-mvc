@@ -47,9 +47,7 @@ internal class OperatorTest {
 
     @ParameterizedTest
     @ValueSource(chars = ['!', '@', '#', '$', '%', '^', '&', '_', '='])
-    fun `연산자가 유효하지 않으면 에러가 발생합니다`(symbol: Char) {
-        assertThatIllegalArgumentException().isThrownBy {
-            Operator.findBySymbol(symbol)
-        }
+    fun `연산자가 유효하지 않으면 NONE을 반환합니다`(symbol: Char) {
+        assertThat(Operator.findBySymbol(symbol)).isEqualTo(Operator.NONE)
     }
 }

@@ -4,6 +4,12 @@ enum class Operator(
     val symbol: Char,
     val formula: (firstOperand: Double, secondOperand: Double) -> Double
 ) {
+    NONE(
+        symbol = ' ',
+        formula = { _, _ ->
+            0.0
+        }
+    ),
     PLUS(
         symbol = '+',
         formula = { firstOperand, secondOperand ->
@@ -38,6 +44,6 @@ enum class Operator(
             .firstOrNull {
                 it.symbol == symbol
             }
-            ?: throw IllegalArgumentException("invalid symbol")
+            ?: NONE
     }
 }
