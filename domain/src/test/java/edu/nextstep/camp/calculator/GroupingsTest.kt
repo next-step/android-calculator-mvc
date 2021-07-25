@@ -13,11 +13,7 @@ internal class GroupingsTest {
         val numberGroup = listOf(2.0, 3.0, 4.0, 2.0)
         val actual = Groupings.numberGroup(Formula(formula))
 
-        actual
-            .zip(numberGroup)
-            .forEach {
-                assertThat(it.first).isEqualTo(it.second)
-            }
+        assertThat(actual).isEqualTo(numberGroup)
     }
 
     @Test
@@ -30,10 +26,6 @@ internal class GroupingsTest {
         )
         val actual = Groupings.operatorGroup(formula)
 
-        actual
-            .zip(operatorGroup)
-            .forEach {
-                assertThat(it.first).isEqualTo(it.second)
-            }
+        assertThat(actual).isEqualTo(operatorGroup)
     }
 }
