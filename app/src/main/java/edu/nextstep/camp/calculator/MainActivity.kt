@@ -21,43 +21,43 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupNumberButtonListener() = with(binding){
         button0.setOnClickListener {
-            textView.text = getString(R.string.string_string, textView.text, "0")
+            textView.text = String.format("%s%s", textView.text, "0")
         }
 
         button1.setOnClickListener {
-            textView.text = getString(R.string.string_string, textView.text, "1")
+            textView.text = String.format("%s%s", textView.text, "1")
         }
 
         button2.setOnClickListener {
-            textView.text = getString(R.string.string_string, textView.text, "2")
+            textView.text = String.format("%s%s", textView.text, "2")
         }
 
         button3.setOnClickListener {
-            textView.text = getString(R.string.string_string, textView.text, "3")
+            textView.text = String.format("%s%s", textView.text, "3")
         }
 
         button4.setOnClickListener {
-            textView.text = getString(R.string.string_string, textView.text, "4")
+            textView.text = String.format("%s%s", textView.text, "4")
         }
 
         button5.setOnClickListener {
-            textView.text = getString(R.string.string_string, textView.text, "5")
+            textView.text = String.format("%s%s", textView.text, "5")
         }
 
         button6.setOnClickListener {
-            textView.text = getString(R.string.string_string, textView.text, "6")
+            textView.text = String.format("%s%s", textView.text, "6")
         }
 
         button7.setOnClickListener {
-            textView.text = getString(R.string.string_string, textView.text, "7")
+            textView.text = String.format("%s%s", textView.text, "7")
         }
 
         button8.setOnClickListener {
-            textView.text = getString(R.string.string_string, textView.text, "8")
+            textView.text = String.format("%s%s", textView.text, "8")
         }
 
         button9.setOnClickListener {
-            textView.text = getString(R.string.string_string, textView.text, "9")
+            textView.text = String.format("%s%s", textView.text, "9")
         }
     }
 
