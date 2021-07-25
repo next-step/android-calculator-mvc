@@ -8,7 +8,7 @@ object Calculator {
         var result = numberGroup.last()
         operatorGroup
             .zip(numberGroup.takeLast(numberGroup.lastIndex))
-            .map {
+            .forEach {
                 result = it.first.formula(result, it.second)
             }
         return result
