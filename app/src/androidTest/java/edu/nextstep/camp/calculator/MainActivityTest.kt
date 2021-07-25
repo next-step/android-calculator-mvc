@@ -1,11 +1,18 @@
 package edu.nextstep.camp.calculator
 
+import android.view.View
+import android.widget.TextView
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.UiController
+import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import org.hamcrest.CoreMatchers
+import org.hamcrest.Matcher
 import org.junit.Rule
 import org.junit.Test
 
@@ -129,8 +136,31 @@ class MainActivityTest {
         shouldShowText(displayedText = "")
     }
 
+    @Test
+    fun existFormula_pressedDeleteButton_shouldErasedByOneCharacter() {
+        onView(withId(R.id.textView)).perform(setTextInTextView("32+1"))
+
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        shouldShowText(displayedText = "32+")
+    }
+
     private fun shouldShowText(displayedText: String) {
         onView(withId(R.id.textView)).check(matches(withText(displayedText)))
+    }
+
+    private fun setTextInTextView(value: String): ViewAction = object : ViewAction {
+        override fun getConstraints(): Matcher<View> =
+            CoreMatchers.allOf(
+                ViewMatchers.isDisplayed(),
+                ViewMatchers.isAssignableFrom(TextView::class.java)
+            )
+
+        override fun getDescription(): String = "Replace Text"
+
+        override fun perform(uiController: UiController?, view: View?) {
+            (view as? TextView)?.text = value
+        }
     }
 
 }
