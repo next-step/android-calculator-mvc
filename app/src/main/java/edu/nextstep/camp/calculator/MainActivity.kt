@@ -63,25 +63,25 @@ class MainActivity : AppCompatActivity() {
         buttonPlus.setOnClickListener {
             textView.text = when {
                 textView.text.isEmpty() -> ""
-                else -> "+"
+                else -> getString(R.string.string_string, textView.text, "+")
             }
         }
         buttonMinus.setOnClickListener {
             textView.text = when {
                 textView.text.isEmpty() -> ""
-                else -> "-"
+                else -> getString(R.string.string_string, textView.text, "-")
             }
         }
         buttonMultiply.setOnClickListener {
             textView.text = when {
                 textView.text.isEmpty() -> ""
-                else -> "*"
+                else -> getString(R.string.string_string, textView.text, "*")
             }
         }
         buttonDivide.setOnClickListener {
             textView.text = when {
                 textView.text.isEmpty() -> ""
-                else -> "/"
+                else -> getString(R.string.string_string, textView.text, "/")
             }
         }
     }
