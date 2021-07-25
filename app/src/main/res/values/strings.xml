@@ -15,4 +15,5 @@
     <string name="calculator_minus">-</string>
     <string name="calculator_multiply">×</string>
     <string name="calculator_divide">÷</string>
+    <string name="string_string">%s%s</string>
 </resources>
