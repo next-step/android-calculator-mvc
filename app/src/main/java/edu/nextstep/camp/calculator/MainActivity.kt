@@ -61,40 +61,28 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupOperatorButtonListener() = with(binding) {
         buttonPlus.setOnClickListener {
-            textView.text = when {
-                textView.text.isEmpty() -> ""
-                Operator.findBySymbol(symbol = textView.text.last()) != Operator.NONE -> {
-                    getString(R.string.string_string, textView.text.dropLast(1), "+")
-                }
-                else -> getString(R.string.string_string, textView.text, "+")
-            }
+            textView.text = Display.print(
+                beforeText = textView.text,
+                operator = Operator.PLUS
+            )
         }
         buttonMinus.setOnClickListener {
-            textView.text = when {
-                textView.text.isEmpty() -> ""
-                Operator.findBySymbol(symbol = textView.text.last()) != Operator.NONE -> {
-                    getString(R.string.string_string, textView.text.dropLast(1), "-")
-                }
-                else -> getString(R.string.string_string, textView.text, "-")
-            }
+            textView.text = Display.print(
+                beforeText = textView.text,
+                operator = Operator.MINUS
+            )
         }
         buttonMultiply.setOnClickListener {
-            textView.text = when {
-                textView.text.isEmpty() -> ""
-                Operator.findBySymbol(symbol = textView.text.last()) != Operator.NONE -> {
-                    getString(R.string.string_string, textView.text.dropLast(1), "*")
-                }
-                else -> getString(R.string.string_string, textView.text, "*")
-            }
+            textView.text = Display.print(
+                beforeText = textView.text,
+                operator = Operator.MULTIPLE
+            )
         }
         buttonDivide.setOnClickListener {
-            textView.text = when {
-                textView.text.isEmpty() -> ""
-                Operator.findBySymbol(symbol = textView.text.last()) != Operator.NONE -> {
-                    getString(R.string.string_string, textView.text.dropLast(1), "/")
-                }
-                else -> getString(R.string.string_string, textView.text, "/")
-            }
+            textView.text = Display.print(
+                beforeText = textView.text,
+                operator = Operator.DIVIDE
+            )
         }
     }
 }
