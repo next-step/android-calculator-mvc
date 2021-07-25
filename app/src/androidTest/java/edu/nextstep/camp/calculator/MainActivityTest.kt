@@ -94,36 +94,11 @@ class MainActivityTest {
     }
 
     @Test
-    fun pressedPlusButton_shouldShowPlus() {
-        onView(withId(R.id.buttonPlus)).perform(click())
-
-        shouldShowText(displayedText = "+")
-    }
-
-    @Test
-    fun pressedMinusButton_shouldShowMinus() {
-        onView(withId(R.id.buttonMinus)).perform(click())
-
-        shouldShowText(displayedText = "-")
-    }
-
-    @Test
-    fun pressedMultiplyButton_shouldShowMultiply() {
-        onView(withId(R.id.buttonMultiply)).perform(click())
-
-        shouldShowText(displayedText = "*")
-    }
-
-    @Test
-    fun pressedDivideButton_shouldShowDivide() {
-        onView(withId(R.id.buttonDivide)).perform(click())
-
-        shouldShowText(displayedText = "/")
-    }
-
-    @Test
     fun notExistInputOperand_inputOperator_shouldNotShowOperator() {
         onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.buttonMinus)).perform(click())
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        onView(withId(R.id.buttonDivide)).perform(click())
 
         shouldShowText(displayedText = "")
     }

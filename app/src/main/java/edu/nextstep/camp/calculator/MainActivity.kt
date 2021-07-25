@@ -61,16 +61,28 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupOperatorButtonListener() = with(binding) {
         buttonPlus.setOnClickListener {
-            textView.text = "+"
+            textView.text = when {
+                textView.text.isEmpty() -> ""
+                else -> "+"
+            }
         }
         buttonMinus.setOnClickListener {
-            textView.text = "-"
+            textView.text = when {
+                textView.text.isEmpty() -> ""
+                else -> "-"
+            }
         }
         buttonMultiply.setOnClickListener {
-            textView.text = "*"
+            textView.text = when {
+                textView.text.isEmpty() -> ""
+                else -> "*"
+            }
         }
         buttonDivide.setOnClickListener {
-            textView.text = "/"
+            textView.text = when {
+                textView.text.isEmpty() -> ""
+                else -> "/"
+            }
         }
     }
 }
