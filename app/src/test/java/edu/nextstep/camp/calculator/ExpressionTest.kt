@@ -4,10 +4,6 @@ import com.google.common.truth.Truth.assertThat
 import edu.nextstep.camp.calculator.domain.Expression
 import edu.nextstep.camp.calculator.domain.Number
 import edu.nextstep.camp.calculator.domain.Operator
-import edu.nextstep.camp.calculator.domain.Operator.Companion.DIVIDE
-import edu.nextstep.camp.calculator.domain.Operator.Companion.MINUS
-import edu.nextstep.camp.calculator.domain.Operator.Companion.MULTIPLY
-import edu.nextstep.camp.calculator.domain.Operator.Companion.PLUS
 import org.junit.Test
 
 class ExpressionTest {
@@ -17,13 +13,13 @@ class ExpressionTest {
         //given
         val expression = Expression().apply {
             writeNumber(Number("4"))
-            writeOperator(Operator(PLUS))
+            writeOperator(Operator.of("+"))
         }
 
         //when
-        expression.writeOperator(Operator(MULTIPLY))
-        expression.writeOperator(Operator(PLUS))
-        expression.writeOperator(Operator(PLUS))
+        expression.writeOperator(Operator.of("×"))
+        expression.writeOperator(Operator.of("+"))
+        expression.writeOperator(Operator.of("+"))
 
         //then
         assertThat(expression.getValue().length).isEqualTo(2)
@@ -34,15 +30,15 @@ class ExpressionTest {
         //given
         val expression = Expression().apply {
             writeNumber(Number("4"))
-            writeOperator(Operator(PLUS))
+            writeOperator(Operator.of("+"))
         }
 
         //when
-        expression.writeOperator(Operator(MINUS))
+        expression.writeOperator(Operator.of("-"))
 
         //then
         val lastOperator = expression.getValue().last()
-        assertThat(lastOperator.toString()).isEqualTo(MINUS)
+        assertThat(lastOperator.toString()).isEqualTo("-")
     }
 
     @Test
@@ -51,10 +47,10 @@ class ExpressionTest {
         val expression = Expression()
 
         //when
-        expression.writeOperator(Operator(PLUS))
-        expression.writeOperator(Operator(MINUS))
-        expression.writeOperator(Operator(MULTIPLY))
-        expression.writeOperator(Operator(DIVIDE))
+        expression.writeOperator(Operator.of("+"))
+        expression.writeOperator(Operator.of("-"))
+        expression.writeOperator(Operator.of("×"))
+        expression.writeOperator(Operator.of("÷"))
 
         //then
         assertThat(expression.getValue()).isEmpty()
@@ -65,18 +61,17 @@ class ExpressionTest {
         //given
         val expression = Expression().apply {
             writeNumber(Number("6"))
-            writeOperator(Operator(PLUS))
+            writeOperator(Operator.of("+"))
             writeNumber(Number("5"))
-            writeOperator(Operator(MULTIPLY))
+            writeOperator(Operator.of("×"))
             writeNumber(Number("4"))
         }
 
         //when
         val result = expression.calculate()
 
-
         //then
-        assertThat(result).isEqualTo(Number(44))
+        assertThat(result).isEqualTo("44")
     }
 
     @Test
@@ -84,29 +79,47 @@ class ExpressionTest {
         //given
         val expression = Expression().apply {
             writeNumber(Number("6"))
-            writeOperator(Operator(PLUS))
+            writeOperator(Operator.of("+"))
             writeNumber(Number("5"))
-            writeOperator(Operator(MULTIPLY))
+            writeOperator(Operator.of("+"))
         }
 
         //when
         val result = expression.calculate()
 
         //then
-        assertThat(result).isEqualTo(Number(11))
+        assertThat(result).isEqualTo("11")
     }
 
     @Test
-    fun `수식에 한개의 숫자만 존재할때 계산을 하면 해당 숫자만 출력된다`() {
+    fun `계산을 하고나면 계산 결과만 스택에 존재한다`() {
         //given
         val expression = Expression().apply {
             writeNumber(Number("6"))
+            writeOperator(Operator.of("+"))
+            writeNumber(Number("5"))
         }
 
         //when
         val result = expression.calculate()
 
         //then
-        assertThat(result).isEqualTo(Number(6))
+        assertThat(expression.getValue()).isEqualTo("11")
+    }
+
+    @Test
+    fun `모든 계산식을 지운다`() {
+        //given
+        val expression = Expression().apply {
+            writeNumber(Number("6"))
+            writeOperator(Operator.of("+"))
+            writeNumber(Number("5"))
+        }
+
+        //when
+        val result = expression.deleteExpression()
+
+        //then
+        assertThat(expression.getValue()).isEqualTo("")
     }
 }
