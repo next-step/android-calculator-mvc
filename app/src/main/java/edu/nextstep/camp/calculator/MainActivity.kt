@@ -94,7 +94,9 @@ class MainActivity : AppCompatActivity() {
         }
         buttonEquals.setOnClickListener {
             runCatching {
-                textView.text = Calculator.calculate(Formula(textView.text.toString())).toString()
+                textView.text = Calculator
+                    .calculate(Formula(textView.text.toString()))
+                    .toString()
             }.getOrElse {
                 Toast
                     .makeText(this@MainActivity, "완성되지 않은 수식입니다.", Toast.LENGTH_SHORT)
