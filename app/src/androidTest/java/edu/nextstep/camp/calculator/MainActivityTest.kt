@@ -93,6 +93,34 @@ class MainActivityTest {
         shouldShowText(displayedText = "89")
     }
 
+    @Test
+    fun pressedPlusButton_shouldShowPlus() {
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        shouldShowText(displayedText = "+")
+    }
+
+    @Test
+    fun pressedMinusButton_shouldShowMinus() {
+        onView(withId(R.id.buttonMinus)).perform(click())
+
+        shouldShowText(displayedText = "-")
+    }
+
+    @Test
+    fun pressedMultiplyButton_shouldShowMultiply() {
+        onView(withId(R.id.buttonMultiply)).perform(click())
+
+        shouldShowText(displayedText = "*")
+    }
+
+    @Test
+    fun pressedDivideButton_shouldShowDivide() {
+        onView(withId(R.id.buttonDivide)).perform(click())
+
+        shouldShowText(displayedText = "/")
+    }
+
     private fun shouldShowText(displayedText: String) {
         onView(withId(R.id.textView)).check(matches(withText(displayedText)))
     }

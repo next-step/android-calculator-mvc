@@ -13,10 +13,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupListener()
+        setupNumberButtonListener()
+        setupOperatorButtonListener()
     }
 
-    private fun setupListener() = with(binding){
+    private fun setupNumberButtonListener() = with(binding){
         button0.setOnClickListener {
             textView.text = getString(R.string.string_string, textView.text, "0")
         }
@@ -55,6 +56,21 @@ class MainActivity : AppCompatActivity() {
 
         button9.setOnClickListener {
             textView.text = getString(R.string.string_string, textView.text, "9")
+        }
+    }
+
+    private fun setupOperatorButtonListener() = with(binding) {
+        buttonPlus.setOnClickListener {
+            textView.text = "+"
+        }
+        buttonMinus.setOnClickListener {
+            textView.text = "-"
+        }
+        buttonMultiply.setOnClickListener {
+            textView.text = "*"
+        }
+        buttonDivide.setOnClickListener {
+            textView.text = "/"
         }
     }
 }
