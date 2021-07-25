@@ -1,6 +1,6 @@
 package edu.nextstep.camp.calculator
 
-object Display {
+object OperatorDisplay {
 
     fun print(beforeText: CharSequence, operator: Operator) = when {
         beforeText.isEmpty() -> ""

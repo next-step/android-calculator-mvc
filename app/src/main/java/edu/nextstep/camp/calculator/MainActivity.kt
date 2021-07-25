@@ -63,25 +63,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupOperatorButtonListener() = with(binding) {
         buttonPlus.setOnClickListener {
-            textView.text = Display.print(
+            textView.text = OperatorDisplay.print(
                 beforeText = textView.text,
                 operator = Operator.PLUS
             )
         }
         buttonMinus.setOnClickListener {
-            textView.text = Display.print(
+            textView.text = OperatorDisplay.print(
                 beforeText = textView.text,
                 operator = Operator.MINUS
             )
         }
         buttonMultiply.setOnClickListener {
-            textView.text = Display.print(
+            textView.text = OperatorDisplay.print(
                 beforeText = textView.text,
                 operator = Operator.MULTIPLE
             )
         }
         buttonDivide.setOnClickListener {
-            textView.text = Display.print(
+            textView.text = OperatorDisplay.print(
                 beforeText = textView.text,
                 operator = Operator.DIVIDE
             )

@@ -3,11 +3,11 @@ package edu.nextstep.camp.calculator
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 
-class DisplayTest {
+class OperatorDisplayTest {
 
     @Test
     fun notExistOperand_inputOperator_returnEmptyString() {
-        val actual = Display.print(
+        val actual = OperatorDisplay.print(
             beforeText = "",
             operator = Operator.PLUS
         )
@@ -16,7 +16,7 @@ class DisplayTest {
 
     @Test
     fun existOperand_inputOperator_returnOperandOperator() {
-        val actual = Display.print(
+        val actual = OperatorDisplay.print(
             beforeText = "1",
             operator = Operator.PLUS
         )
@@ -25,7 +25,7 @@ class DisplayTest {
 
     @Test
     fun existOperandAndOperator_inputOperator_returnOperandAndLatterOperator() {
-        val actual = Display.print(
+        val actual = OperatorDisplay.print(
             beforeText = "1+",
             operator = Operator.MINUS
         )
