@@ -112,6 +112,16 @@ class MainActivityTest {
         shouldShowText(displayedText = "1+")
     }
 
+    @Test
+    fun inputOneAndPlusButton_pressedOperator_shouldShowOperator() {
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        onView(withId(R.id.buttonMinus)).perform(click())
+
+        shouldShowText(displayedText = "1-")
+    }
+
     private fun shouldShowText(displayedText: String) {
         onView(withId(R.id.textView)).check(matches(withText(displayedText)))
     }
