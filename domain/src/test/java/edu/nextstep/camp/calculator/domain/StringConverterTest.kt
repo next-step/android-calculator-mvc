@@ -1,9 +1,13 @@
 package edu.nextstep.camp.calculator.domain
 
-import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Expect
+import org.junit.Rule
 import org.junit.Test
 
 class StringConverterTest {
+
+    @get:Rule
+    val expect: Expect = Expect.create()
 
     private val converter = StringConverter(arrayOf("+", "-", "*", "/"))
 
@@ -14,8 +18,8 @@ class StringConverterTest {
         // when
         val (operandList, operatorList) = converter.convert(expression)
         // then
-        assertThat(operandList).isEqualTo(listOf(33.0, 22.0, 11.0))
-        assertThat(operatorList).isEqualTo(
+        expect.that(operandList).isEqualTo(listOf(33.0, 22.0, 11.0))
+        expect.that(operatorList).isEqualTo(
             listOf(
                 Operator.getOperator("+"),
                 Operator.getOperator("-")
