@@ -9,46 +9,50 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 
-class MainActivityTest {
+@RunWith(Parameterized::class)
+class MainActivityTest(
+    private val buttonId: Int,
+    private val output: String
+) {
 
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
-
     @Test
-    fun `test1`() {
-
-        val inputAndExpected = listOf(
-            R.id.button0 to "0",
-            R.id.button1 to "1",
-            R.id.button2 to "2",
-            R.id.button3 to "3",
-            R.id.button4 to "4",
-            R.id.button5 to "5",
-            R.id.button6 to "6",
-            R.id.button7 to "7",
-            R.id.button8 to "8",
-            R.id.button9 to "9",
-        )
-
-        inputAndExpected.forEach { (buttonId, output) ->
-            버튼을_눌러_결과를_확인한다(buttonId, output)
-        }
-    }
-
-    private fun `버튼을_눌러_결과를_확인한다`(buttonId: Int, output: String) {
+    fun `숫자버튼을_클릭하면_해당숫자가_결과화면에_떠야한다`() {
         //when
-        버튼을_누른다(buttonId)
+        숫자_버튼을_누른다(buttonId)
         //then
         결과화면에서_숫자를_확인한다(output)
     }
 
-    private fun `버튼을_누른다`(@IdRes buttonId: Int) {
+    private fun `숫자_버튼을_누른다`(@IdRes buttonId: Int) {
         onView(withId(buttonId)).perform(click())
     }
 
     private fun `결과화면에서_숫자를_확인한다`(output: String) {
         onView(withId(R.id.outputTextView)).check(matches(withText(output)))
+    }
+
+    companion object {
+
+        @JvmStatic
+        @Parameterized.Parameters
+        fun getNum() = listOf(
+            arrayOf(R.id.button0, "0"),
+            arrayOf(R.id.button1, "1"),
+            arrayOf(R.id.button2, "2"),
+            arrayOf(R.id.button3, "3"),
+            arrayOf(R.id.button4, "4"),
+            arrayOf(R.id.button5, "5"),
+            arrayOf(R.id.button6, "6"),
+            arrayOf(R.id.button7, "7"),
+            arrayOf(R.id.button8, "8"),
+            arrayOf(R.id.button9, "9"),
+        )
+
     }
 }
