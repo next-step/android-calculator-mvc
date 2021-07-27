@@ -8,7 +8,7 @@ package edu.nextstep.camp.domain.stringcalculator
 enum class Operator(
     private val token: String,
     private val calculateStrategy: (Int, Int) -> Int
-) {
+) : ExpressionToken {
     PLUS("+", { left, right -> left + right }),
     MINUS("-", { left, right -> left - right }),
     MULTIPLY("*", { left, right -> left * right }),
