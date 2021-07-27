@@ -7,14 +7,14 @@ package edu.nextstep.camp.domain.stringcalculator
 
 enum class Operator(
     private val token: String,
-    private val calculateStrategy: (Int, Int) -> Int
+    private val calculateStrategy: (Operand, Operand) -> Operand
 ) : ExpressionToken {
     PLUS("+", { left, right -> left + right }),
     MINUS("-", { left, right -> left - right }),
     MULTIPLY("*", { left, right -> left * right }),
     DIVIDE("/", { left, right -> left / right });
 
-    fun calculate(left: Int, right: Int): Int {
+    fun calculate(left: Operand, right: Operand): Operand {
         return calculateStrategy(left, right)
     }
 
