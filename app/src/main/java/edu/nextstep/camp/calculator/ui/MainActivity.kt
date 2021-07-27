@@ -6,7 +6,6 @@ import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Expression
 import edu.nextstep.camp.calculator.domain.Number
 import edu.nextstep.camp.calculator.domain.Operator
-import edu.nextstep.camp.calculator.domain.Operator.Companion.OPERATORS
 import java.lang.StringBuilder
 import java.util.*
 
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun operatorButtonClicked(operator: String) {
-        binding.textviewOutput.text = expression.writeOperator(Operator(operator))
+        binding.textviewOutput.text = expression.writeOperator(Operator.of(operator))
     }
 
     private fun deleteButtonClicked() {
@@ -57,6 +56,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun calculateButtonClicked() {
         val result = expression.calculate()
-        binding.textviewOutput.text = result.value.toString()
+        binding.textviewOutput.text = result
     }
 }
