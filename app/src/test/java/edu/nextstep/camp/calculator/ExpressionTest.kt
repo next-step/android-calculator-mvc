@@ -108,7 +108,7 @@ class ExpressionTest {
     }
 
     @Test
-    fun `모든 계산식을 지운다`() {
+    fun `삭제를 하면 마지막의 피연산자 혹은 연산자가 삭제된다`() {
         //given
         val expression = Expression().apply {
             writeNumber(Number("6"))
@@ -120,6 +120,6 @@ class ExpressionTest {
         val result = expression.deleteExpression()
 
         //then
-        assertThat(expression.getValue()).isEqualTo("")
+        assertThat(expression.getValue()).isEqualTo("6+")
     }
 }

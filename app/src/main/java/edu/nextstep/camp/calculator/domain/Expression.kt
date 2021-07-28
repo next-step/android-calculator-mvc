@@ -26,7 +26,7 @@ class Expression {
 
     fun deleteExpression(): String {
         if (value.isNotEmpty()) {
-            value.clear()
+            value.pop()
         }
         return getValue()
     }
