@@ -13,13 +13,13 @@ class ExpressionTest {
         //given
         val expression = Expression().apply {
             writeNumber(Number("4"))
-            writeOperator(Operator.of("+"))
+            writeOperator(Operator.Plus)
         }
 
         //when
-        expression.writeOperator(Operator.of("×"))
-        expression.writeOperator(Operator.of("+"))
-        expression.writeOperator(Operator.of("+"))
+        expression.writeOperator(Operator.Multiply)
+        expression.writeOperator(Operator.Plus)
+        expression.writeOperator(Operator.Plus)
 
         //then
         assertThat(expression.getValue().length).isEqualTo(2)
@@ -30,11 +30,11 @@ class ExpressionTest {
         //given
         val expression = Expression().apply {
             writeNumber(Number("4"))
-            writeOperator(Operator.of("+"))
+            writeOperator(Operator.Plus)
         }
 
         //when
-        expression.writeOperator(Operator.of("-"))
+        expression.writeOperator(Operator.Minus)
 
         //then
         val lastOperator = expression.getValue().last()
@@ -47,10 +47,10 @@ class ExpressionTest {
         val expression = Expression()
 
         //when
-        expression.writeOperator(Operator.of("+"))
-        expression.writeOperator(Operator.of("-"))
-        expression.writeOperator(Operator.of("×"))
-        expression.writeOperator(Operator.of("÷"))
+        expression.writeOperator(Operator.Plus)
+        expression.writeOperator(Operator.Minus)
+        expression.writeOperator(Operator.Multiply)
+        expression.writeOperator(Operator.Divide)
 
         //then
         assertThat(expression.getValue()).isEmpty()
@@ -61,9 +61,9 @@ class ExpressionTest {
         //given
         val expression = Expression().apply {
             writeNumber(Number("6"))
-            writeOperator(Operator.of("+"))
+            writeOperator(Operator.Plus)
             writeNumber(Number("5"))
-            writeOperator(Operator.of("×"))
+            writeOperator(Operator.Multiply)
             writeNumber(Number("4"))
         }
 
@@ -79,9 +79,9 @@ class ExpressionTest {
         //given
         val expression = Expression().apply {
             writeNumber(Number("6"))
-            writeOperator(Operator.of("+"))
+            writeOperator(Operator.Plus)
             writeNumber(Number("5"))
-            writeOperator(Operator.of("+"))
+            writeOperator(Operator.Plus)
         }
 
         //when
@@ -96,7 +96,7 @@ class ExpressionTest {
         //given
         val expression = Expression().apply {
             writeNumber(Number("6"))
-            writeOperator(Operator.of("+"))
+            writeOperator(Operator.Plus)
             writeNumber(Number("5"))
         }
 
@@ -112,7 +112,7 @@ class ExpressionTest {
         //given
         val expression = Expression().apply {
             writeNumber(Number("6"))
-            writeOperator(Operator.of("+"))
+            writeOperator(Operator.Plus)
             writeNumber(Number("5"))
         }
 
