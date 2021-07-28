@@ -104,7 +104,7 @@ class ExpressionTest {
         val result = expression.calculate()
 
         //then
-        assertThat(expression.getValue()).isEqualTo("11")
+        assertThat(result).isEqualTo("11")
     }
 
     @Test
@@ -120,6 +120,6 @@ class ExpressionTest {
         val result = expression.deleteExpression()
 
         //then
-        assertThat(expression.getValue()).isEqualTo("6+")
+        assertThat(result).isEqualTo("6+")
     }
 }
