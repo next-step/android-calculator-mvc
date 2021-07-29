@@ -56,8 +56,6 @@ class MainActivityTest {
 
     @Test
     fun `입력된_피연산자가_없을때_연산자를_클릭하면_아무런_변화가_없다`() {
-        //given
-
         //when
         onView(withId(R.id.buttonMinus)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
@@ -96,9 +94,9 @@ class MainActivityTest {
         onView(withId(R.id.button2)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
 
-        지우기버튼을_누르면_마지막_피연산자_혹은_연산자가_삭제된다("32")
-        지우기버튼을_누르면_마지막_피연산자_혹은_연산자가_삭제된다("3")
-        지우기버튼을_누르면_마지막_피연산자_혹은_연산자가_삭제된다("")
+        지우기버튼을_누르면_마지막_피연산자_혹은_연산자가_삭제된다(expected = "32")
+        지우기버튼을_누르면_마지막_피연산자_혹은_연산자가_삭제된다(expected = "3")
+        지우기버튼을_누르면_마지막_피연산자_혹은_연산자가_삭제된다(expected = "")
         입력된_수식이_없을떄_지우기버튼을_누르면_아무런_변화가_없다()
     }
 
