@@ -7,6 +7,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import edu.nextstep.camp.calculator.utils.ToastMatcher.Companion.isToast
+import edu.nextstep.camp.domain.stringcalculator.Operator
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -63,7 +64,7 @@ class CalculatorActivityTest {
     }
 
     // 이런 식으로 then의 결과가 다음 테스트응이 given이 되는 형식의 테스트에서 아래 방식 말고,
-    // (when then이 여러개일때) 더 좋은 테스트 방법이 있는지?
+    // (when then이 여러개일때) 더 좋은 테스트 방법이 있는 지 궁금합니다.
     @Test
     fun 입력된_수식이_있을때_지우기_버튼을_누르면_마지막으로_입력된_값이_지워져야_한다() {
         // given 46 + 5
@@ -169,10 +170,10 @@ class CalculatorActivityOperatorParameterizedTest(
         @Parameterized.Parameters(name = "연산자 버튼 {1} 일때")
         fun buttonResourcesAndNumbers(): Collection<Array<Any>> {
             return listOf(
-                arrayOf(R.id.buttonPlus, "+"),
-                arrayOf(R.id.buttonMinus, "-"),
-                arrayOf(R.id.buttonMultiply, "*"),
-                arrayOf(R.id.buttonDivide, "/"),
+                arrayOf(R.id.buttonPlus, Operator.PLUS.token),
+                arrayOf(R.id.buttonMinus, Operator.MINUS.token),
+                arrayOf(R.id.buttonMultiply, Operator.MULTIPLY.token),
+                arrayOf(R.id.buttonDivide, Operator.DIVIDE.token),
             )
         }
     }

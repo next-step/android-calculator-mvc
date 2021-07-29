@@ -6,13 +6,15 @@ package edu.nextstep.camp.domain.stringcalculator
  */
 
 enum class Operator(
-    private val token: String,
+    val token: String,
     private val calculateStrategy: (Operand, Operand) -> Operand
 ) : ExpressionToken {
     PLUS("+", { left, right -> left + right }),
     MINUS("-", { left, right -> left - right }),
-    MULTIPLY("*", { left, right -> left * right }),
-    DIVIDE("/", { left, right -> left / right });
+    MULTIPLY("×", { left, right -> left * right }),
+    MULTIPLY_STAR("*", { left, right -> left * right }),
+    DIVIDE("÷", { left, right -> left / right }),
+    DIVIDE_SLASH("/", { left, right -> left / right });
 
     fun calculate(left: Operand, right: Operand): Operand {
         return calculateStrategy(left, right)

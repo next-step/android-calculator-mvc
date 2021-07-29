@@ -24,7 +24,9 @@ data class Operand(
         return Operand("$this$operand")
     }
 
-    fun removeLast(): Operand {
-        return Operand(this.value / 10)
+    fun removeLast(): Operand? {
+        val removedValue = (this.value / 10)
+        return if (removedValue == 0) null
+        else Operand(removedValue)
     }
 }

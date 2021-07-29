@@ -36,8 +36,10 @@ class OperatorFindParameterTest(
             return listOf(
                 arrayOf("+", Operator.PLUS),
                 arrayOf("-", Operator.MINUS),
-                arrayOf("*", Operator.MULTIPLY),
-                arrayOf("/", Operator.DIVIDE),
+                arrayOf("×", Operator.MULTIPLY),
+                arrayOf("*", Operator.MULTIPLY_STAR),
+                arrayOf("÷", Operator.DIVIDE),
+                arrayOf("/", Operator.DIVIDE_SLASH),
             )
         }
     }

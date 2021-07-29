@@ -63,10 +63,10 @@ class CalculatorMemory(
         return expressionTokens.lastOrNull()
     }
 
-    private fun MutableList<ExpressionToken>.replaceLastWith(token: ExpressionToken) {
+    private fun MutableList<ExpressionToken>.replaceLastWith(token: ExpressionToken?) {
         if (this.isEmpty()) return
         this.removeLast()
-        this.add(token)
+        this.add(token ?: return)
     }
 
     companion object {

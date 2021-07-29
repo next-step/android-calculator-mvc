@@ -96,7 +96,7 @@ class CalculatorMemoryTest {
         val expression = calculatorMemory.putOperator(Operator.DIVIDE)
 
         // then
-        assertThat(expression).isEqualTo("3 /")
+        assertThat(expression).isEqualTo("3 ÷")
     }
 
     @Test
@@ -138,8 +138,9 @@ class CalculatorMemoryTest {
         assertThat(expression).isEqualTo("73")
     }
 
+
     @Test
-    fun 여러자리의_피연산자가_입력되어_있을_때_최근_입력을_지우면_끝_자리가_빠진_숫자_문자열을_반환한다(){
+    fun 여러_자리의_피연산자가_입력되어_있을_때_최근_입력을_지우면_끝_자리가_빠진_숫자_문자열을_반환한다() {
         // given
         val calculatorMemory = CalculatorMemory(
             Operand(7),
@@ -153,5 +154,21 @@ class CalculatorMemoryTest {
 
         // then
         assertThat(expression).isEqualTo("735")
+    }
+
+    @Test
+    fun 한_자리_피연산자가_입력되어_있을_때_최근_입력을_지우면_피연산자가_삭제된_문자열을_반환한다() {
+        // given
+        val calculatorMemory = CalculatorMemory(
+            Operand(7),
+            Operator.DIVIDE,
+            Operand(1),
+        )
+
+        // when
+        val expression: String = calculatorMemory.removeLast()
+
+        // then
+        assertThat(expression).isEqualTo("7 ÷")
     }
 }
