@@ -14,9 +14,9 @@ class CalculatorMemory(
         if (lastInput == null) {
             expressionTokens.add(input)
         }
-        if(lastInput is Operand){
+        if (lastInput is Operand) {
             expressionTokens.removeLast()
-//            expressionTokens.add(current)
+            expressionTokens.add(lastInput.addLast(input))
         }
         return getExpression()
     }
