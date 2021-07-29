@@ -32,37 +32,25 @@ class CalculatorMemory(
     }
 
     fun putOperand(input: Operand): String {
-        val lastInput = getLastInput()
-        if (lastInput == null || lastInput is Operator) {
-            expressionTokens.add(input)
-        }
-        if (lastInput is Operand) {
-            expressionTokens.removeLast()
-            expressionTokens.add(lastInput.addLast(input))
+        when (val lastInput = getLastInput()) {
+            is Operator, null -> expressionTokens.add(input)
+            is Operand -> expressionTokens.replaceLastWith(lastInput.addLast(input))
         }
         return getExpression()
     }
 
     fun putOperator(input: Operator): String {
-        val lastInput = getLastInput() ?: return EMPTY_STRING
-        if (lastInput is Operand) {
-            expressionTokens.add(input)
-        }
-        if (lastInput is Operator) {
-            expressionTokens.removeLast()
-            expressionTokens.add(input)
+        when (getLastInput() ?: return EMPTY_STRING) {
+            is Operator -> expressionTokens.replaceLastWith(input)
+            is Operand -> expressionTokens.add(input)
         }
         return getExpression()
     }
 
     fun removeLast(): String {
-        val lastInput = getLastInput() ?: return EMPTY_STRING
-        if (lastInput is Operand) {
-            expressionTokens.removeLast()
-            expressionTokens.add(lastInput.removeLast())
-        }
-        if (lastInput is Operator) {
-            expressionTokens.removeLast()
+        when (val lastInput = getLastInput() ?: return EMPTY_STRING) {
+            is Operator -> expressionTokens.removeLast()
+            is Operand -> expressionTokens.replaceLastWith(lastInput.removeLast())
         }
         return getExpression()
     }
@@ -73,6 +61,12 @@ class CalculatorMemory(
 
     private fun getLastInput(): ExpressionToken? {
         return expressionTokens.lastOrNull()
+    }
+
+    private fun MutableList<ExpressionToken>.replaceLastWith(token: ExpressionToken) {
+        if (this.isEmpty()) return
+        this.removeLast()
+        this.add(token)
     }
 
     companion object {
