@@ -77,4 +77,33 @@ class OperandTest {
         // then
         assertThat(actualOperand).isEqualTo(expectedOperand)
     }
+
+    @Test
+    fun 피연산자에_다른_피연산자를_연속으로_붙일_수_있다() {
+        // given
+        val operand = Operand(34)
+        val additionalOperand = Operand(5)
+
+        val expectedOperand = Operand(345)
+
+        // when
+        val actualOperand = operand.addLast(additionalOperand)
+
+        // then
+        assertThat(actualOperand).isEqualTo(expectedOperand)
+    }
+
+    @Test
+    fun 피연산자의_끝자리를_지울_수_있다(){
+        // given
+        val operand = Operand(345)
+
+        val expectedOperand = Operand(34)
+
+        // when
+        val actualOperand = operand.removeLast()
+
+        // then
+        assertThat(actualOperand).isEqualTo(expectedOperand)
+    }
 }
