@@ -18,7 +18,10 @@ enum class Operator(
         return calculateStrategy(left, right)
     }
 
+    override fun toString(): String = token
+
     companion object {
+        @JvmStatic
         fun find(token: String): Operator = values().find { it.token == token }
             ?: throw IllegalArgumentException("$token 을 가진 연산자를 찾을 수 없습니다.")
     }
