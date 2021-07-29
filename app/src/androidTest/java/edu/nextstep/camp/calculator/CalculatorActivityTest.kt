@@ -4,9 +4,9 @@ import androidx.annotation.IdRes
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import edu.nextstep.camp.calculator.utils.ToastMatcher.Companion.isToast
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -61,6 +61,62 @@ class CalculatorActivityTest {
         // then
         onView(withId(R.id.textResult)).check(matches(withText("")))
     }
+
+    // 이런 식으로 then의 결과가 다음 테스트응이 given이 되는 형식의 테스트에서 아래 방식 말고,
+    // (when then이 여러개일때) 더 좋은 테스트 방법이 있는지?
+    @Test
+    fun 입력된_수식이_있을때_지우기_버튼을_누르면_마지막으로_입력된_값이_지워져야_한다() {
+        // given 46 + 5
+        onView(withId(R.id.buttonFour)).perform(click())
+        onView(withId(R.id.buttonSix)).perform(click())
+
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        onView(withId(R.id.buttonFive)).perform(click())
+
+        // when
+        onView(withId(R.id.buttonDelete)).perform(click())
+        // then
+        onView(withId(R.id.textResult)).check(matches(withText("46 +")))
+
+        // when
+        onView(withId(R.id.buttonDelete)).perform(click())
+        // then
+        onView(withId(R.id.textResult)).check(matches(withText("46")))
+
+        // when
+        onView(withId(R.id.buttonDelete)).perform(click())
+        // then
+        onView(withId(R.id.textResult)).check(matches(withText("4")))
+    }
+
+    @Test
+    fun 입력된_수식이_완전할_때_결과_버튼을_누르면_수식의_결과가_텍스트에_나타난다() {
+        // given 8 + 9
+        onView(withId(R.id.buttonEight)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.buttonNine)).perform(click())
+
+        // when
+        onView(withId(R.id.buttonEquals)).perform(click())
+
+        // then
+        onView(withId(R.id.textResult)).check(matches(withText("17")))
+    }
+
+    @Test
+    fun 입력된_수식이_완전하지_않을_때_결과_버튼을_누르면_토스트_메시지가_나타난다() {
+        // given 9 +
+        onView(withId(R.id.buttonNine)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        // when
+        onView(withId(R.id.buttonEquals)).perform(click())
+
+        // then
+        onView(withText("완성되지 않은 수식입니다")).inRoot(isToast())
+            .check(matches(isDisplayed()))
+    }
 }
 
 @RunWith(Parameterized::class)
@@ -110,7 +166,7 @@ class CalculatorActivityOperatorParameterizedTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "버튼 {1} 일때")
+        @Parameterized.Parameters(name = "연산자 버튼 {1} 일때")
         fun buttonResourcesAndNumbers(): Collection<Array<Any>> {
             return listOf(
                 arrayOf(R.id.buttonPlus, "+"),
