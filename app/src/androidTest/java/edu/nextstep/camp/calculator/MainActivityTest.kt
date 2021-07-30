@@ -109,6 +109,45 @@ class MainActivityTest {
     }
 
     @Test
+    fun `수식의_마지막이_연산자일때_지우기버튼을_누르면_연산자가_삭제된다`() {
+        //given
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        //when
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        //then
+        onView(withId(R.id.textviewOutput)).check(matches(withText("32")))
+    }
+
+    @Test
+    fun `수식의_마지막이_숫자일때_지우기버튼을_누르면_숫자가_삭제된다`() {
+        //given
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+
+        //when
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        //then
+        onView(withId(R.id.textviewOutput)).check(matches(withText("3")))
+    }
+
+    @Test
+    fun `수식을_다_지웠을때는_공백을_출력한다`() {
+        //given
+        onView(withId(R.id.button3)).perform(click())
+
+        //when
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        //then
+        onView(withId(R.id.textviewOutput)).check(matches(withText("")))
+    }
+
+    @Test
     fun `입력된_수식이_완전할때_계산하기버튼을_누르면_수식의_결과가_표시된다`() {
         //given
         onView(withId(R.id.button3)).perform(click())
