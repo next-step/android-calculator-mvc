@@ -1,6 +1,7 @@
 package edu.nextstep.camp.calculator.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Expression
@@ -10,15 +11,23 @@ import java.lang.StringBuilder
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
 
+    private lateinit var binding: ActivityMainBinding
     private var expression = Expression()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setButtonListener()
+        setExpressionOnError()
+    }
+
+    private fun setExpressionOnError() {
+        expression.setOnError {
+            Toast.makeText(this@MainActivity, "Expression is Wrong", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setButtonListener() = with(binding) {

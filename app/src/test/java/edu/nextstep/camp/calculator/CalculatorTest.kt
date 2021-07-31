@@ -13,9 +13,9 @@ class CalculatorTest {
         //given
         val expression = Expression().apply {
             writeNumber(Number("6"))
-            writeOperator(Operator.of("+"))
+            writeOperator(Operator.Plus)
             writeNumber(Number("5"))
-            writeOperator(Operator.of("×"))
+            writeOperator(Operator.Multiply)
             writeNumber(Number("5"))
         }
 
