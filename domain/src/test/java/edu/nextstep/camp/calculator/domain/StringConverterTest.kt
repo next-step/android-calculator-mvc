@@ -1,6 +1,7 @@
 package edu.nextstep.camp.calculator.domain
 
 import com.google.common.truth.Expect
+import edu.nextstep.camp.calculator.domain.operand.Operator
 import org.junit.Rule
 import org.junit.Test
 
