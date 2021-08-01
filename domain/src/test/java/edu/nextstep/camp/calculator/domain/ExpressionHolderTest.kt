@@ -27,7 +27,7 @@ class ExpressionHolderTest {
         // when
         expression.addOperand(Operator.MULTIPLY)
         // then
-        assertThat(expression.getCurrentExpression()).isEqualTo("3*")
+        assertThat(expression.getCurrentExpression()).isEqualTo("3×")
     }
 
     @Test
@@ -40,7 +40,7 @@ class ExpressionHolderTest {
         // when
         expression.addOperand(Operator.MULTIPLY)
         // then
-        assertThat(expression.getCurrentExpression()).isEqualTo("3*")
+        assertThat(expression.getCurrentExpression()).isEqualTo("3×")
     }
 
     @Test

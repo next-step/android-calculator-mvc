@@ -30,7 +30,10 @@ class ExpressionHolder {
     }
 
     fun getResult(): Double {
-        return Calculator.calculate(getCurrentExpression())
+        val result = Calculator.calculate(getCurrentExpression())
+        expression.clear()
+        expression.add(NumberOperand(result))
+        return result
     }
 
     private fun addOperator(operator: Operator) {

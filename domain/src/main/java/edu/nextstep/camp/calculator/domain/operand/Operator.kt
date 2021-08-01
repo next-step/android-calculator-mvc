@@ -6,8 +6,8 @@ enum class Operator(
 ) : Operand {
     PLUS("+", { a, b -> a + b }),
     MINUS("-", { a, b -> a - b }),
-    MULTIPLY("*", { a, b -> a * b }),
-    DIVISION("/", { a, b -> a / b });
+    MULTIPLY("×", { a, b -> a * b }),
+    DIVISION("÷", { a, b -> a / b });
 
     fun calculate(first: Double, second: Double): Double {
         if (this == DIVISION && second.isZero()) {

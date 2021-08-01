@@ -10,7 +10,7 @@ class StringConverterTest {
     @get:Rule
     val expect: Expect = Expect.create()
 
-    private val converter = StringConverter(arrayOf("+", "-", "*", "/"))
+    private val converter = StringConverter(arrayOf("+", "-", "×", "÷"))
 
     @Test
     fun `연산식에서, 연산자와 피연산자를 분리한다`() {

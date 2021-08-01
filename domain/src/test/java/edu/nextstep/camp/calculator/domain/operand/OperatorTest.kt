@@ -49,7 +49,7 @@ class OperatorTest {
 
     @Test
     fun `연산자 문자열을 입력하면, 유효한 연산자를 리턴한다`() {
-        val operator = Operator.getOperator("/")
+        val operator = Operator.getOperator("÷")
         assertThat(operator).isInstanceOf(Operator::class.java)
     }
 
