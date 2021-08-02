@@ -1,5 +1,6 @@
 package edu.nextstep.camp.domain.stringcalculator
 
+import app.cash.exhaustive.Exhaustive
 import java.util.*
 
 /**
@@ -8,12 +9,12 @@ import java.util.*
  */
 
 class CalculatorMemory(
-    _expressionTokens: List<ExpressionToken> = emptyList()
+    expressionTokens: List<ExpressionToken> = emptyList()
 ) {
-    constructor(vararg _expressionTokens: ExpressionToken) : this(_expressionTokens.toList())
+    constructor(vararg expressionTokens: ExpressionToken) : this(expressionTokens.toList())
 
     private val expressionTokens: MutableList<ExpressionToken> =
-        arrangeExpressionTokens(_expressionTokens)
+        arrangeExpressionTokens(expressionTokens)
 
     private fun arrangeExpressionTokens(inputTokens: List<ExpressionToken>): MutableList<ExpressionToken> {
         if (inputTokens.isEmpty()) return mutableListOf()
@@ -32,6 +33,7 @@ class CalculatorMemory(
     }
 
     fun putOperand(input: Operand): String {
+        @Exhaustive
         when (val lastInput = getLastInput()) {
             is Operator, null -> expressionTokens.add(input)
             is Operand -> expressionTokens.replaceLastWith(lastInput.addLast(input))
@@ -40,6 +42,7 @@ class CalculatorMemory(
     }
 
     fun putOperator(input: Operator): String {
+        @Exhaustive
         when (getLastInput() ?: return EMPTY_STRING) {
             is Operator -> expressionTokens.replaceLastWith(input)
             is Operand -> expressionTokens.add(input)
@@ -48,6 +51,7 @@ class CalculatorMemory(
     }
 
     fun removeLast(): String {
+        @Exhaustive
         when (val lastInput = getLastInput() ?: return EMPTY_STRING) {
             is Operator -> expressionTokens.removeLast()
             is Operand -> expressionTokens.replaceLastWith(lastInput.removeLast())

@@ -24,8 +24,7 @@ class CalculatorActivityTest {
 
     @Test
     fun 최근_입력이_숫자가_아닐_때_숫자를_누르면_화면에_해당_숫자가_추가_된다() {
-        // given
-        // current "3 +"
+        // given: "3 +"
         onView(withId(R.id.buttonThree)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
 
@@ -41,8 +40,7 @@ class CalculatorActivityTest {
 
     @Test
     fun 최근_입력이_숫자일_때_숫자를_누르면_기존_숫자_뒤에_입력_숫자가_붙어_나타난다() {
-        // given
-        // current 1
+        // given: "1"
         onView(withId(R.id.buttonOne)).perform(click())
 
         val expectedText = "12"
@@ -63,11 +61,9 @@ class CalculatorActivityTest {
         onView(withId(R.id.textResult)).check(matches(withText("")))
     }
 
-    // 이런 식으로 then의 결과가 다음 테스트응이 given이 되는 형식의 테스트에서 아래 방식 말고,
-    // (when then이 여러개일때) 더 좋은 테스트 방법이 있는 지 궁금합니다.
     @Test
     fun 입력된_수식이_있을때_지우기_버튼을_누르면_마지막으로_입력된_값이_지워져야_한다() {
-        // given 46 + 5
+        // given: "46 + 5"
         onView(withId(R.id.buttonFour)).perform(click())
         onView(withId(R.id.buttonSix)).perform(click())
 
@@ -93,7 +89,7 @@ class CalculatorActivityTest {
 
     @Test
     fun 입력된_수식이_완전할_때_결과_버튼을_누르면_수식의_결과가_텍스트에_나타난다() {
-        // given 8 + 9
+        // given: "8 + 9"
         onView(withId(R.id.buttonEight)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
         onView(withId(R.id.buttonNine)).perform(click())
@@ -107,7 +103,7 @@ class CalculatorActivityTest {
 
     @Test
     fun 입력된_수식이_완전하지_않을_때_결과_버튼을_누르면_토스트_메시지가_나타난다() {
-        // given 9 +
+        // given: "9 +"
         onView(withId(R.id.buttonNine)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
 
