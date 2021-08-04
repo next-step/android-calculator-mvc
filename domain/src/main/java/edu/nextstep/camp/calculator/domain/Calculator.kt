@@ -1,5 +1,7 @@
 package edu.nextstep.camp.calculator.domain
 
+import edu.nextstep.camp.calculator.domain.operand.Operator
+
 object Calculator {
     fun calculate(operationExpression: String): Double {
         val operatorCodes = Operator.getOperatorCodes().toTypedArray()

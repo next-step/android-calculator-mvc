@@ -1,19 +1,23 @@
-package edu.nextstep.camp.calculator.domain
+package edu.nextstep.camp.calculator.domain.operand
 
 enum class Operator(
     val code: String,
     val operateFun: (Double, Double) -> Double,
-) {
+) : Operand {
     PLUS("+", { a, b -> a + b }),
     MINUS("-", { a, b -> a - b }),
-    MULTIPLY("*", { a, b -> a * b }),
-    DIVISION("/", { a, b -> a / b });
+    MULTIPLY("×", { a, b -> a * b }),
+    DIVISION("÷", { a, b -> a / b });
 
     fun calculate(first: Double, second: Double): Double {
         if (this == DIVISION && second.isZero()) {
             throw IllegalArgumentException("Can not DIVISION Zero")
         }
         return operateFun(first, second)
+    }
+
+    override fun toString(): String {
+        return this.code
     }
 
     companion object {

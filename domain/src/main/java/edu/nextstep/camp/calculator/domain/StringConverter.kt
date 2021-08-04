@@ -1,5 +1,7 @@
 package edu.nextstep.camp.calculator.domain
 
+import edu.nextstep.camp.calculator.domain.operand.Operator
+
 class StringConverter(private val operators: Array<String>) {
     private var regex: Regex = getExpressionRegex()
 
