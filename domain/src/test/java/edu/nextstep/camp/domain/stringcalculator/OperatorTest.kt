@@ -36,8 +36,10 @@ class OperatorFindParameterTest(
             return listOf(
                 arrayOf("+", Operator.PLUS),
                 arrayOf("-", Operator.MINUS),
-                arrayOf("*", Operator.MULTIPLY),
-                arrayOf("/", Operator.DIVIDE),
+                arrayOf("×", Operator.MULTIPLY),
+                arrayOf("*", Operator.MULTIPLY_STAR),
+                arrayOf("÷", Operator.DIVIDE),
+                arrayOf("/", Operator.DIVIDE_SLASH),
             )
         }
     }
@@ -55,19 +57,19 @@ class OperatorFindParameterTest(
 @RunWith(Parameterized::class)
 class OperatorCalculateParameterTest(
     private val operator: Operator,
-    private val left: Int,
-    private val right: Int,
-    private val expectedResult: Int,
+    private val left: Operand,
+    private val right: Operand,
+    private val expectedResult: Operand,
 ) {
     companion object {
         @JvmStatic
         @Parameters(name = "{0} 연산자의 계산 전략 수행 테스트 : {1} {0} {2} = {3}")
         fun tokenAndOperators(): Collection<Array<Any>> {
             return listOf(
-                arrayOf(Operator.PLUS, 1, 2, 3),
-                arrayOf(Operator.MINUS, 3, 2, 1),
-                arrayOf(Operator.MULTIPLY, 2, 5, 10),
-                arrayOf(Operator.DIVIDE, 10, 2, 5),
+                arrayOf(Operator.PLUS, Operand(1), Operand(2), Operand(3)),
+                arrayOf(Operator.MINUS, Operand(3), Operand(2), Operand(1)),
+                arrayOf(Operator.MULTIPLY, Operand(2), Operand(5), Operand(10)),
+                arrayOf(Operator.DIVIDE, Operand(10), Operand(2), Operand(5)),
             )
         }
     }

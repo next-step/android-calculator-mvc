@@ -17,13 +17,18 @@ object StringCalculator {
             val operand = tokens[i + 1].toOperand()
             result = operator.calculate(result, operand)
         }
-        return result
+        return result.value
     }
 
     private fun validateNotEmptyExpression(expression: String) {
         require(expression.trim().isNotEmpty()) { "빈 수식은 계산할 수 없습니다." }
     }
 
-    private fun String.toOperand(): Int = this.toIntOrNull()
-        ?: throw IllegalArgumentException("수식의 숫자 자리에 숫자가 아닌 문자 ($this)가 존재합니다.")
+    private fun String.toOperand(): Operand {
+        return try {
+            Operand(this)
+        } catch (e: Exception) {
+            throw IllegalArgumentException("수식의 숫자 자리에 숫자가 아닌 문자 ($this)가 존재합니다.")
+        }
+    }
 }
