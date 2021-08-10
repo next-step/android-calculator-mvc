@@ -3,29 +3,29 @@ package edu.nextstep.camp.calculator.model
 import kotlin.math.sign
 
 enum class Operator(
-    val sign: Char,
+    val sign: String,
     val formula: (firstOperand : Double, secondOperand: Double) -> Double
 ){
     PLUS(
-        sign = '+',
+        sign = "+",
         formula = {firstOperand, secondOperand ->
             firstOperand + secondOperand
         }
     ),
     MINUS(
-        sign = '-',
+        sign = "-",
         formula = {firstOperand, secondOperand ->
             firstOperand - secondOperand
         }
     ),
     MULTIPLY(
-        sign = '*',
+        sign = "*",
         formula = {firstOperand, secondOperand ->
             firstOperand * secondOperand
         }
     ),
     DIVIDE(
-        sign = '/',
+        sign = "/",
         formula = {firstOperand, secondOperand ->
             if(secondOperand == 0.0)
                 throw ArithmeticException("Divide by zero should trow")

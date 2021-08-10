@@ -18,4 +18,19 @@ class Calculator(var inputs : String) {
     fun isSplitLengthOddNumber(): Boolean {
         return splitText().size % 2 == 1
     }
+
+    fun calcurate(): Double {
+        val inputs = splitText()
+        if(Operator.PLUS.sign == inputs[1]){
+            return Operator.PLUS.formula(inputs[0].toDouble(), inputs[2].toDouble())
+        }else if(Operator.MINUS.sign == inputs[1]){
+            return Operator.MINUS.formula(inputs[0].toDouble(), inputs[2].toDouble())
+        }else if(Operator.MULTIPLY.sign == inputs[1]){
+            return Operator.MULTIPLY.formula(inputs[0].toDouble(), inputs[2].toDouble())
+        }else if(Operator.DIVIDE.sign == inputs[1]){
+            return Operator.DIVIDE.formula(inputs[0].toDouble(), inputs[2].toDouble())
+        }else {
+            return 0.0
+        }
+    }
 }

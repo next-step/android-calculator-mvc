@@ -1,5 +1,6 @@
 package edu.nextstep.camp.calculator.model
 
+import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -38,5 +39,29 @@ class CalculatorTest {
         var input = Calculator("2 + 3 / 2")
 
         assertTrue(input.isSplitLengthOddNumber())
+    }
+
+    @Test
+    fun 배열이_세개일_때_문자열_계산이_참_덧셈(){
+        var input = Calculator("2 + 3")
+        assertThat(input.calcurate(), equalTo(5.0))
+    }
+
+    @Test
+    fun 배열이_세개일_때_문자열_계산이_참_뺄셈() {
+        var input = Calculator("3 - 2")
+        assertThat(input.calcurate(), equalTo(1.0))
+    }
+
+    @Test
+    fun 배열이_세개일_때_문자열_계산이_참_곱셈() {
+        var input = Calculator("3 * 2")
+        assertThat(input.calcurate(), equalTo(6.0))
+    }
+
+    @Test
+    fun 배열이_세개일_때_문자열_계산이_참_나눗셈() {
+        var input = Calculator("4 / 2")
+        assertThat(input.calcurate(), equalTo(2.0))
     }
 }
