@@ -1,11 +1,33 @@
 package edu.nextstep.camp.calculator.model
 
+import org.assertj.core.api.Assertions
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.*
 import org.junit.Test
 
 
 class CalculatorTest {
+    @Test
+    fun 문자열계산식_없을_때_예외발생(){
+        Assertions.assertThatThrownBy { Calculator("").splitText() }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("문자열 계산을 할 수 없습니다.")
+    }
+
+    @Test
+    fun 문자열계산식_없을_때_숫자가_없을_때_예외발생(){
+        Assertions.assertThatThrownBy { Calculator("? + 2").splitText() }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("숫자를 입력해주세요.")
+    }
+
+    @Test
+    fun 문자열계산식_없을_때_연산자가_아닐_때_예외발생(){
+        Assertions.assertThatThrownBy { Calculator("2 # 4").splitText() }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("올바른 연산자 부호를 입력해주세요.")
+    }
+
     @Test
     fun 띄어쓰기문자를_배열로_담을_수_있다(){
         //given
