@@ -19,18 +19,22 @@ class Calculator(var inputs : String) {
         return splitText().size % 2 == 1
     }
 
-    fun calcurate(): Double {
+    fun calculate(): Double {
         val inputs = splitText()
-        if(Operator.PLUS.sign == inputs[1]){
-            return Operator.PLUS.formula(inputs[0].toDouble(), inputs[2].toDouble())
-        }else if(Operator.MINUS.sign == inputs[1]){
-            return Operator.MINUS.formula(inputs[0].toDouble(), inputs[2].toDouble())
-        }else if(Operator.MULTIPLY.sign == inputs[1]){
-            return Operator.MULTIPLY.formula(inputs[0].toDouble(), inputs[2].toDouble())
-        }else if(Operator.DIVIDE.sign == inputs[1]){
-            return Operator.DIVIDE.formula(inputs[0].toDouble(), inputs[2].toDouble())
-        }else {
-            return 0.0
+        var result = inputs[0].toDouble()
+        for(index in 1 until inputs.size step 2){
+            if(Operator.PLUS.sign == inputs[index]){
+                result = Operator.PLUS.formula(result, inputs[index+1].toDouble())
+            }else if(Operator.MINUS.sign == inputs[index]){
+                result = Operator.MINUS.formula(result, inputs[index+1].toDouble())
+            }else if(Operator.MULTIPLY.sign == inputs[index]){
+                result = Operator.MULTIPLY.formula(result, inputs[index+1].toDouble())
+            }else if(Operator.DIVIDE.sign == inputs[index]){
+                result = Operator.DIVIDE.formula(result, inputs[index+1].toDouble())
+            }else {
+                result =  0.0
+            }
         }
+        return result
     }
 }

@@ -44,24 +44,54 @@ class CalculatorTest {
     @Test
     fun 배열이_세개일_때_문자열_계산이_참_덧셈(){
         var input = Calculator("2 + 3")
-        assertThat(input.calcurate(), equalTo(5.0))
+        assertThat(input.calculate(), equalTo(5.0))
     }
 
     @Test
     fun 배열이_세개일_때_문자열_계산이_참_뺄셈() {
         var input = Calculator("3 - 2")
-        assertThat(input.calcurate(), equalTo(1.0))
+        assertThat(input.calculate(), equalTo(1.0))
     }
 
     @Test
     fun 배열이_세개일_때_문자열_계산이_참_곱셈() {
         var input = Calculator("3 * 2")
-        assertThat(input.calcurate(), equalTo(6.0))
+        assertThat(input.calculate(), equalTo(6.0))
     }
 
     @Test
     fun 배열이_세개일_때_문자열_계산이_참_나눗셈() {
         var input = Calculator("4 / 2")
-        assertThat(input.calcurate(), equalTo(2.0))
+        assertThat(input.calculate(), equalTo(2.0))
+    }
+
+    @Test
+    fun 배열이_다섯개일_때_문자열_계산이_참_덧셈(){
+        var input = Calculator("2 + 3 + 3")
+        assertThat(input.calculate(), equalTo(8.0))
+    }
+
+    @Test
+    fun 배열이_다섯개일_때_문자열_계산이_참_뺄셈() {
+        var input = Calculator("5 - 2 - 1")
+        assertThat(input.calculate(), equalTo(2.0))
+    }
+
+    @Test
+    fun 배열이_다섯개일_때_문자열_계산이_참_곱셈() {
+        var input = Calculator("3 * 2 * 2")
+        assertThat(input.calculate(), equalTo(12.0))
+    }
+
+    @Test
+    fun 배열이_다섯개일_때_문자열_계산이_참_나눗셈() {
+        var input = Calculator("6 / 2 / 2")
+        assertThat(input.calculate(), equalTo(1.5))
+    }
+
+    @Test
+    fun 사칙연산() {
+        var input = Calculator("2 + 3 * 4 / 2")
+        assertThat(input.calculate(), equalTo(10.0))
     }
 }
