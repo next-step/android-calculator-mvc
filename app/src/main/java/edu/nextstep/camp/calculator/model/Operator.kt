@@ -33,4 +33,11 @@ enum class Operator(
         }
     );
 
+    companion object {
+        fun of(sign: String): Operator {
+            return Operator.values().first{
+                it.sign == sign
+            }
+        }
+    }
 }

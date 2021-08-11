@@ -38,7 +38,7 @@ class CalculatorTest {
     fun 배열_인덱스길이가_홀수이면_참(){
         var input = Calculator("2 + 3 / 2")
 
-        assertTrue(input.isSplitLengthOddNumber())
+        assertTrue(input.isSplitLengthOperator())
     }
 
     @Test
