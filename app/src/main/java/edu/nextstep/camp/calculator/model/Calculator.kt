@@ -1,12 +1,6 @@
 package edu.nextstep.camp.calculator.model
 
 class Calculator(private val inputs: String) {
-    companion object {
-        private const val INDEX_INITIAL = 0
-        private const val ASCII_ZERO = 48
-        private const val ASCII_NINE = 57
-    }
-
     private fun splitText(): List<String> {
         val splits = inputs.split(" ")
         if (splits.size <= 1) {
@@ -24,7 +18,7 @@ class Calculator(private val inputs: String) {
     }
 
     private fun isNumber(text: String): Boolean {
-        return text.elementAt(INDEX_INITIAL).toInt() in ASCII_ZERO..ASCII_NINE
+        return text.first().toString().toIntOrNull() != null
     }
 
     private fun isSplitLengthOperator(): Boolean {
