@@ -1,7 +1,7 @@
 package edu.nextstep.camp.calculator.model
 
 class Calculator(private val inputs: String) {
-    private fun splitText(): List<String> {
+    fun splitText(): List<String> {
         val splits = inputs.split(" ")
         if (splits.size <= 1) {
             throw IllegalArgumentException("문자열 계산을 할 수 없습니다.")
@@ -19,10 +19,6 @@ class Calculator(private val inputs: String) {
 
     private fun isNumber(text: String): Boolean {
         return text.first().toString().toIntOrNull() != null
-    }
-
-    private fun isSplitLengthOperator(): Boolean {
-        return splitText().size % 2 == 1
     }
 
     fun calculate(): Double {

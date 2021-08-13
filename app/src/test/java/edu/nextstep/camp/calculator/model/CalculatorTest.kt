@@ -39,30 +39,6 @@ class CalculatorTest {
     }
 
     @Test
-    fun `배열에서 인덱스가 짝수인 경우 숫자면 참`() {
-        var input = Calculator("11 + 3")
-        var inputs = input.splitText()
-
-        assertTrue(input.isNumber(inputs[0]))
-        assertTrue(input.isNumber(inputs[2]))
-    }
-
-    @Test
-    fun `배열에서 인덱스가 홀수인 경우 문자이면 참`() {
-        var input = Calculator("2 + 3")
-        var inputs = input.splitText()
-
-        assertFalse(input.isNumber(inputs[1]))
-    }
-
-    @Test
-    fun `배열 인덱스길이가 홀수이면 참`() {
-        var input = Calculator("2 + 3 / 2")
-
-        assertTrue(input.isSplitLengthOperator())
-    }
-
-    @Test
     fun `배열이 세개일 때 문자열 계산이 참 덧셈`() {
         var input = Calculator("2 + 3")
         assertThat(input.calculate(), equalTo(5.0))
