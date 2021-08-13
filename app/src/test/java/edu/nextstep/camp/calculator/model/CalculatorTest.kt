@@ -30,7 +30,6 @@ class CalculatorTest {
 
     @Test
     fun `띄어쓰기문자를 배열로 담을 수 있다`(){
-        //given
         //when
         var input = Calculator("2 + 3")
         var inputs = input.splitText()
