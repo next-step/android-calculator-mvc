@@ -8,28 +8,28 @@ import org.junit.Test
 
 class CalculatorTest {
     @Test
-    fun `문자열계산식 없을 때 예외발생`(){
+    fun `문자열계산식 없을 때 예외발생`() {
         Assertions.assertThatThrownBy { Calculator("").splitText() }
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessageContaining("문자열 계산을 할 수 없습니다.")
     }
 
     @Test
-    fun `문자열계산식 없을 때 숫자가 없을 때 예외발생`(){
+    fun `문자열계산식 없을 때 숫자가 없을 때 예외발생`() {
         Assertions.assertThatThrownBy { Calculator("? + 2").splitText() }
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessageContaining("숫자를 입력해주세요.")
     }
 
     @Test
-    fun `문자열계산식 없을 때 연산자가 아닐 때 예외발생`(){
+    fun `문자열계산식 없을 때 연산자가 아닐 때 예외발생`() {
         Assertions.assertThatThrownBy { Calculator("2 # 4").splitText() }
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessageContaining("올바른 연산자 부호를 입력해주세요.")
     }
 
     @Test
-    fun `띄어쓰기문자를 배열로 담을 수 있다`(){
+    fun `띄어쓰기문자를 배열로 담을 수 있다`() {
         //when
         var input = Calculator("2 + 3")
         var inputs = input.splitText()
@@ -39,7 +39,7 @@ class CalculatorTest {
     }
 
     @Test
-    fun `배열에서 인덱스가 짝수인 경우 숫자면 참`(){
+    fun `배열에서 인덱스가 짝수인 경우 숫자면 참`() {
         var input = Calculator("11 + 3")
         var inputs = input.splitText()
 
@@ -48,7 +48,7 @@ class CalculatorTest {
     }
 
     @Test
-    fun `배열에서 인덱스가 홀수인 경우 문자이면 참`(){
+    fun `배열에서 인덱스가 홀수인 경우 문자이면 참`() {
         var input = Calculator("2 + 3")
         var inputs = input.splitText()
 
@@ -56,14 +56,14 @@ class CalculatorTest {
     }
 
     @Test
-    fun `배열 인덱스길이가 홀수이면 참`(){
+    fun `배열 인덱스길이가 홀수이면 참`() {
         var input = Calculator("2 + 3 / 2")
 
         assertTrue(input.isSplitLengthOperator())
     }
 
     @Test
-    fun `배열이 세개일 때 문자열 계산이 참 덧셈`(){
+    fun `배열이 세개일 때 문자열 계산이 참 덧셈`() {
         var input = Calculator("2 + 3")
         assertThat(input.calculate(), equalTo(5.0))
     }
@@ -87,7 +87,7 @@ class CalculatorTest {
     }
 
     @Test
-    fun `배열이 다섯개일 때 문자열 계산이 참 덧셈`(){
+    fun `배열이 다섯개일 때 문자열 계산이 참 덧셈`() {
         var input = Calculator("2 + 3 + 3")
         assertThat(input.calculate(), equalTo(8.0))
     }
