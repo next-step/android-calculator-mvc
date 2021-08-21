@@ -3,7 +3,7 @@ package edu.nextstep.camp.calculator.model
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.*
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class OperatorTest {
     private val firstOperand = 3.0

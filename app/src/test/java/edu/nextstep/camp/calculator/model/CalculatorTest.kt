@@ -4,6 +4,8 @@ import org.assertj.core.api.Assertions
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.*
 import org.junit.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 
 
 class CalculatorTest {
@@ -38,52 +40,18 @@ class CalculatorTest {
         assertEquals(inputs.size, 3)
     }
 
-    @Test
-    fun `배열이 세개일 때 문자열 계산이 참 덧셈`() {
-        var input = Calculator("2 + 3")
+    @ParameterizedTest
+    @ValueSource(strings=["2 + 3", "7 - 2", "1 * 5", "10 / 2"])
+    fun `배열이 세개일 때 사칙연산을 해야한다`(resultCalculated: String) {
+        var input = Calculator(resultCalculated)
         assertThat(input.calculate(), equalTo(5.0))
     }
 
-    @Test
-    fun `배열이 세개일 때 문자열 계산이 참 뺄셈`() {
-        var input = Calculator("3 - 2")
-        assertThat(input.calculate(), equalTo(1.0))
-    }
-
-    @Test
-    fun `배열이 세개일 때 문자열 계산이 참 곱셈`() {
-        var input = Calculator("3 * 2")
-        assertThat(input.calculate(), equalTo(6.0))
-    }
-
-    @Test
-    fun `배열이 세개일 때 문자열 계산이 참 나눗셈`() {
-        var input = Calculator("4 / 2")
-        assertThat(input.calculate(), equalTo(2.0))
-    }
-
-    @Test
-    fun `배열이 다섯개일 때 문자열 계산이 참 덧셈`() {
-        var input = Calculator("2 + 3 + 3")
-        assertThat(input.calculate(), equalTo(8.0))
-    }
-
-    @Test
-    fun `배열이 다섯개일 때 문자열 계산이 참 뺄셈`() {
-        var input = Calculator("5 - 2 - 1")
-        assertThat(input.calculate(), equalTo(2.0))
-    }
-
-    @Test
-    fun `배열이 다섯개일 때 문자열 계산이 참 곱셈`() {
-        var input = Calculator("3 * 2 * 2")
-        assertThat(input.calculate(), equalTo(12.0))
-    }
-
-    @Test
-    fun `배열이 다섯개일 때 문자열 계산이 참 나눗셈`() {
-        var input = Calculator("6 / 2 / 2")
-        assertThat(input.calculate(), equalTo(1.5))
+    @ParameterizedTest
+    @ValueSource(strings=["2 + 3 + 5", "13 - 2 - 1", "1 * 5 * 2", "20 / 2 / 1"])
+    fun `배열이 다섯 개일 때 사칙연산을 해야한다`(resultCalculated: String) {
+        var input = Calculator(resultCalculated)
+        assertThat(input.calculate(), equalTo(10.0))
     }
 
     @Test
