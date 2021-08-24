@@ -12,11 +12,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initButtonClickListener()
+        initOperandButtonClickListener()
         initOperatorButtonClickListener()
     }
 
-    private fun initButtonClickListener() = with(binding) {
+    private fun initOperandButtonClickListener() = with(binding) {
         button0.setOnClickListener {
             textFormula.append("0")
         }
