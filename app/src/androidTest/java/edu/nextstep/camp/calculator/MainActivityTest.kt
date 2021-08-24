@@ -14,7 +14,7 @@ class MainActivityTest {
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun `입력된_숫자뒤에_숫자를_더_입력하면_연달아서_숫자가_보여야한다`(){
+    fun `입력된_숫자뒤에_숫자를_더_입력하면_연달아서_숫자가_보여야한다`() {
         onView(withId(R.id.button1)).perform(click())
         onView(withId(R.id.button9)).perform(click())
 

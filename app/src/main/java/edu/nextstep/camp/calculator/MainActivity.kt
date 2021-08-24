@@ -51,21 +51,41 @@ class MainActivity : AppCompatActivity() {
 
     private fun initOperatorButtonClickListener() = with(binding) {
         buttonDivide.setOnClickListener {
-            textFormula.append(operatorDisplay(textFormula.text.toString(), getString(R.string.calculator_divide)))
+            textFormula.append(
+                operatorDisplay(
+                    textFormula.text.toString(),
+                    getString(R.string.calculator_divide)
+                )
+            )
         }
         buttonMultiply.setOnClickListener {
-            textFormula.append(operatorDisplay(textFormula.text.toString(), getString(R.string.calculator_multiply)))
+            textFormula.append(
+                operatorDisplay(
+                    textFormula.text.toString(),
+                    getString(R.string.calculator_multiply)
+                )
+            )
         }
         buttonMinus.setOnClickListener {
-            textFormula.append(operatorDisplay(textFormula.text.toString(), getString(R.string.calculator_minus)))
+            textFormula.append(
+                operatorDisplay(
+                    textFormula.text.toString(),
+                    getString(R.string.calculator_minus)
+                )
+            )
         }
         buttonPlus.setOnClickListener {
-            textFormula.append(operatorDisplay(textFormula.text.toString(), getString(R.string.calculator_plus)))
+            textFormula.append(
+                operatorDisplay(
+                    textFormula.text.toString(),
+                    getString(R.string.calculator_plus)
+                )
+            )
         }
     }
 
-    private fun operatorDisplay(currentView : String, appendText: String): String = when{
-        currentView.isEmpty()-> ""
+    private fun operatorDisplay(currentView: String, appendText: String): String = when {
+        currentView.isEmpty() -> ""
         else -> appendText
     }
 }
