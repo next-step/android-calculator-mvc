@@ -38,4 +38,11 @@ class MainActivityTest {
 
         onView(withId(R.id.textFormula)).check(matches(withText("1+")))
     }
+
+    @Test
+    fun `입력된_값이_없을_때_지우기_버튼을_누르면_화면에_아무런_변화가_없어야한다`() {
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        onView(withId(R.id.textFormula)).check(matches(withText("")))
+    }
 }

@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
 
         initOperandButtonClickListener()
         initOperatorButtonClickListener()
+        initCalculatorButtonClickListener()
     }
 
     private fun initOperandButtonClickListener() = with(binding) {
@@ -88,5 +89,18 @@ class MainActivity : AppCompatActivity() {
         currentView.isEmpty() -> ""
         (appendText.last() as? Int) != null -> appendText
         else -> appendText
+    }
+
+    private fun initCalculatorButtonClickListener() = with(binding) {
+        buttonDelete.setOnClickListener {
+            textFormula.append(deleteDisplay(textFormula.text.toString()))
+        }
+        buttonEquals.setOnClickListener {
+        }
+    }
+
+    private fun deleteDisplay(currentView: String): String = when {
+        currentView.isEmpty() -> ""
+        else -> currentView.dropLast(0)
     }
 }
