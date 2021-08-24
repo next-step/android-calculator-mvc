@@ -90,4 +90,14 @@ class MainActivityTest {
 
         onView(withId(R.id.textFormula)).check(matches(withText("19")))
     }
+
+    @Test
+    fun `입력된_값이_없는_상태에서_연산자를_누르면_화면에_아무런_변화가_없어야_한다`() {
+        onView(withId(R.id.buttonDivide)).perform(click())
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        onView(withId(R.id.buttonMinus)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        onView(withId(R.id.textFormula)).check(matches(withText("")))
+    }
 }

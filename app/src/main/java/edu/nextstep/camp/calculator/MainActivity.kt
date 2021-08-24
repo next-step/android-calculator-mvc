@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initButtonClickListener()
+        initOperatorButtonClickListener()
     }
 
     private fun initButtonClickListener() = with(binding) {
@@ -46,5 +47,25 @@ class MainActivity : AppCompatActivity() {
         button9.setOnClickListener {
             textFormula.append("9")
         }
+    }
+
+    private fun initOperatorButtonClickListener() = with(binding) {
+        buttonDivide.setOnClickListener {
+            textFormula.append(operatorDisplay(textFormula.text.toString(), getString(R.string.calculator_divide)))
+        }
+        buttonMultiply.setOnClickListener {
+            textFormula.append(operatorDisplay(textFormula.text.toString(), getString(R.string.calculator_multiply)))
+        }
+        buttonMinus.setOnClickListener {
+            textFormula.append(operatorDisplay(textFormula.text.toString(), getString(R.string.calculator_minus)))
+        }
+        buttonPlus.setOnClickListener {
+            textFormula.append(operatorDisplay(textFormula.text.toString(), getString(R.string.calculator_plus)))
+        }
+    }
+
+    private fun operatorDisplay(currentView : String, appendText: String): String = when{
+        currentView.isEmpty()-> ""
+        else -> appendText
     }
 }
