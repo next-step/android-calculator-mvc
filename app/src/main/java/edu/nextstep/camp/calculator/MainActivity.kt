@@ -86,6 +86,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun operatorDisplay(currentView: String, appendText: String): String = when {
         currentView.isEmpty() -> ""
+        (appendText.last() as? Int) != null -> appendText
         else -> appendText
     }
 }

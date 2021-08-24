@@ -30,4 +30,12 @@ class MainActivityTest {
 
         onView(withId(R.id.textFormula)).check(matches(withText("")))
     }
+
+    @Test
+    fun `숫자가_입력된_상태에서_연산자를_누르면_해당기호가_나타나야한다`() {
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        onView(withId(R.id.textFormula)).check(matches(withText("1+")))
+    }
 }
