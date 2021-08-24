@@ -82,4 +82,12 @@ class MainActivityTest {
 
         onView(withId(R.id.textFormula)).check(matches(withText("9")))
     }
+
+    @Test
+    fun `입력된_숫자뒤에_숫자를_더_입력하면_연달아서_숫자가_보여야한다`(){
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.button9)).perform(click())
+
+        onView(withId(R.id.textFormula)).check(matches(withText("19")))
+    }
 }
