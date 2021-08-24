@@ -87,13 +87,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun operatorDisplay(currentView: String, appendText: String): String = when {
         currentView.isEmpty() -> ""
-        (appendText.last() as? Int) != null -> appendText
+        isLastTextOperand(currentView) -> appendText
         else -> appendText
     }
 
     private fun initCalculatorButtonClickListener() = with(binding) {
         buttonDelete.setOnClickListener {
-            textFormula.append(deleteDisplay(textFormula.text.toString()))
+            val text = deleteDisplay(textFormula.text.toString())
+            textFormula.text = text
         }
         buttonEquals.setOnClickListener {
         }
@@ -101,6 +102,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun deleteDisplay(currentView: String): String = when {
         currentView.isEmpty() -> ""
-        else -> currentView.dropLast(0)
+        isLastTextOperand(currentView) -> currentView.dropLast(1)
+        else -> currentView.dropLast(2)
     }
+
+    private fun isLastTextOperand(currentView: String): Boolean =  currentView.last().toString().toIntOrNull() != null
 }

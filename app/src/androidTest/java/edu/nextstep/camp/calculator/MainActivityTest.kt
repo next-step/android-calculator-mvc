@@ -45,4 +45,13 @@ class MainActivityTest {
 
         onView(withId(R.id.textFormula)).check(matches(withText("")))
     }
+
+    @Test
+    fun `입력된_수식에_끝자리가_숫자이면_숫자_하나만_지워야한다`(){
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        onView(withId(R.id.textFormula)).check(matches(withText("1")))
+    }
 }
