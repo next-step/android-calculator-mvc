@@ -1,7 +1,5 @@
 package edu.nextstep.camp.calculator.model
 
-import kotlin.math.sign
-
 enum class Operator(
     val sign: String,
     val formula: (firstOperand: Double, secondOperand: Double) -> Double

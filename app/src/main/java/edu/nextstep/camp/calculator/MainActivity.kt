@@ -62,8 +62,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun initCalculatorButtonClickListener() = with(binding) {
         buttonDelete.setOnClickListener {
-            val text = deleteDisplay(textFormula.text.toString())
-            textFormula.text = text
+            val result
+            = deleteDisplay(textFormula.text.toString())
+            textFormula.text = result
         }
         buttonEquals.setOnClickListener {
             if (!isLastTextOperand(textFormula.text.toString())) {
