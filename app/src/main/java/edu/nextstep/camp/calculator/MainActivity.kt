@@ -19,35 +19,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initOperandButtonClickListener() = with(binding) {
-        button0.setOnClickListener {
-            textFormula.append("0")
-        }
-        button1.setOnClickListener {
-            textFormula.append("1")
-        }
-        button2.setOnClickListener {
-            textFormula.append("2")
-        }
-        button3.setOnClickListener {
-            textFormula.append("3")
-        }
-        button4.setOnClickListener {
-            textFormula.append("4")
-        }
-        button5.setOnClickListener {
-            textFormula.append("5")
-        }
-        button6.setOnClickListener {
-            textFormula.append("6")
-        }
-        button7.setOnClickListener {
-            textFormula.append("7")
-        }
-        button8.setOnClickListener {
-            textFormula.append("8")
-        }
-        button9.setOnClickListener {
-            textFormula.append("9")
+        listOf(
+            button0, button1, button2, button3, button4,
+            button5, button6, button7, button8, button9
+        ).forEach{ button ->
+            button.setOnClickListener {
+                textFormula.append(button.text.toString())
+            }
         }
     }
 
