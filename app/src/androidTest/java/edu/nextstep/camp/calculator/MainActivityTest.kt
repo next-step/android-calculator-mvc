@@ -1,6 +1,5 @@
 package edu.nextstep.camp.calculator
 
-import android.os.IBinder
 import android.view.WindowManager
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Root
@@ -76,7 +75,7 @@ class MainActivityTest {
         onView(withId(R.id.buttonPlus)).perform(click())
         onView(withId(R.id.buttonEquals)).perform(click())
 
-        onView(withText("수식이 올바르지 않습니다.")).inRoot(ToastMatcher())
+        onView(withText(R.string.msg_do_not_match_formula)).inRoot(ToastMatcher())
             .check(matches(isDisplayed()))
     }
 
@@ -95,17 +94,15 @@ class MainActivityTest {
 
 class ToastMatcher : TypeSafeMatcher<Root>() {
     override fun describeTo(description: Description) {
-        description.appendText("is toast")
     }
 
-    override fun matchesSafely(item: Root): Boolean {
-        val type: Int = item.windowLayoutParams.get().type
+    public override fun matchesSafely(root: Root): Boolean {
+        val type = root.windowLayoutParams.get().type
         if (type == WindowManager.LayoutParams.TYPE_TOAST) {
-            val windowToken: IBinder = item.decorView.windowToken
-            val appToken: IBinder = item.decorView.applicationWindowToken
+            val windowToken = root.decorView.windowToken
+            val appToken = root.decorView.applicationWindowToken
             if (windowToken === appToken) {
                 //means this window isn't contained by any other windows.
-                return true
             }
         }
         return false
