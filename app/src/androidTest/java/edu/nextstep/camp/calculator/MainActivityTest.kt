@@ -41,7 +41,7 @@ class MainActivityTest {
         onView(withId(R.id.button1)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
 
-        onView(withId(R.id.textFormula)).check(matches(withText("1+")))
+        onView(withId(R.id.textFormula)).check(matches(withText("1 + ")))
     }
 
     @Test
@@ -78,6 +78,16 @@ class MainActivityTest {
 
         onView(withText("수식이 올바르지 않습니다.")).inRoot(ToastMatcher())
             .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `수식이_입력된_상황에서_결과값을_얻으면_값이_출력된다`() {
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonEquals)).perform(click())
+
+        onView(withId(R.id.textFormula)).check(matches(withText("2")))
     }
 }
 

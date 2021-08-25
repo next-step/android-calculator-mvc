@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
+import edu.nextstep.camp.calculator.model.Calculator
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -31,37 +32,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun initOperatorButtonClickListener() = with(binding) {
         buttonDivide.setOnClickListener {
-            textFormula.append(
-                operatorDisplay(
-                    textFormula.text.toString(),
-                    getString(R.string.calculator_divide)
-                )
-            )
+            setOperatorDisplay(getString(R.string.calculator_divide))
         }
         buttonMultiply.setOnClickListener {
-            textFormula.append(
-                operatorDisplay(
-                    textFormula.text.toString(),
-                    getString(R.string.calculator_multiply)
-                )
-            )
+            setOperatorDisplay(getString(R.string.calculator_multiply))
         }
         buttonMinus.setOnClickListener {
-            textFormula.append(
-                operatorDisplay(
-                    textFormula.text.toString(),
-                    getString(R.string.calculator_minus)
-                )
-            )
+            setOperatorDisplay(getString(R.string.calculator_minus))
         }
         buttonPlus.setOnClickListener {
-            textFormula.append(
-                operatorDisplay(
-                    textFormula.text.toString(),
-                    getString(R.string.calculator_plus)
-                )
-            )
+            setOperatorDisplay(getString(R.string.calculator_plus))
         }
+    }
+
+    private fun setOperatorDisplay(operator : String){
+        binding.textFormula.append(
+            operatorDisplay(
+                binding.textFormula.text.toString(),
+                " $operator "
+            )
+        )
     }
 
     private fun operatorDisplay(currentView: String, appendText: String): String = when {
@@ -83,7 +73,8 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }else{
-                val test = ""
+                val result = Calculator(textFormula.text.toString()).calculate()
+                textFormula.text = result.toInt().toString()
             }
         }
     }
@@ -91,7 +82,7 @@ class MainActivity : AppCompatActivity() {
     private fun deleteDisplay(currentView: String): String = when {
         currentView.isEmpty() -> ""
         isLastTextOperand(currentView) -> currentView.dropLast(1)
-        else -> currentView.dropLast(2)
+        else -> currentView.dropLast(4)
     }
 
     private fun isLastTextOperand(currentView: String): Boolean =
