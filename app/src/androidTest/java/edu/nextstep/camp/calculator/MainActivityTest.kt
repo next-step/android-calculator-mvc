@@ -1,13 +1,18 @@
 package edu.nextstep.camp.calculator
 
+import android.os.IBinder
+import android.view.WindowManager
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Root
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import org.hamcrest.Description
+import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
+
 
 class MainActivityTest {
     @get:Rule
@@ -63,5 +68,34 @@ class MainActivityTest {
         onView(withId(R.id.buttonDelete)).perform(click())
 
         onView(withId(R.id.textFormula)).check(matches(withText("1")))
+    }
+
+    @Test
+    fun `연산자가_입력된_상황에서_연산결과를_얻으려고_하면_토스트_메세지가_보여야한다`() {
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.buttonEquals)).perform(click())
+
+        onView(withText("수식이 올바르지 않습니다.")).inRoot(ToastMatcher())
+            .check(matches(isDisplayed()))
+    }
+}
+
+class ToastMatcher : TypeSafeMatcher<Root>() {
+    override fun describeTo(description: Description) {
+        description.appendText("is toast")
+    }
+
+    override fun matchesSafely(item: Root): Boolean {
+        val type: Int = item.windowLayoutParams.get().type
+        if (type == WindowManager.LayoutParams.TYPE_TOAST) {
+            val windowToken: IBinder = item.decorView.windowToken
+            val appToken: IBinder = item.decorView.applicationWindowToken
+            if (windowToken === appToken) {
+                //means this window isn't contained by any other windows.
+                return true
+            }
+        }
+        return false
     }
 }

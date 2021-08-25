@@ -1,6 +1,7 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 
@@ -97,6 +98,15 @@ class MainActivity : AppCompatActivity() {
             textFormula.text = text
         }
         buttonEquals.setOnClickListener {
+            if (!isLastTextOperand(textFormula.text.toString())) {
+                Toast.makeText(
+                    this@MainActivity,
+                    getString(R.string.msg_do_not_match_formula),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }else{
+                val test = ""
+            }
         }
     }
 
@@ -106,5 +116,6 @@ class MainActivity : AppCompatActivity() {
         else -> currentView.dropLast(2)
     }
 
-    private fun isLastTextOperand(currentView: String): Boolean =  currentView.last().toString().toIntOrNull() != null
+    private fun isLastTextOperand(currentView: String): Boolean =
+        currentView.last().toString().toIntOrNull() != null
 }
