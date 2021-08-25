@@ -25,7 +25,7 @@ enum class Operator(
         }
     ),
     DIVIDE(
-        sign = "/",
+        sign = "÷",
         formula = { firstOperand, secondOperand ->
             if (secondOperand == 0.0) {
                 throw ArithmeticException("Divide by zero should trow")

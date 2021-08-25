@@ -84,7 +84,9 @@ class MainActivityTest {
     fun `수식이_입력된_상황에서_결과값을_얻으면_값이_출력된다`() {
         onView(withId(R.id.button1)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
-        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonDivide)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
         onView(withId(R.id.buttonEquals)).perform(click())
 
         onView(withId(R.id.textFormula)).check(matches(withText("2")))
