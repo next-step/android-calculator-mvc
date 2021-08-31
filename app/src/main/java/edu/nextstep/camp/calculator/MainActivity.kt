@@ -1,6 +1,5 @@
 package edu.nextstep.camp.calculator
 
-import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -48,14 +47,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun setOperatorDisplay(operator : String){
         binding.textFormula.append(
-            operatorDisplay(
+            getOperatorResult(
                 binding.textFormula.text.toString(),
                 " $operator "
             )
         )
     }
 
-    private fun operatorDisplay(currentView: String, appendText: String): String = when {
+    private fun getOperatorResult(currentView: String, appendText: String): String = when {
         currentView.isEmpty() -> ""
         isLastTextOperand(currentView) -> appendText
         else -> appendText
@@ -64,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     private fun initCalculatorButtonClickListener() = with(binding) {
         buttonDelete.setOnClickListener {
             val result
-            = deleteDisplay(textFormula.text.toString())
+            = getDeleteResult(textFormula.text.toString())
             textFormula.text = result
         }
         buttonEquals.setOnClickListener {
@@ -81,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, textId, Toast.LENGTH_SHORT).show()
     }
 
-    private fun deleteDisplay(currentView: String): String = when {
+    private fun getDeleteResult(currentView: String): String = when {
         currentView.isEmpty() -> ""
         isLastTextOperand(currentView) -> currentView.dropLast(1)
         else -> currentView.dropLast(4)
