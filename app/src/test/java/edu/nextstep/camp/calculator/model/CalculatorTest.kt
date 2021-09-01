@@ -31,14 +31,14 @@ class CalculatorTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["2 + 3", "7 - 2", "1 * 5", "10 / 2"])
+    @ValueSource(strings = ["2 + 3", "7 - 2", "1 * 5", "10 ÷ 2"])
     fun `배열이 세개일 때 사칙연산을 해야한다`(resultCalculated: String) {
         var input = Calculator(resultCalculated)
         assertThat(input.calculate(), equalTo(5.0))
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["2 + 3 + 5", "13 - 2 - 1", "1 * 5 * 2", "20 / 2 / 1"])
+    @ValueSource(strings = ["2 + 3 + 5", "13 - 2 - 1", "1 * 5 * 2", "20 ÷ 2 ÷ 1"])
     fun `배열이 다섯 개일 때 사칙연산을 해야한다`(resultCalculated: String) {
         var input = Calculator(resultCalculated)
         assertThat(input.calculate(), equalTo(10.0))
@@ -46,7 +46,7 @@ class CalculatorTest {
 
     @Test
     fun `사칙연산`() {
-        var input = Calculator("2 + 3 * 4 / 2")
+        var input = Calculator("2 + 3 * 4 ÷ 2")
         assertThat(input.calculate(), equalTo(10.0))
     }
 }

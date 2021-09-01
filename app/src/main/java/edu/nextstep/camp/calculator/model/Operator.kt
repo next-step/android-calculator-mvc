@@ -1,7 +1,5 @@
 package edu.nextstep.camp.calculator.model
 
-import kotlin.math.sign
-
 enum class Operator(
     val sign: String,
     val formula: (firstOperand: Double, secondOperand: Double) -> Double
@@ -25,7 +23,7 @@ enum class Operator(
         }
     ),
     DIVIDE(
-        sign = "/",
+        sign = "÷",
         formula = { firstOperand, secondOperand ->
             if (secondOperand == 0.0) {
                 throw ArithmeticException("Divide by zero should trow")

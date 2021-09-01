@@ -1,85 +1,110 @@
 package edu.nextstep.camp.calculator
 
+import android.view.WindowManager
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Root
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import org.hamcrest.Description
+import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
+
 
 class MainActivityTest {
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun `0_버튼을_누르면_해당_숫자가_화면에_보여야한다`(){
-        onView(withId(R.id.button0)).perform(click())
+    fun `입력된_숫자뒤에_숫자를_더_입력하면_연달아서_숫자가_보여야한다`() {
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.button9)).perform(click())
 
-        onView(withId(R.id.textFormula)).check(matches(withText("0")))
+        onView(withId(R.id.textFormula)).check(matches(withText("19")))
     }
 
     @Test
-    fun `1_버튼을_누르면_해당_숫자가_화면에_보여야한다`(){
+    fun `입력된_값이_없는_상태에서_연산자를_누르면_화면에_아무런_변화가_없어야_한다`() {
+        onView(withId(R.id.buttonDivide)).perform(click())
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        onView(withId(R.id.buttonMinus)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        onView(withId(R.id.textFormula)).check(matches(withText("")))
+    }
+
+    @Test
+    fun `숫자가_입력된_상태에서_연산자를_누르면_해당기호가_나타나야한다`() {
         onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        onView(withId(R.id.textFormula)).check(matches(withText("1 + ")))
+    }
+
+    @Test
+    fun `입력된_값이_없을_때_지우기_버튼을_누르면_화면에_아무런_변화가_없어야한다`() {
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        onView(withId(R.id.textFormula)).check(matches(withText("")))
+    }
+
+    @Test
+    fun `입력된_수식에_끝자리가_숫자이면_숫자_하나만_지워야한다`() {
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonDelete)).perform(click())
 
         onView(withId(R.id.textFormula)).check(matches(withText("1")))
     }
 
     @Test
-    fun `2_버튼을_누르면_해당_숫자가_화면에_보여야한다`(){
+    fun `입력된_수식에_끝자리가_연산자가_있으면_연산자와_마지막_숫자의_값이_지워져야한다`() {
+        onView(withId(R.id.button1)).perform(click())
         onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        onView(withId(R.id.textFormula)).check(matches(withText("1")))
+    }
+
+    @Test
+    fun `연산자가_입력된_상황에서_연산결과를_얻으려고_하면_토스트_메세지가_보여야한다`() {
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.buttonEquals)).perform(click())
+
+        onView(withText(R.string.msg_do_not_match_formula)).inRoot(ToastMatcher())
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `수식이_입력된_상황에서_결과값을_얻으면_값이_출력된다`() {
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonDivide)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonEquals)).perform(click())
 
         onView(withId(R.id.textFormula)).check(matches(withText("2")))
     }
+}
 
-    @Test
-    fun `3_버튼을_누르면_해당_숫자가_화면에_보여야한다`(){
-        onView(withId(R.id.button3)).perform(click())
-
-        onView(withId(R.id.textFormula)).check(matches(withText("3")))
+class ToastMatcher : TypeSafeMatcher<Root>() {
+    override fun describeTo(description: Description) {
     }
 
-    @Test
-    fun `4_버튼을_누르면_해당_숫자가_화면에_보여야한다`(){
-        onView(withId(R.id.button4)).perform(click())
-
-        onView(withId(R.id.textFormula)).check(matches(withText("4")))
-    }
-
-    @Test
-    fun `5_버튼을_누르면_해당_숫자가_화면에_보여야한다`(){
-        onView(withId(R.id.button5)).perform(click())
-
-        onView(withId(R.id.textFormula)).check(matches(withText("5")))
-    }
-
-    @Test
-    fun `6_버튼을_누르면_해당_숫자가_화면에_보여야한다`(){
-        onView(withId(R.id.button6)).perform(click())
-
-        onView(withId(R.id.textFormula)).check(matches(withText("6")))
-    }
-
-    @Test
-    fun `7_버튼을_누르면_해당_숫자가_화면에_보여야한다`(){
-        onView(withId(R.id.button7)).perform(click())
-
-        onView(withId(R.id.textFormula)).check(matches(withText("7")))
-    }
-
-    @Test
-    fun `8_버튼을_누르면_해당_숫자가_화면에_보여야한다`(){
-        onView(withId(R.id.button8)).perform(click())
-
-        onView(withId(R.id.textFormula)).check(matches(withText("8")))
-    }
-
-    @Test
-    fun `9_버튼을_누르면_해당_숫자가_화면에_보여야한다`(){
-        onView(withId(R.id.button9)).perform(click())
-
-        onView(withId(R.id.textFormula)).check(matches(withText("9")))
+    public override fun matchesSafely(root: Root): Boolean {
+        val type = root.windowLayoutParams.get().type
+        if (type == WindowManager.LayoutParams.TYPE_TOAST) {
+            val windowToken = root.decorView.windowToken
+            val appToken = root.decorView.applicationWindowToken
+            if (windowToken === appToken) {
+                //means this window isn't contained by any other windows.
+            }
+        }
+        return false
     }
 }
