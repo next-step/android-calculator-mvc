@@ -183,5 +183,5 @@
             android:text="@string/calculator_plus"
             />
     </GridLayout>
-    
+
 </androidx.constraintlayout.widget.ConstraintLayout>
