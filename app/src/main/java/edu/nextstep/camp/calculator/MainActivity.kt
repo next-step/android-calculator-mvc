@@ -2,6 +2,7 @@ package edu.nextstep.camp.calculator
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import edu.nextstep.camp.calculator.Calculator.calculate
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -11,6 +12,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.textView.text = calculate("5 - 5").toString()
 
         binding.button0.setOnClickListener { binding.textView.text = "0" }
         binding.button1.setOnClickListener { binding.textView.text = "1" }
