@@ -103,5 +103,6 @@ class MainActivityTest {
         //then: 계산기 텍스트에 9이 화면에 보여야 한다.
         onView(withId(R.id.textview)).check(matches(withText("9")))
     }
+
 }
 

@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         binding.button7.setOnClickListener { binding.textview.text = "7" }
         binding.button8.setOnClickListener { binding.textview.text = "8" }
         binding.button9.setOnClickListener { binding.textview.text = "9" }
-        
 
     }
 }
