@@ -10,7 +10,7 @@ internal class IntArithmeticsTest {
 
     @DisplayName("PLUS 연산을 적용하면, 더하기가 된다.")
     @Test
-    fun `덧셈`() {
+    fun plus() {
         val left = 2
         val right = 3
         assertThat(IntArithmetics.PLUS.apply(left, right))
@@ -19,7 +19,7 @@ internal class IntArithmeticsTest {
 
     @DisplayName("MINUS 연산을 적용하면, 빼기가 된다.")
     @Test
-    fun `뺄셈`() {
+    fun minus() {
         val left = 2
         val right = 3
         assertThat(IntArithmetics.MINUS.apply(left, right))
@@ -28,7 +28,7 @@ internal class IntArithmeticsTest {
 
     @DisplayName("TIMES 연산을 적용하면, 곱하기가 된다.")
     @Test
-    fun `곱셈`() {
+    fun times() {
         val left = 5
         val right = 4
         assertThat(IntArithmetics.TIMES.apply(left, right))
@@ -37,7 +37,7 @@ internal class IntArithmeticsTest {
 
     @DisplayName("DIVIDES 연산을 적용하면, 나누기가 된다.")
     @Test
-    fun `나눗셈`() {
+    fun divides() {
         val left = 20
         val right = 2
         assertThat(IntArithmetics.DIVIDES.apply(left, right))
@@ -46,7 +46,7 @@ internal class IntArithmeticsTest {
 
     @DisplayName("0으로 나누려고 하면 IllegalException 이 발생한다.")
     @Test
-    fun `0으로 나누기`() {
+    fun divideBy0() {
         assertThatExceptionOfType(IllegalArgumentException::class.java)
             .isThrownBy { IntArithmetics.DIVIDES.apply(1, 0) }
             .withMessage("숫자는 0으로 나눌 수 없습니다.")
@@ -54,7 +54,7 @@ internal class IntArithmeticsTest {
 
     @DisplayName("지원하지 않은 연산자에 대해서는 IllegalException 이 발생한다.")
     @Test
-    fun `지원하지 않는 연산자`() {
+    fun illegalOperator() {
         assertThatExceptionOfType(IllegalArgumentException::class.java)
             .isThrownBy { IntArithmetics.from("%") }
             .withMessage("허용되지 않은 연산자 입니다.")
@@ -62,7 +62,7 @@ internal class IntArithmeticsTest {
 
     @DisplayName("정적 팩토리는 입력받은 문자와 연관된 연산자를 반환해야한다.")
     @Test
-    fun `정적 팩토리 메서드`() {
+    fun from() {
         assertAll({
             assertThat(IntArithmetics.from("+"))
                 .isEqualTo(IntArithmetics.PLUS)
