@@ -10,9 +10,9 @@ import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.ValueSource
 
 internal class CalculatorTest {
-    @DisplayName("예시로 나온 계산이 성공하는지 확인.")
+    @DisplayName("계산이 성공하는지 확인.")
     @ParameterizedTest
-    @CsvSource("2 + 3 * 4 / 2,10", "15 - 3 / 3,4")
+    @CsvSource("2 + 3 * 4 / 2,10", "   15 - 3 / 3 ,4")
     fun happyPath(input: String, result: Int) {
         assertThat(calculate(input))
             .isEqualTo(result)
@@ -32,5 +32,13 @@ internal class CalculatorTest {
         assertThatExceptionOfType(IllegalArgumentException::class.java)
             .isThrownBy {  calculate("5 % 2") }
             .withMessage("허용되지 않은 연산자 입니다.")
+    }
+
+    @DisplayName("계산식이 완성되지 않았을 경우 IllegalArgumentException 이 발생한다.")
+    @Test
+    fun illegalOperation() {
+        assertThatExceptionOfType(IllegalArgumentException::class.java)
+            .isThrownBy {  calculate("5 + 2 -") }
+            .withMessage("완전하지 않은 계산식입니다.")
     }
 }
