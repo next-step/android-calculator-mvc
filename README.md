@@ -33,7 +33,7 @@
 
 ##### JUnit4는 테스트 코드를 실행하기 위해 필요한 기본적인 틀을 제공하는 테스트 프레임워크입니다.
 
-```
+```kotlin
 import static org.junit.Assert.assertEquals
 import org.junit.Test
 
