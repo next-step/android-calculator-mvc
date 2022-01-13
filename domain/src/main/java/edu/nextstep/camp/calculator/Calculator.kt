@@ -1,11 +1,16 @@
 package edu.nextstep.camp.calculator
 
 object Calculator {
+    private const val DELIMITER = " "
+
     fun calculate(input: String): Int {
-        val list = input.split(" ")
-        return list.subList(1, list.size)
-            .chunked(2)
-            .map { Pair(IntArithmetics.from(it[0]), it[1].toInt()) }
-            .fold(list[0].toInt()) { acc, curr -> curr.first.apply(acc, curr.second) }
+        val words = input.trim().split(DELIMITER)
+        val identity = words[0].toInt()
+        return words.drop(1)
+            .chunked(Operation.CHUNK_SIZE)
+            .map(Operation.Companion::from)
+            .fold(identity) { accumulated: Int, operation: Operation ->
+                operation.calculate(accumulated)
+            }
     }
 }
