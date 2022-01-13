@@ -14,7 +14,7 @@ class MainActivityTest {
 
     // 사용자가 피연산자 0 버튼을 누르면 화면에 0가 화면에 보여야 한다.
     @Test
-    fun test0() {
+    fun whenClick0Button_thenShow0TextView() {
         // when: 사용자가 피연산자 0 버튼을 누르면
         onView(withId(R.id.button0)).perform(click())
 
@@ -24,7 +24,7 @@ class MainActivityTest {
 
     // 사용자가 피연산자 1 버튼을 누르면 화면에 1가 화면에 보여야 한다.
     @Test
-    fun test1() {
+    fun whenClick1Button_thenShow1TextView() {
         // when: 사용자가 피연산자 1 버튼을 누르면
         onView(withId(R.id.button1)).perform(click())
 
@@ -34,7 +34,7 @@ class MainActivityTest {
 
     // 사용자가 피연산자 2 버튼을 누르면 화면에 2가 화면에 보여야 한다.
     @Test
-    fun test2() {
+    fun whenClick2Button_thenShow2TextView() {
         // when: 사용자가 피연산자 2 버튼을 누르면
         onView(withId(R.id.button2)).perform(click())
 
@@ -44,7 +44,7 @@ class MainActivityTest {
 
     // 사용자가 피연산자 3 버튼을 누르면 화면에 3가 화면에 보여야 한다.
     @Test
-    fun test3() {
+    fun whenClick3Button_thenShow3TextView() {
         // when: 사용자가 피연산자 3 버튼을 누르면
         onView(withId(R.id.button3)).perform(click())
 
@@ -54,7 +54,7 @@ class MainActivityTest {
 
     // 사용자가 피연산자 4 버튼을 누르면 화면에 4가 화면에 보여야 한다.
     @Test
-    fun test4() {
+    fun whenClick4Button_thenShow4TextView() {
         // when: 사용자가 피연산자 4 버튼을 누르면
         onView(withId(R.id.button4)).perform(click())
 
@@ -64,7 +64,7 @@ class MainActivityTest {
 
     // 사용자가 피연산자 5 버튼을 누르면 화면에 5가 화면에 보여야 한다.
     @Test
-    fun test5() {
+    fun whenClick5Button_thenShow5TextView() {
         // when: 사용자가 피연산자 5 버튼을 누르면
         onView(withId(R.id.button5)).perform(click())
 
@@ -74,7 +74,7 @@ class MainActivityTest {
 
     // 사용자가 피연산자 0 버튼을 누르면 화면에 0가 화면에 보여야 한다.
     @Test
-    fun test6() {
+    fun whenClick6Button_thenShow6TextView() {
         // when: 사용자가 피연산자 6 버튼을 누르면
         onView(withId(R.id.button6)).perform(click())
 
@@ -84,7 +84,7 @@ class MainActivityTest {
 
     // 사용자가 피연산자 7 버튼을 누르면 화면에 7가 화면에 보여야 한다.
     @Test
-    fun test7() {
+    fun whenClick7Button_thenShow7TextView() {
         // when: 사용자가 피연산자 7 버튼을 누르면
         onView(withId(R.id.button7)).perform(click())
 
@@ -94,7 +94,7 @@ class MainActivityTest {
 
     // 사용자가 피연산자 0 버튼을 누르면 화면에 0가 화면에 보여야 한다.
     @Test
-    fun test8() {
+    fun whenClick8Button_thenShow8TextView() {
         // when: 사용자가 피연산자 8 버튼을 누르면
         onView(withId(R.id.button8)).perform(click())
 
@@ -103,7 +103,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test9() {
+    fun whenClick9Button_thenShow9TextView() {
         // when: 사용자가 피연산자 9 버튼을 누르면
         onView(withId(R.id.button9)).perform(click())
 
