@@ -52,7 +52,7 @@ class CalculatorTest {
 ##### Truth는 테스트 코드에서 assertion을 위한 라이브러리입니다.
 ##### JUnit에서 기본적으로 제공하는 assertion 기능보다 훨씬 가독성이 좋은 기능을 제공합니다.
 
-```
+```kotlin
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test;
 
