@@ -50,14 +50,11 @@ dependencies {
 
     implementation project(":domain")
 
-    // (Required) Writing and executing Unit Tests on the JUnit Platform
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 
-    // (Optional) If you need "Parameterized Tests"
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
 
-    // (Optional) If you also have JUnit 4-based tests
     testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.8.2'
 
 
