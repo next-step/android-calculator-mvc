@@ -4,10 +4,6 @@ plugins {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.30"
-}
-
-repositories {
-    mavenCentral()
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "junit:junit:$junit_version"
 }
