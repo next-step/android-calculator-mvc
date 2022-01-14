@@ -46,6 +46,7 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(withText("2")))
 
     }
+
     @Test
     fun test3() {
         // when : 사용자가 피연산자 3 버튼을 누르면
@@ -55,6 +56,7 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(withText("3")))
 
     }
+
     @Test
     fun test4() {
         // when : 사용자가 피연산자 4 버튼을 누르면
@@ -64,6 +66,7 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(withText("4")))
 
     }
+
     @Test
     fun test5() {
         // when : 사용자가 피연산자 5 버튼을 누르면
@@ -73,6 +76,7 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(withText("5")))
 
     }
+
     @Test
     fun test6() {
         // when : 사용자가 피연산자 6 버튼을 누르면
@@ -82,6 +86,7 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(withText("6")))
 
     }
+
     @Test
     fun test7() {
         // when : 사용자가 피연산자 7 버튼을 누르면
@@ -91,6 +96,7 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(withText("7")))
 
     }
+
     @Test
     fun test8() {
         // when : 사용자가 피연산자 8 버튼을 누르면
@@ -100,6 +106,7 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(withText("8")))
 
     }
+
     @Test
     fun test9() {
         // when : 사용자가 피연산자 9 버튼을 누르면
