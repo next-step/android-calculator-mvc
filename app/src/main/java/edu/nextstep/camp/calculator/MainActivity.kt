@@ -9,8 +9,6 @@ import edu.nextstep.camp.domain.Calculator
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private val calculator = Calculator()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -43,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding.buttonEquals.setOnClickListener {
             try {
+                val calculator = Calculator()
                 val result = calculator.calculate(binding.textView.text.toString())
                 binding.textView.text = result
             } catch (e: IllegalArgumentException) {
