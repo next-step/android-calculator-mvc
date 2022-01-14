@@ -47,7 +47,6 @@ class CalculatorTest {
         val result = calculator.calculate(input)
 
         assertEquals(3, result)
-
     }
 
     @ParameterizedTest

@@ -7,7 +7,7 @@ class Calculator {
         const val DELIMITER: String = " "
     }
 
-    fun calculate(input: String?): Int {
+    fun calculate(input: String?): String {
 
         validateNullOrEmpty(input)
 
@@ -21,7 +21,7 @@ class Calculator {
                 result = operator.execute(result, param)
             }
         }
-        return result
+        return result.toString()
     }
 
     private fun validateNullOrEmpty(input: String?) {
