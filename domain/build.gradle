@@ -8,7 +8,8 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-ext.junitVersion = "5.8.2"
+ext.junit_version = "5.8.2"
+ext.assertj_version = "3.22.0"
 
 test {
     useJUnitPlatform()
@@ -17,8 +18,11 @@ test {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-    testImplementation "org.junit.jupiter:junit-jupiter-params:$junitVersion"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
-    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:$junitVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_version"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junit_version"
+    testImplementation "org.assertj:assertj-core:$assertj_version"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_version"
+    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:$junit_version"
 }
+
