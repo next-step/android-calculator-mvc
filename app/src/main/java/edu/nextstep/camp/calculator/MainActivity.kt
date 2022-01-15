@@ -2,10 +2,13 @@ package edu.nextstep.camp.calculator
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.manjee.domain.Calculator
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    private var calculator = Calculator()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
