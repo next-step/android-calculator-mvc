@@ -68,4 +68,10 @@ class CalculatorTest{
         val calculator = Calculator()
         val actual = calculator.evaluate("   ")
     }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun evaluatesExpression_input_is_invalid(){
+        val calculator = Calculator()
+        val actual = calculator.evaluate(" $  & 3")
+    }
 }
