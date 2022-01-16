@@ -2,7 +2,9 @@ package com.example.domain
 
 
 import com.google.common.truth.Truth.assertThat
+import org.junit.Assert.assertThrows
 import org.junit.Test
+import java.lang.IllegalArgumentException
 
 class CalculatorTest{
 
@@ -47,5 +49,23 @@ class CalculatorTest{
         val calculator = Calculator()
         val actual:Int = calculator.evaluate("1*2*3 /4 * 5")
         assertThat(actual).isEqualTo(5)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun evaluatesExpression_input_is_null(){
+        val calculator = Calculator()
+        val actual = calculator.evaluate(null)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun evaluatesExpression_input_is_empty(){
+        val calculator = Calculator()
+        val actual = calculator.evaluate("")
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun evaluatesExpression_input_is_blank(){
+        val calculator = Calculator()
+        val actual = calculator.evaluate("   ")
     }
 }

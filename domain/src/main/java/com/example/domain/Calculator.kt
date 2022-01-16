@@ -2,7 +2,7 @@ package com.example.domain
 
 class Calculator {
     fun evaluate(expression: String?): Int{
-        if(expression.isNullOrEmpty()) throw IllegalArgumentException()
+        if(expression.isNullOrBlank()) throw IllegalArgumentException()
         var currentValue = 0
         expression.split(" ").forEach { chunk ->
             currentValue = calculate(currentValue, chunk)
