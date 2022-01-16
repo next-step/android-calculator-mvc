@@ -3,13 +3,9 @@ package com.example.domain
 class Calculator {
     fun evaluate(expression: String?): Int{
         if(expression.isNullOrEmpty()) throw IllegalArgumentException()
-
         var currentValue = 0
         expression.split(" ").forEach { chunk ->
-            println("chunk: $chunk")
             currentValue = calculate(currentValue, chunk)
-            println("currentValue: $currentValue")
-
         }
         return currentValue
     }
@@ -18,7 +14,6 @@ class Calculator {
         var currentOperation : Operation? = null
         var updatedValue : Int = currentValue
         chunk?.forEach {
-            println("char: $it")
             when(it){
                 '+' -> currentOperation = Operation.Add
                 '-' -> currentOperation = Operation.Subtract
@@ -29,9 +24,8 @@ class Calculator {
                     is Operation.Subtract ->  updatedValue = subtract(updatedValue, it.digitToInt())
                     is Operation.Multiply ->  updatedValue = multiply(updatedValue, it.digitToInt())
                     is Operation.Divide ->  updatedValue = divide(updatedValue, it.digitToInt())
-                    else -> updatedValue = it.digitToInt()
+                    else -> updatedValue = it.digitToIntOrNull() ?: throw IllegalArgumentException()
                 }
-
             }
         }
         return updatedValue

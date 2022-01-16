@@ -35,4 +35,17 @@ class CalculatorTest{
         assertThat(actual).isEqualTo(1)
     }
 
+    @Test
+    fun evaluatesExpression_withSpace_add_subtract(){
+        val calculator = Calculator()
+        val actual:Int = calculator.evaluate("1+2+3 +4 - 5")
+        assertThat(actual).isEqualTo(5)
+    }
+
+    @Test
+    fun evaluatesExpression_withSpace_multiply_divide(){
+        val calculator = Calculator()
+        val actual:Int = calculator.evaluate("1*2*3 /4 * 5")
+        assertThat(actual).isEqualTo(5)
+    }
 }
