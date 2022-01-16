@@ -1,8 +1,8 @@
 package edu.nextstep.camp.calculator.domain
 
-import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 internal class BinaryCalculatorTest {
 
@@ -10,10 +10,9 @@ internal class BinaryCalculatorTest {
     @Test
     fun notArithmeticOperatorThrow() {
         // given
-        val chunks = listOf("%", "2")
+        val token = "%"
 
         // then
-        Assertions.assertThatExceptionOfType(IllegalArgumentException::class.java)
-            .isThrownBy { BinaryCalculator.of(chunks) }
+        assertThrows<IllegalArgumentException> { BinaryCalculator.of(token) }
     }
 }

@@ -1,7 +1,7 @@
 package edu.nextstep.camp.calculator.domain
 
-import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.NullSource
 import org.junit.jupiter.params.provider.ValueSource
@@ -13,8 +13,10 @@ internal class ExpressionParserTest {
     @NullSource
     @ValueSource(strings = ["", " ", "    "])
     fun blankExpressionThrow(expression: String?) {
+        // given
+        val delimiter = " "
+
         // then
-        Assertions.assertThatExceptionOfType(IllegalArgumentException::class.java)
-            .isThrownBy { ExpressionParser.parse(expression) }
+        assertThrows<IllegalArgumentException> { ExpressionParser.parse(expression, delimiter) }
     }
 }
