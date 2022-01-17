@@ -30,8 +30,11 @@ class Calculator {
         var result = 0
         var operator = "+"
         operandAndOperatorList.forEach { str ->
-            if (str.isOperand()) result = calculateTwoNumber(result, operator, str.toInt())
-            else if (str.isLetter()) operator = str
+            if (str.isOperand()) {
+                result = calculateTwoNumber(result, operator, str.toInt())
+            } else if (str.isLetter()) {
+                operator = str
+            }
         }
         return result
     }
