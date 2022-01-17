@@ -1,29 +1,27 @@
 package com.nextstep.domain
 
 class Calculator {
-    private var operand = ""
-    private val operandAndOperatorList = mutableListOf<String>()
 
     fun calculate(input: String?): Int {
         if (input.isNullOrBlank()) throw IllegalArgumentException(IS_NOT_OR_BLANK)
-        setMoreThanTwoDigitList(input)
-        return calculateList(operandAndOperatorList)
+        return calculateList(inputOperandOrOperator(input))
     }
 
-    private fun setMoreThanTwoDigitList(inputString: String) {
-        inputString.forEach(this::inputOperandAndOperator)
-        operandAndOperatorList.add(operand)
-    }
-
-    private fun inputOperandAndOperator(singleCharacter: Char) {
-        if (singleCharacter.isNumber()) {
-            operand += singleCharacter
-        } else if (singleCharacter.isLetter() && operand.isNotEmpty()) {
-            val operator = singleCharacter.toString()
-            operandAndOperatorList.add(operand)
-            operandAndOperatorList.add(operator)
-            operand = ""
+    private fun inputOperandOrOperator(inputString: String): List<String> {
+        val operandAndOperatorList = mutableListOf<String>()
+        var mutableOperand = ""
+        inputString.forEach { singleCharacter ->
+            if (singleCharacter.isNumber()) {
+                mutableOperand += singleCharacter
+            } else if (singleCharacter.isLetter() && mutableOperand.isNotEmpty()) {
+                val operator = singleCharacter.toString()
+                operandAndOperatorList.add(mutableOperand)
+                operandAndOperatorList.add(operator)
+                mutableOperand = ""
+            }
         }
+        operandAndOperatorList.add(mutableOperand)
+        return operandAndOperatorList
     }
 
     private fun calculateList(operandAndOperatorList: List<String>): Int {
