@@ -6,13 +6,13 @@ class Calculator {
 
     fun calculate(input: String?): Int {
         if (input.isNullOrBlank()) throw IllegalArgumentException(IS_NOT_OR_BLANK)
-        else return calculateList(setMoreThanTwoDigitList(input))
+        setMoreThanTwoDigitList(input)
+        return calculateList(operandAndOperatorList)
     }
 
-    private fun setMoreThanTwoDigitList(inputString: String): List<String> {
+    private fun setMoreThanTwoDigitList(inputString: String) {
         inputString.forEach(this::inputOperandAndOperator)
         operandAndOperatorList.add(operand)
-        return operandAndOperatorList
     }
 
     private fun inputOperandAndOperator(singleCharacter: Char) {
