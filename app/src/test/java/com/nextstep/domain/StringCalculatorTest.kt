@@ -42,4 +42,26 @@ internal class StringCalculatorTest {
 
         Truth.assertThat(result.roundToInt().toString()).isEqualTo(expected)
     }
+
+    @DisplayName("- 로 이루어진 연산자들의 계산이 정상적으로 된다.")
+    @ParameterizedTest
+    @CsvSource(value = ["1 - 2,-1", "-1 - 4 - 6,-11", "10 - 2,8"])
+    fun calculateTest_minus(formula: String, expected: String) {
+        val stringCalculator = StringCalculator()
+
+        val result = stringCalculator.calculate(formula)
+
+        Truth.assertThat(result.roundToInt().toString()).isEqualTo(expected)
+    }
+
+    @DisplayName("/ 로 이루어진 연산자들의 계산이 정상적으로 된다.")
+    @ParameterizedTest
+    @CsvSource(value = ["1 / 2,0.5", "8 / 4 / 2,1", "10 / 2,5"])
+    fun calculateTest_divide(formula: String, expected: String) {
+        val stringCalculator = StringCalculator()
+
+        val result = stringCalculator.calculate(formula)
+
+        Truth.assertThat(result.roundToInt().toString()).isEqualTo(expected)
+    }
 }
