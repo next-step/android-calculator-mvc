@@ -5,8 +5,9 @@ enum class Operator(val symbol:String) {
     MULTIPLE("*");
 
     companion object {
+        private const val ERROR_MESSAGE_INVALID_SYMBOL = "입력한 파라메터는 유효하지 않은 연산자 기호입니다."
         fun fromSymbol(symbol: String): Operator {
-            return values().find { operator -> operator.symbol == symbol } ?: throw IllegalArgumentException()
+            return values().find { operator -> operator.symbol == symbol } ?: throw IllegalArgumentException(ERROR_MESSAGE_INVALID_SYMBOL)
         }
     }
 }
