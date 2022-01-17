@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupNumberButtonListener()
+        setupArithmeticButtonListener()
     }
 
     private fun setupNumberButtonListener() = with(binding) {
@@ -28,5 +29,35 @@ class MainActivity : AppCompatActivity() {
         button7.setOnClickListener { textView.text = "${textView.text}7" }
         button8.setOnClickListener { textView.text = "${textView.text}8" }
         button9.setOnClickListener { textView.text = "${textView.text}9" }
+    }
+
+    private fun setupArithmeticButtonListener() = with(binding) {
+        buttonPlus.setOnClickListener {
+            if (hasOperand()) {
+                textView.text = "${textView.text} + "
+            }
+
+        }
+        buttonMinus.setOnClickListener {
+            if (hasOperand()) {
+                textView.text = "${textView.text} - "
+            }
+
+        }
+        buttonMultiply.setOnClickListener {
+            if (hasOperand()) {
+                textView.text = "${textView.text} * "
+            }
+        }
+        buttonDivide.setOnClickListener {
+            if (hasOperand()) {
+                textView.text = "${textView.text} / "
+            }
+        }
+    }
+
+    private fun hasOperand(): Boolean = with(binding) {
+        val input = textView.text
+        return input.isNotBlank() && input.last() != ' '
     }
 }
