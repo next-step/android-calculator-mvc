@@ -7,9 +7,7 @@ import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matcher
@@ -18,7 +16,7 @@ import org.junit.Test
 
 class MainActivityTest {
     @get:Rule
-    val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
+    private val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     // 사용자가 피연산자 0 버튼을 누르면 화면에 0이 보여야 한다.
     @Test
@@ -264,16 +262,54 @@ class MainActivityTest {
         assertTextEquals("")
     }
 
+    // 입력된 수식이 완전할 때, = 버튼을 누르면, 수식의 결과가 화면에 보여아 한다.
+    @Test
+    fun pressEqualsButton() {
+        // given: 3 + 2 가 입력되었다.
+        onView(withId(R.id.textView)).perform(replaceText("3 + 2"))
+
+        // when: = 버튼을 누르면
+        onView(withId(R.id.buttonEquals)).perform(click())
+
+        // then: 수식의 결과로 5가 보여진다.
+        assertTextEquals("5")
+    }
+
+    // 입력된 수식이 불완전할 때, = 버튼을 누르면, 토스트 메세지가 화면에 보인다.
+    @Test
+    fun incompleteInput_pressEqualsButton() {
+        // given: 3 + 가 입력되었다.
+        onView(withId(R.id.textView)).perform(replaceText("3 + "))
+
+        // when: = 버튼을 누르면
+        onView(withId(R.id.buttonEquals)).perform(click())
+
+        // then: 토스트 메세지가 보여진다.
+        assertToastDisplayed(TOAST_MESSAGE)
+    }
+
+    // 0 으로 나누는 수식을 입력하고, = 버튼을 누르면, 토스트 메세지가 화면에 보인다.
+    @Test
+    fun divideBy0() {
+        // given: 2 / 0 가 입력되었다.
+        onView(withId(R.id.textView)).perform(replaceText("2 / 0"))
+
+        // when: = 버튼을 누르면
+        onView(withId(R.id.buttonEquals)).perform(click())
+
+        // then: 토스트 메세지가 보여진다.
+        assertToastDisplayed(TOAST_MESSAGE)
+    }
+
     private fun assertTextEquals(expected: String) {
         onView(withId(R.id.textView)).check(matches(withText(expected)))
     }
 
-
     // NOTE: 참고한 링크 (https://stackoverflow.com/questions/32846738/android-testing-how-to-change-text-of-a-textview-using-espresso)
     private fun replaceText(value: String): ViewAction = object : ViewAction {
         override fun getConstraints(): Matcher<View> = CoreMatchers.allOf(
-            ViewMatchers.isDisplayed(),
-            ViewMatchers.isAssignableFrom(TextView::class.java)
+            isDisplayed(),
+            isAssignableFrom(TextView::class.java)
         )
 
         override fun getDescription(): String {
@@ -283,5 +319,13 @@ class MainActivityTest {
         override fun perform(uiController: UiController, view: View) {
             (view as TextView).text = value
         }
+    }
+
+    private fun assertToastDisplayed(message: String) {
+        onView(withText(message)).check(matches(isDisplayed()))
+    }
+
+    companion object {
+        private const val TOAST_MESSAGE = "완성되지 않은 수식입니다"
     }
 }
