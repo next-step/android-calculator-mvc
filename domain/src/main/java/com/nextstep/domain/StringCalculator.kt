@@ -1,5 +1,5 @@
 package com.nextstep.domain
 
-class Calculator {
-    
+class StringCalculator {
+
 }
