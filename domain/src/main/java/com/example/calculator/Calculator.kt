@@ -1,11 +1,35 @@
 package com.example.calculator
 
-class Calculator {
-    private val regex = "[0-9]".toRegex()
+import java.lang.IllegalArgumentException
 
-    fun getNumber(inputNumber: CharSequence): String {
-        return if (regex.matches(inputNumber))
-            inputNumber.toString() else ""
+class Calculator {
+    private var result = 0
+    private var currentOperator: Operator = Operator.PLUS
+    private val expressionRegex = "^([0-9][-X/+*])+[0-9]".toRegex()
+
+    fun evaluate(inputString: String): Int {
+        result = 0
+        val expression = inputString.trim()
+        checkExpression(expression)
+        expression.forEach { calculate(it) }
+        return result
+    }
+
+    private fun calculate(char: Char) {
+        if (char.isDigit()) {
+            when (currentOperator) {
+                Operator.PLUS -> result += Character.getNumericValue(char)
+                Operator.MINUS -> result -= Character.getNumericValue(char)
+                Operator.DIVIDE -> result /= Character.getNumericValue(char)
+                Operator.MULTIPLY -> result *= Character.getNumericValue(char)
+            }
+        }
+        currentOperator = Operator.get(char)
+
+    }
+
+    private fun checkExpression(string: String?) {
+        if (string == null || !expressionRegex.matches(string)) throw IllegalArgumentException()
     }
 
 }
