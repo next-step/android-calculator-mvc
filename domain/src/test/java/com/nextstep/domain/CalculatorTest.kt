@@ -7,7 +7,7 @@ import com.nextstep.domain.Operator.Companion.IS_NOT_DIVIDE_BY_ZERO
 import org.junit.Assert.assertThrows
 import org.junit.Test
 
-class ExampleUnitTest {
+class CalculatorTest {
 
     //given
     private val calculator = Calculator()
