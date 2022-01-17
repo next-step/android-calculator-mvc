@@ -145,10 +145,27 @@ class MainActivityTest {
 
     // 입력된 피연산자가 없을 때, 연산자 버튼을 누르면 화면에 아무런 변화가 없어야 한다.
     @Test
-    fun noOperand_pressOperator() {
-        // given: 입력된 피연산자가 없다.
+    fun noInput_pressOperator() {
+        // given: 입력이 없다.
         val expected = ""
         assertTextEquals(expected)
+
+        // when: 연산자 버튼을 누른다.
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.buttonMinus)).perform(click())
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        onView(withId(R.id.buttonDivide)).perform(click())
+
+        // then: 아무런 변화가 없어야 한다.
+        assertTextEquals(expected)
+    }
+
+    // 입력된 피연산자가 없을 때, 연산자 버튼을 누르면 화면에 아무런 변화가 없어야 한다.
+    @Test
+    fun noOperand_pressOperator() {
+        // given: 입력된 피연산자가 없다.
+        val expected = "1 + "
+        onView(withId(R.id.textView)).perform(replaceText(expected))
 
         // when: 연산자 버튼을 누른다.
         onView(withId(R.id.buttonPlus)).perform(click())
@@ -210,6 +227,41 @@ class MainActivityTest {
 
         // then: / 기호가 화면에 보인다.
         assertTextEquals("1 / ")
+    }
+
+    // 입력된 수식이 없을 때, 지우기 버튼을 누르면 화면에 아무런 변화가 없어야 한다.
+    @Test
+    fun noInput_pressDelete() {
+        // given: 입력된 수식이 없다.
+        val expected = ""
+        assertTextEquals(expected)
+
+        // when: 지우기 버튼을 누른다.
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        // then: 아무런 변화가 없어야 한다.
+        assertTextEquals(expected)
+    }
+
+    // 입력된 수식이 있을 때, 지우기 버튼을 누르면 수식에 마지막으로 입력된 내용이 지워져야 한다.
+    @Test
+    fun pressDeleteButton() {
+        // given: 32 + 1 이 입력되었다.
+        onView(withId(R.id.textView)).perform(replaceText("32 + 1"))
+
+        // when: 지우기 버튼을 누르면
+        // then: 마지막 입력이 지워진다.
+        onView(withId(R.id.buttonDelete)).perform(click())
+        assertTextEquals("32 + ")
+
+        onView(withId(R.id.buttonDelete)).perform(click())
+        assertTextEquals("32")
+
+        onView(withId(R.id.buttonDelete)).perform(click())
+        assertTextEquals("3")
+
+        onView(withId(R.id.buttonDelete)).perform(click())
+        assertTextEquals("")
     }
 
     private fun assertTextEquals(expected: String) {

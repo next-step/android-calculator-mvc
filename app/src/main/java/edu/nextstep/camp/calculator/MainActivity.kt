@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         setupNumberButtonListener()
         setupArithmeticButtonListener()
+        setupFunctionButtonListener()
     }
 
     private fun setupNumberButtonListener() = with(binding) {
@@ -59,5 +60,16 @@ class MainActivity : AppCompatActivity() {
     private fun hasOperand(): Boolean = with(binding) {
         val input = textView.text
         return input.isNotBlank() && input.last() != ' '
+    }
+
+    private fun setupFunctionButtonListener() = with(binding) {
+        buttonDelete.setOnClickListener {
+            val text = textView.text
+            if (text.isBlank()) return@setOnClickListener
+            textView.text = text.dropLast(
+                text.last().toString()
+                    .toIntOrNull()?.let { 1 } ?: 3
+            )
+        }
     }
 }
