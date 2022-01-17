@@ -91,4 +91,12 @@ class ExampleUnitTest {
         //then
         assertThat(actual).isEqualTo(1)
     }
+
+    @Test
+    fun `나눗셈이나 곱셈 기호를 처음 입력하면 생략`() {
+        //when
+        val actual = calculator.calculate("/ 10 + 2")
+        //then
+        assertThat(actual).isEqualTo(12)
+    }
 }

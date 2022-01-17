@@ -18,7 +18,7 @@ class Calculator {
     private fun inputOperandAndOperator(singleCharacter: Char) {
         if (singleCharacter.isNumber()) {
             operand += singleCharacter
-        } else if (singleCharacter.isLetter()) {
+        } else if (singleCharacter.isLetter() && operand.isNotEmpty()) {
             val operator = singleCharacter.toString()
             operandAndOperatorList.add(operand)
             operandAndOperatorList.add(operator)
