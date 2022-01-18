@@ -2,13 +2,6 @@ package com.example.domain
 
 class Calculator {
 
-    companion object {
-
-        private const val NUMBER = 0
-
-        private const val OPERATION = 1
-    }
-
     fun evaluate(inputs: String): Float {
         var opertaion: Operation? = null
         var result = 0f
@@ -17,7 +10,7 @@ class Calculator {
             val value = _value.toString()
             val type = index % 2
 
-            if (type == NUMBER) {
+            if (type == EVEN_IS_NUMBER) {
                 val number = value.toFloatOrNull() ?: throw IllegalArgumentException()
 
                 if (opertaion != null) {
@@ -26,7 +19,7 @@ class Calculator {
                 } else {
                     result = number
                 }
-            } else if (type == OPERATION) {
+            } else if (type == ODD_IS_OPERATION) {
                 if (Operation.check(value).not()) {
                     throw IllegalArgumentException()
                 }
@@ -38,6 +31,13 @@ class Calculator {
         }
 
         return result
+    }
+
+    companion object {
+
+        private const val EVEN_IS_NUMBER = 0
+
+        private const val ODD_IS_OPERATION = 1
     }
 }
 
