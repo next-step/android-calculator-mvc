@@ -1,31 +1,5 @@
 package net.woogear.domain
 
-import java.lang.IllegalArgumentException
-
-enum class OperationType {
-    PLUS,
-    MINUS,
-    MULTIPLY,
-    DIVIDE;
-
-    fun isPlus(): Boolean {
-        return this == PLUS
-    }
-
-    fun isMinus(): Boolean {
-        return this == MINUS
-    }
-
-    fun isMultiply(): Boolean {
-        return this == MULTIPLY
-    }
-
-    fun isDivide(): Boolean {
-        return this == DIVIDE
-    }
-}
-
-
 class Calculator {
     private var answer = 0
     private var operationType: OperationType = OperationType.PLUS
@@ -44,7 +18,7 @@ class Calculator {
 
         for (text in splitTexts) {
             if (isOperationType(text)) {
-                setOperationType(text)
+                operationType = OperationType.getOperationType(text)
                 continue
             }
 
@@ -59,15 +33,6 @@ class Calculator {
 
     private fun isOperationType(text: String): Boolean {
         return text == "+" || text == "-" || text == "*" || text == "/"
-    }
-
-    private fun setOperationType(text: String) {
-        when (text) {
-            "+" -> operationType = OperationType.PLUS
-            "-" -> operationType = OperationType.MINUS
-            "*" -> operationType = OperationType.MULTIPLY
-            "/" -> operationType = OperationType.DIVIDE
-        }
     }
 
     private fun operateByType(number: Int, operationType: OperationType) {
