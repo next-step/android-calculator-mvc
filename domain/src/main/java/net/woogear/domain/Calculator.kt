@@ -78,6 +78,11 @@ class Calculator {
             answer *= number
             return
         }
+
+        if (operationType.isDivide()) {
+            answer /= number
+            return
+        }
     }
 
     private fun String.isInt(): Boolean {
