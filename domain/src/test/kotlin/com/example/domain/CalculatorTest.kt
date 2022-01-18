@@ -8,9 +8,8 @@ class CalculatorTest {
 
     private val calculator = Calculator()
 
-    //덧셈
     @Test
-    fun `test plus`() {
+    fun `given plus then show correct result`() {
         //given
         val input = "1+2+3"
         //when
@@ -19,9 +18,8 @@ class CalculatorTest {
         assertThat(result).isEqualTo(6)
     }
 
-    //뺄셈
     @Test
-    fun `test subtraction`() {
+    fun `given subtraction then show correct result`() {
         //given
         val input = "6-3-2"
         //when
@@ -30,9 +28,8 @@ class CalculatorTest {
         assertThat(result).isEqualTo(1)
     }
 
-    //곱셈
     @Test
-    fun `test multiplication`() {
+    fun `given multiplication then show correct result`() {
         //given
         val input = "6*3*2"
         //when
@@ -41,9 +38,8 @@ class CalculatorTest {
         assertThat(result).isEqualTo(36)
     }
 
-    //나눗셈
     @Test
-    fun `test division`() {
+    fun `given division then show correct result`() {
         //given
         val input = "6/3/2"
         //when
@@ -52,9 +48,8 @@ class CalculatorTest {
         assertThat(result).isEqualTo(1)
     }
 
-    //입력값이 null 이거나 빈 공백 문자일 경우 IllegalArgumentException throw
     @Test
-    fun `test input has empty`() {
+    fun `given null then throw error`() {
         assertThrows(IllegalArgumentException::class.java) {
             //given
             val input = " 1+2+3"
@@ -64,9 +59,8 @@ class CalculatorTest {
         }
     }
 
-    //사칙연산 기호가 아닌 경우 IllegalArgumentException throw
     @Test
-    fun `test input is not operator`() {
+    fun `given wrong calculation symbol then throw error`() {
         assertThrows(IllegalArgumentException::class.java) {
             //given
             val input = "1&2@3"
@@ -78,7 +72,7 @@ class CalculatorTest {
 
     //사칙 연산을 모두 포함하는 기능 구현
     @Test
-    fun `test input has all operator`() {
+    fun `given all calculation symbol then show correct result`() {
         //given
         val input = "1+2*3-1/2"
         //when
