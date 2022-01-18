@@ -68,9 +68,14 @@ class Calculator {
             answer += number
             return
         }
-
+        
         if (operationType.isMinus()) {
             answer -= number
+            return
+        }
+
+        if (operationType.isMultiply()) {
+            answer *= number
             return
         }
     }

@@ -17,4 +17,10 @@ class CalculatorTest {
         val result = calculator.evaluate("10 - 2 - 5")
         assertEquals(3, result)
     }
+
+    @Test
+    fun three_times_four_times_two() {
+        val result = calculator.evaluate("3 * 4 * 2")
+        assertEquals(24, result)
+    }
 }
