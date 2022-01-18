@@ -1,11 +1,12 @@
 package com.nextstep.domain
 
-import com.google.common.truth.Truth
+import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.EmptySource
+import org.junit.jupiter.params.provider.ValueSource
 
 internal class StringCalculatorTest {
 
@@ -13,6 +14,17 @@ internal class StringCalculatorTest {
     @ParameterizedTest
     @EmptySource
     fun validateTest_inputNullOrEmpty(formula: String) {
+        val stringCalculator = StringCalculator()
+
+        assertThrows<IllegalArgumentException> {
+            stringCalculator.calculate(formula)
+        }
+    }
+
+    @DisplayName("연산자가 사칙연산의 연산자가 아닐 경우 IllegalArgumentException 이 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = ["1 @ 3", "1 + 2 & 3"])
+    fun validateTest_checkSupportOperator(formula: String) {
         val stringCalculator = StringCalculator()
 
         assertThrows<IllegalArgumentException> {
@@ -28,7 +40,7 @@ internal class StringCalculatorTest {
 
         val result = stringCalculator.calculate(formula)
 
-        Truth.assertThat(result).isEqualTo(expected)
+        assertThat(result).isEqualTo(expected)
     }
 
     @DisplayName("* 로 이루어진 연산자들의 계산이 정상적으로 된다.")
@@ -39,7 +51,7 @@ internal class StringCalculatorTest {
 
         val result = stringCalculator.calculate(formula)
 
-        Truth.assertThat(result).isEqualTo(expected)
+        assertThat(result).isEqualTo(expected)
     }
 
     @DisplayName("- 로 이루어진 연산자들의 계산이 정상적으로 된다.")
@@ -50,7 +62,7 @@ internal class StringCalculatorTest {
 
         val result = stringCalculator.calculate(formula)
 
-        Truth.assertThat(result).isEqualTo(expected)
+        assertThat(result).isEqualTo(expected)
     }
 
     @DisplayName("/ 로 이루어진 연산자들의 계산이 정상적으로 된다.")
@@ -61,6 +73,6 @@ internal class StringCalculatorTest {
 
         val result = stringCalculator.calculate(formula)
 
-        Truth.assertThat(result).isEqualTo(expected)
+        assertThat(result).isEqualTo(expected)
     }
 }
