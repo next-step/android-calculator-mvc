@@ -15,7 +15,7 @@ class MainActivityTest {
     val activityScenarioRue = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun text0(){
+    fun click0_show0() {
         //when: 사용자가 피연산자 0버튼을 누르면
         onView(withId(R.id.button0)).perform(click())
 
@@ -24,7 +24,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun text1(){
+    fun click1_show1() {
         //when: 사용자가 피연산자 0버튼을 누르면
         onView(withId(R.id.button1)).perform(click())
 
@@ -33,7 +33,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun text2(){
+    fun click2_show2() {
         //when: 사용자가 피연산자 0버튼을 누르면
         onView(withId(R.id.button2)).perform(click())
 
@@ -42,7 +42,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun text3(){
+    fun click3_show3() {
         //when: 사용자가 피연산자 0버튼을 누르면
         onView(withId(R.id.button3)).perform(click())
 
@@ -51,7 +51,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun text4(){
+    fun click4_show4() {
         //when: 사용자가 피연산자 0버튼을 누르면
         onView(withId(R.id.button4)).perform(click())
 
@@ -60,7 +60,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun text5(){
+    fun click5_show5() {
         //when: 사용자가 피연산자 0버튼을 누르면
         onView(withId(R.id.button5)).perform(click())
 
@@ -69,7 +69,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun text6(){
+    fun click6_show6() {
         //when: 사용자가 피연산자 0버튼을 누르면
         onView(withId(R.id.button6)).perform(click())
 
@@ -78,7 +78,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun text7(){
+    fun click7_show7() {
         //when: 사용자가 피연산자 0버튼을 누르면
         onView(withId(R.id.button7)).perform(click())
 
@@ -87,7 +87,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun text8(){
+    fun click8_show8() {
         //when: 사용자가 피연산자 0버튼을 누르면
         onView(withId(R.id.button8)).perform(click())
 
@@ -96,7 +96,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun text9(){
+    fun click9_show9() {
         //when: 사용자가 피연산자 0버튼을 누르면
         onView(withId(R.id.button9)).perform(click())
 
