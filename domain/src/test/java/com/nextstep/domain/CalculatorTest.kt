@@ -3,6 +3,7 @@ package com.nextstep.domain
 import com.google.common.truth.Truth.assertThat
 import com.nextstep.domain.Calculator.Companion.IS_NOT_OPERATOR
 import com.nextstep.domain.Calculator.Companion.IS_NOT_OR_BLANK
+import com.nextstep.domain.Calculator.Companion.WRONG_INPUT
 import com.nextstep.domain.Operator.Companion.IS_NOT_DIVIDE_BY_ZERO
 import org.junit.Assert.assertThrows
 import org.junit.Test
@@ -87,16 +88,28 @@ class CalculatorTest {
     @Test
     fun `사칙연산 하기`() {
         //when
-        val actual = calculator.calculate("1+2/3")
+        val actual = calculator.calculate("1 + 2 / 3")
         //then
         assertThat(actual).isEqualTo(1)
     }
 
     @Test
-    fun `나눗셈이나 곱셈 기호를 처음 입력하면 생략`() {
+    fun `나눗셈이나 곱셈 기호를 처음 입력하면 오류`() {
         //when
-        val actual = calculator.calculate("/ 10 + 2")
+        val exception = assertThrows(IllegalArgumentException::class.java) {
+            calculator.calculate("/ 10 * 2")
+        }
         //then
-        assertThat(actual).isEqualTo(12)
+        assertThat(exception.message).isEqualTo(WRONG_INPUT)
+    }
+
+    @Test
+    fun `나눗셈이나 곱셈 기호를 마지막애 입력 하면 오류`() {
+        //when
+        val exception = assertThrows(IllegalArgumentException::class.java) {
+            calculator.calculate("10 * 2 /")
+        }
+        //then
+        assertThat(exception.message).isEqualTo(WRONG_INPUT)
     }
 }
