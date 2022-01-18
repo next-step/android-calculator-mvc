@@ -13,17 +13,13 @@ class StringCalculator {
         val splitFormulas = formula.trim().split(FORMULA_SPLIT_DELIMITER)
         validateFormulaFormat(splitFormulas)
 
-        var leftNum: Double? = null
-        var rightNum: Double? = null
-
+        var result = 0.0
         for(i:Int in 1 until splitFormulas.size step(2)) {
-            if(leftNum == null) {
-                leftNum = splitFormulas[i-1].toDouble()
-            }
-            rightNum = splitFormulas[i+1].toDouble()
-            leftNum = Operator.fromSymbol(splitFormulas[i]).calculate(leftNum, rightNum)
+            val leftNum = if (i == 1) { splitFormulas[i - 1].toDouble() } else { result }
+            val rightNum = splitFormulas[i+1].toDouble()
+            result = Operator.fromSymbol(splitFormulas[i]).calculate(leftNum, rightNum)
         }
-        return leftNum ?: 0.0
+        return result
     }
 
     private fun validateNullOrEmpty(formula: String) {
