@@ -30,8 +30,17 @@ class Calculator {
     private var answer = 0
     private var operationType: OperationType = OperationType.PLUS
 
-    fun evaluate(s: String): Int {
-        val splitTexts: List<String> = s.split(" ")
+    fun evaluate(s: String?): Int {
+        if (s.isNullOrEmpty()) {
+            throw IllegalArgumentException("Input Text Can't Be a Null or Empty")
+        }
+
+        splitAndCheck(s)
+        return answer
+    }
+
+    private fun splitAndCheck(input: String) {
+        val splitTexts: List<String> = input.split(" ")
 
         for (text in splitTexts) {
             if (isOperationType(text)) {
@@ -46,8 +55,6 @@ class Calculator {
 
             throw IllegalArgumentException()
         }
-
-        return answer
     }
 
     private fun isOperationType(text: String): Boolean {
