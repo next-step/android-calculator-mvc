@@ -35,4 +35,14 @@ class CalculatorTest {
         val result = calculator.evaluate("2 + 3 * 4 / 5 - 1")
         assertEquals(3, result)
     }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun null_input() {
+        val result = calculator.evaluate(null)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun empty_input() {
+        val result = calculator.evaluate("")
+    }
 }
