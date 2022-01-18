@@ -103,4 +103,15 @@ class MainActivityTest {
         //then: 계산기 텍스트에 0이 화면에 보여야 한다.
         onView(withId(R.id.textView)).check(matches(withText("9")))
     }
+
+    @Test
+    fun clickButton_showStatement() {
+        //when: 사용자가 피연산자 1, +, 2를 누르면
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+
+        //then: 계산기 텍스트에 '1 + 2'가 화면에 보여야 한다.
+        onView(withId(R.id.textView)).check(matches(withText("1 + 2")))
+    }
 }
