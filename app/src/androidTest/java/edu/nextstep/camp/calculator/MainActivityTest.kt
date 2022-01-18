@@ -14,6 +14,7 @@ import org.hamcrest.Matcher
 import org.junit.Rule
 import org.junit.Test
 
+
 class MainActivityTest {
     @get:Rule
     private val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
@@ -322,7 +323,7 @@ class MainActivityTest {
     }
 
     private fun assertToastDisplayed(message: String) {
-        onView(withText(message)).check(matches(isDisplayed()))
+        onView(withText(message)).inRoot(ToastMatcher()).check(matches(isDisplayed()))
     }
 
     companion object {
