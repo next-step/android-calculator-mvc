@@ -1,5 +1,6 @@
 package edu.nextstep.camp.calculator
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
@@ -12,15 +13,30 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.button0.setOnClickListener { binding.textView.text = "0" }
-        binding.button1.setOnClickListener { binding.textView.text = "1" }
-        binding.button2.setOnClickListener { binding.textView.text = "2" }
-        binding.button3.setOnClickListener { binding.textView.text = "3" }
-        binding.button4.setOnClickListener { binding.textView.text = "4" }
-        binding.button5.setOnClickListener { binding.textView.text = "5" }
-        binding.button6.setOnClickListener { binding.textView.text = "6" }
-        binding.button7.setOnClickListener { binding.textView.text = "7" }
-        binding.button8.setOnClickListener { binding.textView.text = "8" }
-        binding.button9.setOnClickListener { binding.textView.text = "9" }
+        clickButtonListener()
+    }
+
+    private fun clickButtonListener() {
+        binding.button0.setOnClickListener { updateCalculateView(getString(R.string.calculator_0)) }
+        binding.button1.setOnClickListener { updateCalculateView(getString(R.string.calculator_1)) }
+        binding.button2.setOnClickListener { updateCalculateView(getString(R.string.calculator_2)) }
+        binding.button3.setOnClickListener { updateCalculateView(getString(R.string.calculator_3)) }
+        binding.button4.setOnClickListener { updateCalculateView(getString(R.string.calculator_4)) }
+        binding.button5.setOnClickListener { updateCalculateView(getString(R.string.calculator_5)) }
+        binding.button6.setOnClickListener { updateCalculateView(getString(R.string.calculator_6)) }
+        binding.button7.setOnClickListener { updateCalculateView(getString(R.string.calculator_7)) }
+        binding.button8.setOnClickListener { updateCalculateView(getString(R.string.calculator_8)) }
+        binding.button9.setOnClickListener { updateCalculateView(getString(R.string.calculator_9)) }
+
+        binding.buttonPlus.setOnClickListener { updateCalculateView(getString(R.string.calculator_plus)) }
+        binding.buttonMinus.setOnClickListener { updateCalculateView(getString(R.string.calculator_minus)) }
+        binding.buttonDivide.setOnClickListener { updateCalculateView(getString(R.string.calculator_divide)) }
+        binding.buttonMultiply.setOnClickListener { updateCalculateView(getString(R.string.calculator_multiply)) }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateCalculateView(input: String) {
+        val formattedString = (binding.textView.text.toString() + " $input").trim()
+        binding.textView.text = formattedString
     }
 }
