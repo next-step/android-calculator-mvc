@@ -2,35 +2,51 @@ package com.example.domain
 
 class Calculator {
 
-    fun evaluate(inputs: String): Float {
-        var opertaion: Operation? = null
-        var result = 0f
+    private var opertaion: Operation? = null
+    private var result = 0f
 
+    fun evaluate(inputs: String): Float {
+        initValue()
         inputs.forEachIndexed { index, _value ->
             val value = _value.toString()
             val type = index % 2
-
-            if (type == EVEN_IS_NUMBER) {
-                val number = value.toFloatOrNull() ?: throw IllegalArgumentException()
-
-                if (opertaion != null) {
-                    result = Operation.calculator(result, opertaion!!, number)
-                    opertaion = null
-                } else {
-                    result = number
+            when (type) {
+                EVEN_IS_NUMBER -> {
+                    calculateNumber(value)
                 }
-            } else if (type == ODD_IS_OPERATION) {
-                if (Operation.check(value).not()) {
+                ODD_IS_OPERATION -> {
+                    setOperator(value)
+                }
+                else -> {
                     throw IllegalArgumentException()
                 }
-
-                opertaion = Operation.get(value)
-            } else {
-                throw IllegalArgumentException()
             }
         }
 
         return result
+    }
+
+    private fun initValue() {
+        opertaion = null
+        result = 0f
+    }
+
+    private fun setOperator(value: String) {
+        if (Operation.check(value).not()) {
+            throw IllegalArgumentException()
+        }
+        opertaion = Operation.get(value)
+    }
+
+    private fun calculateNumber(value: String) {
+        val number = value.toFloatOrNull() ?: throw IllegalArgumentException()
+
+        if (opertaion == null) {
+            result = number
+            return
+        }
+
+        result = Operation.calculate(result, opertaion!!, number)
     }
 
     companion object {

@@ -13,7 +13,7 @@ enum class Operation(val operation: String) {
 
         fun get(operation: String) = values().find { it.operation == operation }
 
-        fun calculator(input1: Float, operator: Operation, input2: Float) = when (operator) {
+        fun calculate(input1: Float, operator: Operation, input2: Float) = when (operator) {
             PLUS -> {
                 input1 + input2
             }
