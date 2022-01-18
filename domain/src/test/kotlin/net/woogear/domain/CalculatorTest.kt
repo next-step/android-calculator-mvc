@@ -29,4 +29,10 @@ class CalculatorTest {
         val result = calculator.evaluate("50 / 25")
         assertEquals(2, result)
     }
+
+    @Test
+    fun two_plus_three_times_four_divided_by_five_minus_one() {
+        val result = calculator.evaluate("2 + 3 * 4 / 5 - 1")
+        assertEquals(3, result)
+    }
 }
