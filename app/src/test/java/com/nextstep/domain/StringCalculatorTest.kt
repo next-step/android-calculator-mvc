@@ -12,7 +12,7 @@ internal class StringCalculatorTest {
     @DisplayName("입력 값이 빈 공백 문자일 경우 IllegalArgumentException 이 Throw 된다.")
     @ParameterizedTest
     @EmptySource
-    fun validateTest_input_null_or_empty(formula: String) {
+    fun validateTest_inputNullOrEmpty(formula: String) {
         val stringCalculator = StringCalculator()
 
         assertThrows<IllegalArgumentException> {
