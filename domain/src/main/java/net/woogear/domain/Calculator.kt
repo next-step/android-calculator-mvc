@@ -53,7 +53,7 @@ class Calculator {
                 continue
             }
 
-            throw IllegalArgumentException()
+            throw IllegalArgumentException("$text is not supported type for input text")
         }
     }
 

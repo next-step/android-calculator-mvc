@@ -38,11 +38,16 @@ class CalculatorTest {
 
     @Test(expected = IllegalArgumentException::class)
     fun null_input() {
-        val result = calculator.evaluate(null)
+        calculator.evaluate(null)
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun empty_input() {
-        val result = calculator.evaluate("")
+        calculator.evaluate("")
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun no_supported_input_text() {
+        calculator.evaluate("2 & 5")
     }
 }
