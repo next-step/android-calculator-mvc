@@ -3,6 +3,7 @@ package edu.nextstep.camp.calculator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.isDigitsOnly
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -36,7 +37,13 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun updateCalculateView(input: String) {
-        val formattedString = (binding.textView.text.toString() + " $input").trim()
-        binding.textView.text = formattedString
+        val baseStatement = binding.textView.text.toString().trim()
+        binding.textView.text = if (baseStatement.isEmpty() ||
+            (baseStatement.last().isDigit() && input.isDigitsOnly())
+        ) {
+            baseStatement + input
+        } else {
+            "$baseStatement $input"
+        }
     }
 }
