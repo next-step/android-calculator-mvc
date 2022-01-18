@@ -65,7 +65,7 @@ class CalculatorTest {
     }
 
     @Test
-    fun `입력값이 blank(" ")인 경우 에러`() {
+    fun `입력값이 blank인 경우 에러`() {
         //when
         val exception = assertThrows(IllegalArgumentException::class.java) {
             calculator.calculate("     ")
