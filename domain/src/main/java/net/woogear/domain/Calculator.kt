@@ -68,6 +68,11 @@ class Calculator {
             answer += number
             return
         }
+
+        if (operationType.isMinus()) {
+            answer -= number
+            return
+        }
     }
 
     private fun String.isInt(): Boolean {
