@@ -75,4 +75,16 @@ internal class StringCalculatorTest {
 
         assertThat(result).isEqualTo(expected)
     }
+
+
+    @DisplayName("불완전한 수식이 파라메터로 입력될 경우 IllegalArgumentException 이 발생한다.")
+    @ParameterizedTest
+    @CsvSource(value = ["0 +,0", "1,1", "1 + 2 * 3 +,9"])
+    fun calculateTest_(formula: String, expected: Double) {
+        val stringCalculator = StringCalculator()
+
+        assertThrows<IllegalArgumentException> {
+            stringCalculator.calculate(formula)
+        }
+    }
 }
