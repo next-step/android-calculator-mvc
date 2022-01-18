@@ -17,7 +17,7 @@ import org.junit.Test
 
 class MainActivityTest {
     @get:Rule
-    private val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
+    val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     // 사용자가 피연산자 0 버튼을 누르면 화면에 0이 보여야 한다.
     @Test
