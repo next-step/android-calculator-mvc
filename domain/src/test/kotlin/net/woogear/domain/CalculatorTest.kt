@@ -4,10 +4,11 @@ import junit.framework.Assert.assertEquals
 import org.junit.Test
 
 class CalculatorTest {
+    private val calculator = Calculator()
+
     @Test
     fun test_one_plus_two_plus_three() {
-        val calculator = Calculator()
-        val actual: Int = calculator.evaluate("1+2+3")
-        assertEquals(6, actual)
+        val result: Int = calculator.evaluate("1 + 2 + 3")
+        assertEquals(6, result)
     }
 }
