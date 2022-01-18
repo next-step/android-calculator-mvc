@@ -87,6 +87,17 @@ internal class StringCalculatorTest {
         assertThat(result).isEqualTo(expected)
     }
 
+    @DisplayName("다양한 연산자로 이루어진 연산자들의 계산이 정상적으로 된다.")
+    @ParameterizedTest
+    @CsvSource(value = ["1 + 2 * 3,9", "3 / 2 - 1,0.5", "100 - 2 + 3 * 2 / 2,101"])
+    fun calculateTest_variousOperator(formula: String, expected: Double) {
+        val stringCalculator = StringCalculator()
+
+        val result = stringCalculator.calculate(formula)
+
+        assertThat(result).isEqualTo(expected)
+    }
+
 
 
 }
