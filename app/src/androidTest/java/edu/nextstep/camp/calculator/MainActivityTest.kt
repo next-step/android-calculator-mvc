@@ -105,7 +105,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickButton_showStatement() {
+    fun noOperand_input_showStatement() {
         //when: 사용자가 피연산자 1, +, 2를 누르면
         onView(withId(R.id.button1)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
