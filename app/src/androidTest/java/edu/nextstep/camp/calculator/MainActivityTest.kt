@@ -154,4 +154,17 @@ class MainActivityTest {
             }
         }
     }
+
+    @Test
+    fun withoutOperand_inputOperator_showNothing() {
+        // GIVEN - 아무것도 입력이 되어있지 않을 때
+        val emptyString = ""
+        onView(withId(R.id.textView)).perform(setTextInTextView(emptyString))
+
+        // WHEN - 사용자가 +, -, *, / 를 누르면
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        // THEN - 입력이 되지 않는다.
+        onView(withId(R.id.textView)).check(matches(withText(emptyString)))
+    }
 }

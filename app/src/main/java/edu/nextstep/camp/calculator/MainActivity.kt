@@ -29,10 +29,10 @@ class MainActivity : AppCompatActivity() {
         binding.button8.setOnClickListener { updateCalculateView(getString(R.string.calculator_8)) }
         binding.button9.setOnClickListener { updateCalculateView(getString(R.string.calculator_9)) }
 
-        binding.buttonPlus.setOnClickListener { updateCalculateView(getString(R.string.calculator_plus)) }
-        binding.buttonMinus.setOnClickListener { updateCalculateView(getString(R.string.calculator_minus)) }
-        binding.buttonDivide.setOnClickListener { updateCalculateView(getString(R.string.calculator_divide)) }
-        binding.buttonMultiply.setOnClickListener { updateCalculateView(getString(R.string.calculator_multiply)) }
+        binding.buttonPlus.setOnClickListener { checkWithOperand(getString(R.string.calculator_plus)) }
+        binding.buttonMinus.setOnClickListener { checkWithOperand(getString(R.string.calculator_minus)) }
+        binding.buttonDivide.setOnClickListener { checkWithOperand(getString(R.string.calculator_divide)) }
+        binding.buttonMultiply.setOnClickListener { checkWithOperand(getString(R.string.calculator_multiply)) }
     }
 
     private fun updateCalculateView(input: String) {
@@ -51,5 +51,10 @@ class MainActivity : AppCompatActivity() {
         } else {
             "$baseStatement $input"
         }
+    }
+
+    private fun checkWithOperand(operator: String) {
+        if (binding.textView.text.isEmpty()) return
+        else updateCalculateView(operator)
     }
 }
