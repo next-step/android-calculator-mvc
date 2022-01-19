@@ -1,5 +1,8 @@
 package net.woogear.domain
 
+import net.woogear.domain.OperationType.Companion.getOperationType
+import net.woogear.domain.OperationType.Companion.isOperationType
+
 class Calculator {
     private var answer = 0
     private var operationType: OperationType = OperationType.PLUS
@@ -18,42 +21,16 @@ class Calculator {
 
         for (text in splitTexts) {
             if (isOperationType(text)) {
-                operationType = OperationType.getOperationType(text)
+                operationType = getOperationType(text)
                 continue
             }
 
             if (text.isInt()) {
-                operateByType(text.toInt(), operationType)
+                answer = operationType.operate(text.toInt(), answer)
                 continue
             }
 
             throw IllegalArgumentException("$text is not supported type for input text")
-        }
-    }
-
-    private fun isOperationType(text: String): Boolean {
-        return text == "+" || text == "-" || text == "*" || text == "/"
-    }
-
-    private fun operateByType(number: Int, operationType: OperationType) {
-        if (operationType.isPlus()) {
-            answer += number
-            return
-        }
-        
-        if (operationType.isMinus()) {
-            answer -= number
-            return
-        }
-
-        if (operationType.isMultiply()) {
-            answer *= number
-            return
-        }
-
-        if (operationType.isDivide()) {
-            answer /= number
-            return
         }
     }
 

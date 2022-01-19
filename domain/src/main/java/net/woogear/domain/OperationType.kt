@@ -9,27 +9,24 @@ enum class OperationType {
     companion object {
         fun getOperationType(text: String): OperationType {
             return when (text) {
+                "+" -> PLUS
                 "-" -> MINUS
                 "*" -> MULTIPLY
-                "/" -> DIVIDE
-                else -> PLUS
+                else -> DIVIDE
             }
+        }
+
+        fun isOperationType(text: String): Boolean {
+            return text == "+" || text == "-" || text == "*" || text == "/"
         }
     }
 
-    fun isPlus(): Boolean {
-        return this == PLUS
-    }
-
-    fun isMinus(): Boolean {
-        return this == MINUS
-    }
-
-    fun isMultiply(): Boolean {
-        return this == MULTIPLY
-    }
-
-    fun isDivide(): Boolean {
-        return this == DIVIDE
+    fun operate(newNumber: Int, oldNumber: Int): Int {
+        return when (this) {
+            PLUS -> oldNumber + newNumber
+            MINUS -> oldNumber - newNumber
+            MULTIPLY -> oldNumber * newNumber
+            else -> oldNumber / newNumber
+        }
     }
 }
