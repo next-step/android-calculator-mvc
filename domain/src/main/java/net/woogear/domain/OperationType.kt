@@ -1,23 +1,23 @@
 package net.woogear.domain
 
-enum class OperationType(private val symbol: String) {
-    PLUS("+") {
+enum class OperationType {
+    PLUS {
         override fun calculate(newNumber: Int, oldNumber: Int): Int {
             return oldNumber + newNumber
         }
     },
-    MINUS("-") {
+    MINUS {
         override fun calculate(newNumber: Int, oldNumber: Int): Int {
             return oldNumber - newNumber
         }
 
     },
-    MULTIPLY("*") {
+    MULTIPLY {
         override fun calculate(newNumber: Int, oldNumber: Int): Int {
             return oldNumber * newNumber
         }
     },
-    DIVIDE("/") {
+    DIVIDE {
         override fun calculate(newNumber: Int, oldNumber: Int): Int {
             return oldNumber / newNumber
         }
