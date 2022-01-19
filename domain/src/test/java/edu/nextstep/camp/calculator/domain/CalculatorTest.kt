@@ -1,7 +1,7 @@
 package edu.nextstep.camp.calculator.domain
 
 import com.google.common.truth.Truth.assertThat
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.Test
 
 class CalculatorTest {
@@ -32,14 +32,14 @@ class CalculatorTest {
 
     @Test
     fun calculateNull() {
-        Assertions.assertThatIllegalArgumentException().isThrownBy {
+        assertThatIllegalArgumentException().isThrownBy {
             Calculator.calculateContents("")
         }
     }
 
     @Test
     fun calculateNotProperOperation() {
-        Assertions.assertThatIllegalArgumentException().isThrownBy {
+        assertThatIllegalArgumentException().isThrownBy {
             Calculator.calculateContents("1 # 4 @ 7")
         }
     }
