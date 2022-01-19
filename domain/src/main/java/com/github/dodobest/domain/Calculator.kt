@@ -2,6 +2,12 @@ package com.github.dodobest.domain
 
 class Calculator {
     companion object {
+        // 사칙 연산 기호
+        const val PLUS: Char = '+'
+        const val MINUS: Char = '-'
+        const val MULTIPLY: Char = '*'
+        const val DIVIDE: Char = '/'
+
         var firstNumIndex: Int = -1 // 숫자를 나타내는 처음 Index 값
         var isMinusSign = false // 숫자가 음수인지 여부를 저장
     }
@@ -68,19 +74,19 @@ class Calculator {
     }
 
     private fun calcWithOperation(sum: Double, operation: String, num: Double): Double {
-        if (operation == "+") {
+        if (operation == PLUS.toString()) {
             return sum + num
         }
 
-        if (operation == "-") {
+        if (operation == MINUS.toString()) {
             return sum - num
         }
 
-        if (operation == "*") {
+        if (operation == MULTIPLY.toString()) {
             return sum * num
         }
 
-        if (operation == "/") {
+        if (operation == DIVIDE.toString()) {
             return sum / num
         }
 
@@ -181,8 +187,7 @@ class Calculator {
     }
 
     private fun charIsOperation(inputChar: Char): Boolean {
-        val arithmeticOperation: Array<Char> = arrayOf('+', '-', '*', '/') // 사칙연산을 저장한 배열 값
-
+        val arithmeticOperation: Array<Char> = arrayOf(PLUS, MINUS, MULTIPLY, DIVIDE) // 사칙연산을 저장한 배열 값
         if (arithmeticOperation.contains(inputChar)) {
             return true
         }
