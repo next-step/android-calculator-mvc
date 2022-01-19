@@ -33,7 +33,7 @@ enum class OperationType {
             }
         }
 
-        fun isOperationType(text: String): Boolean {
+        fun isOperator(text: String): Boolean {
             return text == "+" || text == "-" || text == "*" || text == "/"
         }
     }
