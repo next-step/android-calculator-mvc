@@ -7,9 +7,8 @@ enum class CalculateOrder {
 
     fun getNextCalculateOrder(): CalculateOrder {
         return when (this) {
-            NUMBER_FIRST -> OPERATION
+            NUMBER_FIRST, NUMBER_SECOND -> OPERATION
             OPERATION -> NUMBER_SECOND
-            NUMBER_SECOND -> OPERATION
         }
     }
 }
