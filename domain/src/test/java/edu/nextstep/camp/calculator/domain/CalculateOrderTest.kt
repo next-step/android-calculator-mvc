@@ -11,12 +11,17 @@ class CalculateOrderTest {
     }
 
     @Test
-    fun getNextCalculateOrderFromNumberOperation() {
+    fun getNextCalculateOrderFromOperation() {
         assertThat(CalculateOrder.OPERATION.getNextCalculateOrder()).isEqualTo(CalculateOrder.NUMBER_SECOND)
     }
 
     @Test
     fun getNextCalculateOrderFromNumberSecond() {
-        assertThat(CalculateOrder.NUMBER_SECOND.getNextCalculateOrder()).isEqualTo(CalculateOrder.OPERATION)
+        assertThat(CalculateOrder.NUMBER_SECOND.getNextCalculateOrder()).isEqualTo(CalculateOrder.CALCULATION)
+    }
+
+    @Test
+    fun getNextCalculateOrderFromNumberCalculation() {
+        assertThat(CalculateOrder.CALCULATION.getNextCalculateOrder()).isEqualTo(CalculateOrder.NUMBER_FIRST)
     }
 }
