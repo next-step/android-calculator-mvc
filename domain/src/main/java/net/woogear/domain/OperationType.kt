@@ -1,10 +1,27 @@
 package net.woogear.domain
 
-enum class OperationType {
-    PLUS,
-    MINUS,
-    MULTIPLY,
-    DIVIDE;
+enum class OperationType(private val symbol: String) {
+    PLUS("+") {
+        override fun calculate(newNumber: Int, oldNumber: Int): Int {
+            return oldNumber + newNumber
+        }
+    },
+    MINUS("-") {
+        override fun calculate(newNumber: Int, oldNumber: Int): Int {
+            return oldNumber - newNumber
+        }
+
+    },
+    MULTIPLY("*") {
+        override fun calculate(newNumber: Int, oldNumber: Int): Int {
+            return oldNumber * newNumber
+        }
+    },
+    DIVIDE("/") {
+        override fun calculate(newNumber: Int, oldNumber: Int): Int {
+            return oldNumber / newNumber
+        }
+    };
 
     companion object {
         fun getOperationType(text: String): OperationType {
@@ -21,12 +38,5 @@ enum class OperationType {
         }
     }
 
-    fun operate(newNumber: Int, oldNumber: Int): Int {
-        return when (this) {
-            PLUS -> oldNumber + newNumber
-            MINUS -> oldNumber - newNumber
-            MULTIPLY -> oldNumber * newNumber
-            else -> oldNumber / newNumber
-        }
-    }
+    abstract fun calculate(newNumber: Int, oldNumber: Int): Int
 }

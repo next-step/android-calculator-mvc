@@ -26,7 +26,7 @@ class Calculator {
             }
 
             if (text.isInt()) {
-                answer = operationType.operate(text.toInt(), answer)
+                answer = operationType.calculate(text.toInt(), answer)
                 continue
             }
 
