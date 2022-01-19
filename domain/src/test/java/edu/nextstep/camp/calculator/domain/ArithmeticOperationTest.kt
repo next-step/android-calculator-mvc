@@ -7,22 +7,22 @@ import org.junit.Test
 class ArithmeticOperationTest {
 
     @Test
-    fun test_string_convert_to_plus() {
+    fun stringConvertToPlus() {
         assertThat("+".convertToArithmeticOperation()).isEqualTo(ArithmeticOperation.PLUS)
     }
 
     @Test
-    fun test_string_convert_to_minus() {
+    fun stringConvertToMinus() {
         assertThat("-".convertToArithmeticOperation()).isEqualTo(ArithmeticOperation.MINUS)
     }
 
     @Test
-    fun test_string_convert_to_multiplication() {
+    fun stringConvertToMultiplication() {
         assertThat("*".convertToArithmeticOperation()).isEqualTo(ArithmeticOperation.MULTIPLICATION)
     }
 
     @Test
-    fun test_string_convert_to_division() {
+    fun stringConvertToDivision() {
         assertThat("/".convertToArithmeticOperation()).isEqualTo(ArithmeticOperation.DIVISION)
     }
 }

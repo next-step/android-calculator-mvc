@@ -6,17 +6,17 @@ import org.junit.Test
 class CalculateOrderTest {
 
     @Test
-    fun test_get_next_calculate_order_from_number_first() {
+    fun getNextCalculateOrderFromNumberFirst() {
         assertThat(CalculateOrder.NUMBER_FIRST.getNextCalculateOrder()).isEqualTo(CalculateOrder.OPERATION)
     }
 
     @Test
-    fun test_get_next_calculate_order_from_number_operation() {
+    fun getNextCalculateOrderFromNumberOperation() {
         assertThat(CalculateOrder.OPERATION.getNextCalculateOrder()).isEqualTo(CalculateOrder.NUMBER_SECOND)
     }
 
     @Test
-    fun test_get_next_calculate_order_from_number_second() {
+    fun getNextCalculateOrderFromNumberSecond() {
         assertThat(CalculateOrder.NUMBER_SECOND.getNextCalculateOrder()).isEqualTo(CalculateOrder.OPERATION)
     }
 }
