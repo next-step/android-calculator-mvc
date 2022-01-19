@@ -5,7 +5,7 @@ object Calculator {
 
     fun calculate(input: String): Int {
         val words = input.trim().split(DELIMITER)
-        val identity = words[0].toInt()
+        val identity = words.first().toInt()
         return words.drop(1)
             .chunked(Operation.CHUNK_SIZE)
             .map(Operation.Companion::from)

@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.ValueSource
 internal class CalculatorTest {
     @DisplayName("계산이 성공하는지 확인.")
     @ParameterizedTest
-    @CsvSource("2 + 3 * 4 / 2,10", "   15 - 3 / 3 ,4")
+    @CsvSource("2 + 3 × 4 ÷ 2,10", "   15 - 3 ÷ 3 ,4")
     fun happyPath(input: String, result: Int) {
         assertThat(calculate(input))
             .isEqualTo(result)
