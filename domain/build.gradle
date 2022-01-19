@@ -8,6 +8,24 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+ext.junit_version = "5.8.2"
+ext.assertj_version = "3.22.0"
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_version"
+    testImplementation "org.assertj:assertj-core:$assertj_version"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_version"
+}
+
+test {
+    useJUnitPlatform()
 }
