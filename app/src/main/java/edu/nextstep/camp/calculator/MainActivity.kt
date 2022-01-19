@@ -65,9 +65,11 @@ class MainActivity : AppCompatActivity() {
         buttonDelete.setOnClickListener {
             val text = textView.text
             if (text.isBlank()) return@setOnClickListener
+            val numberSize = 1
+            val operatorSize = 3
             textView.text = text.dropLast(
                 text.last().toString()
-                    .toIntOrNull()?.let { 1 } ?: 3
+                    .toIntOrNull()?.let { numberSize } ?: operatorSize
             )
         }
         buttonEquals.setOnClickListener {
