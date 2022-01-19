@@ -33,6 +33,12 @@ class MainActivity : AppCompatActivity() {
         binding.buttonMinus.setOnClickListener { checkWithOperand(getString(R.string.calculator_minus)) }
         binding.buttonDivide.setOnClickListener { checkWithOperand(getString(R.string.calculator_divide)) }
         binding.buttonMultiply.setOnClickListener { checkWithOperand(getString(R.string.calculator_multiply)) }
+        binding.buttonDelete.setOnClickListener { deleteStatement() }
+
+    }
+
+    private fun deleteStatement() {
+        binding.textView.text = binding.textView.text.toString().dropLast(1).trim()
     }
 
     private fun updateCalculateView(input: String) {

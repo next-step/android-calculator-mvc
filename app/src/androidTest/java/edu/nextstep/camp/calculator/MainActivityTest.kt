@@ -180,4 +180,45 @@ class MainActivityTest {
         // THEN - 해당 기호가 보인다.
         onView(withId(R.id.textView)).check(matches(withText("1 +")))
     }
+
+    @Test
+    fun inputNothing_clickDeleteButton_showNothing() {
+        // GIVEN - 아무것도 입력이 되어있지 않을 때
+        val emptyString = ""
+        onView(withId(R.id.textView)).perform(setTextInTextView(emptyString))
+
+        // WHEN - 사용자가 취소 버튼을 누르면
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        // THEN - 변화가 없다.
+        onView(withId(R.id.textView)).check(matches(withText(emptyString)))
+    }
+
+    @Test
+    fun inputStatement_oneClickDeleteButton_deleteOperandOrOperator() {
+        // GIVEN - 수식이 입력이 될 때
+        val statement = "32 + 1"
+        onView(withId(R.id.textView)).perform(setTextInTextView(statement))
+
+        // WHEN - 사용자가 취소 버튼 한 번 누르면
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        // THEN - 기호삭제 및 숫자가 하나씩 제거 된다.
+        onView(withId(R.id.textView)).check(matches(withText("32 +")))
+    }
+
+    @Test
+    fun inputStatement_multiClickDeleteButton_deleteOperandOrOperator() {
+        // GIVEN - 수식이 입력이 될 때
+        val statement = "32 + 1"
+        onView(withId(R.id.textView)).perform(setTextInTextView(statement))
+
+        // WHEN - 사용자가 취소 버튼을 여러번 누르면
+        onView(withId(R.id.buttonDelete)).perform(click())
+        onView(withId(R.id.buttonDelete)).perform(click())
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        // THEN - 기호삭제 및 숫자가 하나씩 제거 된다.
+        onView(withId(R.id.textView)).check(matches(withText("3")))
+    }
 }
