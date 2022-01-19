@@ -1,7 +1,10 @@
 package com.github.dodobest.domain
 
+import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Assert.*
 import org.junit.Test
+
 
 class CalculatorTest {
     private val calculator = Calculator()
@@ -12,7 +15,7 @@ class CalculatorTest {
         val actual: Double = calculator.evaluate("1+2+3")
 
         // then : 올바른 덧셈 결과를 계산한다
-        assertEquals(6.0, actual, 0.00001)
+        assertThat(actual).isEqualTo(6)
     }
 
     @Test
@@ -21,7 +24,7 @@ class CalculatorTest {
         val actual: Double = calculator.evaluate("10-2-3")
 
         // then : 올바른 뺄셈 결과를 계산한다
-        assertEquals(5.0, actual, 0.00001)
+        assertThat(actual).isEqualTo(5)
     }
 
     @Test
@@ -30,7 +33,7 @@ class CalculatorTest {
         val actual: Double = calculator.evaluate("10*-5*9")
 
         // then : 올바른 곱셈 결과를 계산한다
-        assertEquals(-450.0, actual, 0.00001)
+        assertThat(actual).isEqualTo(-450)
     }
 
     @Test
@@ -39,13 +42,13 @@ class CalculatorTest {
         var actual: Double = calculator.evaluate("120/2/3")
 
         // then : 올바른 나눗셈 결과를 계산한다
-        assertEquals(20.0, actual, 0.00001)
+        assertThat(actual).isEqualTo(20)
 
         // when : 사용자가 나눗셈 식을 입력하면
         actual = calculator.evaluate("10/3")
 
         // then : 올바른 나눗셈 결과를 계산한다
-        assertEquals(3.3333333, actual, 0.00001)
+        assertThat(actual).isWithin(1.0e-5).of(3.3333333)
     }
 
     @Test
@@ -56,7 +59,7 @@ class CalculatorTest {
         ) { calculator.evaluate("120+null/3") }
 
         // then : IllegalArgumentException 을 발생시킨다
-        assertEquals(IllegalArgumentException::class.java, thrown.javaClass)
+        assertThat(thrown).isInstanceOf(IllegalArgumentException::class.java)
     }
 
     @Test
@@ -67,7 +70,7 @@ class CalculatorTest {
         ) { calculator.evaluate("120/10- *3+ /1") }
 
         // then : IllegalArgumentException 을 발생시킨다
-        assertEquals(IllegalArgumentException::class.java, thrown.javaClass)
+        assertThat(thrown).isInstanceOf(IllegalArgumentException::class.java)
     }
 
     @Test
@@ -78,24 +81,16 @@ class CalculatorTest {
         ) { calculator.evaluate("5$7~3x8") }
 
         // then : IllegalArgumentException 을 발생시킨다
-        assertEquals(IllegalArgumentException::class.java, thrown.javaClass)
+        assertThat(thrown).isInstanceOf(IllegalArgumentException::class.java)
     }
 
     @Test
     fun test_all_arithmetic_input_calculation() {
         // when : 사용자가 사칙연산을 모두 포함하는 사칙연산 식을 입력하면
-        var actual: Double = calculator.evaluate("2 + 3 * 4 / 2")
+        val actual: Double = calculator.evaluate("2 + 3 * 4 / 2")
 
         // then : 올바른 계산 결과를 계산한다
-        assertEquals(10.0, actual, 0.00001)
-
-        // when : 사용자가 사칙연산을 모두 포함하는 사칙연산 식을 입력하면
-        actual = calculator.evaluate("+10*+2-10/+10")
-
-        // then : 올바른 계산 결과를 계산한다
-        assertEquals(1.0, actual, 0.00001)
-
-
+        assertThat(actual).isEqualTo(10)
     }
 
     @Test
@@ -110,7 +105,7 @@ class CalculatorTest {
                 IllegalArgumentException::class.java
             ) { calculator.evaluate(exceptionString) }
 
-            assertEquals(IllegalArgumentException::class.java, thrown.javaClass)
+            assertThat(thrown).isInstanceOf(IllegalArgumentException::class.java)
         }
     }
 }

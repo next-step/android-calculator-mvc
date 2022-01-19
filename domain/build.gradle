@@ -6,4 +6,6 @@ plugins {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "junit:junit:$junit_version"
+
+    testImplementation 'com.google.truth:truth:1.1.3'
 }
