@@ -2,12 +2,15 @@ package edu.nextstep.camp.calculator
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.isDigitsOnly
+import com.nextstep.domain.Calculator
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val calculator by lazy { Calculator() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +37,21 @@ class MainActivity : AppCompatActivity() {
         binding.buttonDivide.setOnClickListener { checkWithOperand(getString(R.string.calculator_divide)) }
         binding.buttonMultiply.setOnClickListener { checkWithOperand(getString(R.string.calculator_multiply)) }
         binding.buttonDelete.setOnClickListener { deleteStatement() }
+        binding.buttonEquals.setOnClickListener { calculateStatement() }
+    }
 
+    private fun calculateStatement() {
+        runCatching {
+            binding.textView.text = calculator.calculate(replaceOperator()).toString()
+        }.getOrElse { e ->
+            Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun replaceOperator(): String {
+        return binding.textView.text.toString()
+            .replace(getString(R.string.calculator_divide), getString(R.string.operator_divide))
+            .replace(getString(R.string.calculator_multiply), getString(R.string.operator_multiply))
     }
 
     private fun deleteStatement() {
@@ -48,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun String.addOperandToNumber(input: String): String {
-        val baseStatement = this
+        val baseStatement = this@addOperandToNumber
         return if (
             baseStatement.isEmpty() ||
             (baseStatement.last().isDigit() && input.isDigitsOnly())

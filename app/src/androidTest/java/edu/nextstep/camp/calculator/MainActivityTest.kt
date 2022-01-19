@@ -221,4 +221,17 @@ class MainActivityTest {
         // THEN - 기호삭제 및 숫자가 하나씩 제거 된다.
         onView(withId(R.id.textView)).check(matches(withText("3")))
     }
+
+    @Test
+    fun inputStatement_clickEqualButton_showResult() {
+        // GIVEN - 수식이 입력이 될 때
+        val statement = "2 + 2"
+        onView(withId(R.id.textView)).perform(setTextInTextView(statement))
+
+        // WHEN - 사용자가 결과 버튼을 누르면
+        onView(withId(R.id.buttonEquals)).perform(click())
+
+        // THEN - 수식의 결과가 화면에 나온다.
+        onView(withId(R.id.textView)).check(matches(withText("4")))
+    }
 }
