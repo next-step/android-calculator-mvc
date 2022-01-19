@@ -9,9 +9,21 @@ class CalculatorTest {
     private val calculator = Calculator()
 
     @Test
-    fun `given plus then show correct result`() {
+    fun `first value is must number`() {
+        val result = assertThrows(IllegalArgumentException::class.java) {
+            //given
+            val input = "+ 2 + 3"
+            //when
+            calculator.evaluate(input)
+        }
+        //then
+        assertThat(result).isInstanceOf(IllegalArgumentException::class.java)
+    }
+
+    @Test
+    fun `given plus when evaluate then show correct result`() {
         //given
-        val input = "1+2+3"
+        val input = "1 + 2 + 3"
         //when
         val result = calculator.evaluate(input)
         //then
@@ -19,9 +31,9 @@ class CalculatorTest {
     }
 
     @Test
-    fun `given subtraction then show correct result`() {
+    fun `given subtraction when evaluate then show correct result`() {
         //given
-        val input = "6-3-2"
+        val input = "6 - 3 - 2"
         //when
         val result = calculator.evaluate(input)
         //then
@@ -29,9 +41,9 @@ class CalculatorTest {
     }
 
     @Test
-    fun `given multiplication then show correct result`() {
+    fun `given multiplication when evaluate then show correct result`() {
         //given
-        val input = "6*3*2"
+        val input = "6 * 3 * 2"
         //when
         val result = calculator.evaluate(input)
         //then
@@ -39,9 +51,9 @@ class CalculatorTest {
     }
 
     @Test
-    fun `given division then show correct result`() {
+    fun `given division when evaluate then show correct result`() {
         //given
-        val input = "6/3/2"
+        val input = "6 / 3 / 2"
         //when
         val result = calculator.evaluate(input)
         //then
@@ -49,32 +61,33 @@ class CalculatorTest {
     }
 
     @Test
-    fun `given null then throw error`() {
-        assertThrows(IllegalArgumentException::class.java) {
+    fun `given null when evaluate then throw error`() {
+        val result = assertThrows(IllegalArgumentException::class.java) {
             //given
-            val input = " 1+2+3"
+            val input = ""
             //when
             calculator.evaluate(input)
-            //then
         }
+        //then
+        assertThat(result).isInstanceOf(IllegalArgumentException::class.java)
     }
 
     @Test
-    fun `given wrong calculation symbol then throw error`() {
-        assertThrows(IllegalArgumentException::class.java) {
+    fun `given wrong calculation symbol when evaluate then throw error`() {
+        val result = assertThrows(IllegalArgumentException::class.java) {
             //given
-            val input = "1&2@3"
+            val input = "1 & 2 @ 3"
             //when
             calculator.evaluate(input)
-            //then
         }
+        //then
+        assertThat(result).isInstanceOf(IllegalArgumentException::class.java)
     }
 
-    //사칙 연산을 모두 포함하는 기능 구현
     @Test
-    fun `given all calculation symbol then show correct result`() {
+    fun `given all calculation symbol when evaluate then show correct result`() {
         //given
-        val input = "1+2*3-1/2"
+        val input = "1 + 2 * 3 - 1 / 2"
         //when
         val result = calculator.evaluate(input)
         //then
