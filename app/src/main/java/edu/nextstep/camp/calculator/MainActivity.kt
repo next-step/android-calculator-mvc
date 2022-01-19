@@ -3,7 +3,6 @@ package edu.nextstep.camp.calculator
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import edu.nextstep.camp.calculator.Calculator.calculate
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -74,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         buttonEquals.setOnClickListener {
             if (textView.text.isBlank()) return@setOnClickListener
             runCatching {
-                textView.text = calculate(textView.text.toString()).toString()
+                textView.text = Calculator.calculate(textView.text.toString()).toString()
             }.getOrElse {
                 Toast.makeText(this@MainActivity, "완성되지 않은 수식입니다", Toast.LENGTH_SHORT)
                     .show()

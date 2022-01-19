@@ -1,6 +1,6 @@
 package edu.nextstep.camp.calculator
 
-data class Operation constructor(
+data class Operation(
     private val arithmetic: IntArithmetics,
     private val number: Int
 ) {

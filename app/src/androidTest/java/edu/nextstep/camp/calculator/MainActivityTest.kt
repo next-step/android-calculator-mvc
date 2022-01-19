@@ -7,7 +7,10 @@ import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matcher
@@ -138,7 +141,7 @@ class MainActivityTest {
         onView(withId(R.id.buttonPlus)).perform(click())
         onView(withId(R.id.button1)).perform(click())
 
-        // then: 화면에 89가 보여야 한다.
+        // then: 화면에 5 + 1 이 보여야 한다.
         assertTextEquals("5 + 1")
     }
 
@@ -249,17 +252,23 @@ class MainActivityTest {
         onView(withId(R.id.textView)).perform(replaceText("32 + 1"))
 
         // when: 지우기 버튼을 누르면
-        // then: 마지막 입력이 지워진다.
         onView(withId(R.id.buttonDelete)).perform(click())
+        // then: 마지막 입력이 지워진다.
         assertTextEquals("32 + ")
 
+        // when: 지우기 버튼을 누르면
         onView(withId(R.id.buttonDelete)).perform(click())
+        // then: 마지막 입력이 지워진다.
         assertTextEquals("32")
 
+        // when: 지우기 버튼을 누르면
         onView(withId(R.id.buttonDelete)).perform(click())
+        // then: 마지막 입력이 지워진다.
         assertTextEquals("3")
 
+        // when: 지우기 버튼을 누르면
         onView(withId(R.id.buttonDelete)).perform(click())
+        // then: 마지막 입력이 지워진다.
         assertTextEquals("")
     }
 
