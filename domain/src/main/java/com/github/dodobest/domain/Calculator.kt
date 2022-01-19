@@ -4,12 +4,10 @@ class Calculator {
     companion object {
         var firstNumIndex: Int = -1 // 숫자를 나타내는 처음 Index 값
         var isMinusSign = false // 숫자가 음수인지 여부를 저장
-        var numAndSignArray: Array<String> = emptyArray<String>() // 분리한 숫자와 문자를 저장할 변수
     }
 
     fun evaluate(input: String): Double {
-        // 시작 하기 전에 정적 변수 초기화
-        numAndSignArray = emptyArray<String>()
+        val numAndSignArray: MutableList<String> = MutableList<String>(0) { "" } // 분리한 숫자와 문자를 저장할 변수
 
         // 띄어쓰기 없애기
         val inputString: String = eraseBlankAtString(input)
@@ -20,7 +18,7 @@ class Calculator {
         }
 
         // 문자열로 부터 숫자, 사칙 연산을 분리해서 배열에 추가하기
-        addNumAndSingToArrayFromString(inputString)
+        addNumAndSingToArrayFromString(inputString, numAndSignArray)
 
         // 문자열 계산
         return calculate(numAndSignArray)
@@ -30,21 +28,21 @@ class Calculator {
         return inputString.replace(" ", "")
     }
 
-    private fun addNumAndSingToArrayFromString(inputString: String) {
+    private fun addNumAndSingToArrayFromString(inputString: String, numAndSignArray: MutableList<String>) {
         for (idx in inputString.indices) {
             // 문자열로 부터 숫자와 문자를 분리하기
-            splitNumAndSignFromString(inputString, idx)
+            splitNumAndSignFromString(inputString, idx, numAndSignArray)
         }
 
         // 마지막 숫자 값 더해주고, 정적 변수 초기화 하기
-        numAndSignArray += inputString.slice(IntRange(firstNumIndex, inputString.length-1))
+        numAndSignArray.add(inputString.slice(IntRange(firstNumIndex, inputString.length-1)))
 
         firstNumIndex = -1
         isMinusSign = false
 
     }
 
-    private fun splitNumAndSignFromString(inputString: String, charIndex: Int) {
+    private fun splitNumAndSignFromString(inputString: String, charIndex: Int, numAndSignArray: MutableList<String>) {
         // 숫자인 경우
         if (checkCharIsNum(inputString[charIndex])) {
             // 숫자를 나타내는 처음 Index 값 업데이트 하기
@@ -53,10 +51,10 @@ class Calculator {
         }
 
         // 연산 기호인 경우
-        checkArithmeticOperation(inputString, charIndex)
+        checkArithmeticOperation(inputString, charIndex, numAndSignArray)
     }
 
-    private fun calculate(inputArray: Array<String>): Double {
+    private fun calculate(inputArray: List<String>): Double {
         var sum: Double = inputArray[0].toDouble()
         var idx = 1
 
@@ -116,7 +114,7 @@ class Calculator {
         return false
     }
 
-    private fun checkArithmeticOperation(inputString: String, charIndex: Int) {
+    private fun checkArithmeticOperation(inputString: String, charIndex: Int, numAndSignArray: MutableList<String>) {
         val inputChar: Char = inputString[charIndex]
 
         // 사칙 연산 기호가 아닌 경우 IllegalArgumentException throw
@@ -146,8 +144,8 @@ class Calculator {
 
         // 숫자와 연산 기호 배열에 저장하고 정적 변수 초기화 하기
         if (firstNumIndex != -1) {
-            numAndSignArray += inputString.slice(IntRange(firstNumIndex, charIndex-1)) // 숫자
-            numAndSignArray += inputString.slice(IntRange(charIndex, charIndex)) // 연산 기호
+            numAndSignArray.add(inputString.slice(IntRange(firstNumIndex, charIndex-1))) // 숫자
+            numAndSignArray.add(inputString.slice(IntRange(charIndex, charIndex))) // 연산 기호
 
             firstNumIndex = -1
             isMinusSign = false
