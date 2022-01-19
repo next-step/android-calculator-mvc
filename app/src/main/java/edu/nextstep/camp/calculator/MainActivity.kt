@@ -1,6 +1,5 @@
 package edu.nextstep.camp.calculator
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -63,18 +62,17 @@ class MainActivity : AppCompatActivity() {
         binding.textView.text = baseStatement.addOperandToNumber(input)
     }
 
-    @SuppressLint("SetTextI18n")
     private fun String.addOperandToNumber(input: String): String {
         val baseStatement = this@addOperandToNumber
-        return if (
-            baseStatement.isEmpty() ||
-            (baseStatement.last().isDigit() && input.isDigitsOnly())
-        ) {
-            baseStatement + input
+        return if (baseStatement.isEmptyOrDigit(input)) {
+            "$baseStatement$input"
         } else {
             "$baseStatement $input"
         }
     }
+
+    private fun String.isEmptyOrDigit(input: String) = this.isEmpty() ||
+            (this.last().isDigit() && input.isDigitsOnly())
 
     private fun checkWithOperand(operator: String) {
         if (binding.textView.text.isEmpty()) return
