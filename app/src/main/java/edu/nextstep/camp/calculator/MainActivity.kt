@@ -35,10 +35,16 @@ class MainActivity : AppCompatActivity() {
         binding.buttonMultiply.setOnClickListener { updateCalculateView(getString(R.string.calculator_multiply)) }
     }
 
-    @SuppressLint("SetTextI18n")
     private fun updateCalculateView(input: String) {
         val baseStatement = binding.textView.text.toString().trim()
-        binding.textView.text = if (baseStatement.isEmpty() ||
+        binding.textView.text = baseStatement.addOperandToNumber(input)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun String.addOperandToNumber(input: String): String {
+        val baseStatement = this
+        return if (
+            baseStatement.isEmpty() ||
             (baseStatement.last().isDigit() && input.isDigitsOnly())
         ) {
             baseStatement + input
