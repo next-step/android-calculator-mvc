@@ -211,11 +211,11 @@ class MainActivityTest {
         // given: 1이 피연산자로 입력되었다.
         onView(withId(R.id.textView)).perform(replaceText("1"))
 
-        // when: * 연산자 버튼을 누른다.
+        // when: × 연산자 버튼을 누른다.
         onView(withId(R.id.buttonMultiply)).perform(click())
 
-        // then: * 기호가 화면에 보인다.
-        assertTextEquals("1 * ")
+        // then: × 기호가 화면에 보인다.
+        assertTextEquals("1 × ")
     }
 
     // 입력된 피연산자가 있을 때, / 버튼을 누르면 기호가 화면에 보여야 한다.
@@ -224,11 +224,11 @@ class MainActivityTest {
         // given: 1이 피연산자로 입력되었다.
         onView(withId(R.id.textView)).perform(replaceText("1"))
 
-        // when: / 연산자 버튼을 누른다.
+        // when: ÷ 연산자 버튼을 누른다.
         onView(withId(R.id.buttonDivide)).perform(click())
 
-        // then: / 기호가 화면에 보인다.
-        assertTextEquals("1 / ")
+        // then: ÷ 기호가 화면에 보인다.
+        assertTextEquals("1 ÷ ")
     }
 
     // 입력된 수식이 없을 때, 지우기 버튼을 누르면 화면에 아무런 변화가 없어야 한다.

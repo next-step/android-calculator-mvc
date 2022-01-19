@@ -31,7 +31,7 @@ internal class IntArithmeticsTest {
     fun times() {
         val left = 5
         val right = 4
-        assertThat(IntArithmetics.TIMES.apply(left, right))
+        assertThat(IntArithmetics.MULTIPLY.apply(left, right))
             .isEqualTo(20)
     }
 
@@ -40,7 +40,7 @@ internal class IntArithmeticsTest {
     fun divides() {
         val left = 20
         val right = 2
-        assertThat(IntArithmetics.DIVIDES.apply(left, right))
+        assertThat(IntArithmetics.DIVIDE.apply(left, right))
             .isEqualTo(10)
     }
 
@@ -48,7 +48,7 @@ internal class IntArithmeticsTest {
     @Test
     fun divideBy0() {
         assertThatExceptionOfType(IllegalArgumentException::class.java)
-            .isThrownBy { IntArithmetics.DIVIDES.apply(1, 0) }
+            .isThrownBy { IntArithmetics.DIVIDE.apply(1, 0) }
             .withMessage("숫자는 0으로 나눌 수 없습니다.")
     }
 
@@ -70,11 +70,11 @@ internal class IntArithmeticsTest {
             assertThat(IntArithmetics.from("-"))
                 .isEqualTo(IntArithmetics.MINUS)
         }, {
-            assertThat(IntArithmetics.from("*"))
-                .isEqualTo(IntArithmetics.TIMES)
+            assertThat(IntArithmetics.from("×"))
+                .isEqualTo(IntArithmetics.MULTIPLY)
         }, {
-            assertThat(IntArithmetics.from("/"))
-                .isEqualTo(IntArithmetics.DIVIDES)
+            assertThat(IntArithmetics.from("÷"))
+                .isEqualTo(IntArithmetics.DIVIDE)
         })
     }
 }

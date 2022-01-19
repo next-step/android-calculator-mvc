@@ -11,10 +11,10 @@ enum class IntArithmetics : BinaryOperator<Int>, IntBinaryOperator {
     MINUS {
         override fun apply(left: Int, right: Int): Int = left - right
     },
-    TIMES {
+    MULTIPLY {
         override fun apply(left: Int, right: Int): Int = left * right
     },
-    DIVIDES {
+    DIVIDE {
         override fun apply(left: Int, right: Int): Int {
             if (right == 0) {
                 throw IllegalArgumentException("숫자는 0으로 나눌 수 없습니다.")
@@ -30,8 +30,8 @@ enum class IntArithmetics : BinaryOperator<Int>, IntBinaryOperator {
             when (token) {
                 "+" -> return PLUS
                 "-" -> return MINUS
-                "*" -> return TIMES
-                "/" -> return DIVIDES
+                "×" -> return MULTIPLY
+                "÷" -> return DIVIDE
             }
             throw IllegalArgumentException("허용되지 않은 연산자 입니다.")
         }

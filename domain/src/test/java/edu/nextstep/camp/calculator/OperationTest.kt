@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource
 internal class OperationTest {
     @DisplayName("계산이 성공하는지 확인.")
     @ParameterizedTest
-    @CsvSource("+ 7,11", "- 1,3", "* 3,12", "/ 2,2")
+    @CsvSource("+ 7,11", "- 1,3", "× 3,12", "÷ 2,2")
     fun happyPath(input: String, expected: Int) {
         val chunk = input.split(DELIMITER)
         Assertions.assertThat(Operation.from(chunk).calculate(ACCUMULATED))
