@@ -73,24 +73,14 @@ class Calculator {
         return sum
     }
 
-    private fun calcWithOperation(sum: Double, operation: String, num: Double): Double {
-        if (operation == PLUS.toString()) {
-            return sum + num
+    private fun calcWithOperation(sum: Double, operation: String, num: Double): Double = when (operation) {
+        PLUS.toString() -> sum + num
+        MINUS.toString() -> sum - num
+        MULTIPLY.toString() -> sum * num
+        DIVIDE.toString() -> sum / num
+        else -> {
+            throw IllegalArgumentException("사칙연산 외 기호가 입력되었습니다.")
         }
-
-        if (operation == MINUS.toString()) {
-            return sum - num
-        }
-
-        if (operation == MULTIPLY.toString()) {
-            return sum * num
-        }
-
-        if (operation == DIVIDE.toString()) {
-            return sum / num
-        }
-
-        throw IllegalArgumentException("사칙연산 외 기호가 입력되었습니다.")
     }
 
     private fun updateFirstNumIndex(inputString: String, charIndex: Int){

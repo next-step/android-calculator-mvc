@@ -17,14 +17,14 @@ class CalculatorTest(val inputString: String, val expectedResult: Any) {
         @Parameterized.Parameters
         fun data() : Collection<Array<Any>> {
             return listOf(
-                arrayOf("10+ 2 /- 3 * - + 2", IllegalArgumentException::class.java), // 사용자가 사칙연산 기호를 연속으로 입력하면
-                arrayOf("10+2---2", IllegalArgumentException::class.java), // when : 사용자가 사칙연산 기호를 연속으로 입력하면
-                arrayOf("1/0", IllegalArgumentException::class.java), // when : 사용자가 0으로 나누는 사칙연산 식을 입력하면
-                arrayOf("2+3*(5-3)", IllegalArgumentException::class.java), // when : 사용자가 사칙연산 식에 괄호를 포함하면
-                arrayOf("10+010", IllegalArgumentException::class.java), // when : 사용자가 0으로 시작하는 숫자를 입력하면
-                arrayOf("5\$7~3x8", IllegalArgumentException::class.java), // when : 사용자가 사칙연산 식에 사칙연산이 아닌 기호를 포함하면
-                arrayOf("120/10- *3+ /1", IllegalArgumentException::class.java), // when : 사용자가 사칙연산 식에 빈 문자열을 입력하면
-                arrayOf("120+null/3", IllegalArgumentException::class.java), // when : 사용자가 사칙연산 식에 null을 입력하면
+                arrayOf("10+ 2 /- 3 * - + 2", IllegalArgumentException::class.java.name), // 사용자가 사칙연산 기호를 연속으로 입력하면
+                arrayOf("10+2---2", IllegalArgumentException::class.java.name), // when : 사용자가 사칙연산 기호를 연속으로 입력하면
+                arrayOf("1/0", IllegalArgumentException::class.java.name), // when : 사용자가 0으로 나누는 사칙연산 식을 입력하면
+                arrayOf("2+3*(5-3)", IllegalArgumentException::class.java.name), // when : 사용자가 사칙연산 식에 괄호를 포함하면
+                arrayOf("10+010", IllegalArgumentException::class.java.name), // when : 사용자가 0으로 시작하는 숫자를 입력하면
+                arrayOf("5\$7~3x8", IllegalArgumentException::class.java.name), // when : 사용자가 사칙연산 식에 사칙연산이 아닌 기호를 포함하면
+                arrayOf("120/10- *3+ /1", IllegalArgumentException::class.java.name), // when : 사용자가 사칙연산 식에 빈 문자열을 입력하면
+                arrayOf("120+null/3", IllegalArgumentException::class.java.name), // when : 사용자가 사칙연산 식에 null을 입력하면
 
                 arrayOf("1+2+3", 6), // when : 사용자가 덧셈 식을 입력하면
                 arrayOf("10-2-3", 5), // when : 사용자가 뺄셈 식을 입력하면
@@ -38,20 +38,17 @@ class CalculatorTest(val inputString: String, val expectedResult: Any) {
     }
 
     @Test
-    fun testCalculatorIsWorkingExpectedWithArithmeticOperation() {
-        if (expectedResult is Int) {
-            val actual = calculator.evaluate(inputString)
-
-            assertThat(actual).isEqualTo(expectedResult)
-        } else if (expectedResult is Double) {
-            val actual = calculator.evaluate(inputString)
-
-            assertThat(actual).isWithin(1.0e-5).of(expectedResult)
-        } else if (expectedResult is IllegalArgumentException) {
+    fun testCalculatorIsWorkingExpectedWithArithmeticOperation() = when (expectedResult) {
+        is Int -> assertThat(calculator.evaluate(inputString)).isEqualTo(expectedResult)
+        is Double -> assertThat(calculator.evaluate(inputString)).isWithin(1.0e-5).of(expectedResult)
+        "java.lang.IllegalArgumentException" -> {
             val thrown: IllegalArgumentException = assertThrows(
                 IllegalArgumentException::class.java
             ) { calculator.evaluate(inputString) }
             assertThat(thrown).isInstanceOf(IllegalArgumentException::class.java)
+        }
+        else -> {
+            throw IllegalArgumentException("지원하지 않는 기댓값을 입력했습니다")
         }
     }
 
