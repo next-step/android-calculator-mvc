@@ -22,7 +22,7 @@ object Calculator {
                 singleOperation.firstNumber = content.toDouble()
             }
             CalculateOrder.OPERATION -> {
-                singleOperation.operation = content.convertToArithmeticOperation()
+                singleOperation.operation = convertToArithmeticOperation(content)
             }
             CalculateOrder.NUMBER_SECOND -> {
                 singleOperation.secondNumber = content.toDouble()

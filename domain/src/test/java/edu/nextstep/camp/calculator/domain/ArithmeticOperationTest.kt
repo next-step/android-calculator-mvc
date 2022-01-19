@@ -8,21 +8,21 @@ class ArithmeticOperationTest {
 
     @Test
     fun stringConvertToPlus() {
-        assertThat("+".convertToArithmeticOperation()).isEqualTo(ArithmeticOperation.PLUS)
+        assertThat(convertToArithmeticOperation("+")).isEqualTo(ArithmeticOperation.PLUS)
     }
 
     @Test
     fun stringConvertToMinus() {
-        assertThat("-".convertToArithmeticOperation()).isEqualTo(ArithmeticOperation.MINUS)
+        assertThat(convertToArithmeticOperation("-")).isEqualTo(ArithmeticOperation.MINUS)
     }
 
     @Test
     fun stringConvertToMultiplication() {
-        assertThat("*".convertToArithmeticOperation()).isEqualTo(ArithmeticOperation.MULTIPLICATION)
+        assertThat(convertToArithmeticOperation("*")).isEqualTo(ArithmeticOperation.MULTIPLICATION)
     }
 
     @Test
     fun stringConvertToDivision() {
-        assertThat("/".convertToArithmeticOperation()).isEqualTo(ArithmeticOperation.DIVISION)
+        assertThat(convertToArithmeticOperation("/")).isEqualTo(ArithmeticOperation.DIVISION)
     }
 }

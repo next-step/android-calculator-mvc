@@ -7,8 +7,8 @@ enum class ArithmeticOperation {
     DIVISION;
 
     companion object {
-        fun String.convertToArithmeticOperation(): ArithmeticOperation {
-            when(this) {
+        fun convertToArithmeticOperation(operation: String): ArithmeticOperation {
+            when(operation) {
                 "+" -> return PLUS
                 "-" -> return MINUS
                 "*" -> return MULTIPLICATION
