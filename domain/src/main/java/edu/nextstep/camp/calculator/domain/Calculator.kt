@@ -3,7 +3,11 @@ package edu.nextstep.camp.calculator.domain
 import edu.nextstep.camp.calculator.domain.ArithmeticOperation.Companion.convertToArithmeticOperation
 
 object Calculator {
-    fun calculateContents(contents: String): Double = try {
+    fun calculateContents(contents: String): Double {
+        if (contents.isEmpty()) {
+            throw IllegalArgumentException()
+        }
+
         val singleOperationModel = SingleOperation()
 
         contents.split(" ")
@@ -11,9 +15,7 @@ object Calculator {
                 classifyContent(content, singleOperationModel)
             }
 
-        singleOperationModel.firstNumber
-    } catch (e: Exception) {
-        throw IllegalArgumentException()
+        return singleOperationModel.firstNumber
     }
 
     private fun classifyContent(content: String, singleOperation: SingleOperation) {
