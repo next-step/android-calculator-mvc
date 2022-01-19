@@ -167,4 +167,17 @@ class MainActivityTest {
         // THEN - 입력이 되지 않는다.
         onView(withId(R.id.textView)).check(matches(withText(emptyString)))
     }
+
+    @Test
+    fun withOperand_inputOperator_showStatement() {
+        // GIVEN - 1이 입력되어 있을 때
+        val operand = "1"
+        onView(withId(R.id.textView)).perform(setTextInTextView(operand))
+
+        // WHEN - 사용자가 +, -, *, / 를 누르면
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        // THEN - 해당 기호가 보인다.
+        onView(withId(R.id.textView)).check(matches(withText("1 +")))
+    }
 }
