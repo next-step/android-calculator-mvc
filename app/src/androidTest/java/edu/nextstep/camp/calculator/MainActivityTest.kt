@@ -123,8 +123,8 @@ class MainActivityTest {
     }
 
     @Test
-    fun withOperand_inputOperand_showStatement() {
-        //given:
+    fun withOperand_inputOperand_addOperandNextToNumber() {
+        //given: 숫자가 입력되었을 때
         val basicText = "1"
         onView(withId(R.id.textView)).perform(setTextInTextView(basicText))
 
