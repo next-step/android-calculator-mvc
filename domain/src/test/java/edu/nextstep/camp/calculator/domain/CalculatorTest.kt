@@ -8,45 +8,85 @@ class CalculatorTest {
 
     @Test
     fun calculatePlus() {
-        val result = Calculator.calculateContents("1 + 2 + 3")
+        //given
+        val contents = "1 + 2 + 3"
+
+        //when
+        val result = Calculator.calculateContents(contents)
+
+        //then
         assertThat(result).isEqualTo(6)
     }
 
     @Test
     fun calculateMinus() {
-        val result = Calculator.calculateContents("4 - 5 - 6")
+        //given
+        val contents = "4 - 5 - 6"
+
+        //when
+        val result = Calculator.calculateContents(contents)
+
+        //then
         assertThat(result).isEqualTo(-7)
     }
 
     @Test
     fun calculateMultiplication() {
-        val result = Calculator.calculateContents("7 * 8 * 9")
+        //given
+        val contents = "7 * 8 * 9"
+
+        //when
+        val result = Calculator.calculateContents(contents)
+
+        //then
         assertThat(result).isEqualTo(504)
     }
 
     @Test
     fun calculateDivision() {
-        val result = Calculator.calculateContents("10 / 8 / 5")
+        //given
+        val contents = "10 / 8 / 5"
+
+        //when
+        val result = Calculator.calculateContents(contents)
+
+        //then
         assertThat(result).isEqualTo(0.25)
     }
 
     @Test
     fun calculateNull() {
+        //given
+        val contents = ""
+
+        //when
+        //then
         assertThatIllegalArgumentException().isThrownBy {
-            Calculator.calculateContents("")
+            Calculator.calculateContents(contents)
         }
     }
 
     @Test
     fun calculateNotProperOperation() {
+        //given
+        val contents = "1 # 4 @ 7"
+
+        //when
+        //then
         assertThatIllegalArgumentException().isThrownBy {
-            Calculator.calculateContents("1 # 4 @ 7")
+            Calculator.calculateContents(contents)
         }
     }
 
     @Test
     fun calculateAllTheOperation() {
-        val result = Calculator.calculateContents("1 + 2 * 4 / 6 - 5")
+        //given
+        val contents = "1 + 2 * 4 / 6 - 5"
+
+        //when
+        val result = Calculator.calculateContents(contents)
+
+        //then
         assertThat(result).isEqualTo(-3)
     }
 }
