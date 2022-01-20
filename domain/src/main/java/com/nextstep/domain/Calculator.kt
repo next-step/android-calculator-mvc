@@ -10,14 +10,18 @@ class Calculator {
     private fun operandAndOperatorList(input: String): Int {
         val operandAndOperatorList = input.split(DELIMITER)
         val head = operandAndOperatorList.findFirstOperand()
+        operandAndOperatorList.validateLastElement()
         return operandAndOperatorList.drop(1).chunked(2).fold(head) { acc, element ->
             calculateTwoNumber(acc, element[0], element[1].toInt())
         }
     }
+    private fun List<String>.validateLastElement() {
+        if (this.last().isLetter()) throw IllegalArgumentException(WRONG_INPUT)
+    }
 
     private fun List<String>.findFirstOperand(): Int {
         val operandAndOperatorList = this
-        if (operandAndOperatorList.first().isLetter() || operandAndOperatorList.last().isLetter()) {
+        if (operandAndOperatorList.first().isLetter()) {
             throw IllegalArgumentException(WRONG_INPUT)
         } else {
             return operandAndOperatorList[0].toInt()
