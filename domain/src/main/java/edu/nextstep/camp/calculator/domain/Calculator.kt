@@ -26,7 +26,7 @@ object Calculator {
                 contentArray[INDEX_NUMBER_FIRST] = SingleOperation.calculate(
                     contentArray[INDEX_NUMBER_FIRST].toDouble(),
                     contentArray[INDEX_NUMBER_SECOND].toDouble(),
-                    ArithmeticOperation.convertToArithmeticOperation(contentArray[INDEX_OPERATOR])
+                    ArithmeticOperator.convertToArithmeticOperation(contentArray[INDEX_OPERATOR])
                 ).toString()
 
                 clearContentArrayExceptFirstNumber(contentArray)

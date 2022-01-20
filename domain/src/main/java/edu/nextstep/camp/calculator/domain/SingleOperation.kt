@@ -2,12 +2,12 @@ package edu.nextstep.camp.calculator.domain
 
 object SingleOperation {
 
-    fun calculate(firstNumber: Double, secondNumber: Double, operator: ArithmeticOperation): Double {
+    fun calculate(firstNumber: Double, secondNumber: Double, operator: ArithmeticOperator): Double {
         return when (operator) {
-            ArithmeticOperation.PLUS -> firstNumber + secondNumber
-            ArithmeticOperation.MINUS -> firstNumber - secondNumber
-            ArithmeticOperation.MULTIPLICATION -> firstNumber * secondNumber
-            ArithmeticOperation.DIVISION -> firstNumber / secondNumber
+            ArithmeticOperator.PLUS -> firstNumber + secondNumber
+            ArithmeticOperator.MINUS -> firstNumber - secondNumber
+            ArithmeticOperator.MULTIPLICATION -> firstNumber * secondNumber
+            ArithmeticOperator.DIVISION -> firstNumber / secondNumber
         }
     }
 }
