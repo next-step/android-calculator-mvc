@@ -9,15 +9,20 @@ class Calculator {
 
     private fun operandAndOperatorList(input: String): Int {
         val operandAndOperatorList = input.split(DELIMITER)
+        operandAndOperatorList.validateLastElement()
         val head = operandAndOperatorList.findFirstOperand()
         return operandAndOperatorList.drop(1).chunked(2).fold(head) { acc, element ->
             calculateTwoNumber(acc, element[0], element[1].toInt())
         }
     }
 
+    private fun List<String>.validateLastElement() {
+        if (this.last().isLetter()) throw IllegalArgumentException(WRONG_INPUT)
+    }
+
     private fun List<String>.findFirstOperand(): Int {
         val operandAndOperatorList = this
-        if (operandAndOperatorList.first().isLetter() || operandAndOperatorList.last().isLetter()) {
+        if (operandAndOperatorList.first().isLetter()) {
             throw IllegalArgumentException(WRONG_INPUT)
         } else {
             return operandAndOperatorList[0].toInt()
@@ -43,3 +48,4 @@ class Calculator {
         const val WRONG_INPUT: String = "잘못된 입력입니다."
     }
 }
+
