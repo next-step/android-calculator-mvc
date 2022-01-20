@@ -1,7 +1,7 @@
 package edu.nextstep.camp.calculator
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -104,5 +104,107 @@ class MainActivityTest {
 
         // then: 계산기 텍스트에 9가 화면에 보여야 한다.
         onView(withId(R.id.textView)).check(matches(withText("9")))
+    }
+
+    @Test
+    fun clickNumberButtonWhenLastInputIsNotNumber() {
+        //given
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        //when
+        onView(withId(R.id.button1)).perform(click())
+
+        //then
+        onView(withId(R.id.textView)).check(matches(withText("5 + 1")))
+    }
+
+    @Test
+    fun clickNumberButtonWhenLastInputIsNumber() {
+        //given
+        onView(withId(R.id.button8)).perform(click())
+
+        //when
+        onView(withId(R.id.button9)).perform(click())
+
+        //then
+        onView(withId(R.id.textView)).check(matches(withText("89")))
+    }
+
+    @Test
+    fun clickOperatorButtonWhenLastInputIsNotNumber() {
+        //given
+        //when
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        //then
+        onView(withId(R.id.textView)).check(matches(withText("")))
+    }
+
+    @Test
+    fun clickOperatorButtonWhenLastInputIsNumber() {
+        //given
+        onView(withId(R.id.button1)).perform(click())
+
+        //when
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        //then
+        onView(withId(R.id.textView)).check(matches(withText("1 + ")))
+    }
+
+    @Test
+    fun clickOperatorButtonWhenLastInputIsOperator() {
+        //given
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        //when
+        onView(withId(R.id.buttonMinus)).perform(click())
+
+        //then
+        onView(withId(R.id.textView)).check(matches(withText("1 - ")))
+    }
+
+    @Test
+    fun clickDeleteButtonWhenEmpty() {
+        //given
+        //when
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        //then
+        onView(withId(R.id.textView)).check(matches(withText("")))
+    }
+
+    @Test
+    fun clickDeleteButtonWhenExistOperation() {
+        //given
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+
+        //when
+        onView(withId(R.id.buttonDelete)).perform(click())
+        onView(withId(R.id.buttonDelete)).perform(click())
+        onView(withId(R.id.buttonDelete)).perform(click())
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        //then
+        onView(withId(R.id.textView)).check(matches(withText("")))
+    }
+
+    @Test
+    fun clickEqualsButtonWhenExistProperOperation() {
+        //given
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+
+        //when
+        onView(withId(R.id.buttonEquals)).perform(click())
+
+        //then
+        onView(withId(R.id.textView)).check(matches(withText("5")))
     }
 }
