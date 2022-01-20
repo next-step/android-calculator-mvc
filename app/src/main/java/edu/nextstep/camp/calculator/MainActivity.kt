@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     private fun calculateStatement() {
         runCatching {
             binding.textView.text = expression.calculatedValue(binding.textView)
-        }.getOrElse { e ->
+        }.onFailure { e ->
             Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT).show()
         }
     }
