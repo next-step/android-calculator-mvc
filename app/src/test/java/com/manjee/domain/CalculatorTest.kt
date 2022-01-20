@@ -9,7 +9,16 @@ class CalculatorTest {
 
     @Test
     fun `123+123=246`() {
-        val result = calculator.calculate("123+123")
-        assertThat(result).isEqualTo(246)
+        assertThat(calculator.calculate("123+123")).isEqualTo(246)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun `입력 값이 null이면 IllegalArgumentException 발생`() {
+        calculator.calculate(null)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun `입력 값이 공백이면 IllegalArgumentException 발생`() {
+        calculator.calculate("")
     }
 }
