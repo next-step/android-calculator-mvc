@@ -23,9 +23,12 @@ object Calculator {
     }
 
     private fun validateNullOrEmpty(input: String?) {
-        if (input?.trim().isNullOrEmpty()) {
-            throw IllegalArgumentException(IS_NOT_OR_BLANK)
-        }
+
+        require(!input?.trim().isNullOrEmpty()) { IS_NOT_OR_BLANK }
+
+//        if (input?.trim().isNullOrEmpty()) {
+//            throw IllegalArgumentException(IS_NOT_OR_BLANK)
+//        }
     }
 
     private fun splitInputStr(input: String): List<String> = input.split(DELIMITER)

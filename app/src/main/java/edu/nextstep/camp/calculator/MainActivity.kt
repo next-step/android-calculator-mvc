@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding.buttonEquals.setOnClickListener {
             try {
-                val calculator = Calculator()
+                val calculator = Calculator
                 val result = calculator.calculate(binding.textView.text.toString())
                 binding.textView.text = result
             } catch (e: IllegalArgumentException) {
