@@ -1,7 +1,6 @@
 package edu.nextstep.camp.calculator
 
 import edu.nextstep.camp.domain.Calculator
-import edu.nextstep.camp.domain.Calculator.Companion.IS_NOT_OR_BLANK
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.jupiter.api.assertThrows
@@ -11,7 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource
 // junit5 : https://github.com/mannodermaus/android-junit5
 class CalculatorTest {
 
-    private val calculator = Calculator()
+    private val calculator = Calculator
 
     @ParameterizedTest
     @ValueSource(strings = ["", "  "])
@@ -20,7 +19,7 @@ class CalculatorTest {
             calculator.calculate(input)
         }
 
-        assertEquals(IS_NOT_OR_BLANK, exception.message)
+        assertEquals(calculator.getStringIsNotOrBlank(), exception.message)
     }
 
     @Test
@@ -29,7 +28,7 @@ class CalculatorTest {
             calculator.calculate(null)
         }
 
-        assertEquals(IS_NOT_OR_BLANK, exception.message)
+        assertEquals(calculator.getStringIsNotOrBlank(), exception.message)
     }
 
     @ParameterizedTest
@@ -43,7 +42,7 @@ class CalculatorTest {
     }
     @ParameterizedTest
     @ValueSource(strings = ["2 + 1"])
-    fun `인자가 정상일경우 더하기 연산한 결과를 반환`(input: String) {
+    fun `결과 2 + 1 은 3이다`(input: String) {
         val result = calculator.calculate(input)
 
         assertEquals(3, result)
@@ -51,7 +50,7 @@ class CalculatorTest {
 
     @ParameterizedTest
     @ValueSource(strings = ["3 - 5"])
-    fun `인자가 정상일경우 빼기 연산한 결과를 반환`(input: String) {
+    fun `결과 3 - 5 는 -2이다`(input: String) {
         val result = calculator.calculate(input)
 
         assertEquals(-2, result)
@@ -59,7 +58,7 @@ class CalculatorTest {
 
     @ParameterizedTest
     @ValueSource(strings = ["2 / 2"])
-    fun `인자가 정상일경우 나누기 곱하기 결과를 반환`(input: String) {
+    fun `결과 2 나누기 2 는 1이다`(input: String) {
         val result = calculator.calculate(input)
 
         assertEquals(1, result)
@@ -67,7 +66,7 @@ class CalculatorTest {
 
     @ParameterizedTest
     @ValueSource(strings = ["8 * 2"])
-    fun `인자가 정상일경우 곱하기 연산한 결과를 반환`(input: String) {
+    fun `결과 8 * 2 는 16이다`(input: String) {
         val result = calculator.calculate(input)
 
         assertEquals(16, result)
@@ -75,7 +74,7 @@ class CalculatorTest {
 
     @ParameterizedTest
     @ValueSource(strings = ["8 * 2 - 1 + 3 / 4"])
-    fun `인자가 정상일경우 종합 연산한 결과를 반환`(input: String) {
+    fun `결과 8 * 2 - 1 + 3 나누기 4 는 4이다`(input: String) {
         val result = calculator.calculate(input)
 
         assertEquals(4, result)
