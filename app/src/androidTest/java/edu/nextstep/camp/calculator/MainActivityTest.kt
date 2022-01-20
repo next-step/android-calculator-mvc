@@ -19,7 +19,7 @@ import org.junit.Test
 class MainActivityTest {
 
     @get:Rule
-    val activityScenarioRue = ActivityScenarioRule(MainActivity::class.java)
+    val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
     fun click0_show0() {
