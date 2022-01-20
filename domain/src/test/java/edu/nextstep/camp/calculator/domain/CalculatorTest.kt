@@ -36,4 +36,25 @@ class CalculatorTest() {
         // then
         assertThat(result).isEqualTo(2.5f)
     }
+
+    @Test
+    fun `입력된 값은 정답이 나와야 한다`() {
+        // when
+        val result = Calculator().evaluate("8+2×5÷4")
+        // then
+        assertThat(result).isEqualTo(12.5f)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun `입력된 값이 없으면 오류가 난다`() {
+        // when
+        val result = Calculator().evaluate("")
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun `사칙연산이 아닌 경우 오류가 난다`() {
+        // when
+        val result = Calculator().evaluate("2^3")
+    }
+
 }
