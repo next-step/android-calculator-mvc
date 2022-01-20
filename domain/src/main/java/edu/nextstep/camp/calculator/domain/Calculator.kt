@@ -41,6 +41,10 @@ object Calculator {
         contentArray[INDEX_OPERATOR] = ""
     }
 
+    fun isRoundedNumber(number: Double): Boolean {
+        return number.rem(1).equals(0.0)
+    }
+
     private const val INDEX_NUMBER_FIRST = 0
     private const val INDEX_OPERATOR = 1
     private const val INDEX_NUMBER_SECOND = 2

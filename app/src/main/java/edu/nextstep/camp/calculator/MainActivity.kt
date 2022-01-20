@@ -6,14 +6,12 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
-import edu.nextstep.camp.calculator.domain.Calculator
+import java.lang.IllegalArgumentException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private var displayContents = mutableListOf<String>()
-
-    private var latestInputType = CalculatorLatestInputType.NONE
+    private val calculatorRepository = CalculatorRepository()
 
     private val numberButtonClickListener = View.OnClickListener { button ->
         onClickNumberButton(button as Button)
@@ -62,66 +60,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickNumberButton(button: Button) {
-        latestInputType = CalculatorLatestInputType.NUMBER
-
-        displayContents.add(button.text.toString())
+        calculatorRepository.appendNumberContent(button.text.toString())
         refreshCalculatorDisplay()
     }
 
     private fun onClickOperatorButton(button: Button) {
-        if (latestInputType == CalculatorLatestInputType.NONE) {
-            return
-        }
-
-        if (latestInputType == CalculatorLatestInputType.OPERATOR) {
-            displayContents.removeLast()
-        }
-
-        latestInputType = CalculatorLatestInputType.OPERATOR
-
-        displayContents.add(" ${button.text} ")
+        calculatorRepository.appendOperatorContent(button.text.toString())
         refreshCalculatorDisplay()
     }
 
     private fun onClickDeleteButton() {
-        if (displayContents.isEmpty()) {
-            latestInputType = CalculatorLatestInputType.NONE
-            return
-        }
-
-        displayContents.removeLast()
+        calculatorRepository.deleteLatestContent()
         refreshCalculatorDisplay()
     }
 
     private fun onClickEqualsButton() {
-        if (latestInputType == CalculatorLatestInputType.NONE || latestInputType == CalculatorLatestInputType.OPERATOR) {
+        try {
+            calculatorRepository.calculateContents()
+        } catch (e: IllegalArgumentException) {
             Toast.makeText(this, R.string.uncompleted_operation, Toast.LENGTH_SHORT).show()
             return
-        }
-
-        val result = Calculator.calculateContents(buildStringFromDisplayContentsList())
-        displayContents.clear()
-
-        if (result.rem(1).equals(0.0)) {
-            displayContents.add(result.toInt().toString())
-        } else {
-            displayContents.add(result.toString())
         }
 
         refreshCalculatorDisplay()
     }
 
-    private fun buildStringFromDisplayContentsList(): String {
-        val displayContentsBuilder = StringBuilder()
-
-        displayContents.forEach {
-            displayContentsBuilder.append(it)
-        }
-
-        return displayContentsBuilder.toString()
-    }
-
     private fun refreshCalculatorDisplay() {
-        binding.textView.text = buildStringFromDisplayContentsList()
+        binding.textView.text = calculatorRepository.getDisplayContents()
     }
 }
