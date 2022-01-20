@@ -135,26 +135,6 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(withText("12")))
     }
 
-    private fun setTextInTextView(str: String): ViewAction {
-        return object : ViewAction {
-            override fun getConstraints(): Matcher<View> {
-                return CoreMatchers.allOf(
-                    ViewMatchers.isDisplayed(), ViewMatchers.isAssignableFrom(
-                        TextView::class.java
-                    )
-                )
-            }
-
-            override fun perform(uiController: UiController, view: View) {
-                (view as TextView).text = str
-            }
-
-            override fun getDescription(): String {
-                return "replace text"
-            }
-        }
-    }
-
     @Test
     fun withoutOperand_inputOperator_showNothing() {
         // GIVEN - 아무것도 입력이 되어있지 않을 때
@@ -234,4 +214,25 @@ class MainActivityTest {
         // THEN - 수식의 결과가 화면에 나온다.
         onView(withId(R.id.textView)).check(matches(withText("4")))
     }
+
+    private fun setTextInTextView(str: String): ViewAction {
+        return object : ViewAction {
+            override fun getConstraints(): Matcher<View> {
+                return CoreMatchers.allOf(
+                    ViewMatchers.isDisplayed(), ViewMatchers.isAssignableFrom(
+                        TextView::class.java
+                    )
+                )
+            }
+
+            override fun perform(uiController: UiController, view: View) {
+                (view as TextView).text = str
+            }
+
+            override fun getDescription(): String {
+                return "replace text"
+            }
+        }
+    }
+
 }
