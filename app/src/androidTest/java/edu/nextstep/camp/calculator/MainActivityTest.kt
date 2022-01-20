@@ -1,23 +1,18 @@
 package edu.nextstep.camp.calculator
 
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewInteraction
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.assertion.ViewAssertions.*
-import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class MainActivityTest{
+class MainActivityTest {
     @get:Rule
     val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
@@ -48,7 +43,6 @@ class MainActivityTest{
         onView(withId(R.id.textView)).check(matches(withText("2")))
     }
 
-
     // 사용자가 피연산자 3 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
     @Test
     fun test3() {
@@ -66,7 +60,6 @@ class MainActivityTest{
         // then: 화면에 4이 보여야 한다
         onView(withId(R.id.textView)).check(matches(withText("4")))
     }
-
 
     // 사용자가 피연산자 5 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
     @Test
