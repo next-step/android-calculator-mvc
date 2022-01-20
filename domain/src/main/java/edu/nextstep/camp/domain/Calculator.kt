@@ -1,6 +1,9 @@
 package edu.nextstep.camp.domain
 
-class Calculator {
+object Calculator {
+
+    private const val IS_NOT_OR_BLANK: String = "입력값이 null 이거나 빈 공백 문자입니다."
+    const val DELIMITER: String = " "
 
     fun calculate(input: String?): String {
 
@@ -26,10 +29,5 @@ class Calculator {
     }
 
     private fun splitInputStr(input: String): List<String> = input.split(DELIMITER)
-
-    companion object {
-        const val IS_NOT_OR_BLANK: String = "입력값이 null 이거나 빈 공백 문자입니다."
-        const val DELIMITER: String = " "
-    }
 
 }
