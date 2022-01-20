@@ -1,5 +1,7 @@
 package edu.nextstep.camp.calculator.domain
 
+import edu.nextstep.camp.calculator.domain.ArithmeticOperator.Companion.calculate
+
 object Calculator {
     fun calculateContents(contents: String): Double {
         if (contents.isEmpty()) {
@@ -23,10 +25,10 @@ object Calculator {
             contentArray[INDEX_NUMBER_SECOND].isEmpty() -> {
                 contentArray[INDEX_NUMBER_SECOND] = content
 
-                contentArray[INDEX_NUMBER_FIRST] = SingleOperation.calculate(
+                val arithmeticOperator = ArithmeticOperator.convertToArithmeticOperation(contentArray[INDEX_OPERATOR])
+                contentArray[INDEX_NUMBER_FIRST] = arithmeticOperator.calculate(
                     contentArray[INDEX_NUMBER_FIRST].toDouble(),
-                    contentArray[INDEX_NUMBER_SECOND].toDouble(),
-                    ArithmeticOperator.convertToArithmeticOperation(contentArray[INDEX_OPERATOR])
+                    contentArray[INDEX_NUMBER_SECOND].toDouble()
                 ).toString()
 
                 clearContentArrayExceptFirstNumber(contentArray)
