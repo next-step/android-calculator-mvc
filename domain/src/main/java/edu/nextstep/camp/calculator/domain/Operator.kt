@@ -1,4 +1,4 @@
-package com.nextstep.domain
+package edu.nextstep.camp.calculator.domain
 
 enum class Operator(val symbol:String) {
     PLUS("+"),

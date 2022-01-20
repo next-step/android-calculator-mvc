@@ -1,4 +1,4 @@
-package com.nextstep.domain
+package edu.nextstep.camp.calculator.domain
 
 class StringCalculator {
     companion object {
