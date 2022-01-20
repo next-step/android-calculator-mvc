@@ -1,7 +1,6 @@
 package com.manjee.domain
 
 class Calculator {
-
     fun calculate(input: String?): Int {
         var currentValue = 0
         var formulaType = FormulaType.PLUS
