@@ -1,22 +1,20 @@
 package edu.nextstep.camp.calculator.domain
 
-import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.EmptySource
 import org.junit.jupiter.params.provider.ValueSource
 
 internal class StringCalculatorTest {
-
     @DisplayName("입력 값이 빈 공백 문자일 경우 IllegalArgumentException 이 Throw 된다.")
     @ParameterizedTest
     @EmptySource
     fun validateTest_inputNullOrEmpty(formula: String) {
         val stringCalculator = StringCalculator()
 
-        assertThrows<IllegalArgumentException> {
+        org.junit.jupiter.api.assertThrows<IllegalArgumentException> {
             stringCalculator.calculate(formula)
         }
     }
@@ -27,7 +25,7 @@ internal class StringCalculatorTest {
     fun validateTest_checkSupportOperator(formula: String) {
         val stringCalculator = StringCalculator()
 
-        assertThrows<IllegalArgumentException> {
+        org.junit.jupiter.api.assertThrows<IllegalArgumentException> {
             stringCalculator.calculate(formula)
         }
     }
@@ -38,7 +36,7 @@ internal class StringCalculatorTest {
     fun validateTest_checkFormulaFormat(formula: String, expected: Double) {
         val stringCalculator = StringCalculator()
 
-        assertThrows<IllegalArgumentException> {
+        org.junit.jupiter.api.assertThrows<IllegalArgumentException> {
             stringCalculator.calculate(formula)
         }
     }
@@ -51,7 +49,7 @@ internal class StringCalculatorTest {
 
         val result = stringCalculator.calculate(formula)
 
-        assertThat(result).isEqualTo(expected)
+        Truth.assertThat(result).isEqualTo(expected)
     }
 
     @DisplayName("* 로 이루어진 연산자들의 계산이 정상적으로 된다.")
@@ -62,7 +60,7 @@ internal class StringCalculatorTest {
 
         val result = stringCalculator.calculate(formula)
 
-        assertThat(result).isEqualTo(expected)
+        Truth.assertThat(result).isEqualTo(expected)
     }
 
     @DisplayName("- 로 이루어진 연산자들의 계산이 정상적으로 된다.")
@@ -73,7 +71,7 @@ internal class StringCalculatorTest {
 
         val result = stringCalculator.calculate(formula)
 
-        assertThat(result).isEqualTo(expected)
+        Truth.assertThat(result).isEqualTo(expected)
     }
 
     @DisplayName("/ 로 이루어진 연산자들의 계산이 정상적으로 된다.")
@@ -84,7 +82,7 @@ internal class StringCalculatorTest {
 
         val result = stringCalculator.calculate(formula)
 
-        assertThat(result).isEqualTo(expected)
+        Truth.assertThat(result).isEqualTo(expected)
     }
 
     @DisplayName("다양한 연산자로 이루어진 연산자들의 계산이 정상적으로 된다.")
@@ -95,9 +93,6 @@ internal class StringCalculatorTest {
 
         val result = stringCalculator.calculate(formula)
 
-        assertThat(result).isEqualTo(expected)
+        Truth.assertThat(result).isEqualTo(expected)
     }
-
-
-
 }
