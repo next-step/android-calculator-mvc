@@ -3,44 +3,34 @@ package com.example.calculator
 import java.lang.IllegalArgumentException
 
 class Calculator {
-    private var operand = ""
-    private var result = 0
-    private var currentOperator: Operator = Operator.NONE
-    private val expressionRegex = "^([0-9]+[-*/+])+[0-9]+".toRegex()
+    private val expressionCheckRegex = "^([0-9]+[-*/+])+[0-9]+".toRegex()
+    private val operandSplitRegex = "[-*/+]".toRegex()
 
-    fun evaluate(inputString: String): Int {
-        val expression = inputString.trim()
-        checkExpression(expression)
-        expression.forEach {
-            calculate(it)
+    fun evaluate(inputString: String?): Int {
+        val expression = isValidate(inputString)
+        val operandList = expression.split(operandSplitRegex)
+        val operatorList = expression.filter { !it.isDigit() }
+
+        var result = operandList[0].toInt()
+
+        for (index in 1..operandList.lastIndex) {
+            val currentOperator = Operator.get(operatorList[index - 1])
+            result = compute(result, operandList[index], currentOperator)
         }
-        compute()
+
         return result
     }
 
-    private fun calculate(char: Char) {
-        if (char.isDigit()) {
-            operand += char
-        }
-        if (!char.isDigit()) {
-            compute()
-            currentOperator = Operator.get(char)
-        }
+    private fun compute(firstOperand: Int, secondOperand: String, currentOperator: Operator): Int {
+        var result = firstOperand
+        result = currentOperator.calculate(result, secondOperand.toInt())
+        return result
     }
 
-    private fun compute() {
-        when (currentOperator) {
-            Operator.NONE -> result = operand.toInt()
-            Operator.PLUS -> result += operand.toInt()
-            Operator.MINUS -> result -= operand.toInt()
-            Operator.DIVIDE -> result /= operand.toInt()
-            Operator.MULTIPLY -> result *= operand.toInt()
+    private fun isValidate(inputString: String?): String {
+        require(inputString.isNullOrEmpty() || expressionCheckRegex.matches(inputString)) {
+            IllegalArgumentException()
         }
-        operand = ""
+        return inputString?.trim() ?: throw IllegalArgumentException()
     }
-
-    private fun checkExpression(string: String?) {
-        if (string == null || !expressionRegex.matches(string)) throw IllegalArgumentException()
-    }
-
 }
