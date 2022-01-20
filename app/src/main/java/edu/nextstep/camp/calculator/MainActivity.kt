@@ -3,13 +3,11 @@ package edu.nextstep.camp.calculator
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.isDigitsOnly
-import com.nextstep.domain.Calculator
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val calculator by lazy { Calculator() }
+    private val expression by lazy { Expression() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,41 +39,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun calculateStatement() {
         runCatching {
-            binding.textView.text = calculator.calculate(replaceOperator()).toString()
+            binding.textView.text = expression.calculatedValue(binding.textView)
         }.getOrElse { e ->
             Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun replaceOperator(): String {
-        return binding.textView.text.toString()
-            .replace(getString(R.string.calculator_divide), getString(R.string.operator_divide))
-            .replace(getString(R.string.calculator_multiply), getString(R.string.operator_multiply))
-    }
-
     private fun deleteStatement() {
-        binding.textView.text = binding.textView.text.toString().dropLast(1).trim()
+        binding.textView.text = expression.deleteLastElement(binding.textView)
     }
 
     private fun updateCalculateView(input: String) {
-        val baseStatement = binding.textView.text.toString().trim()
-        binding.textView.text = baseStatement.addOperandToNumber(input)
+        binding.textView.text = expression.appendOperand(binding.textView, input)
     }
-
-    private fun String.addOperandToNumber(input: String): String {
-        val baseStatement = this@addOperandToNumber
-        return if (baseStatement.isEmptyOrDigit(input)) {
-            "$baseStatement$input"
-        } else {
-            "$baseStatement $input"
-        }
-    }
-
-    private fun String.isEmptyOrDigit(input: String) = this.isEmpty() ||
-            (this.last().isDigit() && input.isDigitsOnly())
 
     private fun checkWithOperand(operator: String) {
-        if (binding.textView.text.isEmpty()) return
-        else updateCalculateView(operator)
+        if (binding.textView.text.isNotEmpty()) updateCalculateView(operator)
     }
 }
