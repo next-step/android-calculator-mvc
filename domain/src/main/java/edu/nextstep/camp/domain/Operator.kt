@@ -27,8 +27,8 @@ enum class Operator : Calculable {
 
         private const val SYMBOL_NOT_RIGHT: String = "사칙연산 기호가 아닙니다."
 
-        fun operationEnum(input: String): Operator {
-            return when (input) {
+        fun operationEnum(symbol: String): Operator {
+            return when (symbol) {
                 "+" -> PLUS
                 "-" -> MINUS
                 "*" -> MULTIPLY
