@@ -9,7 +9,12 @@ class CalculatorTest {
 
     @Test
     fun `123+123=246`() {
-        assertThat(calculator.calculate("123+123")).isEqualTo(246)
+        assertThat(calculator.calculate("123 + 123")).isEqualTo(246)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun `0으로 나누면 IllegalArgumentException 발생`() {
+        calculator.calculate("2 / 0")
     }
 
     @Test(expected = IllegalArgumentException::class)
