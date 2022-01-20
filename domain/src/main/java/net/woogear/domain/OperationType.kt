@@ -1,5 +1,7 @@
 package net.woogear.domain
 
+import java.lang.IllegalArgumentException
+
 enum class OperationType {
     PLUS {
         override fun calculate(newNumber: Int, oldNumber: Int): Int {
@@ -29,7 +31,8 @@ enum class OperationType {
                 "+" -> PLUS
                 "-" -> MINUS
                 "*" -> MULTIPLY
-                else -> DIVIDE
+                "/" -> DIVIDE
+                else -> throw IllegalArgumentException("$text is invalid operation type")
             }
         }
 
