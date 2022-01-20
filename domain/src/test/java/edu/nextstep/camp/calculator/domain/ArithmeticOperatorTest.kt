@@ -34,7 +34,7 @@ class ArithmeticOperatorTest {
     @Test
     fun stringConvertToMultiplication() {
         //given
-        val content = "*"
+        val content = "×"
 
         //when
         val result = convertToArithmeticOperation(content)
@@ -46,7 +46,7 @@ class ArithmeticOperatorTest {
     @Test
     fun stringConvertToDivision() {
         //given
-        val content = "/"
+        val content = "÷"
 
         //when
         val result = convertToArithmeticOperation(content)

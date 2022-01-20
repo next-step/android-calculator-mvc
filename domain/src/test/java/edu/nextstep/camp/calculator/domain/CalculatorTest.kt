@@ -33,7 +33,7 @@ class CalculatorTest {
     @Test
     fun calculateMultiplication() {
         //given
-        val contents = "7 * 8 * 9"
+        val contents = "7 × 8 × 9"
 
         //when
         val result = Calculator.calculateContents(contents)
@@ -45,7 +45,7 @@ class CalculatorTest {
     @Test
     fun calculateDivision() {
         //given
-        val contents = "10 / 8 / 5"
+        val contents = "10 ÷ 8 ÷ 5"
 
         //when
         val result = Calculator.calculateContents(contents)
@@ -81,7 +81,7 @@ class CalculatorTest {
     @Test
     fun calculateAllTheOperation() {
         //given
-        val contents = "1 + 2 * 4 / 6 - 5"
+        val contents = "1 + 2 × 4 ÷ 6 - 5"
 
         //when
         val result = Calculator.calculateContents(contents)
