@@ -15,7 +15,7 @@ class Expression {
     private fun String.replaceMultiply() = this.replace("×", "*")
     private fun String.replaceDivide() = this.replace("÷", "/")
 
-    fun appendOperand(view: TextView, input: String): String {
+    fun appendStatement(view: TextView, input: String): String {
         val trimmedString = view.text.toString().trim()
         return if (trimmedString.isEmptyOrDigit(input)) {
             "$trimmedString$input"
