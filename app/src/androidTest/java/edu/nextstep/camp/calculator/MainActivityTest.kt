@@ -17,7 +17,7 @@ class MainActivityTest {
     val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun test_0_button() {
+    fun click0button() {
         // when: 사용자가 피연산자 0 버튼을 누르면
         onView(withId(R.id.button0)).perform(click())
 
@@ -26,7 +26,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_1_button() {
+    fun click1button() {
         // when: 사용자가 피연산자 1 버튼을 누르면
         onView(withId(R.id.button1)).perform(click())
 
@@ -35,7 +35,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_2_button() {
+    fun click2button() {
         // when: 사용자가 피연산자 2 버튼을 누르면
         onView(withId(R.id.button2)).perform(click())
 
@@ -44,7 +44,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_3_button() {
+    fun click3button() {
         // when: 사용자가 피연산자 3 버튼을 누르면
         onView(withId(R.id.button3)).perform(click())
 
@@ -53,7 +53,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_4_button() {
+    fun click4button() {
         // when: 사용자가 피연산자 4 버튼을 누르면
         onView(withId(R.id.button4)).perform(click())
 
@@ -62,7 +62,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_5_button() {
+    fun click5button() {
         // when: 사용자가 피연산자 5 버튼을 누르면
         onView(withId(R.id.button5)).perform(click())
 
@@ -71,7 +71,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_6_button() {
+    fun click6button() {
         // when: 사용자가 피연산자 6 버튼을 누르면
         onView(withId(R.id.button6)).perform(click())
 
@@ -80,7 +80,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_7_button() {
+    fun click7button() {
         // when: 사용자가 피연산자 7 버튼을 누르면
         onView(withId(R.id.button7)).perform(click())
 
@@ -89,7 +89,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_8_button() {
+    fun click8button() {
         // when: 사용자가 피연산자 8 버튼을 누르면
         onView(withId(R.id.button8)).perform(click())
 
@@ -98,7 +98,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_9_button() {
+    fun click9button() {
         // when: 사용자가 피연산자 9 버튼을 누르면
         onView(withId(R.id.button9)).perform(click())
 
