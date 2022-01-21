@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun onClickButtonSetText(input: String) {
         binding.textView.text = input
     }
