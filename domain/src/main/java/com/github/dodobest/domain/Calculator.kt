@@ -13,30 +13,29 @@ enum class Operation (
 
 class Calculator {
     fun evaluate(input: String): Double {
-        val firstIndexOfNum: Array<Int> = arrayOf(-1)
-        val arrayOfNumAndSign: MutableList<String> = MutableList(0) { "" }
-
         val inputString: String = eraseBlankAtString(input)
 
         if (inputString == "") {
             throw IllegalArgumentException("빈 공백문자를 입력했습니다.")
         }
 
-        addNumAndSingToArrayFromString(inputString, arrayOfNumAndSign, firstIndexOfNum)
-
-        return calculate(arrayOfNumAndSign)
+        return calculate(makeNumAndSingToArrayFromString(inputString))
     }
 
     private fun eraseBlankAtString(inputString: String): String {
         return inputString.replace(" ", "")
     }
 
-    private fun addNumAndSingToArrayFromString(inputString: String, numAndSignArray: MutableList<String>, firstIndexOfNum: Array<Int>) {
+    private fun makeNumAndSingToArrayFromString(inputString: String): MutableList<String> {
+        val numAndSignArray: MutableList<String> = MutableList(0) { "" }
+        val firstIndexOfNum: Array<Int> = arrayOf(-1)
+
         for (idx in inputString.indices) {
             splitNumAndSignFromString(inputString, idx, numAndSignArray, firstIndexOfNum)
         }
-
         numAndSignArray.add(inputString.slice(IntRange(firstIndexOfNum[0], inputString.length-1)))
+
+        return numAndSignArray
     }
 
     private fun splitNumAndSignFromString(inputString: String, charIndex: Int, numAndSignArray: MutableList<String>, firstIndexOfNum: Array<Int>) {
