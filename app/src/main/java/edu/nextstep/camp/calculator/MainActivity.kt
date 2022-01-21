@@ -3,6 +3,7 @@ package edu.nextstep.camp.calculator
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.nextstep.domain.Expression
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -36,23 +37,26 @@ class MainActivity : AppCompatActivity() {
         binding.buttonDelete.setOnClickListener { deleteLastElement() }
         binding.buttonEquals.setOnClickListener { calculateStatement() }
     }
+
     private fun appendOperand(operand: String) {
-        binding.textView.text = expression.appendStatement(binding.textView, operand)
+        binding.textView.text =
+            expression.appendStatement(binding.textView.text.toString(), operand)
     }
 
     private fun appendOperator(operator: String) {
         if (binding.textView.text.isNotEmpty()) {
-            binding.textView.text = expression.appendStatement(binding.textView, operator)
+            binding.textView.text =
+                expression.appendStatement(binding.textView.text.toString(), operator)
         }
     }
 
     private fun deleteLastElement() {
-        binding.textView.text = expression.deleteLastElement(binding.textView)
+        binding.textView.text = expression.deleteLastElement(binding.textView.text.toString())
     }
 
     private fun calculateStatement() {
         runCatching {
-            binding.textView.text = expression.calculatedValue(binding.textView)
+            binding.textView.text = expression.calculatedValue(binding.textView.text.toString())
         }.onFailure { e ->
             Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT).show()
         }
