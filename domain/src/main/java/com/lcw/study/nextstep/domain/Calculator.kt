@@ -17,7 +17,7 @@ class Calculator {
                     operation = text
 
                 }
-                text.isInt() -> {
+                text.checkIntType() -> {
                     number = text.toInt()
                     operationType()
 
@@ -60,7 +60,7 @@ class Calculator {
 
     }
 
-    private fun String.isInt(): Boolean { //입력된 문자가 숫자인지 체크
+    private fun String.checkIntType(): Boolean { //입력된 문자가 숫자인지 체크
         return when (toIntOrNull()) {
             null -> false
             else -> true
