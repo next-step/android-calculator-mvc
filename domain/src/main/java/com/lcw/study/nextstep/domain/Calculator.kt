@@ -2,7 +2,7 @@ package com.lcw.study.nextstep.domain
 
 class Calculator {
     private var value = 0
-    private var operation: String = "+"
+    private var operation: OperationType =OperationType.PLUS
     private var number: Int = 0
 
     fun evaluate(inputText: String?): Int {
@@ -14,7 +14,7 @@ class Calculator {
         for (text in splitTexts) {
             when {
                 isOperationType(text) -> {
-                    operation = text
+                    operation = operation.changeTextToOperation(text)
 
                 }
                 text.checkIntType() -> {
@@ -40,19 +40,19 @@ class Calculator {
 
     private fun operationType() { //사칙 연산 수행
         when (operation) {
-            "+" -> {
+            OperationType.PLUS -> {
                 value += number
                 return
             }
-            "-" -> {
+            OperationType.MINUS -> {
                 value -= number
                 return
             }
-            "*" -> {
+            OperationType.MULTIPLY -> {
                 value *= number
                 return
             }
-            "/" -> {
+            OperationType.DIVIDE -> {
                 value /= number
                 return
             }
