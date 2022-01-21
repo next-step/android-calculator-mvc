@@ -27,6 +27,7 @@ class CalculatorTest(val inputString: String, val expectedResult: Any) {
                 arrayOf("120+null/3", IllegalArgumentException::class.java.name), // when : 사용자가 사칙연산 식에 null을 입력하면
 
                 arrayOf("1+2+3", 6), // when : 사용자가 덧셈 식을 입력하면
+                arrayOf("+10+10", 20), // when : 사용자가 양수를 +를 붙여 표현하면
                 arrayOf("10-2-3", 5), // when : 사용자가 뺄셈 식을 입력하면
                 arrayOf("10*-5*9", -450), // when : 사용자가 곱셈 식을 입력하면
                 arrayOf("120/2/3", 20), // when : 사용자가 나누어 떨어지는 나눗셈 식을 입력하면
