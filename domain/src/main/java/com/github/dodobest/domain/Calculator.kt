@@ -97,7 +97,7 @@ class Calculator {
             return
         }
 
-        if (isPlusSignAttachedToNum(firstIndexOfNum)) {
+        if (isPositiveSign(inputString[charIndex], firstIndexOfNum)) {
             return
         }
 
@@ -105,6 +105,10 @@ class Calculator {
         numAndSignArray.add(inputString[charIndex].toString())
 
         firstIndexOfNum[0] = -1
+    }
+
+    private fun isPositiveSign(inputChar: Char, firstIndexOfNum: Array<Int>): Boolean {
+        return inputChar == '+' && firstIndexOfNum[0] == -1
     }
 
     private fun checkInputIsNotCorrect(inputString: String, charIndex: Int) {
@@ -115,10 +119,6 @@ class Calculator {
         require(!isDivideWithZero(inputString, charIndex)) { "0으로 나누는 값은 존재하지 않습니다." }
 
         throwErrorIfOperationIsConsecutive(inputString, charIndex)
-    }
-
-    private fun isPlusSignAttachedToNum(firstIndexOfNum: Array<Int>): Boolean {
-        return firstIndexOfNum[0] == -1
     }
 
     private fun convertToOperation(inputChar: String): Operation {
@@ -139,15 +139,28 @@ class Calculator {
             return
         }
 
-        if (isNotMinusOperationLocateAfterMinus(inputString, charIndex)) {
+        if (checkOperationIsWhatExpect(inputString, charIndex, Operation.MULTIPLY, Operation.PLUS)) {
+            return
+        }
+
+        if (checkOperationIsWhatExpect(inputString, charIndex, Operation.MULTIPLY, Operation.MINUS)) {
+            return
+        }
+
+        if (checkOperationIsWhatExpect(inputString, charIndex, Operation.DIVIDE, Operation.PLUS)) {
+            return
+        }
+
+        if (checkOperationIsWhatExpect(inputString, charIndex, Operation.DIVIDE, Operation.MINUS)) {
             return
         }
 
         throw IllegalArgumentException("연산 기호가 연속으로 입력되었습니다.")
     }
 
-    private fun isNotMinusOperationLocateAfterMinus(inputString: String, charIndex: Int): Boolean {
-        return inputString[charIndex] != '-' && inputString[charIndex+1] == '-'
+    private fun checkOperationIsWhatExpect(inputString: String, charIndex: Int, firstOperation: Operation, secondOperation: Operation): Boolean {
+        return inputString[charIndex].toString() == firstOperation.getName()
+                && inputString[charIndex+1].toString() == secondOperation.getName()
     }
 
     private fun charIsOperation(inputChar: Char): Boolean {
