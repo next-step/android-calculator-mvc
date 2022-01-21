@@ -6,6 +6,13 @@ class Calculator {
     private var number: Int = 0
 
     fun evaluate(inputText: String?): Int {
+
+        divideTextType(inputText)
+
+        return value
+    }
+
+    private fun divideTextType(inputText:String?){
         if (inputText.isNullOrEmpty()) {
             throw IllegalArgumentException("입력값이 null이거나 빈 공백 문자 입니다.")
         }
@@ -13,9 +20,8 @@ class Calculator {
 
         for (text in splitTexts) {
             when {
-                isOperationType(text) -> {
+                operation.checkOperationType(text) -> {
                     operation = operation.changeTextToOperation(text)
-
                 }
                 text.checkIntType() -> {
                     number = text.toInt()
@@ -29,13 +35,6 @@ class Calculator {
 
 
         }
-
-        return value
-    }
-
-
-    private fun isOperationType(text: String): Boolean { //입력된 문자가 사칙 연산 기호인지 체크
-        return text == "+" || text == "-" || text == "*" || text == "/"
     }
 
     private fun operationType() { //사칙 연산 수행
