@@ -15,9 +15,7 @@ class Calculator {
     fun evaluate(input: String): Double {
         val inputString: String = eraseBlankAtString(input)
 
-        if (inputString == "") {
-            throw IllegalArgumentException("빈 공백문자를 입력했습니다.")
-        }
+        require(inputString != "") { "빈 공백문자를 입력했습니다." }
 
         return calculate(makeNumAndSingToArrayFromString(inputString))
     }
@@ -75,9 +73,7 @@ class Calculator {
             return
         }
 
-        if (checkNumStartWithZeroAndNotExactZero(inputString, charIndex)) {
-            throw IllegalArgumentException("0으로 시작하는 숫자는 지원하지 않습니다.")
-        }
+        require(!checkNumStartWithZeroAndNotExactZero(inputString, charIndex)) { "0으로 시작하는 숫자는 지원하지 않습니다." }
 
         firstIndexOfNum[0] = charIndex
     }
@@ -94,23 +90,9 @@ class Calculator {
     }
 
     private fun checkArithmeticOperation(inputString: String, charIndex: Int, numAndSignArray: MutableList<String>, firstIndexOfNum: Array<Int>) {
-        val inputChar: Char = inputString[charIndex]
+        checkInputIsNotCorrect(inputString, charIndex)
 
-        if (!charIsOperation(inputChar)) {
-            throw IllegalArgumentException("사칙 연산 외 기호가 입력되었습니다.")
-        }
-
-        if (charIndex == inputString.length - 1) {
-            throw IllegalArgumentException("사칙 연산 뒤에 값이 오지 않았습니다.")
-        }
-
-        if (isDivideWithZero(inputString, charIndex)) {
-            throw IllegalArgumentException("0으로 나누는 값은 존재하지 않습니다.")
-        }
-
-        throwErrorIfOperationIsConsecutive(inputString, charIndex)
-
-        if (isNegativeSignNotMinusSign(inputChar, firstIndexOfNum)) {
+        if (isNegativeSignNotMinusSign(inputString[charIndex], firstIndexOfNum)) {
             firstIndexOfNum[0] = charIndex
             return
         }
@@ -123,6 +105,16 @@ class Calculator {
         numAndSignArray.add(inputString[charIndex].toString())
 
         firstIndexOfNum[0] = -1
+    }
+
+    private fun checkInputIsNotCorrect(inputString: String, charIndex: Int) {
+        require(charIsOperation(inputString[charIndex])) { "사칙 연산 외 기호가 입력되었습니다." }
+
+        require(charIndex != inputString.length - 1) { "사칙 연산 뒤에 값이 오지 않았습니다." }
+
+        require(!isDivideWithZero(inputString, charIndex)) { "0으로 나누는 값은 존재하지 않습니다." }
+
+        throwErrorIfOperationIsConsecutive(inputString, charIndex)
     }
 
     private fun isPlusSignAttachedToNum(firstIndexOfNum: Array<Int>): Boolean {
