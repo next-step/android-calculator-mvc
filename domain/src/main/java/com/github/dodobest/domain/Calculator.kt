@@ -1,13 +1,18 @@
 package com.github.dodobest.domain
 
+enum class Operation (
+    private val operation: String
+) {
+    PLUS("+"),
+    MINUS("-"),
+    MULTIPLY("*"),
+    DIVIDE("/");
+
+    fun getName() = operation
+}
+
 class Calculator {
     companion object {
-        // 사칙 연산 기호
-        const val PLUS: Char = '+'
-        const val MINUS: Char = '-'
-        const val MULTIPLY: Char = '*'
-        const val DIVIDE: Char = '/'
-
         var firstNumIndex: Int = -1 // 숫자를 나타내는 처음 Index 값
         var isMinusSign = false // 숫자가 음수인지 여부를 저장
     }
@@ -73,13 +78,12 @@ class Calculator {
         return sum
     }
 
-    private fun calcWithOperation(sum: Double, operation: String, num: Double): Double = when (operation) {
-        PLUS.toString() -> sum + num
-        MINUS.toString() -> sum - num
-        MULTIPLY.toString() -> sum * num
-        DIVIDE.toString() -> sum / num
-        else -> {
-            throw IllegalArgumentException("사칙연산 외 기호가 입력되었습니다.")
+    private fun calcWithOperation(sum: Double, operation: String, num: Double): Double {
+        return when (convertToOperation(operation)) {
+            Operation.PLUS -> sum + num
+            Operation.MINUS -> sum - num
+            Operation.MULTIPLY -> sum * num
+            Operation.DIVIDE -> sum / num
         }
     }
 
@@ -141,11 +145,16 @@ class Calculator {
         // 숫자와 연산 기호 배열에 저장하고 정적 변수 초기화 하기
         if (firstNumIndex != -1) {
             numAndSignArray.add(inputString.slice(IntRange(firstNumIndex, charIndex-1))) // 숫자
-            numAndSignArray.add(inputString.slice(IntRange(charIndex, charIndex))) // 연산 기호
+            numAndSignArray.add(inputString[charIndex].toString()) // 연산 기호
 
             firstNumIndex = -1
             isMinusSign = false
         }
+    }
+
+    private fun convertToOperation(inputChar: String): Operation {
+        return Operation.values().find{ it.getName() == inputChar }
+            ?: throw IllegalArgumentException("사칙 연산이 아닌 문자열을 전달했습니다.")
     }
 
     private fun isNegativeSignNotMinusSign(inputChar: Char): Boolean {
@@ -177,10 +186,6 @@ class Calculator {
     }
 
     private fun charIsOperation(inputChar: Char): Boolean {
-        val arithmeticOperation: Array<Char> = arrayOf(PLUS, MINUS, MULTIPLY, DIVIDE) // 사칙연산을 저장한 배열 값
-        if (arithmeticOperation.contains(inputChar)) {
-            return true
-        }
-        return false
+        return Operation.values().any{ it.getName() == inputChar.toString() }
     }
 }
