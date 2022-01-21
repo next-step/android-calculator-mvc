@@ -35,4 +35,16 @@ class CalculatorTest {
         val result: Int = calculator.evaluate("3 + 2 - 1 * 5 / 5")
         assertThat(result).isEqualTo(4)
     }
+
+    @Test
+    fun 입력값이null이거나공백일경우() {
+        val result: Int = calculator.evaluate("")
+        assertThat(result).isEqualTo(throw IllegalArgumentException())
+    }
+
+    @Test
+    fun 사칙연산기호가아닌경우(){
+        val result: Int = calculator.evaluate("#")
+        assertThat(result).isEqualTo(throw IllegalArgumentException("사칙연산 기호가 아닙니다."))
+    }
 }
