@@ -14,10 +14,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        onData()
+        initLayout()
     }
 
-    fun onData() {
+    private fun initLayout() {
         // 지우기
         binding.buttonDelete.setOnClickListener {
             binding.textView.text = ""
