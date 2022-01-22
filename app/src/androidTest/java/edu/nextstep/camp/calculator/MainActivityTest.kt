@@ -111,4 +111,11 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(withText("9")))
     }
 
+    @Test
+    fun click_1_and_2_and_3_then_shows_123() {
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("123")))
+    }
 }

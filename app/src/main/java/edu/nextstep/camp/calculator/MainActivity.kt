@@ -32,10 +32,18 @@ class MainActivity : AppCompatActivity() {
         binding.buttonMultiply.setOnClickListener { input((it as TextView).text.toString()) }
         binding.buttonMinus.setOnClickListener { input((it as TextView).text.toString()) }
         binding.buttonPlus.setOnClickListener { input((it as TextView).text.toString()) }
+
+        binding.buttonDelete.setOnClickListener {  }
+        binding.buttonEquals.setOnClickListener {  }
     }
 
     @SuppressLint("SetTextI18n")
     private fun input(newText: String) {
-        binding.textView.text = newText
+        val currentText = binding.textView.text.toString()
+        if (currentText.isEmpty()) {
+            binding.textView.text = newText
+            return
+        }
+        binding.textView.text = binding.textView.text.toString() + newText
     }
 }
