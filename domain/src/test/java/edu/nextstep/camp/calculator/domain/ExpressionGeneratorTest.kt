@@ -20,7 +20,7 @@ internal class ExpressionGeneratorTest {
 
     @DisplayName(" -> 1 클릭 -> 1")
     @Test
-    fun `입력된 피연산자가 없을 때, 사용자가 피연산자 0 ~ 9 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다`() {
+    fun `입력된 피연산자가 없을 때, 사용자가 피연산자 0 ~ 9 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다 (1)`() {
         // when
         val actual = expressionGenerator
             .append("1")
@@ -66,7 +66,7 @@ internal class ExpressionGeneratorTest {
 
     @ParameterizedTest(name = "1 -> {0} 클릭 -> 1 {0}")
     @ValueSource(strings = ["+", "-", "*", "/"])
-    fun `입력된 피연산자가 있을 때, 사용자가 연산자 +, -, ×, ÷ 버튼을 누르면 해당 기호가 화면에 보여야 한다`(token: String) {
+    fun `입력된 피연산자가 있을 때, 사용자가 연산자 +, -, ×, ÷ 버튼을 누르면 해당 기호가 화면에 보여야 한다 (1)`(token: String) {
         // when
         val actual = expressionGenerator
             .append("1").append(token)
@@ -74,6 +74,18 @@ internal class ExpressionGeneratorTest {
 
         // then
         Assertions.assertThat(actual).isEqualTo("1 $token")
+    }
+
+    @ParameterizedTest(name = "1 {0} -> - 클릭 -> 1 -")
+    @ValueSource(strings = ["+", "-", "*", "/"])
+    fun `입력된 피연산자가 있을 때, 사용자가 연산자 +, -, ×, ÷ 버튼을 누르면 해당 기호가 화면에 보여야 한다 (2)`(token: String) {
+        // when
+        val actual = expressionGenerator
+            .append("1").append(token).append("-")
+            .generate()
+
+        // then
+        Assertions.assertThat(actual).isEqualTo("1 -")
     }
 
     @DisplayName(" -> 지우기 클릭 -> ")
