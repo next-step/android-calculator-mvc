@@ -1,16 +1,18 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Calculator
-import edu.nextstep.camp.calculator.domain.Calculator.Result
-import edu.nextstep.camp.calculator.domain.Calculator.Result.*
+import edu.nextstep.camp.calculator.domain.Calculator.Result.Failure
+import edu.nextstep.camp.calculator.domain.Calculator.Result.Success
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val calculator = Calculator()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,28 +29,31 @@ class MainActivity : AppCompatActivity() {
             binding.buttonPlus, binding.buttonMinus, binding.buttonMultiply, binding.buttonDivide
         )
 
-        buttons.forEach { button ->
-            button.setOnClickListener {
-                Calculator.insert(button.text.toString())
-                updateDisplay()
-            }
-        }
+        buttons.forEach(::setupButtonsClickListener)
 
         binding.buttonDelete.setOnClickListener {
-            Calculator.delete()
+            calculator.delete()
             updateDisplay()
         }
 
         binding.buttonEquals.setOnClickListener {
-            Calculator.evaluate()
+            calculator.evaluate()
+            updateDisplay()
+        }
+    }
+
+    private fun setupButtonsClickListener(button: Button) {
+        button.setOnClickListener {
+            calculator.insert(button.text.toString())
             updateDisplay()
         }
     }
 
     private fun updateDisplay() {
-        when (val result = Calculator.result()) {
+        when (val result = calculator.result) {
             is Success -> binding.tvResultDisplay.text = result.value
-            is Failure -> Toast.makeText(this, getString(R.string.error_incomplete_expression), Toast.LENGTH_SHORT).show()
+            is Failure -> Toast.makeText(this, getString(R.string.error_incomplete_expression), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 }

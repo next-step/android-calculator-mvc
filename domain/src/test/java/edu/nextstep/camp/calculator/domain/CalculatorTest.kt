@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.CsvSource
 
 internal class CalculatorTest {
 
-    private val calculator = Calculator
+    private val calculator = Calculator()
 
     @ParameterizedTest(name = "기본 수식이 성공하는지 확인한다. [{index}] {0}")
     @CsvSource(
@@ -47,10 +47,10 @@ internal class CalculatorTest {
         calculator.evaluate()
 
         // then
-        val actual1 = calculator.result()
+        val actual1 = calculator.result
         assertThat(actual1).isInstanceOf(Calculator.Result.Success::class.java)
 
-        val actual2 = (calculator.result() as Calculator.Result.Success).value
+        val actual2 = (calculator.result as Calculator.Result.Success).value
         assertThat(actual2).isEqualTo("5")
     }
 
@@ -65,7 +65,7 @@ internal class CalculatorTest {
         calculator.evaluate()
 
         // then
-        val actual = calculator.result()
+        val actual = calculator.result
         assertThat(actual).isInstanceOf(Calculator.Result.Failure::class.java)
     }
 }

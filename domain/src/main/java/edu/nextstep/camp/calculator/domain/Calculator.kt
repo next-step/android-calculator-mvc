@@ -2,7 +2,7 @@ package edu.nextstep.camp.calculator.domain
 
 const val DELIMITER = " "
 
-object Calculator {
+class Calculator {
 
     sealed class Result {
 
@@ -13,7 +13,8 @@ object Calculator {
     private val expressionGenerator = ExpressionGenerator(DELIMITER)
     private val expressionParser = ExpressionParser(DELIMITER)
 
-    private var result: Result? = null
+    var result: Result? = null
+        private set
 
     fun insert(symbol: String) {
         expressionGenerator.append(symbol)
@@ -47,7 +48,5 @@ object Calculator {
             .fold(firstDigit) { acc, (token, digit) -> BinaryCalculator.of(token).evaluate(acc, digit.toInt()) }
             .toString()
     }
-
-    fun result() = result
 }
 
