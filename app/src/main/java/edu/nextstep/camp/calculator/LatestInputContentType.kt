@@ -8,8 +8,8 @@ enum class LatestInputContentType {
     OPERATOR;
 
     companion object {
-        private const val LENGTH_NUMBER_CONTENT = 1
-        private const val LENGTH_OPERATOR_CONTENT = 3
+        const val LENGTH_NUMBER_CONTENT = 1
+        const val LENGTH_OPERATOR_CONTENT = 3
 
         fun getLatestInputContentType(contents: String): LatestInputContentType {
             if (contents.isEmpty()) {
@@ -30,14 +30,12 @@ enum class LatestInputContentType {
             return OPERATOR
         }
 
-        fun removeLatestInputContent(contents: String): String {
-            val latestInputLength = when (getLatestInputContentType(contents)) {
-                NONE -> return contents
+        fun getLatestInputContentLength(contents: String): Int {
+            return when (getLatestInputContentType(contents)) {
+                NONE -> 0
                 NUMBER -> LENGTH_NUMBER_CONTENT
                 OPERATOR -> LENGTH_OPERATOR_CONTENT
             }
-
-            return contents.substring(0 until contents.length - latestInputLength)
         }
     }
 }

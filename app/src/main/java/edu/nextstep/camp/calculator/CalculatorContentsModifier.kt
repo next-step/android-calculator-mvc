@@ -18,14 +18,16 @@ object CalculatorContentsModifier {
         }
 
         if (latestInputContentType == LatestInputContentType.OPERATOR) {
-            result = LatestInputContentType.removeLatestInputContent(contents)
+            result = removeLatest(contents)
         }
 
         return "$result $operator "
     }
 
     fun removeLatest(contents: String): String {
-        return LatestInputContentType.removeLatestInputContent(contents)
+        val latestContentLength = LatestInputContentType.getLatestInputContentLength(contents)
+
+        return contents.substring(0 until contents.length - latestContentLength)
     }
 
     fun calculateContents(contents: String): String {
