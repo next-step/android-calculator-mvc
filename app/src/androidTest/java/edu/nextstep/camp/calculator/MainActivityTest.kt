@@ -163,4 +163,16 @@ class MainActivityTest {
         // then : '5 + 1'이 보여야 한다
         onView(withId(R.id.tvResultDisplay)).check(matches(withText("1 +")))
     }
+
+    // 입력된 피연산자가 있을 때, 사용자가 연산자 +, -, ×, ÷ 버튼을 누르면 해당 기호가 화면에 보여야 한다.
+    @Test
+    fun buttonPressOperator_hasOperand_2() {
+        // when : 1 + -> - 클릭 -> 1 -
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.buttonMinus)).perform(click())
+
+        // then : '5 + 1'이 보여야 한다
+        onView(withId(R.id.tvResultDisplay)).check(matches(withText("1 -")))
+    }
 }
