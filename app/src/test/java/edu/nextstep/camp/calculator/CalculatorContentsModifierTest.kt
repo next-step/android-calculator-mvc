@@ -7,7 +7,7 @@ import org.junit.Test
 class CalculatorContentsModifierTest {
 
     @Test
-    fun appendNumber() {
+    fun appendNumber_thenNumberShouldBeAdded() {
         //given
         val contents = "1"
 
