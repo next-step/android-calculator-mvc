@@ -15,8 +15,8 @@ internal class BinaryCalculator private constructor(private val operator: Operat
         private fun operatorBy(token: String): Operator = when (token) {
             "+" -> { x, y -> x + y }
             "-" -> { x, y -> x - y }
-            "*" -> { x, y -> x * y }
-            "/" -> { x, y -> x / y }
+            "×" -> { x, y -> x * y }
+            "÷" -> { x, y -> x / y }
             else -> throw IllegalArgumentException()
         }
     }
