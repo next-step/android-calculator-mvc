@@ -4,9 +4,11 @@ internal class ExpressionGenerator(private val joinDelimiter: String) {
 
     private val expression = Expression()
 
-    fun append(symbol: String) = when {
-        isDigit(symbol) -> processDigit(symbol)
-        else -> processOperator(symbol)
+    fun append(symbol: String) = apply {
+        when {
+            isDigit(symbol) -> processDigit(symbol)
+            else -> processOperator(symbol)
+        }
     }
 
     private fun isDigit(symbol: String) = symbol.toIntOrNull() != null
@@ -16,8 +18,6 @@ internal class ExpressionGenerator(private val joinDelimiter: String) {
             isLastDigit() -> mergeLastDigitWith(symbol)
             else -> add(symbol)
         }
-
-        this@ExpressionGenerator
     }
 
     private fun processOperator(symbol: String) = with(expression) {
@@ -26,19 +26,17 @@ internal class ExpressionGenerator(private val joinDelimiter: String) {
             isLastDigit() -> add(symbol)
             else -> replaceLast(symbol)
         }
-
-        this@ExpressionGenerator
     }
 
-    fun delete() = processDelete()
+    fun delete() = apply {
+        processDelete()
+    }
 
     private fun processDelete() = with(expression) {
         when {
             isEmpty() -> {}
             else -> removeLast()
         }
-
-        this@ExpressionGenerator
     }
 
     fun update(symbol: String) {
