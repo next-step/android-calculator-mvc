@@ -1,6 +1,6 @@
 package edu.nextstep.camp.calculator.domain
 
-class Calculator {
+object Calculator {
 
     fun evaluate(data: String): Float {
         var result = 0f

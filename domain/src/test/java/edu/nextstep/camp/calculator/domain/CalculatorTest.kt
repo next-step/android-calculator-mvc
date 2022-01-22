@@ -10,7 +10,7 @@ class CalculatorTest() {
     @Test
     fun `두 수를 더하면 더한 값이 나와야 한다`() {
         // when
-        val result = Calculator().plus(5f, 2f)
+        val result = Operator.plus(5f, 2f)
 
         // then
         assertThat(result).isEqualTo(7)
@@ -19,7 +19,7 @@ class CalculatorTest() {
     @Test
     fun `두 수를 빼면 뺀 값이 나와야 한다`() {
         // when
-        val result = Calculator().minus(5f, 2f)
+        val result = Operator.minus(5f, 2f)
 
         // then
         assertThat(result).isEqualTo(3)
@@ -28,7 +28,7 @@ class CalculatorTest() {
     @Test
     fun `두 수를 곱하면 곱한 값이 나와야 한다`() {
         // when
-        val result = Calculator().multipliedBy(5f, 2f)
+        val result = Operator.multipliedBy(5f, 2f)
 
         // then
         assertThat(result).isEqualTo(10)
@@ -37,7 +37,7 @@ class CalculatorTest() {
     @Test
     fun `두 수를 나누면 나눈 값이 나와야 한다`() {
         // when
-        val result = Calculator().dividedBy(5f, 2f)
+        val result = Operator.dividedBy(5f, 2f)
 
         // then
         assertThat(result).isEqualTo(2.5f)
@@ -46,7 +46,7 @@ class CalculatorTest() {
     @Test
     fun `입력된 수식은 연산에 맞는 값이 나와야 한다`() {
         // when
-        val result = Calculator().evaluate("8+2×5÷4")
+        val result = Calculator.evaluate("8+2×5÷4")
 
         // then
         assertThat(result).isEqualTo(12.5f)
@@ -56,7 +56,7 @@ class CalculatorTest() {
     fun `입력된 값이 없으면 오류가 난다`() {
         // when
         val exception = assertThrows(IllegalArgumentException::class.java) {
-            Calculator().evaluate("")
+            Calculator.evaluate("")
         }
 
         //then
@@ -67,7 +67,7 @@ class CalculatorTest() {
     fun `사칙연산이 아닌 숫자가 아닌 문자가 존재하는 경우 오류가 난다`() {
         // when
         val exception = assertThrows(IllegalArgumentException::class.java) {
-            Calculator().evaluate("2^3")
+            Calculator.evaluate("2^3")
         }
 
         //then
