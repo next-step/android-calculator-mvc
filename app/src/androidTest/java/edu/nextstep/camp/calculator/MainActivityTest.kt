@@ -106,4 +106,61 @@ class MainActivityTest {
         // then : '9'가 보여야 한다.
         onView(withId(R.id.tvResultDisplay)).check(matches(withText("9")))
     }
+
+    // 입력된 피연산자가 없을 때, 사용자가 피연산자 0 ~ 9 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
+    @Test
+    fun buttonPressed1() {
+        // when : -> 1 클릭 -> 1
+        onView(withId(R.id.button1)).perform(click())
+
+        // then : '1'이 보여야 한다
+        onView(withId(R.id.tvResultDisplay)).check(matches(withText("1")))
+    }
+
+    // 입력된 피연산자가 없을 때, 사용자가 피연산자 0 ~ 9 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
+    @Test
+    fun buttonPress5_Plus_1() {
+        // when : 5 + -> 1 클릭 -> 5 + 1
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+
+        // then : '5 + 1'이 보여야 한다
+        onView(withId(R.id.tvResultDisplay)).check(matches(withText("5 + 1")))
+    }
+
+    // 입력된 피연산자가 있을 때, 기존 숫자 뒤에 해당 숫자가 화면에 보여야 한다. 예를 들면, 8이 입력되어 있을 때 9를 입력하면 89가 보여야 한다.
+    @Test
+    fun buttonPress8_9() {
+        // when : 8 -> 9 클릭 -> 89
+        onView(withId(R.id.button8)).perform(click())
+        onView(withId(R.id.button9)).perform(click())
+
+        // then : '5 + 1'이 보여야 한다
+        onView(withId(R.id.tvResultDisplay)).check(matches(withText("89")))
+    }
+
+    // 입력된 피연산자가 없을 때, 사용자가 연산자 +, -, ×, ÷ 버튼을 누르면 화면에 아무런 변화가 없어야 한다.
+    @Test
+    fun buttonPressOperator_noOperand() {
+        // when : -> +, -, ×, ÷ 클릭 ->
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.buttonMinus)).perform(click())
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        onView(withId(R.id.buttonDivide)).perform(click())
+
+        // then : '5 + 1'이 보여야 한다
+        onView(withId(R.id.tvResultDisplay)).check(matches(withText("")))
+    }
+
+    // 입력된 피연산자가 있을 때, 사용자가 연산자 +, -, ×, ÷ 버튼을 누르면 해당 기호가 화면에 보여야 한다.
+    @Test
+    fun buttonPressOperator_hasOperand_1() {
+        // when : 1 -> + 클릭 -> 1 +
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        // then : '5 + 1'이 보여야 한다
+        onView(withId(R.id.tvResultDisplay)).check(matches(withText("1 +")))
+    }
 }
