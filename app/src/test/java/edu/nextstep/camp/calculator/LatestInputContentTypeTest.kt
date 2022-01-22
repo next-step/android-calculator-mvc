@@ -8,10 +8,10 @@ class LatestInputContentTypeTest {
     @Test
     fun getLatestInputContentTypeWhenContentsEmpty() {
         //given
-        val contentList = listOf<String>()
+        val contents = ""
 
         //when
-        val latestInputContentType = LatestInputContentType.getLatestInputContentType(contentList)
+        val latestInputContentType = LatestInputContentType.getLatestInputContentType(contents)
 
         //then
         assertThat(latestInputContentType).isEqualTo(LatestInputContentType.NONE)
@@ -20,10 +20,10 @@ class LatestInputContentTypeTest {
     @Test
     fun getLatestInputContentTypeWhenLatestContentIsNumber() {
         //given
-        val contentList = listOf("1", " + ", "2")
+        val contents = "1 + 2"
 
         //when
-        val latestInputContentType = LatestInputContentType.getLatestInputContentType(contentList)
+        val latestInputContentType = LatestInputContentType.getLatestInputContentType(contents)
 
         //then
         assertThat(latestInputContentType).isEqualTo(LatestInputContentType.NUMBER)
@@ -32,10 +32,10 @@ class LatestInputContentTypeTest {
     @Test
     fun getLatestInputContentTypeWhenLatestContentIsOperator() {
         //given
-        val contentList = listOf("1", " + ", "2", " - ")
+        val contents = "1 + 2 - "
 
         //when
-        val latestInputContentType = LatestInputContentType.getLatestInputContentType(contentList)
+        val latestInputContentType = LatestInputContentType.getLatestInputContentType(contents)
 
         //then
         assertThat(latestInputContentType).isEqualTo(LatestInputContentType.OPERATOR)
