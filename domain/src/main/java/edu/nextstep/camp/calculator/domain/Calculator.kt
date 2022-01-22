@@ -3,50 +3,29 @@ package edu.nextstep.camp.calculator.domain
 import edu.nextstep.camp.calculator.domain.ArithmeticOperator.Companion.calculate
 
 object Calculator {
+
     fun calculateContents(contents: String): Double {
         if (contents.isEmpty()) {
             throw IllegalArgumentException()
         }
 
-        val singleOperationContentArray = Array(SIZE_SINGLE_OPERATION_ARRAY) { "" }
+        val initialNumberWithOperations = InputContentsClassifier.makeInitialNumberWithOperationsFromContents(contents)
 
-        contents.split(" ")
-            .forEach { content ->
-                manageOperationContent(singleOperationContentArray, content)
-            }
+        var firstOperand = initialNumberWithOperations.first
+        val operations = initialNumberWithOperations.second
 
-        return singleOperationContentArray[INDEX_NUMBER_FIRST].toDouble()
-    }
-
-    private fun manageOperationContent(contentArray: Array<String>, content: String) {
-        when {
-            contentArray[INDEX_NUMBER_FIRST].isEmpty() -> contentArray[INDEX_NUMBER_FIRST] = content
-            contentArray[INDEX_OPERATOR].isEmpty() -> contentArray[INDEX_OPERATOR] = content
-            contentArray[INDEX_NUMBER_SECOND].isEmpty() -> {
-                contentArray[INDEX_NUMBER_SECOND] = content
-
-                val arithmeticOperator = ArithmeticOperator.convertToArithmeticOperation(contentArray[INDEX_OPERATOR])
-                contentArray[INDEX_NUMBER_FIRST] = arithmeticOperator.calculate(
-                    contentArray[INDEX_NUMBER_FIRST].toDouble(),
-                    contentArray[INDEX_NUMBER_SECOND].toDouble()
-                ).toString()
-
-                clearContentArrayExceptFirstNumber(contentArray)
-            }
+        operations.forEach { (operator, secondOperand) ->
+            val arithmeticOperator = ArithmeticOperator.convertToArithmeticOperation(operator)
+            firstOperand = arithmeticOperator.calculate(
+                firstOperand,
+                secondOperand.toDouble()
+            )
         }
-    }
 
-    private fun clearContentArrayExceptFirstNumber(contentArray: Array<String>) {
-        contentArray[INDEX_NUMBER_SECOND] = ""
-        contentArray[INDEX_OPERATOR] = ""
+        return firstOperand
     }
 
     fun isRoundedNumber(number: Double): Boolean {
         return number.rem(1).equals(0.0)
     }
-
-    private const val INDEX_NUMBER_FIRST = 0
-    private const val INDEX_OPERATOR = 1
-    private const val INDEX_NUMBER_SECOND = 2
-    private const val SIZE_SINGLE_OPERATION_ARRAY = 3
 }
