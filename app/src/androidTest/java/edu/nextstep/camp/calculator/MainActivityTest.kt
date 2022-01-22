@@ -7,6 +7,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import edu.nextstep.camp.calculator.AndroidTestHelper.onViewClicks
+import edu.nextstep.camp.calculator.AndroidTestHelper.onViewMatchText
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -190,26 +192,23 @@ class MainActivityTest {
     @Test
     fun buttonDelete_hasExpression() {
         // when : 32 + 1 -> 지우기 클릭 -> 32 + -> 지우기 클릭 -> 32 -> 지우기 클릭 -> 3 -> 지우기 클릭 ->  -> 지우기 클릭 ->
-        onView(withId(R.id.button3)).perform(click())
-        onView(withId(R.id.button2)).perform(click())
-        onView(withId(R.id.buttonPlus)).perform(click())
-        onView(withId(R.id.button1)).perform(click())
+        onViewClicks(R.id.button3, R.id.button2, R.id.buttonPlus, R.id.button1)
 
         // then : '32 +'가 보여야 한다.
-        onView(withId(R.id.buttonDelete)).perform(click())
-        onView(withId(R.id.tvResultDisplay)).check(matches(withText("32 +")))
+        onViewClicks(R.id.buttonDelete)
+        onViewMatchText(R.id.tvResultDisplay, "32 +")
 
         // then : '32'가 보여야 한다.
-        onView(withId(R.id.buttonDelete)).perform(click())
-        onView(withId(R.id.tvResultDisplay)).check(matches(withText("32")))
+        onViewClicks(R.id.buttonDelete)
+        onViewMatchText(R.id.tvResultDisplay, "32")
 
         // then : '3'이 보여야 한다.
-        onView(withId(R.id.buttonDelete)).perform(click())
-        onView(withId(R.id.tvResultDisplay)).check(matches(withText("3")))
+        onViewClicks(R.id.buttonDelete)
+        onViewMatchText(R.id.tvResultDisplay, "3")
 
         // then : ''이 보여야 한다.
-        onView(withId(R.id.buttonDelete)).perform(click())
-        onView(withId(R.id.tvResultDisplay)).check(matches(withText("")))
+        onViewClicks(R.id.buttonDelete)
+        onViewMatchText(R.id.tvResultDisplay, "")
     }
 
     // 입력된 수신이 완전할 때, 사용자가 = 버튼을 누르면 입력된 수식의 결과가 화면에 보여야 한다.
