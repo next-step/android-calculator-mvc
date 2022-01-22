@@ -26,6 +26,13 @@ object Calculator {
     }
 
     fun isRoundedNumber(number: Double): Boolean {
-        return number.rem(1).equals(0.0)
+        val remainder = number.rem(-1)
+        return remainder == 0.0
+    }
+
+    fun isNumber(content: String): Boolean {
+        return content.toDoubleOrNull()?.let {
+            true
+        } == true
     }
 }

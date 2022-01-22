@@ -11,22 +11,20 @@ import java.lang.IllegalArgumentException
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private val calculatorRepository = CalculatorRepository()
-
     private val numberButtonClickListener = View.OnClickListener { button ->
-        onClickNumberButton(button as Button)
+        onClickNumberButton(getDisplayContents(), button as Button)
     }
 
     private val operatorButtonClickListener = View.OnClickListener { button ->
-        onClickOperatorButton(button as Button)
+        onClickOperatorButton(getDisplayContents(), button as Button)
     }
 
     private val deleteButtonClickListener = View.OnClickListener {
-        onClickDeleteButton()
+        onClickDeleteButton(getDisplayContents())
     }
 
     private val equalsButtonClickListener = View.OnClickListener {
-        onClickEqualsButton()
+        onClickEqualsButton(getDisplayContents())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,33 +57,37 @@ class MainActivity : AppCompatActivity() {
         binding.buttonEquals.setOnClickListener(equalsButtonClickListener)
     }
 
-    private fun onClickNumberButton(button: Button) {
-        calculatorRepository.appendNumberContent(button.text.toString())
-        refreshCalculatorDisplay()
+    private fun onClickNumberButton(contents: String, button: Button) {
+        val result = CalculatorContentsModifier.appendNumber(contents, button.text.toString())
+        setDisplayContents(result)
     }
 
-    private fun onClickOperatorButton(button: Button) {
-        calculatorRepository.appendOperatorContent(button.text.toString())
-        refreshCalculatorDisplay()
+    private fun onClickOperatorButton(contents: String, button: Button) {
+        val result = CalculatorContentsModifier.appendOperator(contents, button.text.toString())
+        setDisplayContents(result)
     }
 
-    private fun onClickDeleteButton() {
-        calculatorRepository.deleteLatestContent()
-        refreshCalculatorDisplay()
+    private fun onClickDeleteButton(contents: String) {
+        val result = CalculatorContentsModifier.removeLatest(contents)
+        setDisplayContents(result)
     }
 
-    private fun onClickEqualsButton() {
-        try {
-            calculatorRepository.calculateContents()
+    private fun onClickEqualsButton(contents: String) {
+        val result = try {
+            CalculatorContentsModifier.calculateContents(contents)
         } catch (e: IllegalArgumentException) {
             Toast.makeText(this, R.string.uncompleted_operation, Toast.LENGTH_SHORT).show()
             return
         }
 
-        refreshCalculatorDisplay()
+        setDisplayContents(result)
     }
 
-    private fun refreshCalculatorDisplay() {
-        binding.textView.text = calculatorRepository.getDisplayContents()
+    private fun getDisplayContents(): String {
+        return binding.textView.text.toString()
+    }
+
+    private fun setDisplayContents(contents: String) {
+        binding.textView.text = contents
     }
 }
