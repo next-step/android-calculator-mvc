@@ -17,7 +17,7 @@ class MainActivityTest {
     val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun click0button() {
+    fun click0button_shouldShow0() {
         // when: 사용자가 피연산자 0 버튼을 누르면
         onView(withId(R.id.button0)).perform(click())
 
@@ -26,7 +26,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun click1button() {
+    fun click1button_shouldShow1() {
         // when: 사용자가 피연산자 1 버튼을 누르면
         onView(withId(R.id.button1)).perform(click())
 
@@ -35,7 +35,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun click2button() {
+    fun click2button_shouldShow2() {
         // when: 사용자가 피연산자 2 버튼을 누르면
         onView(withId(R.id.button2)).perform(click())
 
@@ -44,7 +44,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun click3button() {
+    fun click3button_shouldShow3() {
         // when: 사용자가 피연산자 3 버튼을 누르면
         onView(withId(R.id.button3)).perform(click())
 
@@ -53,7 +53,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun click4button() {
+    fun click4button_shouldShow4() {
         // when: 사용자가 피연산자 4 버튼을 누르면
         onView(withId(R.id.button4)).perform(click())
 
@@ -62,7 +62,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun click5button() {
+    fun click5button_shouldShow5() {
         // when: 사용자가 피연산자 5 버튼을 누르면
         onView(withId(R.id.button5)).perform(click())
 
@@ -71,7 +71,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun click6button() {
+    fun click6button_shouldShow6() {
         // when: 사용자가 피연산자 6 버튼을 누르면
         onView(withId(R.id.button6)).perform(click())
 
@@ -80,7 +80,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun click7button() {
+    fun click7button_shouldShow7() {
         // when: 사용자가 피연산자 7 버튼을 누르면
         onView(withId(R.id.button7)).perform(click())
 
@@ -89,7 +89,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun click8button() {
+    fun click8button_shouldShow8() {
         // when: 사용자가 피연산자 8 버튼을 누르면
         onView(withId(R.id.button8)).perform(click())
 
@@ -98,7 +98,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun click9button() {
+    fun click9button_shouldShow9() {
         // when: 사용자가 피연산자 9 버튼을 누르면
         onView(withId(R.id.button9)).perform(click())
 
@@ -107,7 +107,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickNumberButtonWhenLastInputIsNotNumber() {
+    fun clickNumberButtonWhenLastInputIsNotNumber_shouldShow5Plus1() {
         //given
         onView(withId(R.id.button5)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
@@ -120,7 +120,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickNumberButtonWhenLastInputIsNumber() {
+    fun clickNumberButtonWhenLastInputIsNumber_shouldShow89() {
         //given
         onView(withId(R.id.button8)).perform(click())
 
@@ -132,7 +132,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickOperatorButtonWhenLastInputIsNotNumber() {
+    fun clickOperatorButtonWhenLastInputIsNotNumber_shouldShowEmpty() {
         //given
         //when
         onView(withId(R.id.buttonPlus)).perform(click())
@@ -142,7 +142,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickOperatorButtonWhenLastInputIsNumber() {
+    fun clickOperatorButtonWhenLastInputIsNumber_shouldShow1Plus() {
         //given
         onView(withId(R.id.button1)).perform(click())
 
@@ -154,7 +154,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickOperatorButtonWhenLastInputIsOperator() {
+    fun clickOperatorButtonWhenLastInputIsOperator_shouldShow1Minus() {
         //given
         onView(withId(R.id.button1)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
@@ -167,7 +167,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickDeleteButtonWhenEmpty() {
+    fun clickDeleteButtonWhenEmpty_shouldShowEmpty() {
         //given
         //when
         onView(withId(R.id.buttonDelete)).perform(click())
@@ -177,7 +177,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickDeleteButtonWhenExistOperation() {
+    fun clickDeleteButtonWhenExistOperation_shouldShowEmpty() {
         //given
         onView(withId(R.id.button3)).perform(click())
         onView(withId(R.id.button2)).perform(click())
@@ -195,7 +195,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickEqualsButtonWhenExistProperOperation() {
+    fun clickEqualsButtonWhenExistProperOperation_shouldShow5() {
         //given
         onView(withId(R.id.button3)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
