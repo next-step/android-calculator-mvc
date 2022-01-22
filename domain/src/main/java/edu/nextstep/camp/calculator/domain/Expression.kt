@@ -19,6 +19,11 @@ internal class Expression {
         }
     }
 
+    fun replaceLast(symbol: String) {
+        removeLast()
+        add(symbol)
+    }
+
     fun isLastDigit() = symbols.lastOrNull()?.toIntOrNull() != null
 
     fun mergeLastDigitWith(symbol: String) = symbols.add(symbols.removeLast() + symbol)

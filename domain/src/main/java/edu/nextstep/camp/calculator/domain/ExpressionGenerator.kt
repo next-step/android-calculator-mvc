@@ -24,6 +24,7 @@ internal class ExpressionGenerator(private val joinDelimiter: String) {
         when {
             isEmpty() -> {}
             isLastDigit() -> add(symbol)
+            else -> replaceLast(symbol)
         }
 
         this@ExpressionGenerator
