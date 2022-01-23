@@ -1,7 +1,5 @@
 package net.woogear.domain
 
-import java.lang.IllegalArgumentException
-
 enum class OperationType {
     PLUS {
         override fun calculate(newNumber: Int, oldNumber: Int): Int {
