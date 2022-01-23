@@ -16,7 +16,7 @@ class Calculator {
         if (inputText.isNullOrEmpty()) {
             throw IllegalArgumentException("입력값이 null이거나 빈 공백 문자 입니다.")
         }
-        val splitTexts: List<String> = (inputText.split(" "))
+        val splitTexts: List<String> = inputText.split(" ")
 
         for (text in splitTexts) {
             when {
