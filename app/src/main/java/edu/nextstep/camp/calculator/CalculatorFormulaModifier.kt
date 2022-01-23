@@ -9,16 +9,10 @@ object CalculatorFormulaModifier {
     }
 
     fun appendSign(formula: String, sign: String): String {
-
-        var result = formula
-
-        val latestInputContentType = LatestInputContentType.getLatestInputContentType(formula)
-        if (latestInputContentType == LatestInputContentType.NONE) {
-            return result
-        }
-
-        if (latestInputContentType == LatestInputContentType.SIGN) {
-            result = removeLatest(formula)
+        val result = when(LatestInputContentType.getLatestInputContentType(formula)) {
+            LatestInputContentType.NONE -> return formula
+            LatestInputContentType.SIGN -> removeLatest(formula)
+            LatestInputContentType.OPERAND -> formula
         }
 
         return "$result $sign "
