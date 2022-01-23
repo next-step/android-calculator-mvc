@@ -114,8 +114,13 @@ class MainActivityTest {
     @Test
     fun existOperand_inputOperand_showOperand() {
         // given: 8이라는 숫자가 입력되어있을때
+        onView(withId(R.id.button8)).perform(click())
+
         // when: 사용자가 9를 누르면
+        onView(withId(R.id.button9)).perform(click())
+
         // then: 계산기 텍스트에 89가 보여야한다
+        onView(withId(R.id.textView)).check(matches(withText("89")))
     }
 
     @Test
