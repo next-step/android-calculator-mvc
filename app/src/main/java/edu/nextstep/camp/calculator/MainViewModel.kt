@@ -1,6 +1,5 @@
 package edu.nextstep.camp.calculator
 
-import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.example.domain.Calculator
@@ -14,7 +13,7 @@ class MainViewModel() : ViewModel() {
     private val operatorCharList = listOf<Char>('+', '-', '×', '÷')
 
     fun appendExpressionElement(element: ExpressionElement, putSpace: Boolean = true) {
-        val updatedExpression = expression.get() + (if(putSpace) " " else "") + when (element) {
+        val updatedExpression = expression.get() + (if (putSpace) " " else "") + when (element) {
             is Operation.Add -> "+"
             is Operation.Subtract -> "-"
             is Operation.Multiply -> "×"
@@ -26,7 +25,7 @@ class MainViewModel() : ViewModel() {
     }
 
     fun onClickOperationBtn(operation: Operation) {
-        appendExpressionElement(operation)
+        if (expression.get()?.isEmpty() == false) appendExpressionElement(operation)
     }
 
     fun onClickNumberBtn(num: Int) {

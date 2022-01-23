@@ -97,7 +97,7 @@ class MainActivityTest {
      * */
     // Operator +
     @Test
-    fun given_formula_that_ends_with_an_operator_plus_when_click_number_then_add_number_to_the_end() {
+    fun given_formula_that_ends_with_an_operator_plus_when_click_number_then_concat_number_to_the_end() {
         // given: '5 +'
         onView(withId(R.id.button5)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
@@ -109,7 +109,7 @@ class MainActivityTest {
 
     // Operator -
     @Test
-    fun given_formula_that_ends_with_an_operator_minus_when_click_number_then_add_number_to_the_end() {
+    fun given_formula_that_ends_with_an_operator_minus_when_click_number_then_concat_number_to_the_end() {
         // given: '5 -'
         onView(withId(R.id.button5)).perform(click())
         onView(withId(R.id.buttonMinus)).perform(click())
@@ -121,7 +121,7 @@ class MainActivityTest {
 
     // Operator ×
     @Test
-    fun given_formula_that_ends_with_an_operator_multiply_when_click_number_then_add_number_to_the_end() {
+    fun given_formula_that_ends_with_an_operator_multiply_when_click_number_then_concat_number_to_the_end() {
         // given: '5 ×'
         onView(withId(R.id.button5)).perform(click())
         onView(withId(R.id.buttonMultiply)).perform(click())
@@ -133,7 +133,7 @@ class MainActivityTest {
 
     // Operator ÷
     @Test
-    fun given_formula_that_ends_with_an_operator_divide_when_click_number_then_add_number_to_the_end() {
+    fun given_formula_that_ends_with_an_operator_divide_when_click_number_then_concat_number_to_the_end() {
         // given: '5 ÷'
         onView(withId(R.id.button5)).perform(click())
         onView(withId(R.id.buttonDivide)).perform(click())
@@ -141,5 +141,79 @@ class MainActivityTest {
         onView(withId(R.id.button1)).perform(click())
         // then: '5 ÷ 1'
         onView(withId(R.id.expressionText)).check(matches(withText("5 ÷ 1")))
+    }
+
+    /**
+     * GIVEN 피연산자로 끝나는 수식이 주어졌을 때 [ex] '51 + 2'
+     * WHEN 사용자가 피연산자 N을 누르면 (N: 0~9) [ex] '8'
+     * THEN 해당 숫자가 수식의 끝에 추가되어야 한다. [ex] '51 + 28'
+     * */
+    @Test
+    fun given_formula_that_ends_with_an_operand_when_click_number_then_concat_number_to_the_end() {
+        // given: '51 +'
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        // when: '8'
+        onView(withId(R.id.button8)).perform(click())
+        // then: '51 + 28'
+        onView(withId(R.id.expressionText)).check(matches(withText("51 + 28")))
+    }
+
+    /**
+     * GIVEN 피연산자가 주어졌을 때 [ex] '5'
+     * WHEN 사용자가 피연산자 N을 누르면 (N: 0~9) [ex] '9'
+     * THEN 해당 숫자가 수식의 끝에 추가되어야 한다. [ex] '59'
+     * */
+    @Test
+    fun given_an_operand_when_click_number_then_concat_number_to_the_end() {
+        // given: '5'
+        onView(withId(R.id.button5)).perform(click())
+        // when: '9'
+        onView(withId(R.id.button9)).perform(click())
+        // then: '59'
+        onView(withId(R.id.expressionText)).check(matches(withText("59")))
+    }
+
+    /**
+     * GIVEN 입력된 수식이 없을 때
+     * WHEN 사용자가 연산자를 누르면 (Operator: +, -, ×, ÷)
+     * THEN 화면에 아무 변화가 없어야 한다.
+     * */
+    // +
+    @Test
+    fun given_empty_expression_when_click_operator_then_no_change() {
+        // when '+'
+        onView(withId(R.id.buttonPlus)).perform(click())
+        // then: ''
+        onView(withId(R.id.expressionText)).check(matches(withText("")))
+    }
+
+    // -
+    @Test
+    fun given_empty_expression_when_click_operator_minus_then_no_change() {
+        // when '-'
+        onView(withId(R.id.buttonMinus)).perform(click())
+        // then: ''
+        onView(withId(R.id.expressionText)).check(matches(withText("")))
+    }
+
+    // ×
+    @Test
+    fun given_empty_expression_when_click_operator_multiply_then_no_change() {
+        // when '×'
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        // then: ''
+        onView(withId(R.id.expressionText)).check(matches(withText("")))
+    }
+
+    // ÷
+    @Test
+    fun given_empty_expression_when_click_operator_divide_then_no_change() {
+        // when '÷'
+        onView(withId(R.id.buttonDivide)).perform(click())
+        // then: ''
+        onView(withId(R.id.expressionText)).check(matches(withText("")))
     }
 }
