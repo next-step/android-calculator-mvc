@@ -19,24 +19,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setClickListeners() {
-        binding.button0.setOnClickListener { input((it as Button).text.toString()) }
-        binding.button1.setOnClickListener { input((it as Button).text.toString()) }
-        binding.button2.setOnClickListener { input((it as Button).text.toString()) }
-        binding.button3.setOnClickListener { input((it as Button).text.toString()) }
-        binding.button4.setOnClickListener { input((it as Button).text.toString()) }
-        binding.button5.setOnClickListener { input((it as Button).text.toString()) }
-        binding.button6.setOnClickListener { input((it as Button).text.toString()) }
-        binding.button7.setOnClickListener { input((it as Button).text.toString()) }
-        binding.button8.setOnClickListener { input((it as Button).text.toString()) }
-        binding.button9.setOnClickListener { input((it as Button).text.toString()) }
+        binding.button0.setNumberClickListener()
+        binding.button1.setNumberClickListener()
+        binding.button2.setNumberClickListener()
+        binding.button3.setNumberClickListener()
+        binding.button4.setNumberClickListener()
+        binding.button5.setNumberClickListener()
+        binding.button6.setNumberClickListener()
+        binding.button7.setNumberClickListener()
+        binding.button8.setNumberClickListener()
+        binding.button9.setNumberClickListener()
 
-        binding.buttonMinus.setOnClickListener { input((it as Button).text.toString()) }
-        binding.buttonPlus.setOnClickListener { input((it as Button).text.toString()) }
+        binding.buttonMinus.setNumberClickListener()
+        binding.buttonPlus.setNumberClickListener()
         binding.buttonDivide.setOnClickListener { input("/") }
         binding.buttonMultiply.setOnClickListener { input("*") }
 
         binding.buttonDelete.setOnClickListener { delete() }
         binding.buttonEquals.setOnClickListener { setResult() }
+    }
+
+    private fun Button.setNumberClickListener() {
+        setOnClickListener { it as Button
+            input(it.text.toString())
+        }
     }
 
     private fun input(newText: String) {
