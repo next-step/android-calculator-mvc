@@ -5,10 +5,12 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
+import net.woogear.domain.Calculator
 import net.woogear.domain.CalculatorManager
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val calculator = Calculator()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         val isFormulaCompleted = CalculatorManager.isFormulaCompleted(formula)
 
         if (isFormulaCompleted) {
-            binding.textView.text = CalculatorManager.operate(formula)
+            binding.textView.text = calculator.evaluate(formula).toString()
             return
         }
 

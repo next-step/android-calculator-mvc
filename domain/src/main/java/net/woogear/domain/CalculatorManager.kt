@@ -48,9 +48,5 @@ class CalculatorManager {
                 else -> true
             }
         }
-
-        fun operate(formula: String): String {
-            return Calculator().evaluate(formula).toString()
-        }
     }
 }
