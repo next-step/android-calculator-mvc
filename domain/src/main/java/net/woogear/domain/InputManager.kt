@@ -28,10 +28,13 @@ class InputManager {
         }
 
         fun delete(currentText: String): String {
+            if (currentText.isEmpty()) {
+                return currentText
+            }
+
             val subText = currentText.substring(0, currentText.lastIndex)
 
             return when {
-                currentText.isEmpty() -> currentText
                 subText.isEmpty() -> subText
                 subText.last().toString().isBlank() -> delete(subText)
                 else -> subText
