@@ -3,7 +3,8 @@ package edu.nextstep.camp.calculator
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
@@ -154,15 +155,27 @@ class MainActivityTest {
     @Test
     fun noExistAnything_clickDelete_notChanged() {
         // given: 아무것도 입력되지 않았을 때
+
         // when: 사용자가 지우기 버튼을 누르면
+        onView(withId(R.id.buttonDelete)).perform(click())
+
         // then: 아무런 변화가 없어야한다
+        onView(withId(R.id.textView)).check(matches(withText("")))
     }
 
     @Test
     fun existOperand_clickDelete_deleteLastOperand() {
         // given: 32 + 1이 입력되있을 때
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+
         // when: 지우기 버튼을 누르면
+        onView(withId(R.id.buttonDelete)).perform(click())
+
         // then: 1이 지워져야한다
+        onView(withId(R.id.textView)).check(matches(withText("32 +")))
     }
 
     @Test

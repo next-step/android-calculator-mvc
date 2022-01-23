@@ -3,7 +3,7 @@ package com.manjee.domain
 class OperationStorage {
     private val calculator by lazy { Calculator() }
 
-    fun addOperand(currentText: String?, input: String): String {
+    fun addNumber(currentText: String?, input: String): String {
         return if (currentText.isNullOrEmpty() || currentText.last()
                 .isDigit() && currentText.isNotEmpty()
         ) {
@@ -25,5 +25,15 @@ class OperationStorage {
 
     private fun checkOperand(currentText: String, input: String): Boolean {
         return currentText.length == 1 && currentText == "0" && input == "0"
+    }
+
+    fun deleteLastStr(currentText: String): String {
+        val str = currentText.dropLast(1)
+
+        return if(str.isNotEmpty() && str.last().toString() != " ") {
+            str
+        } else {
+            str.dropLast(1)
+        }
     }
 }
