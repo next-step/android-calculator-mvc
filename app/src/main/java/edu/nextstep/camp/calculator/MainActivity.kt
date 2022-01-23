@@ -1,11 +1,10 @@
 package edu.nextstep.camp.calculator
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
-import net.woogear.domain.OperationType
+import net.woogear.domain.InputManager
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -38,28 +37,8 @@ class MainActivity : AppCompatActivity() {
         binding.buttonEquals.setOnClickListener { }
     }
 
-    @SuppressLint("SetTextI18n")
     private fun input(newText: String) {
         val currentText = binding.textView.text.toString()
-
-        if (currentText.isEmpty()) {
-            if (OperationType.isOperator(newText)) {
-                return
-            }
-
-            binding.textView.text = newText
-            return
-        }
-
-        if (OperationType.isOperator(newText)) {
-            binding.textView.text = "${binding.textView.text} $newText"
-            return
-        }
-
-        val textOnScreen = binding.textView.text.toString()
-        val lastText = textOnScreen.last()
-        val isLastTextInt = lastText.toString().toIntOrNull() != null
-        binding.textView.text =
-            if (isLastTextInt) "$textOnScreen$newText" else "$textOnScreen $newText"
+        binding.textView.text = InputManager.input(currentText, newText)
     }
 }
