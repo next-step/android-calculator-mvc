@@ -1,4 +1,4 @@
-package edu.nextstep.camp.calculator.domain
+package edu.nextstep.camp.calculator.domain.expression
 
 internal class ExpressionGenerator(private val joinDelimiter: String) {
 

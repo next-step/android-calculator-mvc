@@ -1,4 +1,6 @@
-package edu.nextstep.camp.calculator.domain
+package edu.nextstep.camp.calculator.domain.calculator
+
+import edu.nextstep.camp.calculator.domain.expression.ExpressionParser
 
 internal class Calculator(private val expressionParser: ExpressionParser) {
 

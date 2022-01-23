@@ -1,5 +1,6 @@
 package edu.nextstep.camp.calculator.domain
 
+import edu.nextstep.camp.calculator.domain.expression.ExpressionGenerator
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -54,7 +55,7 @@ internal class ExpressionGeneratorTest {
     }
 
     @ParameterizedTest(name = " -> {0} 클릭 -> ")
-    @ValueSource(strings = ["+", "-", "*", "/"])
+    @ValueSource(strings = ["+", "-", "×", "÷"])
     fun `입력된 피연산자가 없을 때, 사용자가 연산자 +, -, ×, ÷ 버튼을 누르면 화면에 아무런 변화가 없어야 한다`(token: String) {
         // when
         val actual = expressionGenerator
@@ -65,7 +66,7 @@ internal class ExpressionGeneratorTest {
     }
 
     @ParameterizedTest(name = "1 -> {0} 클릭 -> 1 {0}")
-    @ValueSource(strings = ["+", "-", "*", "/"])
+    @ValueSource(strings = ["+", "-", "×", "÷"])
     fun `입력된 피연산자가 있을 때, 사용자가 연산자 +, -, ×, ÷ 버튼을 누르면 해당 기호가 화면에 보여야 한다 (1)`(token: String) {
         // when
         val actual = expressionGenerator
@@ -77,7 +78,7 @@ internal class ExpressionGeneratorTest {
     }
 
     @ParameterizedTest(name = "1 {0} -> - 클릭 -> 1 -")
-    @ValueSource(strings = ["+", "-", "*", "/"])
+    @ValueSource(strings = ["+", "-", "×", "÷"])
     fun `입력된 피연산자가 있을 때, 사용자가 연산자 +, -, ×, ÷ 버튼을 누르면 해당 기호가 화면에 보여야 한다 (2)`(token: String) {
         // when
         val actual = expressionGenerator

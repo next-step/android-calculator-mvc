@@ -1,4 +1,4 @@
-package edu.nextstep.camp.calculator.domain
+package edu.nextstep.camp.calculator.domain.expression
 
 private const val MIN_SIZE_FOR_EVALUATE = 3
 

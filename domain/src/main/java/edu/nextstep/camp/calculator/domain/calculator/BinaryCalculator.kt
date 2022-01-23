@@ -1,4 +1,4 @@
-package edu.nextstep.camp.calculator.domain
+package edu.nextstep.camp.calculator.domain.calculator
 
 typealias Operator = (Int, Int) -> Int
 typealias Operand = Int

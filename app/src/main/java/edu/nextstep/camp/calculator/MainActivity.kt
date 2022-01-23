@@ -23,24 +23,52 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupUi() {
-        val buttons = listOf(
+        setupButtonNumbers()
+        setupButtonOperators()
+        setupButtonDelete()
+        setupButtonEquals()
+    }
+
+    private fun setupButtonNumbers() {
+        val buttonNumbers = listOf(
             binding.button0, binding.button1, binding.button2, binding.button3, binding.button4,
-            binding.button5, binding.button6, binding.button7, binding.button8, binding.button9,
-            binding.buttonPlus, binding.buttonMinus, binding.buttonMultiply, binding.buttonDivide
+            binding.button5, binding.button6, binding.button7, binding.button8, binding.button9
         )
 
-        buttons.forEach(::setupButtonsClickListener)
+        buttonNumbers.forEach(::setButtonNumbersClickListener)
+    }
 
+    private fun setupButtonOperators() {
+        binding.buttonPlus.setOnClickListener {
+            updateDisplay(calculatorInterface.insert("+"))
+        }
+
+        binding.buttonMinus.setOnClickListener {
+            updateDisplay(calculatorInterface.insert("-"))
+        }
+
+        binding.buttonMultiply.setOnClickListener {
+            updateDisplay(calculatorInterface.insert("×"))
+        }
+
+        binding.buttonDivide.setOnClickListener {
+            updateDisplay(calculatorInterface.insert("÷"))
+        }
+    }
+
+    private fun setupButtonDelete() {
         binding.buttonDelete.setOnClickListener {
             updateDisplay(calculatorInterface.delete())
         }
+    }
 
+    private fun setupButtonEquals() {
         binding.buttonEquals.setOnClickListener {
             updateDisplay(calculatorInterface.evaluate())
         }
     }
 
-    private fun setupButtonsClickListener(button: Button) {
+    private fun setButtonNumbersClickListener(button: Button) {
         button.setOnClickListener {
             updateDisplay(calculatorInterface.insert(button.text.toString()))
         }
