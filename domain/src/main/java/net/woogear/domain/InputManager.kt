@@ -13,6 +13,7 @@ class InputManager {
 
             val lastText = currentText.last().toString()
             val isLastTextInt = lastText.toIntOrNull() != null
+
             return if (isLastTextInt) "$currentText$newText" else "$currentText $newText"
         }
 
@@ -27,21 +28,14 @@ class InputManager {
         }
 
         fun delete(currentText: String): String {
-            if (currentText.isEmpty()) {
-                return currentText
+            val subText = currentText.substring(0, currentText.lastIndex)
+
+            return when {
+                currentText.isEmpty() -> currentText
+                subText.isEmpty() -> subText
+                subText.last().toString().isBlank() -> delete(subText)
+                else -> subText
             }
-
-            val deletedText = currentText.substring(0, currentText.lastIndex)
-
-            if (deletedText.isEmpty()) {
-                return deletedText
-            }
-
-            if (deletedText.last().toString().isBlank()) {
-                return delete(deletedText)
-            }
-
-            return deletedText
         }
     }
 }
