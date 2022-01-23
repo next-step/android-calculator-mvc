@@ -1,6 +1,6 @@
 package net.woogear.domain
 
-class CalculatorManager {
+class FormulaManager {
     companion object {
         fun input(currentText: String, newText: String): String {
             if (currentText.isEmpty()) {
