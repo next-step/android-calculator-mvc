@@ -118,4 +118,14 @@ class MainActivityTest {
         onView(withId(R.id.button3)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText("123")))
     }
+
+    @Test
+    fun click_13_and_plus_and_22_then_shows_13_plus_22() {
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("13 + 22")))
+    }
 }
