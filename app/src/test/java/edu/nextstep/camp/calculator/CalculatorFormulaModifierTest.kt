@@ -19,36 +19,36 @@ class CalculatorFormulaModifierTest {
     }
 
     @Test
-    fun appendOperator_whenFormulaIsEmpty_resultShouldBeEmpty() {
+    fun appendSign_whenFormulaIsEmpty_resultShouldBeEmpty() {
         //given
         val formula = ""
 
         //when
-        val result = CalculatorFormulaModifier.appendOperator(formula, "+")
+        val result = CalculatorFormulaModifier.appendSign(formula, "+")
 
         //then
         assertThat(result).isEmpty()
     }
 
     @Test
-    fun appendOperator_whenLastContentIsOperator_resultShouldBeNewOperator() {
+    fun appendSign_whenLastContentIsSign_resultShouldBeNewSign() {
         //given
         val formula = "1 + "
 
         //when
-        val result = CalculatorFormulaModifier.appendOperator(formula, "-")
+        val result = CalculatorFormulaModifier.appendSign(formula, "-")
 
         //then
         assertThat(result).isEqualTo("1 - ")
     }
 
     @Test
-    fun appendOperator_whenLastContentIsNumber_operatorShouldBeAdded() {
+    fun appendSign_whenLastContentIsNumber_signShouldBeAdded() {
         //given
         val formula = "1 + 3"
 
         //when
-        val result = CalculatorFormulaModifier.appendOperator(formula, "-")
+        val result = CalculatorFormulaModifier.appendSign(formula, "-")
 
         //then
         assertThat(result).isEqualTo("1 + 3 - ")
@@ -79,7 +79,7 @@ class CalculatorFormulaModifierTest {
     }
 
     @Test
-    fun removeLatest_whenLastContentIsOperator_operatorShouldBeRemoved() {
+    fun removeLatest_whenLastContentIsSign_signShouldBeRemoved() {
         //given
         val formula = "1 + 3 - "
 
@@ -115,7 +115,7 @@ class CalculatorFormulaModifierTest {
     }
 
     @Test
-    fun calculateFormula_WhenLastInputIsOperator() {
+    fun calculateFormula_WhenLastInputIsSign() {
         //given
         val formula = "1 + 3 - "
 

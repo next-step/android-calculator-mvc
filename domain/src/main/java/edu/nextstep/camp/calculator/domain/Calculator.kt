@@ -1,6 +1,6 @@
 package edu.nextstep.camp.calculator.domain
 
-import edu.nextstep.camp.calculator.domain.ArithmeticOperator.Companion.calculate
+import edu.nextstep.camp.calculator.domain.ArithmeticSign.Companion.calculate
 
 object Calculator {
 
@@ -14,9 +14,9 @@ object Calculator {
         var firstOperand = initialOperandWithOperations.first
         val operations = initialOperandWithOperations.second
 
-        operations.forEach { (operator, secondOperand) ->
-            val arithmeticOperator = ArithmeticOperator.convertToArithmeticOperation(operator)
-            firstOperand = arithmeticOperator.calculate(
+        operations.forEach { (sign, secondOperand) ->
+            val arithmeticSign = ArithmeticSign.convertToArithmeticOperation(sign)
+            firstOperand = arithmeticSign.calculate(
                 firstOperand,
                 secondOperand.toDouble()
             )

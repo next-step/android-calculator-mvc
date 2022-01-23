@@ -30,7 +30,7 @@ class LatestInputContentTypeTest {
     }
 
     @Test
-    fun getLatestInputContentType_WhenLatestContentIsOperator() {
+    fun getLatestInputContentType_WhenLatestContentIsSign() {
         //given
         val formula = "1 + 2 - "
 
@@ -38,7 +38,7 @@ class LatestInputContentTypeTest {
         val latestInputContentType = LatestInputContentType.getLatestInputContentType(formula)
 
         //then
-        assertThat(latestInputContentType).isEqualTo(LatestInputContentType.OPERATOR)
+        assertThat(latestInputContentType).isEqualTo(LatestInputContentType.SIGN)
     }
 
 
@@ -67,7 +67,7 @@ class LatestInputContentTypeTest {
     }
 
     @Test
-    fun getLatestInputContentLength_whenLastContentIsOperator() {
+    fun getLatestInputContentLength_whenLastContentIsSign() {
         //given
         val formula = "1 + 3 - "
 
@@ -75,6 +75,6 @@ class LatestInputContentTypeTest {
         val result = LatestInputContentType.getLatestInputContentLength(formula)
 
         //then
-        assertThat(result).isEqualTo(LatestInputContentType.LENGTH_OPERATOR_CONTENT)
+        assertThat(result).isEqualTo(LatestInputContentType.LENGTH_SIGN_CONTENT)
     }
 }

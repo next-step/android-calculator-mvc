@@ -132,7 +132,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickOperatorButtonWhenLastInputIsNotOperand_shouldShowEmpty() {
+    fun clickSignButtonWhenLastInputIsNotOperand_shouldShowEmpty() {
         //given
         //when
         onView(withId(R.id.buttonPlus)).perform(click())
@@ -142,7 +142,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickOperatorButtonWhenLastInputIsOperand_shouldShow1Plus() {
+    fun clickSignButtonWhenLastInputIsOperand_shouldShow1Plus() {
         //given
         onView(withId(R.id.button1)).perform(click())
 
@@ -154,7 +154,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickOperatorButtonWhenLastInputIsOperator_shouldShow1Minus() {
+    fun clickSignButtonWhenLastInputIsSign_shouldShow1Minus() {
         //given
         onView(withId(R.id.button1)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())

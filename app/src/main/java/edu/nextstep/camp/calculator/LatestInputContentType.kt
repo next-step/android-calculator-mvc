@@ -5,11 +5,11 @@ import edu.nextstep.camp.calculator.domain.Calculator
 enum class LatestInputContentType {
     NONE,
     OPERAND,
-    OPERATOR;
+    SIGN;
 
     companion object {
         const val LENGTH_OPERAND_CONTENT = 1
-        const val LENGTH_OPERATOR_CONTENT = 3
+        const val LENGTH_SIGN_CONTENT = 3
 
         fun getLatestInputContentType(formula: String): LatestInputContentType {
             if (formula.isEmpty()) {
@@ -27,14 +27,14 @@ enum class LatestInputContentType {
                 return OPERAND
             }
 
-            return OPERATOR
+            return SIGN
         }
 
         fun getLatestInputContentLength(formula: String): Int {
             return when (getLatestInputContentType(formula)) {
                 NONE -> 0
                 OPERAND -> LENGTH_OPERAND_CONTENT
-                OPERATOR -> LENGTH_OPERATOR_CONTENT
+                SIGN -> LENGTH_SIGN_CONTENT
             }
         }
     }

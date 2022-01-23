@@ -8,7 +8,7 @@ object CalculatorFormulaModifier {
         return formula + operand
     }
 
-    fun appendOperator(formula: String, operator: String): String {
+    fun appendSign(formula: String, sign: String): String {
 
         var result = formula
 
@@ -17,11 +17,11 @@ object CalculatorFormulaModifier {
             return result
         }
 
-        if (latestInputContentType == LatestInputContentType.OPERATOR) {
+        if (latestInputContentType == LatestInputContentType.SIGN) {
             result = removeLatest(formula)
         }
 
-        return "$result $operator "
+        return "$result $sign "
     }
 
     fun removeLatest(formula: String): String {

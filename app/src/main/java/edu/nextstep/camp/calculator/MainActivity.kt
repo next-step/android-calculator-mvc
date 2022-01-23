@@ -15,8 +15,8 @@ class MainActivity : AppCompatActivity() {
         onClickNumberButton(getDisplayFormula(), button as Button)
     }
 
-    private val operatorButtonClickListener = View.OnClickListener { button ->
-        onClickOperatorButton(getDisplayFormula(), button as Button)
+    private val signButtonClickListener = View.OnClickListener { button ->
+        onClickSignButton(getDisplayFormula(), button as Button)
     }
 
     private val deleteButtonClickListener = View.OnClickListener {
@@ -47,10 +47,10 @@ class MainActivity : AppCompatActivity() {
         binding.button8.setOnClickListener(numberButtonClickListener)
         binding.button9.setOnClickListener(numberButtonClickListener)
 
-        binding.buttonPlus.setOnClickListener(operatorButtonClickListener)
-        binding.buttonMinus.setOnClickListener(operatorButtonClickListener)
-        binding.buttonMultiply.setOnClickListener(operatorButtonClickListener)
-        binding.buttonDivide.setOnClickListener(operatorButtonClickListener)
+        binding.buttonPlus.setOnClickListener(signButtonClickListener)
+        binding.buttonMinus.setOnClickListener(signButtonClickListener)
+        binding.buttonMultiply.setOnClickListener(signButtonClickListener)
+        binding.buttonDivide.setOnClickListener(signButtonClickListener)
 
         binding.buttonDelete.setOnClickListener(deleteButtonClickListener)
 
@@ -62,8 +62,8 @@ class MainActivity : AppCompatActivity() {
         setDisplayFormula(result)
     }
 
-    private fun onClickOperatorButton(formula: String, button: Button) {
-        val result = CalculatorFormulaModifier.appendOperator(formula, button.text.toString())
+    private fun onClickSignButton(formula: String, button: Button) {
+        val result = CalculatorFormulaModifier.appendSign(formula, button.text.toString())
         setDisplayFormula(result)
     }
 

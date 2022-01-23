@@ -1,11 +1,11 @@
 package edu.nextstep.camp.calculator.domain
 
 import com.google.common.truth.Truth.assertThat
-import edu.nextstep.camp.calculator.domain.ArithmeticOperator.Companion.calculate
-import edu.nextstep.camp.calculator.domain.ArithmeticOperator.Companion.convertToArithmeticOperation
+import edu.nextstep.camp.calculator.domain.ArithmeticSign.Companion.calculate
+import edu.nextstep.camp.calculator.domain.ArithmeticSign.Companion.convertToArithmeticOperation
 import org.junit.Test
 
-class ArithmeticOperatorTest {
+class ArithmeticSignTest {
 
     @Test
     fun stringConvertToPlus() {
@@ -16,7 +16,7 @@ class ArithmeticOperatorTest {
         val result = convertToArithmeticOperation(content)
 
         //then
-        assertThat(result).isEqualTo(ArithmeticOperator.PLUS)
+        assertThat(result).isEqualTo(ArithmeticSign.PLUS)
     }
 
     @Test
@@ -28,7 +28,7 @@ class ArithmeticOperatorTest {
         val result = convertToArithmeticOperation(content)
 
         //then
-        assertThat(result).isEqualTo(ArithmeticOperator.MINUS)
+        assertThat(result).isEqualTo(ArithmeticSign.MINUS)
     }
 
     @Test
@@ -40,7 +40,7 @@ class ArithmeticOperatorTest {
         val result = convertToArithmeticOperation(content)
 
         //then
-        assertThat(result).isEqualTo(ArithmeticOperator.MULTIPLICATION)
+        assertThat(result).isEqualTo(ArithmeticSign.MULTIPLICATION)
     }
 
     @Test
@@ -52,7 +52,7 @@ class ArithmeticOperatorTest {
         val result = convertToArithmeticOperation(content)
 
         //then
-        assertThat(result).isEqualTo(ArithmeticOperator.DIVISION)
+        assertThat(result).isEqualTo(ArithmeticSign.DIVISION)
     }
 
 
@@ -61,10 +61,10 @@ class ArithmeticOperatorTest {
         //given
         val firstOperand = 1.0
         val secondOperand = 2.0
-        val operator = ArithmeticOperator.PLUS
+        val sign = ArithmeticSign.PLUS
 
         //when
-        val result = operator.calculate(firstOperand, secondOperand)
+        val result = sign.calculate(firstOperand, secondOperand)
 
         //then
         assertThat(result).isEqualTo(3)
@@ -75,10 +75,10 @@ class ArithmeticOperatorTest {
         //given
         val firstOperand = 3.0
         val secondOperand = 4.0
-        val operator = ArithmeticOperator.MINUS
+        val sign = ArithmeticSign.MINUS
 
         //when
-        val result = operator.calculate(firstOperand, secondOperand)
+        val result = sign.calculate(firstOperand, secondOperand)
 
         //then
         assertThat(result).isEqualTo(-1)
@@ -89,10 +89,10 @@ class ArithmeticOperatorTest {
         //given
         val firstOperand = 5.0
         val secondOperand = 6.0
-        val operator = ArithmeticOperator.MULTIPLICATION
+        val sign = ArithmeticSign.MULTIPLICATION
 
         //when
-        val result = operator.calculate(firstOperand, secondOperand)
+        val result = sign.calculate(firstOperand, secondOperand)
 
         //then
         assertThat(result).isEqualTo(30)
@@ -103,10 +103,10 @@ class ArithmeticOperatorTest {
         //given
         val firstOperand = 10.0
         val secondOperand = 8.0
-        val operator = ArithmeticOperator.DIVISION
+        val sign = ArithmeticSign.DIVISION
 
         //when
-        val result = operator.calculate(firstOperand, secondOperand)
+        val result = sign.calculate(firstOperand, secondOperand)
 
         //then
         assertThat(result).isEqualTo(1.25)
