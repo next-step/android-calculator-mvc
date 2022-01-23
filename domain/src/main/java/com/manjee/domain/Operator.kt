@@ -1,6 +1,6 @@
 package com.manjee.domain
 
-enum class FormulaType {
+enum class Operator {
     PLUS {
         override fun calculate(num1: Int, num2: Int) = num1 + num2
     },
@@ -12,16 +12,16 @@ enum class FormulaType {
     },
     DIVIDE {
         override fun calculate(num1: Int, num2: Int) : Int {
-            if (num2 == 0) {
-                throw IllegalArgumentException("값을 0으로 나눌 수 없음")
+            require(num2 != 0) {
+                "값을 0으로 나눌 수 없음"
             }
             return num1 / num2
         }
     };
 
     companion object {
-        fun getFormulaType(formula: String): FormulaType {
-            return when (formula) {
+        fun getOperatorType(text: String): Operator {
+            return when (text) {
                 "+" -> PLUS
                 "-" -> MINUS
                 "*" -> MULTIPLE
@@ -29,7 +29,7 @@ enum class FormulaType {
             }
         }
 
-        fun isFormulaType(text: String): Boolean {
+        fun isOperatorType(text: String): Boolean {
             return text == "+" || text == "-" || text == "*" || text == "/"
         }
     }
