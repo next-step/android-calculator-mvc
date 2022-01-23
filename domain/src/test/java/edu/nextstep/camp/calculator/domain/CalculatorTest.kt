@@ -89,4 +89,52 @@ class CalculatorTest {
         //then
         assertThat(result).isEqualTo(-3)
     }
+
+    @Test
+    fun isRoundedNumber_whenParamIsRoundedNumber_shouldReturnTrue() {
+        //given
+        val content = -12.0
+
+        //when
+        val result = Calculator.isRoundedNumber(content)
+
+        //then
+        assertThat(result).isTrue()
+    }
+
+    @Test
+    fun isRoundedNumber_whenParamIsNotRoundedNumber_shouldReturnFalse() {
+        //given
+        val content = 12.5
+
+        //when
+        val result = Calculator.isRoundedNumber(content)
+
+        //then
+        assertThat(result).isFalse()
+    }
+
+    @Test
+    fun isNumber_whenParamIsNumber_shouldReturnTrue() {
+        //given
+        val content = "1"
+
+        //when
+        val result = Calculator.isNumber(content)
+
+        //then
+        assertThat(result).isTrue()
+    }
+
+    @Test
+    fun isNumber_whenParamIsNotNumber_shouldReturnFalse() {
+        //given
+        val content = "+"
+
+        //when
+        val result = Calculator.isNumber(content)
+
+        //then
+        assertThat(result).isFalse()
+    }
 }
