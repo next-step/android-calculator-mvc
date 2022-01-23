@@ -216,4 +216,37 @@ class MainActivityTest {
         // then: ''
         onView(withId(R.id.expressionText)).check(matches(withText("")))
     }
+
+    /**
+     * GIVEN 피연산자가 주어진 경우 [ex] '1'
+     * WHEN 사용자가 연산자를 누르면 (Operator: +, -, ×, ÷) [ex] '+'
+     * THEN 해당 연산자가 수식의 끝에 추가되어야 한다. [ex] '1 +
+     * */
+    @Test
+    fun given_operand_when_click_operator_then_concat_operator_to_the_end() {
+        // given: '1'
+        onView(withId(R.id.button1)).perform(click())
+        // when '+'
+        onView(withId(R.id.buttonPlus)).perform(click())
+        // then: ''
+        onView(withId(R.id.expressionText)).check(matches(withText("1 +")))
+    }
+
+    /**
+     * GIVEN 피연산자로 끝나는 수식이 주어진 경우 [ex] '12 + 3'
+     * WHEN 사용자가 연산자를 누르면 (Operator: +, -, ×, ÷) [ex] '×'
+     * THEN 해당 연산자가 수식의 끝에 추가되어야 한다. [ex] '12 + 3 ×'
+     * */
+    @Test
+    fun given_expression_that_ends_with_operand_when_click_operator_then_concat_operator_to_the_end() {
+        // given: '12 + 3'
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        // when '×'
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        // then: ''
+        onView(withId(R.id.expressionText)).check(matches(withText("12 + 3 ×")))
+    }
 }
