@@ -2,6 +2,9 @@ package edu.nextstep.camp.calculator.domain
 
 object InputFormulaClassifier {
 
+    private const val NUMBER_ONE = 1
+    private const val NUMBER_TWO = 2
+
     fun makeInitialOperandWithOperationsFromFormula(formula: String): DetachedOperation {
         val operationFormula = formula.split(" ")
 
@@ -20,6 +23,6 @@ object InputFormulaClassifier {
     }
 
     private fun isOddIndexNumber(index: Int): Boolean {
-        return index % 2 == 1
+        return index % NUMBER_TWO == NUMBER_ONE
     }
 }
