@@ -108,7 +108,12 @@ class MainActivityTest {
     @Test
     fun noExistOperand_inputOperand_showOperand() {
         // when: 입력된 피연산자가 없을 때 사용자가 5, +, 1을 누르면
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+
         // then: 계산기 텍스트에 5 + 1이 보여야한다
+        onView(withId(R.id.textView)).check(matches(withText("5 + 1")))
     }
 
     @Test
@@ -125,16 +130,25 @@ class MainActivityTest {
 
     @Test
     fun noExistOperand_inputOperator_notChanged() {
-        // given: 화면에 어떠한 피연산자도 입력되어있지 않을 때
+        // given: 초기상태에서
+
         // when: 사용자가 +를 누르면
+        onView(withId(R.id.buttonPlus)).perform(click())
+
         // then: 계산기 화면에 아무것도 보이지 않아야한다
+        onView(withId(R.id.textView)).check(matches(withText("")))
     }
 
     @Test
     fun existOperand_inputOperator_showOperator() {
         // given: 1이라는 숫자가 입력되있을 때
+        onView(withId(R.id.button1)).perform(click())
+
         // when: 사용자가 +를 누르면
+        onView(withId(R.id.buttonPlus)).perform(click())
+
         // then: 계산기 화면에 1 +가 보여야한다
+        onView(withId(R.id.textView)).check(matches(withText("1 +")))
     }
 
     @Test

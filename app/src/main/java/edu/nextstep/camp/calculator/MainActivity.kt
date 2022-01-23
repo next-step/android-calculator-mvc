@@ -25,9 +25,19 @@ class MainActivity : AppCompatActivity() {
         binding.button7.setOnClickListener { inputOperand(getString(R.string.calculator_7)) }
         binding.button8.setOnClickListener { inputOperand(getString(R.string.calculator_8)) }
         binding.button9.setOnClickListener { inputOperand(getString(R.string.calculator_9)) }
+        binding.buttonPlus.setOnClickListener { inputOperator(getString(R.string.calculator_plus)) }
+        binding.buttonMinus.setOnClickListener { inputOperator(getString(R.string.calculator_minus)) }
+        binding.buttonMultiply.setOnClickListener { inputOperator(getString(R.string.calculator_multiply)) }
+        binding.buttonDivide.setOnClickListener { inputOperator(getString(R.string.calculator_divide)) }
     }
 
     private fun inputOperand(num: String) {
         binding.textView.text = operationStorage.addOperand(binding.textView.text.toString(), num)
+    }
+
+    private fun inputOperator(operator: String) {
+        if (binding.textView.text.isNotEmpty()) {
+            binding.textView.text = operationStorage.addOperator(binding.textView.text.toString(), operator)
+        }
     }
 }
