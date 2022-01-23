@@ -31,8 +31,7 @@ object Calculator {
     }
 
     fun isNumber(content: String): Boolean {
-        return content.toDoubleOrNull()?.let {
-            true
-        } == true
+        content.toDoubleOrNull() ?: return false
+        return true
     }
 }
