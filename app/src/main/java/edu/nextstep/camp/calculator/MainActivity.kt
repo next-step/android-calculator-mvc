@@ -2,6 +2,7 @@ package edu.nextstep.camp.calculator
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import net.woogear.domain.InputManager
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         binding.buttonMultiply.setOnClickListener { input("*") }
 
         binding.buttonDelete.setOnClickListener { delete() }
-        binding.buttonEquals.setOnClickListener { }
+        binding.buttonEquals.setOnClickListener { setResult() }
     }
 
     private fun input(newText: String) {
@@ -45,5 +46,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun delete() {
         binding.textView.text = InputManager.delete(binding.textView.text.toString())
+    }
+
+    private fun setResult() {
+        val formula = binding.textView.text.toString()
+        val isFormulaComplete = InputManager.isFormulaComplete(formula)
+
+        if (isFormulaComplete) {
+            binding.textView.text = InputManager.operate(formula)
+            return
+        }
+
+        Toast.makeText(this, getString(R.string.formula_is_not_completed), Toast.LENGTH_SHORT).show()
     }
 }

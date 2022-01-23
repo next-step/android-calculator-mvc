@@ -51,4 +51,28 @@ class MainActivityTest {
         onView(withId(R.id.button3)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText("12 / 3")))
     }
+
+    @Test
+    fun click_2_multiply_3_3_then_shows_66() {
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonEquals)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("66")))
+    }
+
+    @Test
+    fun click_66_divide_3_plus_3_multiply_2_shows_50() {
+        onView(withId(R.id.button6)).perform(click())
+        onView(withId(R.id.button6)).perform(click())
+        onView(withId(R.id.buttonDivide)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonEquals)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("50")))
+    }
 }

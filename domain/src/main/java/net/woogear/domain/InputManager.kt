@@ -37,5 +37,17 @@ class InputManager {
                 else -> subText
             }
         }
+
+        fun isFormulaComplete(currentText: String): Boolean {
+            return when {
+                currentText.isEmpty() -> false
+                OperationType.isOperator(currentText.last().toString()) -> false
+                else -> true
+            }
+        }
+
+        fun operate(formula: String): String {
+            return Calculator().evaluate(formula).toString()
+        }
     }
 }
