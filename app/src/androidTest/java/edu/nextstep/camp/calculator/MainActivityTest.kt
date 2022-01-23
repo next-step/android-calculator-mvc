@@ -128,4 +128,13 @@ class MainActivityTest {
         onView(withId(R.id.button2)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText("13 + 22")))
     }
+
+    @Test
+    fun click_9_and_multiply_and_divide_3_then_shows_9_divide_3() {
+        onView(withId(R.id.button9)).perform(click())
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        onView(withId(R.id.buttonDivide)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("9 / 3")))
+    }
 }
