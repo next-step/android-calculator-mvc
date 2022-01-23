@@ -7,22 +7,68 @@ import edu.nextstep.camp.calculator.domain.Calculator
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val calculator = Calculator()
+    private val calculator = Calculator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.button0.setOnClickListener { binding.textView.text = "0" }
-        binding.button1.setOnClickListener { binding.textView.text = "1" }
-        binding.button2.setOnClickListener { binding.textView.text = "2" }
-        binding.button3.setOnClickListener { binding.textView.text = "3" }
-        binding.button4.setOnClickListener { binding.textView.text = "4" }
-        binding.button5.setOnClickListener { binding.textView.text = "5" }
-        binding.button6.setOnClickListener { binding.textView.text = "6" }
-        binding.button7.setOnClickListener { binding.textView.text = "7" }
-        binding.button8.setOnClickListener { binding.textView.text = "8" }
-        binding.button9.setOnClickListener { binding.textView.text = "9" }
+        initLayout()
+    }
+
+    private fun initLayout() {
+        // 지우기
+        binding.buttonDelete.setOnClickListener {
+            binding.textView.text = ""
+        }
+        // 숫자
+        binding.button0.setOnClickListener {
+            binding.textView.text = binding.textView.text.toString() + binding.button0.text.toString()
+        }
+        binding.button1.setOnClickListener {
+            binding.textView.text = binding.textView.text.toString() + binding.button1.text.toString()
+        }
+        binding.button2.setOnClickListener {
+            binding.textView.text = binding.textView.text.toString() + binding.button2.text.toString()
+        }
+        binding.button3.setOnClickListener {
+            binding.textView.text = binding.textView.text.toString() + binding.button3.text.toString()
+        }
+        binding.button4.setOnClickListener {
+            binding.textView.text = binding.textView.text.toString() + binding.button4.text.toString()
+        }
+        binding.button5.setOnClickListener {
+            binding.textView.text = binding.textView.text.toString() + binding.button5.text.toString()
+        }
+        binding.button6.setOnClickListener {
+            binding.textView.text = binding.textView.text.toString() + binding.button6.text.toString()
+        }
+        binding.button7.setOnClickListener {
+            binding.textView.text = binding.textView.text.toString() + binding.button7.text.toString()
+        }
+        binding.button8.setOnClickListener {
+            binding.textView.text = binding.textView.text.toString() + binding.button8.text.toString()
+        }
+        binding.button9.setOnClickListener {
+            binding.textView.text = binding.textView.text.toString() + binding.button9.text.toString()
+        }
+        // 연산
+        binding.buttonDivide.setOnClickListener {
+            binding.textView.text = binding.textView.text.toString() + binding.buttonDivide.text.toString()
+        }
+        binding.buttonMultiply.setOnClickListener {
+            binding.textView.text = binding.textView.text.toString() + binding.buttonMultiply.text.toString()
+        }
+        binding.buttonMinus.setOnClickListener {
+            binding.textView.text = binding.textView.text.toString() + binding.buttonMinus.text.toString()
+        }
+        binding.buttonPlus.setOnClickListener {
+            binding.textView.text = binding.textView.text.toString() + binding.buttonPlus.text.toString()
+        }
+        // 결과
+        binding.buttonEquals.setOnClickListener {
+            binding.textView.text = calculator.evaluate(binding.textView.text.toString()).toString()
+        }
     }
 }
