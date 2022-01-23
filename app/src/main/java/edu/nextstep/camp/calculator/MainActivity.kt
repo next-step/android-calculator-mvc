@@ -12,19 +12,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val numberButtonClickListener = View.OnClickListener { button ->
-        onClickNumberButton(getDisplayContents(), button as Button)
+        onClickNumberButton(getDisplayFormula(), button as Button)
     }
 
     private val operatorButtonClickListener = View.OnClickListener { button ->
-        onClickOperatorButton(getDisplayContents(), button as Button)
+        onClickOperatorButton(getDisplayFormula(), button as Button)
     }
 
     private val deleteButtonClickListener = View.OnClickListener {
-        onClickDeleteButton(getDisplayContents())
+        onClickDeleteButton(getDisplayFormula())
     }
 
     private val equalsButtonClickListener = View.OnClickListener {
-        onClickEqualsButton(getDisplayContents())
+        onClickEqualsButton(getDisplayFormula())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,37 +57,37 @@ class MainActivity : AppCompatActivity() {
         binding.buttonEquals.setOnClickListener(equalsButtonClickListener)
     }
 
-    private fun onClickNumberButton(contents: String, button: Button) {
-        val result = CalculatorContentsModifier.appendNumber(contents, button.text.toString())
-        setDisplayContents(result)
+    private fun onClickNumberButton(formula: String, button: Button) {
+        val result = CalculatorFormulaModifier.appendOperand(formula, button.text.toString())
+        setDisplayFormula(result)
     }
 
-    private fun onClickOperatorButton(contents: String, button: Button) {
-        val result = CalculatorContentsModifier.appendOperator(contents, button.text.toString())
-        setDisplayContents(result)
+    private fun onClickOperatorButton(formula: String, button: Button) {
+        val result = CalculatorFormulaModifier.appendOperator(formula, button.text.toString())
+        setDisplayFormula(result)
     }
 
-    private fun onClickDeleteButton(contents: String) {
-        val result = CalculatorContentsModifier.removeLatest(contents)
-        setDisplayContents(result)
+    private fun onClickDeleteButton(formula: String) {
+        val result = CalculatorFormulaModifier.removeLatest(formula)
+        setDisplayFormula(result)
     }
 
-    private fun onClickEqualsButton(contents: String) {
+    private fun onClickEqualsButton(formula: String) {
         val result = try {
-            CalculatorContentsModifier.calculateContents(contents)
+            CalculatorFormulaModifier.calculateFormula(formula)
         } catch (e: IllegalArgumentException) {
             Toast.makeText(this, R.string.uncompleted_operation, Toast.LENGTH_SHORT).show()
             return
         }
 
-        setDisplayContents(result)
+        setDisplayFormula(result)
     }
 
-    private fun getDisplayContents(): String {
+    private fun getDisplayFormula(): String {
         return binding.textView.text.toString()
     }
 
-    private fun setDisplayContents(contents: String) {
-        binding.textView.text = contents
+    private fun setDisplayFormula(formula: String) {
+        binding.textView.text = formula
     }
 }

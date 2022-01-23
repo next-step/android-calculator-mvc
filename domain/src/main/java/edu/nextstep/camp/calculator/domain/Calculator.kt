@@ -4,15 +4,15 @@ import edu.nextstep.camp.calculator.domain.ArithmeticOperator.Companion.calculat
 
 object Calculator {
 
-    fun calculateContents(contents: String): Double {
-        if (contents.isEmpty()) {
+    fun calculateFormula(formula: String): Double {
+        if (formula.isEmpty()) {
             throw IllegalArgumentException()
         }
 
-        val initialNumberWithOperations = InputContentsClassifier.makeInitialNumberWithOperationsFromContents(contents)
+        val initialOperandWithOperations = InputFormulaClassifier.makeInitialOperandWithOperationsFromFormula(formula)
 
-        var firstOperand = initialNumberWithOperations.first
-        val operations = initialNumberWithOperations.second
+        var firstOperand = initialOperandWithOperations.first
+        val operations = initialOperandWithOperations.second
 
         operations.forEach { (operator, secondOperand) ->
             val arithmeticOperator = ArithmeticOperator.convertToArithmeticOperation(operator)

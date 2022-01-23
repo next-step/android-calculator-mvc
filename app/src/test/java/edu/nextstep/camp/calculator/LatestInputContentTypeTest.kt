@@ -6,36 +6,36 @@ import org.junit.Test
 class LatestInputContentTypeTest {
 
     @Test
-    fun getLatestInputContentType_WhenContentsEmpty() {
+    fun getLatestInputContentType_WhenFormulaEmpty() {
         //given
-        val contents = ""
+        val formula = ""
 
         //when
-        val latestInputContentType = LatestInputContentType.getLatestInputContentType(contents)
+        val latestInputContentType = LatestInputContentType.getLatestInputContentType(formula)
 
         //then
         assertThat(latestInputContentType).isEqualTo(LatestInputContentType.NONE)
     }
 
     @Test
-    fun getLatestInputContentType_WhenLatestContentIsNumber() {
+    fun getLatestInputContentType_WhenLatestContentIsOperand() {
         //given
-        val contents = "1 + 2"
+        val formula = "1 + 2"
 
         //when
-        val latestInputContentType = LatestInputContentType.getLatestInputContentType(contents)
+        val latestInputContentType = LatestInputContentType.getLatestInputContentType(formula)
 
         //then
-        assertThat(latestInputContentType).isEqualTo(LatestInputContentType.NUMBER)
+        assertThat(latestInputContentType).isEqualTo(LatestInputContentType.OPERAND)
     }
 
     @Test
     fun getLatestInputContentType_WhenLatestContentIsOperator() {
         //given
-        val contents = "1 + 2 - "
+        val formula = "1 + 2 - "
 
         //when
-        val latestInputContentType = LatestInputContentType.getLatestInputContentType(contents)
+        val latestInputContentType = LatestInputContentType.getLatestInputContentType(formula)
 
         //then
         assertThat(latestInputContentType).isEqualTo(LatestInputContentType.OPERATOR)
@@ -43,36 +43,36 @@ class LatestInputContentTypeTest {
 
 
     @Test
-    fun getLatestInputContentLength_whenContentsAreEmpty() {
+    fun getLatestInputContentLength_whenFormulaIsEmpty() {
         //given
-        val contents = ""
+        val formula = ""
 
         //when
-        val result = LatestInputContentType.getLatestInputContentLength(contents)
+        val result = LatestInputContentType.getLatestInputContentLength(formula)
 
         //then
         assertThat(result).isEqualTo(0)
     }
 
     @Test
-    fun getLatestInputContentLength_whenLastContentIsNumber() {
+    fun getLatestInputContentLength_whenLastContentIsOperand() {
         //given
-        val contents = "1 + 3"
+        val formula = "1 + 3"
 
         //when
-        val result = LatestInputContentType.getLatestInputContentLength(contents)
+        val result = LatestInputContentType.getLatestInputContentLength(formula)
 
         //then
-        assertThat(result).isEqualTo(LatestInputContentType.LENGTH_NUMBER_CONTENT)
+        assertThat(result).isEqualTo(LatestInputContentType.LENGTH_OPERAND_CONTENT)
     }
 
     @Test
     fun getLatestInputContentLength_whenLastContentIsOperator() {
         //given
-        val contents = "1 + 3 - "
+        val formula = "1 + 3 - "
 
         //when
-        val result = LatestInputContentType.getLatestInputContentLength(contents)
+        val result = LatestInputContentType.getLatestInputContentLength(formula)
 
         //then
         assertThat(result).isEqualTo(LatestInputContentType.LENGTH_OPERATOR_CONTENT)

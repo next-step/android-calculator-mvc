@@ -4,36 +4,36 @@ import edu.nextstep.camp.calculator.domain.Calculator
 
 enum class LatestInputContentType {
     NONE,
-    NUMBER,
+    OPERAND,
     OPERATOR;
 
     companion object {
-        const val LENGTH_NUMBER_CONTENT = 1
+        const val LENGTH_OPERAND_CONTENT = 1
         const val LENGTH_OPERATOR_CONTENT = 3
 
-        fun getLatestInputContentType(contents: String): LatestInputContentType {
-            if (contents.isEmpty()) {
+        fun getLatestInputContentType(formula: String): LatestInputContentType {
+            if (formula.isEmpty()) {
                 return NONE
             }
 
-            val splitContents = contents.split(" ")
+            val splitFormula = formula.split(" ")
                 .filter {
                     it.isNotEmpty()
                 }
 
-            val latestInput = splitContents.last()
+            val latestInput = splitFormula.last()
 
             if (Calculator.isNumber(latestInput)) {
-                return NUMBER
+                return OPERAND
             }
 
             return OPERATOR
         }
 
-        fun getLatestInputContentLength(contents: String): Int {
-            return when (getLatestInputContentType(contents)) {
+        fun getLatestInputContentLength(formula: String): Int {
+            return when (getLatestInputContentType(formula)) {
                 NONE -> 0
-                NUMBER -> LENGTH_NUMBER_CONTENT
+                OPERAND -> LENGTH_OPERAND_CONTENT
                 OPERATOR -> LENGTH_OPERATOR_CONTENT
             }
         }

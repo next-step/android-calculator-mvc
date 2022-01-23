@@ -11,12 +11,12 @@ enum class ArithmeticOperator(val operation: String) {
             return values().find { it.operation == operation } ?: throw IllegalArgumentException()
         }
 
-        fun ArithmeticOperator.calculate(firstNumber: Double, secondNumber: Double): Double {
+        fun ArithmeticOperator.calculate(firstOperand: Double, secondOperand: Double): Double {
             return when (this) {
-                PLUS -> firstNumber + secondNumber
-                MINUS -> firstNumber - secondNumber
-                MULTIPLICATION -> firstNumber * secondNumber
-                DIVISION -> firstNumber / secondNumber
+                PLUS -> firstOperand + secondOperand
+                MINUS -> firstOperand - secondOperand
+                MULTIPLICATION -> firstOperand * secondOperand
+                DIVISION -> firstOperand / secondOperand
             }
         }
     }

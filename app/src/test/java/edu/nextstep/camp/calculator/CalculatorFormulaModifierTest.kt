@@ -4,27 +4,27 @@ import com.google.common.truth.Truth.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.Test
 
-class CalculatorContentsModifierTest {
+class CalculatorFormulaModifierTest {
 
     @Test
-    fun appendNumber_thenNumberShouldBeAdded() {
+    fun appendOperand_thenOperandShouldBeAdded() {
         //given
-        val contents = "1"
+        val formula = "1"
 
         //when
-        val result = CalculatorContentsModifier.appendNumber(contents, "2")
+        val result = CalculatorFormulaModifier.appendOperand(formula, "2")
 
         //then
         assertThat(result).isEqualTo("12")
     }
 
     @Test
-    fun appendOperator_whenContentsAreEmpty_resultShouldBeEmpty() {
+    fun appendOperator_whenFormulaIsEmpty_resultShouldBeEmpty() {
         //given
-        val contents = ""
+        val formula = ""
 
         //when
-        val result = CalculatorContentsModifier.appendOperator(contents, "+")
+        val result = CalculatorFormulaModifier.appendOperator(formula, "+")
 
         //then
         assertThat(result).isEmpty()
@@ -33,10 +33,10 @@ class CalculatorContentsModifierTest {
     @Test
     fun appendOperator_whenLastContentIsOperator_resultShouldBeNewOperator() {
         //given
-        val contents = "1 + "
+        val formula = "1 + "
 
         //when
-        val result = CalculatorContentsModifier.appendOperator(contents, "-")
+        val result = CalculatorFormulaModifier.appendOperator(formula, "-")
 
         //then
         assertThat(result).isEqualTo("1 - ")
@@ -45,34 +45,34 @@ class CalculatorContentsModifierTest {
     @Test
     fun appendOperator_whenLastContentIsNumber_operatorShouldBeAdded() {
         //given
-        val contents = "1 + 3"
+        val formula = "1 + 3"
 
         //when
-        val result = CalculatorContentsModifier.appendOperator(contents, "-")
+        val result = CalculatorFormulaModifier.appendOperator(formula, "-")
 
         //then
         assertThat(result).isEqualTo("1 + 3 - ")
     }
 
     @Test
-    fun removeLatest_whenContentsAreEmpty_resultShouldBeEmpty() {
+    fun removeLatest_whenFormulaIsEmpty_resultShouldBeEmpty() {
         //given
-        val contents = ""
+        val formula = ""
 
         //when
-        val result = CalculatorContentsModifier.removeLatest(contents)
+        val result = CalculatorFormulaModifier.removeLatest(formula)
 
         //then
         assertThat(result).isEmpty()
     }
 
     @Test
-    fun removeLatest_whenLastContentIsNumber_numberShouldBeRemoved() {
+    fun removeLatest_whenLastContentIsOperand_operandShouldBeRemoved() {
         //given
-        val contents = "1 + 3"
+        val formula = "1 + 3"
 
         //when
-        val result = CalculatorContentsModifier.removeLatest(contents)
+        val result = CalculatorFormulaModifier.removeLatest(formula)
 
         //then
         assertThat(result).isEqualTo("1 + ")
@@ -81,48 +81,48 @@ class CalculatorContentsModifierTest {
     @Test
     fun removeLatest_whenLastContentIsOperator_operatorShouldBeRemoved() {
         //given
-        val contents = "1 + 3 - "
+        val formula = "1 + 3 - "
 
         //when
-        val result = CalculatorContentsModifier.removeLatest(contents)
+        val result = CalculatorFormulaModifier.removeLatest(formula)
 
         //then
         assertThat(result).isEqualTo("1 + 3")
     }
 
     @Test
-    fun calculateContents_WhenLastInputIsEmpty() {
+    fun calculateFormula_WhenLastInputIsEmpty() {
         //given
-        val contents = ""
+        val formula = ""
 
         //when
         //then
         assertThatIllegalArgumentException().isThrownBy {
-            CalculatorContentsModifier.calculateContents(contents)
+            CalculatorFormulaModifier.calculateFormula(formula)
         }
     }
 
     @Test
-    fun calculateContents_WhenLastInputIsNumber() {
+    fun calculateFormula_WhenLastInputIsOperand() {
         //given
-        val contents = "1 + 3 - 5"
+        val formula = "1 + 3 - 5"
 
         //when
-        val result = CalculatorContentsModifier.calculateContents(contents)
+        val result = CalculatorFormulaModifier.calculateFormula(formula)
 
         //then
         assertThat(result).isEqualTo("-1")
     }
 
     @Test
-    fun calculateContents_WhenLastInputIsOperator() {
+    fun calculateFormula_WhenLastInputIsOperator() {
         //given
-        val contents = "1 + 3 - "
+        val formula = "1 + 3 - "
 
         //when
         //then
         assertThatIllegalArgumentException().isThrownBy {
-            CalculatorContentsModifier.calculateContents(contents)
+            CalculatorFormulaModifier.calculateFormula(formula)
         }
     }
 }

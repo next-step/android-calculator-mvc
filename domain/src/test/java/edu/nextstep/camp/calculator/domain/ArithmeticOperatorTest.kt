@@ -59,12 +59,12 @@ class ArithmeticOperatorTest {
     @Test
     fun calculatePlus() {
         //given
-        val firstNumber = 1.0
-        val secondNumber = 2.0
+        val firstOperand = 1.0
+        val secondOperand = 2.0
         val operator = ArithmeticOperator.PLUS
 
         //when
-        val result = operator.calculate(firstNumber, secondNumber)
+        val result = operator.calculate(firstOperand, secondOperand)
 
         //then
         assertThat(result).isEqualTo(3)
@@ -73,12 +73,12 @@ class ArithmeticOperatorTest {
     @Test
     fun calculateMinus() {
         //given
-        val firstNumber = 3.0
-        val secondNumber = 4.0
+        val firstOperand = 3.0
+        val secondOperand = 4.0
         val operator = ArithmeticOperator.MINUS
 
         //when
-        val result = operator.calculate(firstNumber, secondNumber)
+        val result = operator.calculate(firstOperand, secondOperand)
 
         //then
         assertThat(result).isEqualTo(-1)
@@ -87,12 +87,12 @@ class ArithmeticOperatorTest {
     @Test
     fun calculateMultiplication() {
         //given
-        val firstNumber = 5.0
-        val secondNumber = 6.0
+        val firstOperand = 5.0
+        val secondOperand = 6.0
         val operator = ArithmeticOperator.MULTIPLICATION
 
         //when
-        val result = operator.calculate(firstNumber, secondNumber)
+        val result = operator.calculate(firstOperand, secondOperand)
 
         //then
         assertThat(result).isEqualTo(30)
@@ -101,12 +101,12 @@ class ArithmeticOperatorTest {
     @Test
     fun calculateDivision() {
         //given
-        val firstNumber = 10.0
-        val secondNumber = 8.0
+        val firstOperand = 10.0
+        val secondOperand = 8.0
         val operator = ArithmeticOperator.DIVISION
 
         //when
-        val result = operator.calculate(firstNumber, secondNumber)
+        val result = operator.calculate(firstOperand, secondOperand)
 
         //then
         assertThat(result).isEqualTo(1.25)

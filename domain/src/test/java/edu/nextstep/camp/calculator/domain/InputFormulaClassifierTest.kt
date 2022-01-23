@@ -3,20 +3,20 @@ package edu.nextstep.camp.calculator.domain
 import com.google.common.truth.Truth.*
 import org.junit.Test
 
-class InputContentsClassifierTest {
+class InputFormulaClassifierTest {
 
     @Test
     fun makeInitialNumberWithOperations() {
         //given
-        val contents = "1 + 2 - 3"
+        val formula = "1 + 2 - 3"
 
         //when
-        val initialNumberWithOperations = InputContentsClassifier.makeInitialNumberWithOperationsFromContents(contents)
-        val initialNumber = initialNumberWithOperations.first
-        val operations = initialNumberWithOperations.second
+        val initialOperandWithOperations = InputFormulaClassifier.makeInitialOperandWithOperationsFromFormula(formula)
+        val initialOperand = initialOperandWithOperations.first
+        val operations = initialOperandWithOperations.second
 
         //then
-        assertThat(initialNumber).isEqualTo(1)
+        assertThat(initialOperand).isEqualTo(1)
         assertThat(operations[0][0]).isEqualTo("+")
         assertThat(operations[0][1]).isEqualTo("2")
         assertThat(operations[1][0]).isEqualTo("-")

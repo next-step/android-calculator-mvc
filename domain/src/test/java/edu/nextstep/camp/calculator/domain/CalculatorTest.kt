@@ -9,10 +9,10 @@ class CalculatorTest {
     @Test
     fun calculatePlus() {
         //given
-        val contents = "1 + 2 + 3"
+        val formula = "1 + 2 + 3"
 
         //when
-        val result = Calculator.calculateContents(contents)
+        val result = Calculator.calculateFormula(formula)
 
         //then
         assertThat(result).isEqualTo(6)
@@ -21,10 +21,10 @@ class CalculatorTest {
     @Test
     fun calculateMinus() {
         //given
-        val contents = "4 - 5 - 6"
+        val formula = "4 - 5 - 6"
 
         //when
-        val result = Calculator.calculateContents(contents)
+        val result = Calculator.calculateFormula(formula)
 
         //then
         assertThat(result).isEqualTo(-7)
@@ -33,10 +33,10 @@ class CalculatorTest {
     @Test
     fun calculateMultiplication() {
         //given
-        val contents = "7 × 8 × 9"
+        val formula = "7 × 8 × 9"
 
         //when
-        val result = Calculator.calculateContents(contents)
+        val result = Calculator.calculateFormula(formula)
 
         //then
         assertThat(result).isEqualTo(504)
@@ -45,10 +45,10 @@ class CalculatorTest {
     @Test
     fun calculateDivision() {
         //given
-        val contents = "10 ÷ 8 ÷ 5"
+        val formula = "10 ÷ 8 ÷ 5"
 
         //when
-        val result = Calculator.calculateContents(contents)
+        val result = Calculator.calculateFormula(formula)
 
         //then
         assertThat(result).isEqualTo(0.25)
@@ -57,34 +57,34 @@ class CalculatorTest {
     @Test
     fun calculateNull() {
         //given
-        val contents = ""
+        val formula = ""
 
         //when
         //then
         assertThatIllegalArgumentException().isThrownBy {
-            Calculator.calculateContents(contents)
+            Calculator.calculateFormula(formula)
         }
     }
 
     @Test
     fun calculateNotProperOperation() {
         //given
-        val contents = "1 # 4 @ 7"
+        val formula = "1 # 4 @ 7"
 
         //when
         //then
         assertThatIllegalArgumentException().isThrownBy {
-            Calculator.calculateContents(contents)
+            Calculator.calculateFormula(formula)
         }
     }
 
     @Test
     fun calculateAllTheOperation() {
         //given
-        val contents = "1 + 2 × 4 ÷ 6 - 5"
+        val formula = "1 + 2 × 4 ÷ 6 - 5"
 
         //when
-        val result = Calculator.calculateContents(contents)
+        val result = Calculator.calculateFormula(formula)
 
         //then
         assertThat(result).isEqualTo(-3)

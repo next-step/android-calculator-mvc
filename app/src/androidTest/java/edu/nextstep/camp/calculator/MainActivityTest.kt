@@ -107,7 +107,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickNumberButtonWhenLastInputIsNotNumber_shouldShow5Plus1() {
+    fun clickNumberButtonWhenLastInputIsNotOperand_shouldShow5Plus1() {
         //given
         onView(withId(R.id.button5)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
@@ -120,7 +120,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickNumberButtonWhenLastInputIsNumber_shouldShow89() {
+    fun clickNumberButtonWhenLastInputIsOperand_shouldShow89() {
         //given
         onView(withId(R.id.button8)).perform(click())
 
@@ -132,7 +132,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickOperatorButtonWhenLastInputIsNotNumber_shouldShowEmpty() {
+    fun clickOperatorButtonWhenLastInputIsNotOperand_shouldShowEmpty() {
         //given
         //when
         onView(withId(R.id.buttonPlus)).perform(click())
@@ -142,7 +142,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickOperatorButtonWhenLastInputIsNumber_shouldShow1Plus() {
+    fun clickOperatorButtonWhenLastInputIsOperand_shouldShow1Plus() {
         //given
         onView(withId(R.id.button1)).perform(click())
 
