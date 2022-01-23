@@ -181,7 +181,13 @@ class MainActivityTest {
     @Test
     fun perfectMathematicalExpression_clickEqual_showResult() {
         // given: 3 + 2가 입력되있을 때
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
         // when: = 버튼을 누르면
+        onView(withId(R.id.buttonEquals)).perform(click())
+
         // then: 계산기 화면에 5가 보여야한다
+        onView(withId(R.id.textView)).check(matches(withText("5")))
     }
 }

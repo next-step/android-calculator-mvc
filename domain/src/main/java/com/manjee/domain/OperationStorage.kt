@@ -36,4 +36,10 @@ class OperationStorage {
             str.dropLast(1)
         }
     }
+
+    fun calculate(currentText: String): String {
+        return calculator.calculate(replaceOperator(currentText)).toString()
+    }
+
+    private fun replaceOperator(text: String) = text.replace("×", "*").replace("÷", "/")
 }

@@ -1,6 +1,7 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.manjee.domain.OperationStorage
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         binding.buttonMultiply.setOnClickListener { inputOperator(getString(R.string.calculator_multiply)) }
         binding.buttonDivide.setOnClickListener { inputOperator(getString(R.string.calculator_divide)) }
         binding.buttonDelete.setOnClickListener { deleteLastStr() }
+        binding.buttonEquals.setOnClickListener { calculate() }
     }
 
     private fun inputNumber(num: String) {
@@ -44,5 +46,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun deleteLastStr() {
         binding.textView.text = operationStorage.deleteLastStr(binding.textView.text.toString())
+    }
+
+    private fun calculate() {
+        runCatching {
+            binding.textView.text = operationStorage.calculate(binding.textView.text.toString())
+        }.onFailure { e ->
+            Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT).show()
+        }
     }
 }

@@ -7,6 +7,8 @@ class Calculator {
 
         if (input.isNullOrEmpty()) {
             throw IllegalArgumentException("입력 값은 null 이거나 비어있을 수 없습니다")
+        } else if (!input.last().isDigit()) {
+            throw IllegalArgumentException("완전하지 않은 수식입니다")
         }
 
         input.split(" ").forEach {
