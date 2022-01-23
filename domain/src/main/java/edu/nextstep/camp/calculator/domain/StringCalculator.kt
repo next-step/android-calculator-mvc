@@ -15,9 +15,12 @@ class StringCalculator {
 
         var result = 0.0
         for(i:Int in 1 until splitFormulas.size step(2)) {
-            val leftNum = if (i == 1) { splitFormulas[i - 1].toDouble() } else { result }
-            val rightNum = splitFormulas[i+1].toDouble()
-            result = Operator.fromSymbol(splitFormulas[i]).calculate(leftNum, rightNum)
+            val leftNum = Operand(
+                if (i == 1) { splitFormulas[i - 1].toDouble() } else { result }
+            )
+            val rightNum = Operand(splitFormulas[i+1].toDouble())
+            result = Operator.fromSymbol(splitFormulas[i])
+                .calculate(leftNum, rightNum)
         }
         return result
     }
