@@ -25,68 +25,121 @@ class MainActivityTest {
     @Test
     fun when_click_zero_show_zero() {
         onView(withId(R.id.button0)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("0")))
+        onView(withId(R.id.expressionText)).check(matches(withText("0")))
     }
 
     // N = 1
     @Test
     fun when_click_one_show_one() {
         onView(withId(R.id.button1)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("1")))
+        onView(withId(R.id.expressionText)).check(matches(withText("1")))
     }
 
     // N = 2
     @Test
     fun when_click_two_show_two() {
         onView(withId(R.id.button2)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("2")))
+        onView(withId(R.id.expressionText)).check(matches(withText("2")))
     }
 
     // N = 3
     @Test
     fun when_click_three_show_three() {
         onView(withId(R.id.button3)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("3")))
+        onView(withId(R.id.expressionText)).check(matches(withText("3")))
     }
 
     // N = 4
     @Test
     fun when_click_four_show_four() {
         onView(withId(R.id.button4)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("4")))
+        onView(withId(R.id.expressionText)).check(matches(withText("4")))
     }
 
     // N = 5
     @Test
     fun when_click_five_show_five() {
         onView(withId(R.id.button5)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("5")))
+        onView(withId(R.id.expressionText)).check(matches(withText("5")))
     }
     // N = 6
     @Test
     fun when_click_six_show_six() {
         onView(withId(R.id.button6)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("6")))
+        onView(withId(R.id.expressionText)).check(matches(withText("6")))
     }
 
     // N = 7
     @Test
     fun when_click_seven_show_seven() {
         onView(withId(R.id.button7)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("7")))
+        onView(withId(R.id.expressionText)).check(matches(withText("7")))
     }
 
     // N = 8
     @Test
     fun when_click_eight_show_eight() {
         onView(withId(R.id.button8)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("8")))
+        onView(withId(R.id.expressionText)).check(matches(withText("8")))
     }
 
     // N = 9
     @Test
     fun when_click_nine_show_nine() {
         onView(withId(R.id.button9)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("9")))
+        onView(withId(R.id.expressionText)).check(matches(withText("9")))
+    }
+
+    /**
+     * GIVEN 연산자로 끝나는 수식이 주어졌을 때 (Operator: +, -, ×, ÷)[ex] '5 + '
+     * WHEN 사용자가 피연산자 N을 누르면 (N: 0~9) [ex] '9'
+     * THEN 해당 숫자가 화면에 보여야 한다. [ex] '5 + 9'
+     * */
+    // Operator +
+    @Test
+    fun given_formula_that_ends_with_an_operator_plus_when_click_number_then_add_number_to_the_end() {
+        // given: '5 +'
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        // when: '1'
+        onView(withId(R.id.button1)).perform(click())
+        // then: '5 + 1'
+        onView(withId(R.id.expressionText)).check(matches(withText("5 + 1")))
+    }
+
+    // Operator -
+    @Test
+    fun given_formula_that_ends_with_an_operator_minus_when_click_number_then_add_number_to_the_end() {
+        // given: '5 -'
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonMinus)).perform(click())
+        // when: '1'
+        onView(withId(R.id.button1)).perform(click())
+        // then: '5 - 1'
+        onView(withId(R.id.expressionText)).check(matches(withText("5 - 1")))
+    }
+
+    // Operator ×
+    @Test
+    fun given_formula_that_ends_with_an_operator_multiply_when_click_number_then_add_number_to_the_end() {
+        // given: '5 ×'
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        // when: '1'
+        onView(withId(R.id.button1)).perform(click())
+        // then: '5 × 1'
+        onView(withId(R.id.expressionText)).check(matches(withText("5 × 1")))
+    }
+
+    // Operator ÷
+    @Test
+    fun given_formula_that_ends_with_an_operator_divide_when_click_number_then_add_number_to_the_end() {
+        // given: '5 ÷'
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonDivide)).perform(click())
+        // when: '1'
+        onView(withId(R.id.button1)).perform(click())
+        // then: '5 ÷ 1'
+        onView(withId(R.id.expressionText)).check(matches(withText("5 ÷ 1")))
     }
 }

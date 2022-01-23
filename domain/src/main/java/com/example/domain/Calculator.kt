@@ -60,7 +60,7 @@ sealed class Operation : ExpressionElement() {
     object Divide : Operation()
 }
 
-class Operand(private val value: Int) : ExpressionElement() {
+class Operand(val value: Int) : ExpressionElement() {
     operator fun plus(other: Operand): Operand = Operand(this.value + other.value)
     operator fun minus(other: Operand): Operand = Operand(this.value - other.value)
     operator fun times(other: Operand): Operand = Operand(this.value * other.value)
