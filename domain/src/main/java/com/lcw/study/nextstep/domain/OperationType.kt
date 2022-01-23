@@ -5,7 +5,7 @@ enum class OperationType {
     MINUS,
     MULTIPLY,
     DIVIDE,
-    NOTOPERATIONTYPE;
+    NOT_OPERATION_TYPE;
 
      fun checkOperationType(text: String): Boolean { //입력된 문자가 사칙 연산 기호인지 체크
         return text == "+" || text == "-" || text == "*" || text == "/"
@@ -18,6 +18,6 @@ enum class OperationType {
             "*"->return MULTIPLY
             "/"->return DIVIDE
         }
-         return NOTOPERATIONTYPE
+         return NOT_OPERATION_TYPE
     }
 }
