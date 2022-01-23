@@ -5,7 +5,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
-import net.woogear.domain.InputManager
+import net.woogear.domain.CalculatorManager
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -47,19 +47,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun input(newText: String) {
         val currentText = binding.textView.text.toString()
-        binding.textView.text = InputManager.input(currentText, newText)
+        binding.textView.text = CalculatorManager.input(currentText, newText)
     }
 
     private fun delete() {
-        binding.textView.text = InputManager.delete(binding.textView.text.toString())
+        binding.textView.text = CalculatorManager.delete(binding.textView.text.toString())
     }
 
     private fun calculateIfFormulaCompleted() {
         val formula = binding.textView.text.toString()
-        val isFormulaCompleted = InputManager.isFormulaComplete(formula)
+        val isFormulaCompleted = CalculatorManager.isFormulaCompleted(formula)
 
         if (isFormulaCompleted) {
-            binding.textView.text = InputManager.operate(formula)
+            binding.textView.text = CalculatorManager.operate(formula)
             return
         }
 

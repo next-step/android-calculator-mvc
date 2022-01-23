@@ -1,6 +1,6 @@
 package net.woogear.domain
 
-class InputManager {
+class CalculatorManager {
     companion object {
         fun input(currentText: String, newText: String): String {
             if (currentText.isEmpty()) {
@@ -41,7 +41,7 @@ class InputManager {
             }
         }
 
-        fun isFormulaComplete(currentText: String): Boolean {
+        fun isFormulaCompleted(currentText: String): Boolean {
             return when {
                 currentText.isEmpty() -> false
                 OperationType.isOperator(currentText.last().toString()) -> false
