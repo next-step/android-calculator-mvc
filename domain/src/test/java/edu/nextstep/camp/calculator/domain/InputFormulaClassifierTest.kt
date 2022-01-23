@@ -12,8 +12,8 @@ class InputFormulaClassifierTest {
 
         //when
         val initialOperandWithOperations = InputFormulaClassifier.makeInitialOperandWithOperationsFromFormula(formula)
-        val initialOperand = initialOperandWithOperations.first
-        val operations = initialOperandWithOperations.second
+        val initialOperand = initialOperandWithOperations.initialOperand
+        val operations = initialOperandWithOperations.operations
 
         //then
         assertThat(initialOperand).isEqualTo(1)

@@ -2,7 +2,7 @@ package edu.nextstep.camp.calculator.domain
 
 object InputFormulaClassifier {
 
-    fun makeInitialOperandWithOperationsFromFormula(formula: String): Pair<Double, List<List<String>>> {
+    fun makeInitialOperandWithOperationsFromFormula(formula: String): DetachedOperation {
         val operationFormula = formula.split(" ")
 
         val initialOperand = operationFormula.first().toDouble()
@@ -16,7 +16,7 @@ object InputFormulaClassifier {
             return@mapIndexed null
         }.filterNotNull()
 
-        return Pair(initialOperand, operations)
+        return DetachedOperation(initialOperand, operations)
     }
 
     private fun isOddIndexNumber(index: Int): Boolean {

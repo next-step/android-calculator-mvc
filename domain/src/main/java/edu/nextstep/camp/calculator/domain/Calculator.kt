@@ -11,8 +11,8 @@ object Calculator {
 
         val initialOperandWithOperations = InputFormulaClassifier.makeInitialOperandWithOperationsFromFormula(formula)
 
-        var firstOperand = initialOperandWithOperations.first
-        val operations = initialOperandWithOperations.second
+        var firstOperand = initialOperandWithOperations.initialOperand
+        val operations = initialOperandWithOperations.operations
 
         operations.forEach { (sign, secondOperand) ->
             val arithmeticSign = ArithmeticSign.convertToArithmeticOperation(sign)
