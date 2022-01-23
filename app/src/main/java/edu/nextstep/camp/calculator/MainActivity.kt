@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         binding.buttonMultiply.setOnClickListener { input("*") }
 
         binding.buttonDelete.setOnClickListener { delete() }
-        binding.buttonEquals.setOnClickListener { setResult() }
+        binding.buttonEquals.setOnClickListener { calculateIfFormulaCompleted() }
     }
 
     private fun Button.setNumberClickListener() {
@@ -54,11 +54,11 @@ class MainActivity : AppCompatActivity() {
         binding.textView.text = InputManager.delete(binding.textView.text.toString())
     }
 
-    private fun setResult() {
+    private fun calculateIfFormulaCompleted() {
         val formula = binding.textView.text.toString()
-        val isFormulaComplete = InputManager.isFormulaComplete(formula)
+        val isFormulaCompleted = InputManager.isFormulaComplete(formula)
 
-        if (isFormulaComplete) {
+        if (isFormulaCompleted) {
             binding.textView.text = InputManager.operate(formula)
             return
         }
