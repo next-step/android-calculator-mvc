@@ -43,8 +43,8 @@ sealed class ExpressionElement {
             return when (rawExpression) {
                 "+" -> Operation.Add
                 "-" -> Operation.Subtract
-                "*" -> Operation.Multiply
-                "/" -> Operation.Divide
+                "×" -> Operation.Multiply
+                "÷" -> Operation.Divide
                 else -> rawExpression.toIntOrNull()?.let { value ->
                     Operand(value)
                 } ?: throw IllegalArgumentException()

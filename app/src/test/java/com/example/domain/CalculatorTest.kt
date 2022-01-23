@@ -25,13 +25,13 @@ class CalculatorTest {
 
     @Test
     fun `공백이 있는 곱셈이 주어진 경우 계산에 성공한다`() {
-        val actual: Int = calculator.evaluate("1 * 2 * 3")
+        val actual: Int = calculator.evaluate("1 × 2 × 3")
         assertThat(actual).isEqualTo(6)
     }
 
     @Test
     fun `공백이 있는 나눗셈이 주어진 경우 계산에 성공한다`() {
-        val actual: Int = calculator.evaluate("6 / 3 / 2")
+        val actual: Int = calculator.evaluate("6 ÷ 3 ÷ 2")
         assertThat(actual).isEqualTo(1)
     }
 
@@ -43,7 +43,7 @@ class CalculatorTest {
 
     @Test
     fun `공백이 있는 곱셈과 나눗셈이 주어진 경우 계산에 성공한다`() {
-        val actual: Int = calculator.evaluate("1 * 2 * 3 / 4 * 5")
+        val actual: Int = calculator.evaluate("1 × 2 × 3 ÷ 4 × 5")
         assertThat(actual).isEqualTo(5)
     }
 
