@@ -6,8 +6,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Calculator
-import edu.nextstep.camp.calculator.domain.Calculator.Result.Failure
-import edu.nextstep.camp.calculator.domain.Calculator.Result.Success
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,10 +48,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateDisplay() {
-        when (val result = calculator.result) {
-            is Success -> binding.tvResultDisplay.text = result.value
-            is Failure -> Toast.makeText(this, getString(R.string.error_incomplete_expression), Toast.LENGTH_SHORT)
-                .show()
+        val result = calculator.result ?: return
+
+        when (result.isSuccess) {
+            true -> binding.tvResultDisplay.text = result.getOrThrow()
+            false -> Toast.makeText(this, getString(R.string.error_incomplete_expression), Toast.LENGTH_SHORT).show()
         }
     }
 }
