@@ -28,17 +28,22 @@ class MainActivity : AppCompatActivity() {
         binding.button7.setOnClickListener { input((it as Button).text.toString()) }
         binding.button8.setOnClickListener { input((it as Button).text.toString()) }
         binding.button9.setOnClickListener { input((it as Button).text.toString()) }
+
         binding.buttonMinus.setOnClickListener { input((it as Button).text.toString()) }
         binding.buttonPlus.setOnClickListener { input((it as Button).text.toString()) }
         binding.buttonDivide.setOnClickListener { input("/") }
         binding.buttonMultiply.setOnClickListener { input("*") }
 
-        binding.buttonDelete.setOnClickListener { }
+        binding.buttonDelete.setOnClickListener { delete() }
         binding.buttonEquals.setOnClickListener { }
     }
 
     private fun input(newText: String) {
         val currentText = binding.textView.text.toString()
         binding.textView.text = InputManager.input(currentText, newText)
+    }
+
+    private fun delete() {
+        binding.textView.text = InputManager.delete(binding.textView.text.toString())
     }
 }

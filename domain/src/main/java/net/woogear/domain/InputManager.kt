@@ -25,5 +25,23 @@ class InputManager {
 
             return "$currentText $newText"
         }
+
+        fun delete(currentText: String): String {
+            if (currentText.isEmpty() || currentText.isBlank()) {
+                return currentText
+            }
+
+            val deletedText = currentText.substring(0, currentText.lastIndex)
+
+            if (deletedText.isEmpty()) {
+                return deletedText
+            }
+
+            if (deletedText.last().toString().isBlank()) {
+                return delete(deletedText)
+            }
+
+            return deletedText
+        }
     }
 }

@@ -38,4 +38,17 @@ class MainActivityTest {
         onView(withId(R.id.button3)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText("9 / 3")))
     }
+
+    @Test
+    fun click_123_multiply_delete_delete_divide_3_then_shows_12_divide_3() {
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        onView(withId(R.id.buttonDelete)).perform(click())
+        onView(withId(R.id.buttonDelete)).perform(click())
+        onView(withId(R.id.buttonDivide)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("12 / 3")))
+    }
 }
