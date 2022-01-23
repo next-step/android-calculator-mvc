@@ -39,7 +39,7 @@ internal class ExpressionGenerator(private val joinDelimiter: String) {
         }
     }
 
-    fun update(symbol: String) {
+    fun update(symbol: String) = apply {
         expression.clearBy(symbol)
     }
 

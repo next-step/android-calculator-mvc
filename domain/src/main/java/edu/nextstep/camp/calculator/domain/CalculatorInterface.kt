@@ -1,0 +1,31 @@
+package edu.nextstep.camp.calculator.domain
+
+import edu.nextstep.camp.calculator.domain.exception.InvalidExpressionException
+
+private const val DELIMITER = " "
+
+class CalculatorInterface {
+
+    private val expressionGenerator = ExpressionGenerator(DELIMITER)
+    private val expressionParser = ExpressionParser(DELIMITER)
+    private val calculator = Calculator(expressionParser)
+
+    fun insert(symbol: String) = Result.success(
+        expressionGenerator.append(symbol).generate()
+    )
+
+    fun delete() = Result.success(
+        expressionGenerator.delete().generate()
+    )
+
+    fun evaluate(): Result<String> {
+        if (!expressionGenerator.isValid()) {
+            return Result.failure(InvalidExpressionException())
+        }
+
+        val expression = expressionGenerator.generate()
+        val evaluated = calculator.evaluate(expression)
+
+        return Result.success(expressionGenerator.update(evaluated).generate())
+    }
+}

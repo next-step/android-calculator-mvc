@@ -5,12 +5,13 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
-import edu.nextstep.camp.calculator.domain.Calculator
+import edu.nextstep.camp.calculator.domain.CalculatorInterface
+import edu.nextstep.camp.calculator.domain.exception.InvalidExpressionException
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val calculator = Calculator()
+    private val calculatorInterface = CalculatorInterface()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,29 +31,34 @@ class MainActivity : AppCompatActivity() {
         buttons.forEach(::setupButtonsClickListener)
 
         binding.buttonDelete.setOnClickListener {
-            calculator.delete()
-            updateDisplay()
+            updateDisplay(calculatorInterface.delete())
         }
 
         binding.buttonEquals.setOnClickListener {
-            calculator.evaluate()
-            updateDisplay()
+            updateDisplay(calculatorInterface.evaluate())
         }
     }
 
     private fun setupButtonsClickListener(button: Button) {
         button.setOnClickListener {
-            calculator.insert(button.text.toString())
-            updateDisplay()
+            updateDisplay(calculatorInterface.insert(button.text.toString()))
         }
     }
 
-    private fun updateDisplay() {
-        val result = calculator.result ?: return
-
+    private fun updateDisplay(result: Result<String>) {
         when (result.isSuccess) {
-            true -> binding.tvResultDisplay.text = result.getOrThrow()
-            false -> Toast.makeText(this, getString(R.string.error_incomplete_expression), Toast.LENGTH_SHORT).show()
+            true -> updateDisplayOnSuccess(result.getOrNull())
+            false -> updateDisplayOnFailure(result.exceptionOrNull())
+        }
+    }
+
+    private fun updateDisplayOnSuccess(value: String?) {
+        binding.tvResultDisplay.text = value ?: return
+    }
+
+    private fun updateDisplayOnFailure(throwable: Throwable?) {
+        when (throwable) {
+            is InvalidExpressionException -> Toast.makeText(this, getString(R.string.error_incomplete_expression), Toast.LENGTH_SHORT).show()
         }
     }
 }
