@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.CalculatorInterface
+import edu.nextstep.camp.calculator.domain.exception.EvaluateExpressionException
 import edu.nextstep.camp.calculator.domain.exception.InvalidExpressionException
 
 class MainActivity : AppCompatActivity() {
@@ -58,7 +59,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateDisplayOnFailure(throwable: Throwable?) {
         when (throwable) {
-            is InvalidExpressionException -> Toast.makeText(this, getString(R.string.error_incomplete_expression), Toast.LENGTH_SHORT).show()
+            is InvalidExpressionException -> Toast.makeText(this, getString(R.string.error_invalid_expression), Toast.LENGTH_SHORT).show()
+            is EvaluateExpressionException -> Toast.makeText(this, getString(R.string.error_evaluate_expression), Toast.LENGTH_SHORT).show()
         }
     }
 }

@@ -23,9 +23,13 @@ class CalculatorInterface {
             return Result.failure(InvalidExpressionException())
         }
 
-        val expression = expressionGenerator.generate()
-        val evaluated = calculator.evaluate(expression)
-
-        return Result.success(expressionGenerator.update(evaluated).generate())
+        return runCatching {
+            val expression = expressionGenerator.generate()
+            calculator.evaluate(expression)
+        }.onSuccess {
+            Result.success(expressionGenerator.update(it).generate())
+        }.onFailure {
+            Result.failure<Throwable>(it)
+        }
     }
 }
