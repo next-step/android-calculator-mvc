@@ -28,10 +28,10 @@ class MainActivity : AppCompatActivity() {
         binding.button7.setOnClickListener { input((it as Button).text.toString()) }
         binding.button8.setOnClickListener { input((it as Button).text.toString()) }
         binding.button9.setOnClickListener { input((it as Button).text.toString()) }
-        binding.buttonDivide.setOnClickListener { input((it as Button).text.toString()) }
-        binding.buttonMultiply.setOnClickListener { input((it as Button).text.toString()) }
         binding.buttonMinus.setOnClickListener { input((it as Button).text.toString()) }
         binding.buttonPlus.setOnClickListener { input((it as Button).text.toString()) }
+        binding.buttonDivide.setOnClickListener { input("/") }
+        binding.buttonMultiply.setOnClickListener { input("*") }
 
         binding.buttonDelete.setOnClickListener { }
         binding.buttonEquals.setOnClickListener { }
