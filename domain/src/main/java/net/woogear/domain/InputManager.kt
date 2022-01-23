@@ -27,7 +27,7 @@ class InputManager {
         }
 
         fun delete(currentText: String): String {
-            if (currentText.isEmpty() || currentText.isBlank()) {
+            if (currentText.isEmpty()) {
                 return currentText
             }
 

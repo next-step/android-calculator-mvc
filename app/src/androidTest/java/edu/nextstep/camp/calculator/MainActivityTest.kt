@@ -13,7 +13,7 @@ class MainActivityTest {
     val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun click_1_and_2_and_3_then_shows_123() {
+    fun click_1_2_3_shows_123() {
         onView(withId(R.id.button1)).perform(click())
         onView(withId(R.id.button2)).perform(click())
         onView(withId(R.id.button3)).perform(click())
@@ -21,7 +21,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun click_13_and_plus_and_22_then_shows_13_plus_22() {
+    fun click_13_plus_22_shows_13_plus_22() {
         onView(withId(R.id.button1)).perform(click())
         onView(withId(R.id.button3)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
@@ -31,7 +31,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun click_9_and_multiply_and_divide_3_then_shows_9_divide_3() {
+    fun click_9_multiply_divide_3_shows_9_divide_3() {
         onView(withId(R.id.button9)).perform(click())
         onView(withId(R.id.buttonMultiply)).perform(click())
         onView(withId(R.id.buttonDivide)).perform(click())
@@ -40,7 +40,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun click_123_multiply_delete_delete_divide_3_then_shows_12_divide_3() {
+    fun click_123_multiply_delete_delete_divide_3_shows_12_divide_3() {
         onView(withId(R.id.button1)).perform(click())
         onView(withId(R.id.button2)).perform(click())
         onView(withId(R.id.button3)).perform(click())
