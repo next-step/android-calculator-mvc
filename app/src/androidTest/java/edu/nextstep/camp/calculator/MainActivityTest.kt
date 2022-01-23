@@ -1,7 +1,7 @@
 package edu.nextstep.camp.calculator
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -17,7 +17,7 @@ class MainActivityTest {
     val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun test_0_button() {
+    fun click0button_shouldShow0() {
         // when: 사용자가 피연산자 0 버튼을 누르면
         onView(withId(R.id.button0)).perform(click())
 
@@ -26,7 +26,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_1_button() {
+    fun click1button_shouldShow1() {
         // when: 사용자가 피연산자 1 버튼을 누르면
         onView(withId(R.id.button1)).perform(click())
 
@@ -35,7 +35,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_2_button() {
+    fun click2button_shouldShow2() {
         // when: 사용자가 피연산자 2 버튼을 누르면
         onView(withId(R.id.button2)).perform(click())
 
@@ -44,7 +44,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_3_button() {
+    fun click3button_shouldShow3() {
         // when: 사용자가 피연산자 3 버튼을 누르면
         onView(withId(R.id.button3)).perform(click())
 
@@ -53,7 +53,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_4_button() {
+    fun click4button_shouldShow4() {
         // when: 사용자가 피연산자 4 버튼을 누르면
         onView(withId(R.id.button4)).perform(click())
 
@@ -62,7 +62,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_5_button() {
+    fun click5button_shouldShow5() {
         // when: 사용자가 피연산자 5 버튼을 누르면
         onView(withId(R.id.button5)).perform(click())
 
@@ -71,7 +71,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_6_button() {
+    fun click6button_shouldShow6() {
         // when: 사용자가 피연산자 6 버튼을 누르면
         onView(withId(R.id.button6)).perform(click())
 
@@ -80,7 +80,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_7_button() {
+    fun click7button_shouldShow7() {
         // when: 사용자가 피연산자 7 버튼을 누르면
         onView(withId(R.id.button7)).perform(click())
 
@@ -89,7 +89,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_8_button() {
+    fun click8button_shouldShow8() {
         // when: 사용자가 피연산자 8 버튼을 누르면
         onView(withId(R.id.button8)).perform(click())
 
@@ -98,11 +98,113 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_9_button() {
+    fun click9button_shouldShow9() {
         // when: 사용자가 피연산자 9 버튼을 누르면
         onView(withId(R.id.button9)).perform(click())
 
         // then: 계산기 텍스트에 9가 화면에 보여야 한다.
         onView(withId(R.id.textView)).check(matches(withText("9")))
+    }
+
+    @Test
+    fun clickNumberButtonWhenLastInputIsNotOperand_shouldShow5Plus1() {
+        //given
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        //when
+        onView(withId(R.id.button1)).perform(click())
+
+        //then
+        onView(withId(R.id.textView)).check(matches(withText("5 + 1")))
+    }
+
+    @Test
+    fun clickNumberButtonWhenLastInputIsOperand_shouldShow89() {
+        //given
+        onView(withId(R.id.button8)).perform(click())
+
+        //when
+        onView(withId(R.id.button9)).perform(click())
+
+        //then
+        onView(withId(R.id.textView)).check(matches(withText("89")))
+    }
+
+    @Test
+    fun clickSignButtonWhenLastInputIsNotOperand_shouldShowEmpty() {
+        //given
+        //when
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        //then
+        onView(withId(R.id.textView)).check(matches(withText("")))
+    }
+
+    @Test
+    fun clickSignButtonWhenLastInputIsOperand_shouldShow1Plus() {
+        //given
+        onView(withId(R.id.button1)).perform(click())
+
+        //when
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        //then
+        onView(withId(R.id.textView)).check(matches(withText("1 + ")))
+    }
+
+    @Test
+    fun clickSignButtonWhenLastInputIsSign_shouldShow1Minus() {
+        //given
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        //when
+        onView(withId(R.id.buttonMinus)).perform(click())
+
+        //then
+        onView(withId(R.id.textView)).check(matches(withText("1 - ")))
+    }
+
+    @Test
+    fun clickDeleteButtonWhenEmpty_shouldShowEmpty() {
+        //given
+        //when
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        //then
+        onView(withId(R.id.textView)).check(matches(withText("")))
+    }
+
+    @Test
+    fun clickDeleteButtonWhenExistOperation_shouldShowEmpty() {
+        //given
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+
+        //when
+        onView(withId(R.id.buttonDelete)).perform(click())
+        onView(withId(R.id.buttonDelete)).perform(click())
+        onView(withId(R.id.buttonDelete)).perform(click())
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        //then
+        onView(withId(R.id.textView)).check(matches(withText("")))
+    }
+
+    @Test
+    fun clickEqualsButtonWhenExistProperOperation_shouldShow5() {
+        //given
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+
+        //when
+        onView(withId(R.id.buttonEquals)).perform(click())
+
+        //then
+        onView(withId(R.id.textView)).check(matches(withText("5")))
     }
 }

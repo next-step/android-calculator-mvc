@@ -3,18 +3,28 @@ package edu.nextstep.camp.calculator
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
-import edu.nextstep.camp.calculator.domain.Calculator
+import java.lang.IllegalArgumentException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private val calculator = Calculator()
-
     private val numberButtonClickListener = View.OnClickListener { button ->
-        appendButtonNumberToCalculator(button as Button)
-        refreshCalculatorDisplay()
+        onClickNumberButton(getDisplayFormula(), button as Button)
+    }
+
+    private val signButtonClickListener = View.OnClickListener { button ->
+        onClickSignButton(getDisplayFormula(), button as Button)
+    }
+
+    private val deleteButtonClickListener = View.OnClickListener {
+        onClickDeleteButton(getDisplayFormula())
+    }
+
+    private val equalsButtonClickListener = View.OnClickListener {
+        onClickEqualsButton(getDisplayFormula())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initButtonClickListener()
+    }
+
+    private fun initButtonClickListener() {
         binding.button0.setOnClickListener(numberButtonClickListener)
         binding.button1.setOnClickListener(numberButtonClickListener)
         binding.button2.setOnClickListener(numberButtonClickListener)
@@ -32,17 +46,48 @@ class MainActivity : AppCompatActivity() {
         binding.button7.setOnClickListener(numberButtonClickListener)
         binding.button8.setOnClickListener(numberButtonClickListener)
         binding.button9.setOnClickListener(numberButtonClickListener)
+
+        binding.buttonPlus.setOnClickListener(signButtonClickListener)
+        binding.buttonMinus.setOnClickListener(signButtonClickListener)
+        binding.buttonMultiply.setOnClickListener(signButtonClickListener)
+        binding.buttonDivide.setOnClickListener(signButtonClickListener)
+
+        binding.buttonDelete.setOnClickListener(deleteButtonClickListener)
+
+        binding.buttonEquals.setOnClickListener(equalsButtonClickListener)
     }
 
-    private fun appendButtonNumberToCalculator(button: Button) {
-        calculator.appendNumber(
-            button.text
-                .toString()
-                .toInt()
-        )
+    private fun onClickNumberButton(formula: String, button: Button) {
+        val result = CalculatorFormulaModifier.appendOperand(formula, button.text.toString())
+        setDisplayFormula(result)
     }
 
-    private fun refreshCalculatorDisplay() {
-        binding.textView.text = calculator.contents
+    private fun onClickSignButton(formula: String, button: Button) {
+        val result = CalculatorFormulaModifier.appendSign(formula, button.text.toString())
+        setDisplayFormula(result)
+    }
+
+    private fun onClickDeleteButton(formula: String) {
+        val result = CalculatorFormulaModifier.removeLatest(formula)
+        setDisplayFormula(result)
+    }
+
+    private fun onClickEqualsButton(formula: String) {
+        val result = try {
+            CalculatorFormulaModifier.calculateFormula(formula)
+        } catch (e: IllegalArgumentException) {
+            Toast.makeText(this, R.string.uncompleted_operation, Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        setDisplayFormula(result)
+    }
+
+    private fun getDisplayFormula(): String {
+        return binding.textView.text.toString()
+    }
+
+    private fun setDisplayFormula(formula: String) {
+        binding.textView.text = formula
     }
 }

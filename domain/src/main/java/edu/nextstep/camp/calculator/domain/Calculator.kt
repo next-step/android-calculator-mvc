@@ -1,27 +1,37 @@
 package edu.nextstep.camp.calculator.domain
 
+import edu.nextstep.camp.calculator.domain.ArithmeticSign.Companion.calculate
+
 object Calculator {
-    fun calculateContents(contents: String): Double {
-        if (contents.isEmpty()) {
+
+    fun calculateFormula(formula: String): Double {
+        if (formula.isEmpty()) {
             throw IllegalArgumentException()
         }
 
-        val singleOperation = SingleOperation()
+        val initialOperandWithOperations = InputFormulaClassifier.makeInitialOperandWithOperationsFromFormula(formula)
 
-        contents.split(" ")
-            .forEach { content ->
-                manageContent(content, singleOperation)
-            }
+        var firstOperand = initialOperandWithOperations.initialOperand
+        val operations = initialOperandWithOperations.operations
 
-        return singleOperation.latestResult
+        operations.forEach { (sign, secondOperand) ->
+            val arithmeticSign = ArithmeticSign.convertToArithmeticOperation(sign)
+            firstOperand = arithmeticSign.calculate(
+                firstOperand,
+                secondOperand.toDouble()
+            )
+        }
+
+        return firstOperand
     }
 
-    private fun manageContent(content: String, singleOperationModel: SingleOperation) {
-        singleOperationModel.addOperationContent(content)
+    fun isRoundedNumber(number: Double): Boolean {
+        val remainder = number.rem(-1)
+        return remainder == 0.0
+    }
 
-        if (singleOperationModel.isCalculationOrder()) {
-            val result = singleOperationModel.calculate()
-            singleOperationModel.addOperationContent(result.toString())
-        }
+    fun isNumber(content: String): Boolean {
+        content.toDoubleOrNull() ?: return false
+        return true
     }
 }
