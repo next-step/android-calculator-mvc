@@ -45,7 +45,7 @@ class Calculator {
         checkArithmeticOperation(inputString, charIndex, numAndSignArray, firstIndexOfNum)
     }
 
-    private fun calculate(inputArray: List<String>): Double {
+    fun calculate(inputArray: List<String>): Double {
         var sum: Double = inputArray[0].toDouble()
         var idx = 1
 
@@ -78,7 +78,7 @@ class Calculator {
         firstIndexOfNum[0] = charIndex
     }
 
-    private fun checkCharIsNum(charVal: Char): Boolean {
+    fun checkCharIsNum(charVal: Char): Boolean {
         if (charVal.code in '0'.code..'9'.code ) {
             return true
         }
@@ -163,7 +163,7 @@ class Calculator {
                 && inputString[charIndex+1].toString() == secondOperation.getName()
     }
 
-    private fun charIsOperation(inputChar: Char): Boolean {
+    fun charIsOperation(inputChar: Char): Boolean {
         return Operation.values().any{ it.getName() == inputChar.toString() }
     }
 }
