@@ -21,7 +21,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun click_1_3_plus_2_2_shows_1_3_plus_2_2() {
+    fun click_1_3_plus_2_2_shows_13_plus_22() {
         onView(withId(R.id.button1)).perform(click())
         onView(withId(R.id.button3)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
@@ -40,7 +40,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun click_1_2_3_multiply_delete_delete_divide_3_shows_1_2_divide_3() {
+    fun click_1_2_3_multiply_delete_delete_divide_3_shows_12_divide_3() {
         onView(withId(R.id.button1)).perform(click())
         onView(withId(R.id.button2)).perform(click())
         onView(withId(R.id.button3)).perform(click())
@@ -53,7 +53,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun click_2_multiply_3_3_then_shows_66() {
+    fun click_2_multiply_3_3_equals_66() {
         onView(withId(R.id.button2)).perform(click())
         onView(withId(R.id.buttonMultiply)).perform(click())
         onView(withId(R.id.button3)).perform(click())
@@ -63,7 +63,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun click_66_divide_3_plus_3_multiply_2_shows_50() {
+    fun click_6_6_divide_3_plus_3_multiply_2_equals_50() {
         onView(withId(R.id.button6)).perform(click())
         onView(withId(R.id.button6)).perform(click())
         onView(withId(R.id.buttonDivide)).perform(click())
