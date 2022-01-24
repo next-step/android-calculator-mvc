@@ -9,6 +9,13 @@ enum class Operation (
     DIVIDE("/");
 
     fun getName() = operation
+    fun calc(numOne:Double, numTwo: Double) = when (operation) {
+        "+" -> numOne + numTwo
+        "-" -> numOne - numTwo
+        "*" -> numOne * numTwo
+        "/" -> numOne / numTwo
+        else -> throw IllegalArgumentException("등록되지 않은 enum class 연산자 입니다")
+    }
 }
 
 class Calculator {
@@ -49,19 +56,10 @@ class Calculator {
         var sum: Double = inputArray[0].toDouble()
 
         for (idx in 1 until inputArray.size step 2) {
-            sum = calcWithOperation(sum, inputArray[idx], inputArray[idx+1].toDouble())
+            sum = convertToOperation(inputArray[idx]).calc(sum, inputArray[idx+1].toDouble())
         }
 
         return sum
-    }
-
-    private fun calcWithOperation(sum: Double, operation: String, num: Double): Double {
-        return when (convertToOperation(operation)) {
-            Operation.PLUS -> sum + num
-            Operation.MINUS -> sum - num
-            Operation.MULTIPLY -> sum * num
-            Operation.DIVIDE -> sum / num
-        }
     }
 
     private fun updateFirstIndexOfNum(inputString: String, charIndex: Int, firstIndexOfNum: Array<Int>){
