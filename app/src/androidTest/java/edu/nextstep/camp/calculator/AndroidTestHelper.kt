@@ -9,7 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 
 object AndroidTestHelper {
 
-    fun onViewClicks(@IdRes vararg ids: Int) {
+    fun onViewsClick(@IdRes vararg ids: Int) {
         ids.forEach {
             onView(withId(it)).perform(click())
         }

@@ -26,7 +26,7 @@ internal class Expression {
 
     fun isLastDigit() = symbols.lastOrNull()?.toIntOrNull() != null
 
-    fun mergeLastDigitWith(symbol: String) = symbols.add(symbols.removeLast() + symbol)
+    fun mergeLast(symbol: String) = symbols.add(symbols.removeLast() + symbol)
 
     fun clearBy(symbol: String) {
         symbols.clear()

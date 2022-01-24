@@ -7,7 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import edu.nextstep.camp.calculator.AndroidTestHelper.onViewClicks
+import edu.nextstep.camp.calculator.AndroidTestHelper.onViewsClick
 import edu.nextstep.camp.calculator.AndroidTestHelper.onViewMatchText
 import org.junit.Rule
 import org.junit.Test
@@ -192,22 +192,22 @@ class MainActivityTest {
     @Test
     fun buttonDelete_hasExpression() {
         // when : 32 + 1 -> 지우기 클릭 -> 32 + -> 지우기 클릭 -> 32 -> 지우기 클릭 -> 3 -> 지우기 클릭 ->  -> 지우기 클릭 ->
-        onViewClicks(R.id.button3, R.id.button2, R.id.buttonPlus, R.id.button1)
+        onViewsClick(R.id.button3, R.id.button2, R.id.buttonPlus, R.id.button1)
 
         // then : '32 +'가 보여야 한다.
-        onViewClicks(R.id.buttonDelete)
+        onViewsClick(R.id.buttonDelete)
         onViewMatchText(R.id.tvResultDisplay, "32 +")
 
         // then : '32'가 보여야 한다.
-        onViewClicks(R.id.buttonDelete)
+        onViewsClick(R.id.buttonDelete)
         onViewMatchText(R.id.tvResultDisplay, "32")
 
         // then : '3'이 보여야 한다.
-        onViewClicks(R.id.buttonDelete)
+        onViewsClick(R.id.buttonDelete)
         onViewMatchText(R.id.tvResultDisplay, "3")
 
         // then : ''이 보여야 한다.
-        onViewClicks(R.id.buttonDelete)
+        onViewsClick(R.id.buttonDelete)
         onViewMatchText(R.id.tvResultDisplay, "")
     }
 

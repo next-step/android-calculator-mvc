@@ -15,7 +15,7 @@ internal class ExpressionGenerator(private val joinDelimiter: String) {
 
     private fun processDigit(symbol: String) = with(expression) {
         when {
-            isLastDigit() -> mergeLastDigitWith(symbol)
+            isLastDigit() -> mergeLast(symbol)
             else -> add(symbol)
         }
     }
