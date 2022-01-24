@@ -1,8 +1,8 @@
 package jinsu.antilog.domain
 
-class Calculator {
+object Calculator {
     fun calculate(expressionString: String?): Double {
-        val expression = expressionString.toCalculationList().also {
+        val expression = expressionString?.split(" ").orEmpty().also {
             validateExpression(it)
         }
         var accumulator = StringOperand(expression[0]).toDouble()
@@ -12,12 +12,6 @@ class Calculator {
             accumulator = operator.operate(accumulator, operand)
         }
         return accumulator
-    }
-
-
-    private fun String?.toCalculationList(): List<String> {
-        if (this.isNullOrBlank()) throw IllegalArgumentException("전달 받은 문자열이 Null 이거나 공백일 수 없습니다.")
-        return this.split(" ")
     }
 
     private fun validateExpression(expression: List<String>) {
