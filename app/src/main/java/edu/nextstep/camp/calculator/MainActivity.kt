@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.isDigitsOnly
 import com.example.calculator.Calculator
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         buttonNumberList.forEach { addNumberButtonListener(it) }
         buttonOperatorList.forEach { addOperatorButtonListener(it) }
         binding.buttonEquals.setOnClickListener { checkAndCompute() }
+        binding.buttonDelete.setOnClickListener { deleteExpression() }
     }
 
     private fun addNumberButtonListener(button: Button) {
@@ -67,6 +69,10 @@ class MainActivity : AppCompatActivity() {
             return
         }
         if (!currentExpression!!.last().isDigit()) {
+            displayToast(getString(R.string.toastIncompleteExpression))
+            return
+        }
+        if (currentExpression!!.isDigitsOnly()) {
             displayToast(getString(R.string.toastIncompleteExpression))
             return
         }
@@ -96,5 +102,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun displayToast(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun deleteExpression() {
+        if (currentExpression.isNullOrEmpty()) return
+        currentExpression = currentExpression!!
+            .subSequence(0 until currentExpression!!.lastIndex)
+            .toString()
     }
 }
