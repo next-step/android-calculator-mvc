@@ -102,6 +102,4 @@ class MainActivityTest {
     private fun assertTextViewEquals(expected: String) {
         onView(withId(R.id.textView)).check(matches(withText(expected)))
     }
-
-
 }

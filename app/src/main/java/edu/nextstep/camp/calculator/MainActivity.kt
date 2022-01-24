@@ -21,29 +21,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setClickListeners() {
-        binding.button0.setNumberClickListener()
-        binding.button1.setNumberClickListener()
-        binding.button2.setNumberClickListener()
-        binding.button3.setNumberClickListener()
-        binding.button4.setNumberClickListener()
-        binding.button5.setNumberClickListener()
-        binding.button6.setNumberClickListener()
-        binding.button7.setNumberClickListener()
-        binding.button8.setNumberClickListener()
-        binding.button9.setNumberClickListener()
+        binding.run {
+            setButtonsClickListener(
+                button0, button1, button2, button3, button4, button5, button6, button7, button8,
+                button9, buttonMinus, buttonPlus,
+            )
 
-        binding.buttonMinus.setNumberClickListener()
-        binding.buttonPlus.setNumberClickListener()
-        binding.buttonDivide.setOnClickListener { input("/") }
-        binding.buttonMultiply.setOnClickListener { input("*") }
-
-        binding.buttonDelete.setOnClickListener { delete() }
-        binding.buttonEquals.setOnClickListener { calculateIfFormulaCompleted() }
+            buttonDivide.setOnClickListener { input("/") }
+            buttonMultiply.setOnClickListener { input("*") }
+            buttonDelete.setOnClickListener { delete() }
+            buttonEquals.setOnClickListener { calculateIfFormulaCompleted() }
+        }
     }
 
-    private fun Button.setNumberClickListener() {
-        setOnClickListener { it as Button
-            input(it.text.toString())
+    private fun setButtonsClickListener(vararg buttons: Button) {
+        buttons.forEach { it ->
+            it.setOnClickListener { input((it as Button).text.toString()) }
         }
     }
 
@@ -65,6 +58,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        Toast.makeText(this, getString(R.string.formula_is_not_completed), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.formula_is_not_completed), Toast.LENGTH_SHORT)
+            .show()
     }
 }
