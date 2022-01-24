@@ -62,8 +62,7 @@ class FormulaManager(private var currentText: String = "") {
             return
         }
 
-        val lastText = currentText.last().toString()
-        if (lastText.isBlank()) {
+        if (currentText.last().isWhitespace()) {
             delete()
             return
         }
