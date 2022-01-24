@@ -1,29 +1,32 @@
 package net.woogear.domain
 
+import java.lang.IllegalArgumentException
+
 class FormulaManager(private var currentText: String = "") {
 
     fun input(newText: String): String {
         when {
             currentText.isEmpty() -> setTextForEmpty(newText)
-            OperationType.isOperator(newText) -> setOperator(newText)
-            else -> setTextToRight(newText)
+            newText.isOperator() -> inputOperator(newText)
+            newText.isNumber() -> inputNumber(newText)
+            else -> throw IllegalArgumentException("$newText is invalid input type")
         }
 
         return currentText
     }
 
     private fun setTextForEmpty(newText: String) {
-        if (OperationType.isOperator(newText)) {
+        if (newText.isOperator()) {
             return
         }
 
         currentText = newText
     }
 
-    private fun setOperator(newText: String) {
+    private fun inputOperator(newText: String) {
         val lastText = currentText.last().toString()
 
-        if (OperationType.isOperator(lastText)) {
+        if (lastText.isOperator()) {
             currentText = currentText.substring(0, currentText.lastIndex) + newText
             return
         }
@@ -31,11 +34,10 @@ class FormulaManager(private var currentText: String = "") {
         currentText = "$currentText $newText"
     }
 
-    private fun setTextToRight(newText: String) {
+    private fun inputNumber(newText: String) {
         val lastText = currentText.last().toString()
-        val isLastTextInt = lastText.toIntOrNull() != null
 
-        if (isLastTextInt) {
+        if (lastText.isNumber()) {
             currentText = "$currentText$newText"
             return
         }
@@ -60,7 +62,8 @@ class FormulaManager(private var currentText: String = "") {
             return
         }
 
-        if (currentText.last().toString().isBlank()) {
+        val lastText = currentText.last().toString()
+        if (lastText.isBlank()) {
             delete()
             return
         }
@@ -69,8 +72,16 @@ class FormulaManager(private var currentText: String = "") {
     fun isFormulaCompleted(): Boolean {
         return when {
             currentText.isEmpty() -> false
-            OperationType.isOperator(currentText.last().toString()) -> false
+            currentText.last().toString().isOperator() -> false
             else -> true
         }
+    }
+
+    private fun String.isOperator(): Boolean {
+        return OperationType.isOperator(this)
+    }
+
+    private fun String.isNumber(): Boolean {
+        return this.toIntOrNull() != null
     }
 }
