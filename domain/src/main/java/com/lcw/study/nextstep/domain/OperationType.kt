@@ -7,17 +7,36 @@ enum class OperationType {
     DIVIDE,
     NOT_OPERATION_TYPE;
 
-     fun checkOperationType(text: String): Boolean { //입력된 문자가 사칙 연산 기호인지 체크
+    fun checkTextIsOperationType(text: String): Boolean { //입력된 문자가 사칙 연산 기호인지 체크
         return text == "+" || text == "-" || text == "*" || text == "/"
     }
 
-     fun changeTextToOperation(text: String):OperationType{
-        when(text){
-            "+"->return PLUS
-            "-"->return MINUS
-            "*"->return MULTIPLY
-            "/"->return DIVIDE
+    fun changeTextToOperation(text: String): OperationType {
+        when (text) {
+            "+" -> return PLUS
+            "-" -> return MINUS
+            "*" -> return MULTIPLY
+            "/" -> return DIVIDE
         }
-         return NOT_OPERATION_TYPE
+        return NOT_OPERATION_TYPE
+    }
+
+    fun operationType(operation: OperationType, totalValue: Int, inputValue: Int): Int { //사칙 연산 수행
+        return when (operation) {
+            PLUS -> {
+                totalValue + inputValue
+            }
+            MINUS -> {
+                totalValue - inputValue
+            }
+            MULTIPLY -> {
+                totalValue * inputValue
+            }
+            DIVIDE -> {
+                totalValue / inputValue
+            }
+            else -> totalValue
+        }
+
     }
 }
