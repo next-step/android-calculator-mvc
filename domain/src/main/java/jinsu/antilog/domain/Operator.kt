@@ -1,6 +1,6 @@
 package jinsu.antilog.domain
 
-sealed class Operator {
+sealed class Operator : ExpressionLetters {
     object Plus : Operator() {
         override val symbol: String
             get() = "+"
