@@ -47,13 +47,9 @@ class Calculator {
 
     fun calculate(inputArray: List<String>): Double {
         var sum: Double = inputArray[0].toDouble()
-        var idx = 1
 
-        while (idx < inputArray.size - 1) {
-            val num: Double = inputArray[idx+1].toDouble()
-
-            sum = calcWithOperation(sum, inputArray[idx], num)
-            idx += 2
+        for (idx in 1 until inputArray.size step 2) {
+            sum = calcWithOperation(sum, inputArray[idx], inputArray[idx+1].toDouble())
         }
 
         return sum
