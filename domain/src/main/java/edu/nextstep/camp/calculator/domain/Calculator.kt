@@ -11,22 +11,12 @@ object Calculator {
         } else {
             data.forEach {
                 if (it.isDigit()) {
-                    result = calculate(it, operator, result)
+                    result = operator.calculate(result, Character.getNumericValue(it).toFloat())
                 } else {
                     operator = Operator.getOperator(it.toString())
                 }
             }
         }
         return result
-    }
-
-    private fun calculate(char: Char, operator: Operator, result: Float): Float {
-        return when (operator) {
-            Operator.PLUS -> Operator.plus(result, Character.getNumericValue(char).toFloat())
-            Operator.MINUS -> Operator.minus(result, Character.getNumericValue(char).toFloat())
-            Operator.MULTIPLY -> Operator.multipliedBy(result, Character.getNumericValue(char).toFloat())
-            Operator.DIVIDE -> Operator.dividedBy(result, Character.getNumericValue(char).toFloat())
-            Operator.NONE -> Character.getNumericValue(char).toFloat()
-        }
     }
 }
