@@ -2,6 +2,7 @@ package com.example.domain
 
 class Calculator {
 
+    @Throws(IllegalArgumentException::class)
     fun evaluate(inputs: String): Float {
         var opertaion: Operation? = null
         var result = 0f
