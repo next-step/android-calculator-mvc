@@ -16,12 +16,12 @@ enum class Operator(val char: Char?) : CalculateInterface {
             return first - second
         }
     },
-    MULTIPLY('*') {
+    MULTIPLY('×') {
         override fun calculate(first: Int, second: Int): Int {
             return first * second
         }
     },
-    DIVIDE('/') {
+    DIVIDE('÷') {
         override fun calculate(first: Int, second: Int): Int {
             return first / second
         }
