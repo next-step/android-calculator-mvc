@@ -11,6 +11,7 @@ import net.woogear.domain.FormulaManager
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val calculator = Calculator()
+    private val formulaManager = FormulaManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,17 +42,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun input(newText: String) {
-        val currentText = binding.textView.text.toString()
-        binding.textView.text = FormulaManager.input(currentText, newText)
+        binding.textView.text = formulaManager.input(newText)
     }
 
     private fun delete() {
-        binding.textView.text = FormulaManager.delete(binding.textView.text.toString())
+        binding.textView.text = formulaManager.delete()
     }
 
     private fun calculateIfFormulaCompleted() {
         val formula = binding.textView.text.toString()
-        val isFormulaCompleted = FormulaManager.isFormulaCompleted(formula)
+        val isFormulaCompleted = formulaManager.isFormulaCompleted()
 
         if (isFormulaCompleted) {
             binding.textView.text = calculator.evaluate(formula).toString()

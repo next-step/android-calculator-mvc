@@ -1,52 +1,76 @@
 package net.woogear.domain
 
-class FormulaManager {
-    companion object {
-        fun input(currentText: String, newText: String): String {
-            if (currentText.isEmpty()) {
-                return if (OperationType.isOperator(newText)) currentText else newText
-            }
+class FormulaManager(private var currentText: String = "") {
 
-            if (OperationType.isOperator(newText)) {
-                return inputOperator(currentText, newText)
-            }
-
-            val lastText = currentText.last().toString()
-            val isLastTextInt = lastText.toIntOrNull() != null
-
-            return if (isLastTextInt) "$currentText$newText" else "$currentText $newText"
+    fun input(newText: String): String {
+        when {
+            currentText.isEmpty() -> setTextForEmpty(newText)
+            OperationType.isOperator(newText) -> setOperator(newText)
+            else -> setTextToRight(newText)
         }
 
-        private fun inputOperator(currentText: String, newText: String): String {
-            val lastText = currentText.last().toString()
+        return currentText
+    }
 
-            if (OperationType.isOperator(lastText)) {
-                return currentText.substring(0, currentText.lastIndex) + newText
-            }
-
-            return "$currentText $newText"
+    private fun setTextForEmpty(newText: String) {
+        if (OperationType.isOperator(newText)) {
+            return
         }
 
-        fun delete(currentText: String): String {
-            if (currentText.isEmpty()) {
-                return currentText
-            }
+        currentText = newText
+    }
 
-            val subText = currentText.substring(0, currentText.lastIndex)
+    private fun setOperator(newText: String) {
+        val lastText = currentText.last().toString()
 
-            return when {
-                subText.isEmpty() -> subText
-                subText.last().toString().isBlank() -> delete(subText)
-                else -> subText
-            }
+        if (OperationType.isOperator(lastText)) {
+            currentText = currentText.substring(0, currentText.lastIndex) + newText
+            return
         }
 
-        fun isFormulaCompleted(currentText: String): Boolean {
-            return when {
-                currentText.isEmpty() -> false
-                OperationType.isOperator(currentText.last().toString()) -> false
-                else -> true
-            }
+        currentText = "$currentText $newText"
+    }
+
+    private fun setTextToRight(newText: String) {
+        val lastText = currentText.last().toString()
+        val isLastTextInt = lastText.toIntOrNull() != null
+
+        if (isLastTextInt) {
+            currentText = "$currentText$newText"
+            return
+        }
+
+        currentText = "$currentText $newText"
+    }
+
+    fun delete(): String {
+        if (currentText.isEmpty()) {
+            return currentText
+        }
+
+        removeTextFromRight()
+
+        return currentText
+    }
+
+    private fun removeTextFromRight() {
+        currentText = currentText.substring(0, currentText.lastIndex)
+
+        if (currentText.isEmpty()) {
+            return
+        }
+
+        if (currentText.last().toString().isBlank()) {
+            delete()
+            return
+        }
+    }
+
+    fun isFormulaCompleted(): Boolean {
+        return when {
+            currentText.isEmpty() -> false
+            OperationType.isOperator(currentText.last().toString()) -> false
+            else -> true
         }
     }
 }
