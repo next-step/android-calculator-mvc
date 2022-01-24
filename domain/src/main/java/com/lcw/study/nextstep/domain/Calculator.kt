@@ -20,12 +20,12 @@ class Calculator {
 
         for (text in splitTexts) {
             when {
-                operation.checkOperationType(text) -> {
+                operation.checkTextIsOperationType(text) -> {
                     operation = operation.changeTextToOperation(text)
                 }
-                text.checkIntType() -> {
+                text.toIntOrNull()!=null -> {
                     number = text.toInt()
-                    operationType()
+                   value= operation.operationType(operation,value,number)
 
                 }
                 else -> {
@@ -34,35 +34,6 @@ class Calculator {
             }
 
 
-        }
-    }
-
-    private fun operationType() { //사칙 연산 수행
-        when (operation) {
-            OperationType.PLUS -> {
-                value += number
-                return
-            }
-            OperationType.MINUS -> {
-                value -= number
-                return
-            }
-            OperationType.MULTIPLY -> {
-                value *= number
-                return
-            }
-            OperationType.DIVIDE -> {
-                value /= number
-                return
-            }
-        }
-
-    }
-
-    private fun String.checkIntType(): Boolean { //입력된 문자가 숫자인지 체크
-        return when (toIntOrNull()) {
-            null -> false
-            else -> true
         }
     }
 
