@@ -1,102 +1,88 @@
 package com.github.dodobest.domain
 
-class Calculator {
+enum class Operation (
+    private val operation: String
+) {
+    PLUS("+"),
+    MINUS("-"),
+    MULTIPLY("*"),
+    DIVIDE("/");
     companion object {
-        // 사칙 연산 기호
-        const val PLUS: Char = '+'
-        const val MINUS: Char = '-'
-        const val MULTIPLY: Char = '*'
-        const val DIVIDE: Char = '/'
-
-        var firstNumIndex: Int = -1 // 숫자를 나타내는 처음 Index 값
-        var isMinusSign = false // 숫자가 음수인지 여부를 저장
-    }
-
-    fun evaluate(input: String): Double {
-        val numAndSignArray: MutableList<String> = MutableList<String>(0) { "" } // 분리한 숫자와 문자를 저장할 변수
-
-        // 띄어쓰기 없애기
-        val inputString: String = eraseBlankAtString(input)
-
-        // 빈 공백 문자를 입력한 경우 예외 처리
-        if (inputString.equals("")) {
-            throw IllegalArgumentException("빈 공백문자를 입력했습니다.")
+        fun charIsOperation(inputChar: Char): Boolean {
+            return values().any{ it.getName() == inputChar.toString() }
         }
 
-        // 문자열로 부터 숫자, 사칙 연산을 분리해서 배열에 추가하기
-        addNumAndSingToArrayFromString(inputString, numAndSignArray)
+        fun convertToOperation(inputChar: String): Operation {
+            return values().find{ it.getName() == inputChar }
+                ?: throw IllegalArgumentException("[의도한 Exception]사칙 연산이 아닌 문자열을 전달했습니다.")
+        }
+    }
 
-        // 문자열 계산
-        return calculate(numAndSignArray)
+    fun getName() = operation
+    fun calc(numOne:Double, numTwo: Double) = when (operation) {
+        "+" -> numOne + numTwo
+        "-" -> numOne - numTwo
+        "*" -> numOne * numTwo
+        "/" -> numOne / numTwo
+        else -> throw IllegalArgumentException("[의도한 Exception]등록되지 않은 enum class 연산자 입니다")
+    }
+}
+
+class Calculator {
+    fun evaluate(input: String): Double {
+        val inputString: String = eraseBlankAtString(input)
+
+        require(inputString != "") { "[의도한 Exception]빈 공백문자를 입력했습니다." }
+
+        return calculate(makeNumAndSingToArrayFromString(inputString))
     }
 
     private fun eraseBlankAtString(inputString: String): String {
         return inputString.replace(" ", "")
     }
 
-    private fun addNumAndSingToArrayFromString(inputString: String, numAndSignArray: MutableList<String>) {
+    private fun makeNumAndSingToArrayFromString(inputString: String): MutableList<String> {
+        val numAndSignArray: MutableList<String> = MutableList(0) { "" }
+        val firstIndexOfNum: Array<Int> = arrayOf(-1)
+
         for (idx in inputString.indices) {
-            // 문자열로 부터 숫자와 문자를 분리하기
-            splitNumAndSignFromString(inputString, idx, numAndSignArray)
+            numAndSignArray.addAll(splitNumAndSignFromString(inputString, idx, firstIndexOfNum))
         }
+        numAndSignArray.add(inputString.slice(IntRange(firstIndexOfNum[0], inputString.length-1)))
 
-        // 마지막 숫자 값 더해주고, 정적 변수 초기화 하기
-        numAndSignArray.add(inputString.slice(IntRange(firstNumIndex, inputString.length-1)))
-
-        firstNumIndex = -1
-        isMinusSign = false
-
+        return numAndSignArray
     }
 
-    private fun splitNumAndSignFromString(inputString: String, charIndex: Int, numAndSignArray: MutableList<String>) {
-        // 숫자인 경우
+    private fun splitNumAndSignFromString(inputString: String, charIndex: Int, firstIndexOfNum: Array<Int>): MutableList<String> {
         if (checkCharIsNum(inputString[charIndex])) {
-            // 숫자를 나타내는 처음 Index 값 업데이트 하기
-            updateFirstNumIndex(inputString, charIndex)
-            return
+            updateFirstIndexOfNum(inputString, charIndex, firstIndexOfNum)
+            return MutableList(0) { "" }
         }
 
-        // 연산 기호인 경우
-        checkArithmeticOperation(inputString, charIndex, numAndSignArray)
+        return checkArithmeticOperation(inputString, charIndex, firstIndexOfNum)
     }
 
-    private fun calculate(inputArray: List<String>): Double {
+    fun calculate(inputArray: List<String>): Double {
         var sum: Double = inputArray[0].toDouble()
-        var idx = 1
 
-        while (idx < inputArray.size - 1) {
-            val num: Double = inputArray[idx+1].toDouble()
-
-            sum = calcWithOperation(sum, inputArray[idx], num)
-            idx += 2
+        for (idx in 1 until inputArray.size step 2) {
+            sum = Operation.convertToOperation(inputArray[idx]).calc(sum, inputArray[idx+1].toDouble())
         }
+
         return sum
     }
 
-    private fun calcWithOperation(sum: Double, operation: String, num: Double): Double = when (operation) {
-        PLUS.toString() -> sum + num
-        MINUS.toString() -> sum - num
-        MULTIPLY.toString() -> sum * num
-        DIVIDE.toString() -> sum / num
-        else -> {
-            throw IllegalArgumentException("사칙연산 외 기호가 입력되었습니다.")
-        }
-    }
-
-    private fun updateFirstNumIndex(inputString: String, charIndex: Int){
-        // 값을 나타내는 처음 숫자가 이미 있다면 업데이트 하지 않음
-        if (firstNumIndex != -1) {
+    private fun updateFirstIndexOfNum(inputString: String, charIndex: Int, firstIndexOfNum: Array<Int>){
+        if (firstIndexOfNum[0] != -1) {
             return
         }
 
-        // 값 '0'이 아닌 0으로 시작하는 숫자를 입력한 경우 예외 처리
-        if (checkNumStartWithZeroAndNotExactZero(inputString, charIndex)) {
-            throw IllegalArgumentException("0으로 시작하는 숫자는 지원하지 않습니다.")
-        }
-        firstNumIndex = charIndex
+        require(!checkNumStartWithZeroAndNotExactZero(inputString, charIndex)) { "[의도한 Exception]0으로 시작하는 숫자는 지원하지 않습니다." }
+
+        firstIndexOfNum[0] = charIndex
     }
 
-    private fun checkCharIsNum(charVal: Char): Boolean {
+    fun checkCharIsNum(charVal: Char): Boolean {
         if (charVal.code in '0'.code..'9'.code ) {
             return true
         }
@@ -104,83 +90,79 @@ class Calculator {
     }
 
     private fun checkNumStartWithZeroAndNotExactZero(inputString: String, charIndex: Int): Boolean {
-        if (inputString[charIndex] == '0' && charIndex < inputString.length - 1 && checkCharIsNum(inputString[charIndex + 1])) {
-            return true
-        }
-        return false
+        return inputString[charIndex] == '0' && charIndex < inputString.length - 1 && checkCharIsNum(inputString[charIndex + 1])
     }
 
-    private fun checkArithmeticOperation(inputString: String, charIndex: Int, numAndSignArray: MutableList<String>) {
-        val inputChar: Char = inputString[charIndex]
+    private fun checkArithmeticOperation(inputString: String, charIndex: Int, firstIndexOfNum: Array<Int>): MutableList<String> {
+        val numAndSignArray: MutableList<String> = MutableList(0) { "" }
 
-        // 사칙 연산 기호가 아닌 경우 IllegalArgumentException throw
-        if (!charIsOperation(inputChar)) {
-            throw IllegalArgumentException("사칙 연산 외 기호가 입력되었습니다.")
+        checkInputIsNotCorrect(inputString, charIndex)
+
+        if (isNegativeSignNotMinusSign(inputString[charIndex], firstIndexOfNum)) {
+            firstIndexOfNum[0] = charIndex
+            return MutableList(0) { "" }
         }
 
-        // 사칙 연산 뒤에 값이 오지 않는 경우 IllegalArgumentException throw
-        if (charIndex == inputString.length - 1) {
-            throw IllegalArgumentException("사칙 연산 뒤에 값이 오지 않았습니다.")
+        if (isPositiveSign(inputString[charIndex], firstIndexOfNum)) {
+            return MutableList(0) { "" }
         }
 
-        // 사칙 연산 기호가 연속으로 2개 이상 온 경우 IllegalArgumentException throw
+        numAndSignArray.add(inputString.slice(IntRange(firstIndexOfNum[0], charIndex-1)))
+        numAndSignArray.add(inputString[charIndex].toString())
+
+        firstIndexOfNum[0] = -1
+
+        return numAndSignArray
+    }
+
+    private fun isPositiveSign(inputChar: Char, firstIndexOfNum: Array<Int>): Boolean {
+        return Operation.convertToOperation(inputChar.toString()) == Operation.PLUS && firstIndexOfNum[0] == -1
+    }
+
+    private fun checkInputIsNotCorrect(inputString: String, charIndex: Int) {
+        require(Operation.charIsOperation(inputString[charIndex])) { "[의도한 Exception]사칙 연산 외 기호가 입력되었습니다." }
+
+        require(charIndex != inputString.length - 1) { "[의도한 Exception]사칙 연산 뒤에 값이 오지 않았습니다." }
+
+        require(!isDivideWithZero(inputString, charIndex)) { "[의도한 Exception]0으로 나누는 값은 존재하지 않습니다." }
+
         throwErrorIfOperationIsConsecutive(inputString, charIndex)
-
-        // 음수를 나타내는 '-' 부호 인지 확인한다
-        if (isNegativeSignNotMinusSign(inputChar)) {
-            firstNumIndex = charIndex
-            isMinusSign = true
-            return
-        }
-
-        // 0으로 나누는 경우 IllegalArgumentException throw
-        if (isDivideWithZero(inputString, charIndex)) {
-            throw IllegalArgumentException("0으로 나누는 값은 존재하지 않습니다.")
-        }
-
-        // 숫자와 연산 기호 배열에 저장하고 정적 변수 초기화 하기
-        if (firstNumIndex != -1) {
-            numAndSignArray.add(inputString.slice(IntRange(firstNumIndex, charIndex-1))) // 숫자
-            numAndSignArray.add(inputString.slice(IntRange(charIndex, charIndex))) // 연산 기호
-
-            firstNumIndex = -1
-            isMinusSign = false
-        }
     }
 
-    private fun isNegativeSignNotMinusSign(inputChar: Char): Boolean {
-        if (inputChar == '-' && firstNumIndex == -1) {
-            return true
-        }
-        return false
+    private fun isNegativeSignNotMinusSign(inputChar: Char, firstIndexOfNum: Array<Int>): Boolean {
+        return Operation.convertToOperation(inputChar.toString()) == Operation.MINUS && firstIndexOfNum[0] == -1
     }
 
     private fun isDivideWithZero(inputString: String, charIndex: Int): Boolean {
-        if (inputString[charIndex] == '/' && inputString[charIndex+1] == '0') {
-            return true
-        }
-        return false
+        return Operation.convertToOperation(inputString[charIndex].toString()) == Operation.DIVIDE && inputString[charIndex+1] == '0'
     }
 
     private fun throwErrorIfOperationIsConsecutive(inputString: String, charIndex: Int) {
-        // 다음 문자가 사칙 연산 기호가 아닌 경우
-        if (!charIsOperation(inputString[charIndex+1])) {
+        if (!Operation.charIsOperation(inputString[charIndex+1])) {
             return
         }
 
-        // 지금 문자가 '-'가 아니고 다음 문자가 '-'여서 음수를 나타내는 경우
-        if (inputString[charIndex] != '-' && inputString[charIndex+1] == '-') {
+        if (checkOperationIsWhatExpect(inputString, charIndex, Operation.MULTIPLY, Operation.PLUS)) {
             return
         }
 
-        throw IllegalArgumentException("연산 기호가 연속으로 입력되었습니다.")
+        if (checkOperationIsWhatExpect(inputString, charIndex, Operation.MULTIPLY, Operation.MINUS)) {
+            return
+        }
+
+        if (checkOperationIsWhatExpect(inputString, charIndex, Operation.DIVIDE, Operation.PLUS)) {
+            return
+        }
+
+        if (checkOperationIsWhatExpect(inputString, charIndex, Operation.DIVIDE, Operation.MINUS)) {
+            return
+        }
+
+        throw IllegalArgumentException("[의도한 Exception]연산 기호가 연속으로 입력되었습니다.")
     }
 
-    private fun charIsOperation(inputChar: Char): Boolean {
-        val arithmeticOperation: Array<Char> = arrayOf(PLUS, MINUS, MULTIPLY, DIVIDE) // 사칙연산을 저장한 배열 값
-        if (arithmeticOperation.contains(inputChar)) {
-            return true
-        }
-        return false
+    private fun checkOperationIsWhatExpect(inputString: String, charIndex: Int, firstOperation: Operation, secondOperation: Operation): Boolean {
+        return inputString[charIndex].toString() == firstOperation.getName()
+                && inputString[charIndex+1].toString() == secondOperation.getName()
     }
 }
