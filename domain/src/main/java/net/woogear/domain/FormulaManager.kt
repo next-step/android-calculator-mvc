@@ -27,7 +27,7 @@ class FormulaManager(private var currentText: String = "") {
         val lastText = currentText.last().toString()
 
         if (lastText.isOperator()) {
-            currentText = currentText.substring(0, currentText.lastIndex) + newText
+            currentText = currentText.dropLast(1) + newText
             return
         }
 
@@ -56,7 +56,7 @@ class FormulaManager(private var currentText: String = "") {
     }
 
     private fun removeTextFromRight() {
-        currentText = currentText.substring(0, currentText.lastIndex)
+        currentText = currentText.dropLast(1)
 
         if (currentText.isEmpty()) {
             return
