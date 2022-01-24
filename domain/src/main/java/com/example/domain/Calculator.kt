@@ -13,7 +13,7 @@ class Calculator {
                 return@forEachIndexed
             }
 
-            when (index % 2) {
+            when (index % EVEN_AND_ODD_CONDITION) {
                 EVEN_IS_NUMBER -> {
                     val number = value.toFloatOrNull() ?: throw IllegalArgumentException()
 
@@ -42,6 +42,8 @@ class Calculator {
     companion object {
 
         private const val FIRST_INDEX = 0
+
+        private const val EVEN_AND_ODD_CONDITION = 2
 
         private const val EVEN_IS_NUMBER = 0
 

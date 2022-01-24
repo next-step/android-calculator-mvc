@@ -2,16 +2,16 @@ package com.example.domain
 
 enum class Operation(val operation: String) : IOperation {
     PLUS("+") {
-        override fun calculate(input1: Float, input2: Float) = input1 + input2
+        override fun calculate(firstNumber: Float, secondNumber: Float) = firstNumber + secondNumber
     },
     SUBTRACTION("-") {
-        override fun calculate(input1: Float, input2: Float) = input1 - input2
+        override fun calculate(firstNumber: Float, secondNumber: Float) = firstNumber - secondNumber
     },
     MULTIPLICATION("*") {
-        override fun calculate(input1: Float, input2: Float) = input1 * input2
+        override fun calculate(firstNumber: Float, secondNumber: Float) = firstNumber * secondNumber
     },
     DIVISION("/") {
-        override fun calculate(input1: Float, input2: Float) = input1 / input2
+        override fun calculate(firstNumber: Float, secondNumber: Float) = firstNumber / secondNumber
     },
     ;
 
@@ -21,13 +21,13 @@ enum class Operation(val operation: String) : IOperation {
 
         fun get(operation: String) = values().find { it.operation == operation }
 
-        fun calculate(input1: Float, operator: Operation, input2: Float) =
-            operator.calculate(input1, input2)
+        fun calculate(firstNumber: Float, operator: Operation, secondNumber: Float) =
+            operator.calculate(firstNumber, secondNumber)
     }
 }
 
 interface IOperation {
 
-    fun calculate(input1: Float, input2: Float): Float
+    fun calculate(firstNumber: Float, secondNumber: Float): Float
 }
 
