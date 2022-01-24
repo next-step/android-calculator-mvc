@@ -38,6 +38,12 @@ class MainActivity : AppCompatActivity() {
         buttonNumbers.forEach(::setButtonNumbersClickListener)
     }
 
+    private fun setButtonNumbersClickListener(button: Button) {
+        button.setOnClickListener {
+            updateDisplay(calculatorInterface.insert(button.text.toString()))
+        }
+    }
+
     private fun setupButtonOperators() {
         binding.buttonPlus.setOnClickListener {
             updateDisplay(calculatorInterface.insert("+"))
@@ -68,17 +74,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setButtonNumbersClickListener(button: Button) {
-        button.setOnClickListener {
-            updateDisplay(calculatorInterface.insert(button.text.toString()))
-        }
-    }
-
     private fun updateDisplay(result: Result<String>) {
-        when (result.isSuccess) {
-            true -> updateDisplayOnSuccess(result.getOrNull())
-            false -> updateDisplayOnFailure(result.exceptionOrNull())
-        }
+        result
+            .onSuccess { updateDisplayOnSuccess(result.getOrNull()) }
+            .onFailure { updateDisplayOnFailure(result.exceptionOrNull()) }
     }
 
     private fun updateDisplayOnSuccess(value: String?) {
