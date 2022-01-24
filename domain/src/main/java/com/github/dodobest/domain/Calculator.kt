@@ -11,6 +11,11 @@ enum class Operation (
         fun charIsOperation(inputChar: Char): Boolean {
             return values().any{ it.getName() == inputChar.toString() }
         }
+
+        fun convertToOperation(inputChar: String): Operation {
+            return values().find{ it.getName() == inputChar }
+                ?: throw IllegalArgumentException("[의도한 Exception]사칙 연산이 아닌 문자열을 전달했습니다.")
+        }
     }
 
     fun getName() = operation
@@ -61,7 +66,7 @@ class Calculator {
         var sum: Double = inputArray[0].toDouble()
 
         for (idx in 1 until inputArray.size step 2) {
-            sum = convertToOperation(inputArray[idx]).calc(sum, inputArray[idx+1].toDouble())
+            sum = Operation.convertToOperation(inputArray[idx]).calc(sum, inputArray[idx+1].toDouble())
         }
 
         return sum
@@ -122,11 +127,6 @@ class Calculator {
         require(!isDivideWithZero(inputString, charIndex)) { "[의도한 Exception]0으로 나누는 값은 존재하지 않습니다." }
 
         throwErrorIfOperationIsConsecutive(inputString, charIndex)
-    }
-
-    private fun convertToOperation(inputChar: String): Operation {
-        return Operation.values().find{ it.getName() == inputChar }
-            ?: throw IllegalArgumentException("[의도한 Exception]사칙 연산이 아닌 문자열을 전달했습니다.")
     }
 
     private fun isNegativeSignNotMinusSign(inputChar: Char, firstIndexOfNum: Array<Int>): Boolean {
