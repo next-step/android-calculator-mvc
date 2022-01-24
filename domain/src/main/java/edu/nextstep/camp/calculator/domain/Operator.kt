@@ -1,33 +1,18 @@
 package edu.nextstep.camp.calculator.domain
 
 enum class Operator(
-    val operator: String?
+    val operator: String?,
+    val operatorFunc: (Float, Float) -> Float
 ): OperatorFactory {
-    PLUS("+") {
-        override fun calculate(first: Float, second: Float): Float {
-            return first + second
-        }
-    },
-    MINUS("-") {
-        override fun calculate(first: Float, second: Float): Float {
-            return first - second
-        }
-    },
-    MULTIPLY("×") {
-        override fun calculate(first: Float, second: Float): Float {
-            return first * second
-        }
-    },
-    DIVIDE("÷") {
-        override fun calculate(first: Float, second: Float): Float {
-            return first / second
-        }
-    },
-    NONE(null) {
-        override fun calculate(first: Float, second: Float): Float {
-            return second
-        }
-    };
+    PLUS("+", {a, b -> a + b}),
+    MINUS("-", {a, b -> a - b}),
+    MULTIPLY("×", {a, b -> a * b}),
+    DIVIDE("÷", {a, b -> a / b}),
+    NONE(null, { _, b -> b});
+
+    override fun calculate(first: Float, second: Float): Float {
+        return operatorFunc(first, second)
+    }
 
     companion object {
         fun getOperator(operator: String): Operator =
