@@ -1,4 +1,4 @@
-package edu.nextstep.camp.calculator.domain
+package edu.nextstep.camp.calculator.domain.calculator
 
 typealias Operator = (Int, Int) -> Int
 typealias Operand = Int
@@ -15,8 +15,8 @@ internal class BinaryCalculator private constructor(private val operator: Operat
         private fun operatorBy(token: String): Operator = when (token) {
             "+" -> { x, y -> x + y }
             "-" -> { x, y -> x - y }
-            "*" -> { x, y -> x * y }
-            "/" -> { x, y -> x / y }
+            "×" -> { x, y -> x * y }
+            "÷" -> { x, y -> x / y }
             else -> throw IllegalArgumentException()
         }
     }

@@ -7,6 +7,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import edu.nextstep.camp.calculator.AndroidTestHelper.onViewsClick
+import edu.nextstep.camp.calculator.AndroidTestHelper.onViewMatchText
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -105,5 +107,120 @@ class MainActivityTest {
 
         // then : '9'가 보여야 한다.
         onView(withId(R.id.tvResultDisplay)).check(matches(withText("9")))
+    }
+
+    // 입력된 피연산자가 없을 때, 사용자가 피연산자 0 ~ 9 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
+    @Test
+    fun buttonPressed1() {
+        // when : -> 1 클릭 -> 1
+        onView(withId(R.id.button1)).perform(click())
+
+        // then : '1'이 보여야 한다.
+        onView(withId(R.id.tvResultDisplay)).check(matches(withText("1")))
+    }
+
+    // 입력된 피연산자가 없을 때, 사용자가 피연산자 0 ~ 9 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
+    @Test
+    fun buttonPress5_Plus_1() {
+        // when : 5 + -> 1 클릭 -> 5 + 1
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+
+        // then : '5 + 1'이 보여야 한다.
+        onView(withId(R.id.tvResultDisplay)).check(matches(withText("5 + 1")))
+    }
+
+    // 입력된 피연산자가 있을 때, 기존 숫자 뒤에 해당 숫자가 화면에 보여야 한다. 예를 들면, 8이 입력되어 있을 때 9를 입력하면 89가 보여야 한다.
+    @Test
+    fun buttonPress8_9() {
+        // when : 8 -> 9 클릭 -> 89
+        onView(withId(R.id.button8)).perform(click())
+        onView(withId(R.id.button9)).perform(click())
+
+        // then : '89'가 보여야 한다.
+        onView(withId(R.id.tvResultDisplay)).check(matches(withText("89")))
+    }
+
+    // 입력된 피연산자가 없을 때, 사용자가 연산자 +, -, ×, ÷ 버튼을 누르면 화면에 아무런 변화가 없어야 한다.
+    @Test
+    fun buttonPressOperator_noOperand() {
+        // when : -> +, -, ×, ÷ 클릭 ->
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.buttonMinus)).perform(click())
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        onView(withId(R.id.buttonDivide)).perform(click())
+
+        // then : ''이 보여야 한다.
+        onView(withId(R.id.tvResultDisplay)).check(matches(withText("")))
+    }
+
+    // 입력된 피연산자가 있을 때, 사용자가 연산자 +, -, ×, ÷ 버튼을 누르면 해당 기호가 화면에 보여야 한다.
+    @Test
+    fun buttonPressOperator_hasOperand_1() {
+        // when : 1 -> + 클릭 -> 1 +
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        // then : '1 +'가 보여야 한다.
+        onView(withId(R.id.tvResultDisplay)).check(matches(withText("1 +")))
+    }
+
+    // 입력된 피연산자가 있을 때, 사용자가 연산자 +, -, ×, ÷ 버튼을 누르면 해당 기호가 화면에 보여야 한다.
+    @Test
+    fun buttonPressOperator_hasOperand_2() {
+        // when : 1 + -> - 클릭 -> 1 -
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.buttonMinus)).perform(click())
+
+        // then : '1 -'가 보여야 한다.
+        onView(withId(R.id.tvResultDisplay)).check(matches(withText("1 -")))
+    }
+
+    // 입력된 수식이 없을 때, 사용자가 지우기 버튼을 누르면 화면에 아무런 변화가 없어야 한다.
+    @Test
+    fun buttonDelete_noExpression() {
+        // when : -> 지우기 클릭 ->
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        // then : ''이 보여야 한다.
+        onView(withId(R.id.tvResultDisplay)).check(matches(withText("")))
+    }
+
+    // 입력된 수식이 있을 때, 사용자가 지우기 버튼을 누르면 수식에 마지막으로 입력된 연산자 또는 피연산자가 지워져야 한다.
+    @Test
+    fun buttonDelete_hasExpression() {
+        // when : 32 + 1 -> 지우기 클릭 -> 32 + -> 지우기 클릭 -> 32 -> 지우기 클릭 -> 3 -> 지우기 클릭 ->  -> 지우기 클릭 ->
+        onViewsClick(R.id.button3, R.id.button2, R.id.buttonPlus, R.id.button1)
+
+        // then : '32 +'가 보여야 한다.
+        onViewsClick(R.id.buttonDelete)
+        onViewMatchText(R.id.tvResultDisplay, "32 +")
+
+        // then : '32'가 보여야 한다.
+        onViewsClick(R.id.buttonDelete)
+        onViewMatchText(R.id.tvResultDisplay, "32")
+
+        // then : '3'이 보여야 한다.
+        onViewsClick(R.id.buttonDelete)
+        onViewMatchText(R.id.tvResultDisplay, "3")
+
+        // then : ''이 보여야 한다.
+        onViewsClick(R.id.buttonDelete)
+        onViewMatchText(R.id.tvResultDisplay, "")
+    }
+
+    // 입력된 수신이 완전할 때, 사용자가 = 버튼을 누르면 입력된 수식의 결과가 화면에 보여야 한다.
+    @Test
+    fun buttonDelete_validExpression() {
+        // when : 3 + 2 -> = 클릭 -> 5
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+
+        // then : '5'가 보여야 한다.
+        onView(withId(R.id.buttonEquals)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
     }
 }
