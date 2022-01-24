@@ -69,7 +69,8 @@
             android:layout_marginBottom="16dp"
             app:icon="@drawable/ic_baseline_keyboard_backspace_24"
             app:layout_constraintBottom_toTopOf="@id/input"
-            app:layout_constraintEnd_toEndOf="@id/input" />
+            app:layout_constraintEnd_toEndOf="@id/input"
+            android:onClick="@{() -> viewModel.onClickDeleteBtn()}"/>
 
         <GridLayout
             android:id="@+id/input"
