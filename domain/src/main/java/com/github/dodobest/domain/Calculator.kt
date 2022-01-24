@@ -7,6 +7,11 @@ enum class Operation (
     MINUS("-"),
     MULTIPLY("*"),
     DIVIDE("/");
+    companion object {
+        fun charIsOperation(inputChar: Char): Boolean {
+            return values().any{ it.getName() == inputChar.toString() }
+        }
+    }
 
     fun getName() = operation
     fun calc(numOne:Double, numTwo: Double) = when (operation) {
@@ -110,7 +115,7 @@ class Calculator {
     }
 
     private fun checkInputIsNotCorrect(inputString: String, charIndex: Int) {
-        require(charIsOperation(inputString[charIndex])) { "사칙 연산 외 기호가 입력되었습니다." }
+        require(Operation.charIsOperation(inputString[charIndex])) { "사칙 연산 외 기호가 입력되었습니다." }
 
         require(charIndex != inputString.length - 1) { "사칙 연산 뒤에 값이 오지 않았습니다." }
 
@@ -133,7 +138,7 @@ class Calculator {
     }
 
     private fun throwErrorIfOperationIsConsecutive(inputString: String, charIndex: Int) {
-        if (!charIsOperation(inputString[charIndex+1])) {
+        if (!Operation.charIsOperation(inputString[charIndex+1])) {
             return
         }
 
@@ -159,9 +164,5 @@ class Calculator {
     private fun checkOperationIsWhatExpect(inputString: String, charIndex: Int, firstOperation: Operation, secondOperation: Operation): Boolean {
         return inputString[charIndex].toString() == firstOperation.getName()
                 && inputString[charIndex+1].toString() == secondOperation.getName()
-    }
-
-    fun charIsOperation(inputChar: Char): Boolean {
-        return Operation.values().any{ it.getName() == inputChar.toString() }
     }
 }

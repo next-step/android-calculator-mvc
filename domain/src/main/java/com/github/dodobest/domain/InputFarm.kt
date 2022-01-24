@@ -8,7 +8,7 @@ class InputFarm {
     fun handleInputArithmetic(inputOperation: String) {
         if (_arraySize == 0) return
 
-        if (calculator.charIsOperation(_numAndSignArray.last().toCharArray().last())) {
+        if (Operation.charIsOperation(_numAndSignArray.last().toCharArray().last())) {
             _numAndSignArray[_arraySize - 1] = inputOperation
             return
         }
@@ -40,7 +40,7 @@ class InputFarm {
     }
 
     fun checkExpressionCanCalculated(): Boolean {
-        if (calculator.charIsOperation(_numAndSignArray.last().toCharArray().last())) {
+        if (Operation.charIsOperation(_numAndSignArray.last().toCharArray().last())) {
             return false
         }
         return true
