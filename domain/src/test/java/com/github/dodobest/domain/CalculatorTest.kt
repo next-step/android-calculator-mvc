@@ -83,6 +83,8 @@ class CalculatorTest {
 
         // then : IllegalArgumentException 을 발생시킨다
         assertThat(thrown).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(thrown).hasMessageThat().contains("의도한 Exception")
+
     }
 
     @Test
@@ -94,6 +96,7 @@ class CalculatorTest {
 
         // then : IllegalArgumentException 을 발생시킨다
         assertThat(thrown).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(thrown).hasMessageThat().contains("의도한 Exception")
     }
 
     @Test
@@ -105,6 +108,7 @@ class CalculatorTest {
 
         // then : IllegalArgumentException 을 발생시킨다
         assertThat(thrown).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(thrown).hasMessageThat().contains("의도한 Exception")
     }
 
     @Test
@@ -116,6 +120,7 @@ class CalculatorTest {
 
         // then : IllegalArgumentException 을 발생시킨다
         assertThat(thrown).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(thrown).hasMessageThat().contains("의도한 Exception")
     }
 
     @Test
@@ -127,6 +132,7 @@ class CalculatorTest {
 
         // then : IllegalArgumentException 을 발생시킨다
         assertThat(thrown).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(thrown).hasMessageThat().contains("의도한 Exception")
     }
 
     @Test
@@ -138,6 +144,7 @@ class CalculatorTest {
 
         // then : IllegalArgumentException 을 발생시킨다
         assertThat(thrown).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(thrown).hasMessageThat().contains("의도한 Exception")
     }
 
     @Test
@@ -149,6 +156,7 @@ class CalculatorTest {
 
         // then : IllegalArgumentException 을 발생시킨다
         assertThat(thrown).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(thrown).hasMessageThat().contains("의도한 Exception")
     }
 
     @Test
@@ -160,6 +168,7 @@ class CalculatorTest {
 
         // then : IllegalArgumentException 을 발생시킨다
         assertThat(thrown).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(thrown).hasMessageThat().contains("의도한 Exception")
     }
 
     @Test
@@ -171,5 +180,6 @@ class CalculatorTest {
 
         // then : IllegalArgumentException 을 발생시킨다
         assertThat(thrown).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(thrown).hasMessageThat().contains("의도한 Exception")
     }
 }

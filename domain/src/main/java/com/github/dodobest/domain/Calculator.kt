@@ -19,7 +19,7 @@ enum class Operation (
         "-" -> numOne - numTwo
         "*" -> numOne * numTwo
         "/" -> numOne / numTwo
-        else -> throw IllegalArgumentException("등록되지 않은 enum class 연산자 입니다")
+        else -> throw IllegalArgumentException("[의도한 Exception]등록되지 않은 enum class 연산자 입니다")
     }
 }
 
@@ -27,7 +27,7 @@ class Calculator {
     fun evaluate(input: String): Double {
         val inputString: String = eraseBlankAtString(input)
 
-        require(inputString != "") { "빈 공백문자를 입력했습니다." }
+        require(inputString != "") { "[의도한 Exception]빈 공백문자를 입력했습니다." }
 
         return calculate(makeNumAndSingToArrayFromString(inputString))
     }
@@ -72,7 +72,7 @@ class Calculator {
             return
         }
 
-        require(!checkNumStartWithZeroAndNotExactZero(inputString, charIndex)) { "0으로 시작하는 숫자는 지원하지 않습니다." }
+        require(!checkNumStartWithZeroAndNotExactZero(inputString, charIndex)) { "[의도한 Exception]0으로 시작하는 숫자는 지원하지 않습니다." }
 
         firstIndexOfNum[0] = charIndex
     }
@@ -115,18 +115,18 @@ class Calculator {
     }
 
     private fun checkInputIsNotCorrect(inputString: String, charIndex: Int) {
-        require(Operation.charIsOperation(inputString[charIndex])) { "사칙 연산 외 기호가 입력되었습니다." }
+        require(Operation.charIsOperation(inputString[charIndex])) { "[의도한 Exception]사칙 연산 외 기호가 입력되었습니다." }
 
-        require(charIndex != inputString.length - 1) { "사칙 연산 뒤에 값이 오지 않았습니다." }
+        require(charIndex != inputString.length - 1) { "[의도한 Exception]사칙 연산 뒤에 값이 오지 않았습니다." }
 
-        require(!isDivideWithZero(inputString, charIndex)) { "0으로 나누는 값은 존재하지 않습니다." }
+        require(!isDivideWithZero(inputString, charIndex)) { "[의도한 Exception]0으로 나누는 값은 존재하지 않습니다." }
 
         throwErrorIfOperationIsConsecutive(inputString, charIndex)
     }
 
     private fun convertToOperation(inputChar: String): Operation {
         return Operation.values().find{ it.getName() == inputChar }
-            ?: throw IllegalArgumentException("사칙 연산이 아닌 문자열을 전달했습니다.")
+            ?: throw IllegalArgumentException("[의도한 Exception]사칙 연산이 아닌 문자열을 전달했습니다.")
     }
 
     private fun isNegativeSignNotMinusSign(inputChar: Char, firstIndexOfNum: Array<Int>): Boolean {
@@ -158,7 +158,7 @@ class Calculator {
             return
         }
 
-        throw IllegalArgumentException("연산 기호가 연속으로 입력되었습니다.")
+        throw IllegalArgumentException("[의도한 Exception]연산 기호가 연속으로 입력되었습니다.")
     }
 
     private fun checkOperationIsWhatExpect(inputString: String, charIndex: Int, firstOperation: Operation, secondOperation: Operation): Boolean {
