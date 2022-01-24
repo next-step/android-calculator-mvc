@@ -116,7 +116,7 @@ class Calculator {
     }
 
     private fun isPositiveSign(inputChar: Char, firstIndexOfNum: Array<Int>): Boolean {
-        return inputChar == '+' && firstIndexOfNum[0] == -1
+        return Operation.convertToOperation(inputChar.toString()) == Operation.PLUS && firstIndexOfNum[0] == -1
     }
 
     private fun checkInputIsNotCorrect(inputString: String, charIndex: Int) {
@@ -130,11 +130,11 @@ class Calculator {
     }
 
     private fun isNegativeSignNotMinusSign(inputChar: Char, firstIndexOfNum: Array<Int>): Boolean {
-        return inputChar == '-' && firstIndexOfNum[0] == -1
+        return Operation.convertToOperation(inputChar.toString()) == Operation.MINUS && firstIndexOfNum[0] == -1
     }
 
     private fun isDivideWithZero(inputString: String, charIndex: Int): Boolean {
-        return inputString[charIndex] == '/' && inputString[charIndex+1] == '0'
+        return Operation.convertToOperation(inputString[charIndex].toString()) == Operation.DIVIDE && inputString[charIndex+1] == '0'
     }
 
     private fun throwErrorIfOperationIsConsecutive(inputString: String, charIndex: Int) {
