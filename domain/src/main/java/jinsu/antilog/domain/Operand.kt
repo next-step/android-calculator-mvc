@@ -1,6 +1,6 @@
 package jinsu.antilog.domain
 
-data class StringOperand(
+data class Operand(
     private val operand: String
 ) {
     fun toDouble(): Double {
