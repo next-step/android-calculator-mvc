@@ -22,25 +22,25 @@ class CalculatorTest {
 
     @Test
     fun 곱하기() {
-        val actual: Int = calculator.evaluate("2*2*4")
+        val actual: Int = calculator.evaluate("2×2×4")
         assertThat(actual).isEqualTo(16)
     }
 
     @Test
     fun 나누기() {
-        val actual: Int = calculator.evaluate("7/2/3")
+        val actual: Int = calculator.evaluate("7÷2÷3")
         assertThat(actual).isEqualTo(1)
     }
 
     @Test
     fun 사칙연산() {
-        val actual: Int = calculator.evaluate("1+2/3*5-2")
+        val actual: Int = calculator.evaluate("1+2÷3×5-2")
         assertThat(actual).isEqualTo(3)
     }
 
     @Test
     fun `사칙연산 두자리수`() {
-        val actual: Int = calculator.evaluate("10*12/4+13-42")
+        val actual: Int = calculator.evaluate("10×12÷4+13-42")
         assertThat(actual).isEqualTo(1)
     }
 
