@@ -103,4 +103,88 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(withText("9")))
     }
 
+    @Test
+    fun clickOperand_Continuously() {
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+
+        onView(withId(R.id.textView)).check(matches(withText("32")))
+    }
+
+    @Test
+    fun clickOperator_When_Empty() {
+        onView(withId(R.id.buttonMinus)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("")))
+
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("")))
+
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("")))
+
+        onView(withId(R.id.buttonDivide)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("")))
+    }
+
+    @Test
+    fun clickOperator() {
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonMinus)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("3-")))
+
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("3+")))
+
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("3×")))
+
+        onView(withId(R.id.buttonDivide)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("3÷")))
+    }
+
+    @Test
+    fun clickDelete_When_Empty() {
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        onView(withId(R.id.textView)).check(matches(withText("")))
+    }
+
+    @Test
+    fun clickDelete() {
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+
+        onView(withId(R.id.buttonDelete)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("32+")))
+
+        onView(withId(R.id.buttonDelete)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("32")))
+
+        onView(withId(R.id.buttonDelete)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("3")))
+
+        onView(withId(R.id.buttonDelete)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText("")))
+    }
+
+    @Test
+    fun clickEqual() {
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonDivide)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        onView(withId(R.id.button9)).perform(click())
+        onView(withId(R.id.buttonMinus)).perform(click())
+        onView(withId(R.id.button6)).perform(click())
+
+        onView(withId(R.id.buttonEquals)).perform(click())
+
+        onView(withId(R.id.textView)).check(matches(withText("93")))
+    }
+
 }
