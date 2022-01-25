@@ -7,7 +7,7 @@ enum class OperationType {
     DIVIDE,
     NOT_OPERATION_TYPE;
 
-    fun checkTextIsOperationType(text: String): Boolean { //입력된 문자가 사칙 연산 기호인지 체크
+    fun checkTextIsOperationType(text: String): Boolean {
         return text == "+" || text == "-" || text == "*" || text == "/"
     }
 
