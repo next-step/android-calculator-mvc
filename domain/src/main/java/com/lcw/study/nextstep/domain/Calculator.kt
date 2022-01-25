@@ -2,17 +2,11 @@ package com.lcw.study.nextstep.domain
 
 class Calculator {
     private var value = 0
-    private var operation: OperationType =OperationType.PLUS
+    private var operation: OperationType = OperationType.PLUS
     private var number: Int = 0
 
     fun evaluate(inputText: String?): Int {
 
-        divideTextType(inputText)
-
-        return value
-    }
-
-    private fun divideTextType(inputText:String?){
         if (inputText.isNullOrEmpty()) {
             throw IllegalArgumentException("입력값이 null이거나 빈 공백 문자 입니다.")
         }
@@ -23,9 +17,9 @@ class Calculator {
                 operation.checkTextIsOperationType(text) -> {
                     operation = operation.changeTextToOperation(text)
                 }
-                text.toIntOrNull()!=null -> {
+                text.toIntOrNull() != null -> {
                     number = text.toInt()
-                   value= operation.operationExecution(operation,value,number)
+                    value = operation.operationExecution(operation, value, number)
 
                 }
                 else -> {
@@ -35,6 +29,9 @@ class Calculator {
 
 
         }
+
+        return value
     }
+
 
 }
