@@ -25,7 +25,7 @@ class Calculator {
                 }
                 text.toIntOrNull()!=null -> {
                     number = text.toInt()
-                   value= operation.operationType(operation,value,number)
+                   value= operation.operationExecution(operation,value,number)
 
                 }
                 else -> {
