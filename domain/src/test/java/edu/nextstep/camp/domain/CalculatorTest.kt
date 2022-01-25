@@ -1,9 +1,7 @@
 package edu.nextstep.camp.domain
 
-import com.example.domain.Calculator
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import java.lang.IllegalArgumentException
 
 class CalculatorTest {
@@ -14,8 +12,11 @@ class CalculatorTest {
         val delimiter = " "
         val expected = 5
 
+        //when
+        val result = Calculator.evaluate(expression, delimiter)
+
         //then
-        assertThat(Calculator.evaluate(expression, delimiter)).isEqualTo(expected)
+        assertThat(result).isEqualTo(expected)
     }
 
     @Test
@@ -25,8 +26,11 @@ class CalculatorTest {
         val delimiter = " "
         val expected = -1
 
+        //when
+        val result = Calculator.evaluate(expression, delimiter)
+
         //then
-        assertThat(Calculator.evaluate(expression, delimiter)).isEqualTo(expected)
+        assertThat(result).isEqualTo(expected)
     }
 
     @Test
@@ -36,8 +40,11 @@ class CalculatorTest {
         val delimiter = " "
         val expected = 6
 
+        //when
+        val result = Calculator.evaluate(expression, delimiter)
+
         //then
-        assertThat(Calculator.evaluate(expression, delimiter)).isEqualTo(expected)
+        assertThat(result).isEqualTo(expected)
     }
 
     @Test
@@ -47,8 +54,11 @@ class CalculatorTest {
         val delimiter = " "
         val expected = 2
 
+        //when
+        val result = Calculator.evaluate(expression, delimiter)
+
         //then
-        assertThat(Calculator.evaluate(expression, delimiter)).isEqualTo(expected)
+        assertThat(result).isEqualTo(expected)
     }
 
     @Test
@@ -58,8 +68,11 @@ class CalculatorTest {
         val delimiter = " "
         val expected = 4
 
+        //when
+        val result = Calculator.evaluate(expression, delimiter)
+
         //then
-        assertThat(Calculator.evaluate(expression, delimiter)).isEqualTo(expected)
+        assertThat(result).isEqualTo(expected)
     }
 
     @Test
@@ -68,8 +81,12 @@ class CalculatorTest {
         val expression = "2 $ 3"
         val delimiter = " "
 
+        //when
+        val actualException = runCatching { Calculator.evaluate(expression, delimiter) }.exceptionOrNull()
+
         //then
-        assertThrows<IllegalArgumentException> { Calculator.evaluate(expression, delimiter) }
+        assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(actualException).hasMessage("사칙연산 기호가 아닙니다")
     }
 
     @Test
@@ -78,8 +95,12 @@ class CalculatorTest {
         val expression = ""
         val delimiter = " "
 
+        //when
+        val actualException = runCatching { Calculator.evaluate(expression, delimiter) }.exceptionOrNull()
+
         //then
-        assertThrows<IllegalArgumentException> { Calculator.splitExpression(expression, delimiter) }
+        assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(actualException).hasMessage("입력값이 null 이거나 빈 공백 문자입니다")
     }
 
     @Test
@@ -88,8 +109,24 @@ class CalculatorTest {
         val expression = " "
         val delimiter = " "
 
+        //when
+        val actualException = runCatching { Calculator.evaluate(expression, delimiter) }.exceptionOrNull()
+
         //then
-        assertThrows<IllegalArgumentException> { Calculator.splitExpression(expression, delimiter) }
+        assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(actualException).hasMessage("입력값이 null 이거나 빈 공백 문자입니다")
     }
 
+    @Test
+    fun testDividedByZero() {
+        //given
+        val expression = "1 / 0"
+        val delimiter = " "
+
+        //when
+        val actualException = runCatching { Calculator.evaluate(expression, delimiter) }.exceptionOrNull()
+
+        //then
+        assertThat(actualException).isInstanceOf(ArithmeticException::class.java)
+    }
 }
