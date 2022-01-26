@@ -105,7 +105,7 @@ class MainActivityTest {
 
 
     @Test
-    fun whenButton9Click_thenDisplay6() {
+    fun whenButton9Click_thenDisplay9() {
         // when: 9 버튼을 누르면
         onView(withId(R.id.button9)).perform(click())
 
