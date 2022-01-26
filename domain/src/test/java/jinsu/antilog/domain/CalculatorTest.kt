@@ -25,7 +25,7 @@ class CalculatorTest {
         // then : IllegalArgumentException 이 발생한다.
         assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
         assertThat(actualException).hasMessageThat()
-            .contains("전달 받은 문자열이 Null 이거나 공백일 수 없습니다.")
+            .contains("입력받은 값은 수식이 아닙니다.")
     }
 
     @Test
@@ -39,7 +39,7 @@ class CalculatorTest {
         // then : IllegalArgumentException 이 발생한다.
         assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
         assertThat(actualException).hasMessageThat()
-            .contains("전달 받은 문자열이 Null 이거나 공백일 수 없습니다.")
+            .contains("입력받은 값은 수식이 아닙니다.")
     }
 
     @Test
