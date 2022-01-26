@@ -1,16 +1,14 @@
 package net.woogear.domain
 
-import net.woogear.domain.OperationType.Companion.getOperationType
-import net.woogear.domain.OperationType.Companion.isOperator
-
 class Calculator {
 
-    fun evaluate(s: String?): Int {
-        if (s.isNullOrEmpty()) {
+    fun evaluate(inputText: String?): Int {
+        if (inputText.isNullOrEmpty()) {
             throw IllegalArgumentException("Input Text Can't Be a Null or Empty")
         }
 
-        return calculate(s.split(" "))
+        val delimiter = " "
+        return calculate(inputText.split(delimiter))
     }
 
     private fun calculate(splitTexts: List<String>): Int {
@@ -19,7 +17,7 @@ class Calculator {
 
         for (text in splitTexts) {
             when {
-                text.isOperator() -> operationType = getOperationType(text)
+                text.isOperator() -> operationType = OperationType.getOperationType(text)
                 text.isInt() -> answer = operationType.calculate(text.toInt(), answer)
                 else -> throw IllegalArgumentException("$text is not supported type for input text")
             }
@@ -29,7 +27,7 @@ class Calculator {
     }
 
     private fun String.isOperator(): Boolean {
-        return isOperator(this)
+        return OperationType.isOperator(this)
     }
 
     private fun String.isInt(): Boolean {

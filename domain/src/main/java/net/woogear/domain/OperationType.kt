@@ -29,7 +29,8 @@ enum class OperationType {
                 "+" -> PLUS
                 "-" -> MINUS
                 "*" -> MULTIPLY
-                else -> DIVIDE
+                "/" -> DIVIDE
+                else -> throw IllegalArgumentException("$text is invalid operation type")
             }
         }
 
