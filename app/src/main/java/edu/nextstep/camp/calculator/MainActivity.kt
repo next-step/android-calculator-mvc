@@ -6,12 +6,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import net.woogear.domain.Calculator
-import net.woogear.domain.FormulaManager
+import net.woogear.domain.Formula
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val calculator = Calculator()
-    private val formulaManager = FormulaManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,19 +41,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun input(newText: String) {
-        binding.textView.text = formulaManager.input(newText)
+        val formula = Formula(binding.textView.text.toString())
+        binding.textView.text = formula.input(newText).formula
     }
 
     private fun delete() {
-        binding.textView.text = formulaManager.delete()
+        val formula = Formula(binding.textView.text.toString())
+        binding.textView.text = formula.delete().formula
     }
 
     private fun calculateIfFormulaCompleted() {
-        val formula = binding.textView.text.toString()
-        val isFormulaCompleted = formulaManager.isFormulaCompleted()
+        val formula = Formula(binding.textView.text.toString())
+        val isFormulaCompleted = formula.isFormulaCompleted()
 
         if (isFormulaCompleted) {
-            binding.textView.text = calculator.evaluate(formula).toString()
+            binding.textView.text = calculator.evaluate(formula.formula).toString()
             return
         }
 
