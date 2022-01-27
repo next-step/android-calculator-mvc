@@ -1,9 +1,11 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.StringCalculator
+import edu.nextstep.camp.calculator.model.formular.Formula
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -38,21 +40,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun delete() {
-        formula.delete()
-        binding.textViewDisplay.text = formula.toString()
+        binding.textViewDisplay.text = formula.delete()
     }
 
     private fun clickOperand(value: String) {
-        formula.insertOperand(value)
-        binding.textViewDisplay.text = formula.toString()
+        binding.textViewDisplay.text = formula.insertOperand(value)
     }
 
     private fun clickOperator(value: String) {
-        formula.insertOperator(value)
-        binding.textViewDisplay.text = formula.toString()
+        binding.textViewDisplay.text = formula.insertOperator(value)
     }
 
     private fun calculator() {
-        binding.textViewDisplay.text = formula.calculate()
+        try {
+            binding.textViewDisplay.text = formula.calculate()
+        } catch (e: IllegalArgumentException) {
+            Toast.makeText(this, R.string.err_invalid_formula, Toast.LENGTH_SHORT).show()
+        }
     }
 }
