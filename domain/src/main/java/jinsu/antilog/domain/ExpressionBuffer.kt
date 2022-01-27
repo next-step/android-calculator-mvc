@@ -11,7 +11,7 @@ class ExpressionBuffer {
             is Operand -> {(expressionLetters.last as Operand).addLastLetter(operand)}
             is Operator, null -> expressionLetters.add(operand)
         }
-        return getExpressionString()
+        return getStringExpression()
     }
 
     fun addOperator(operator: Operator): String {
@@ -19,7 +19,7 @@ class ExpressionBuffer {
             is Operand -> expressionLetters.add(operator)
             is Operator -> expressionLetters.replaceLastTo(operator)
         }
-        return getExpressionString()
+        return getStringExpression()
     }
 
     fun removeLast(): String {
@@ -30,7 +30,7 @@ class ExpressionBuffer {
             }
             is Operator -> expressionLetters.removeLast()
         }
-        return getExpressionString()
+        return getStringExpression()
     }
 
     private fun LinkedList<ExpressionLetter>.replaceLastTo(operator: Operator) {
@@ -42,7 +42,7 @@ class ExpressionBuffer {
         return expressionLetters.lastOrNull()
     }
 
-    private fun getExpressionString(): String {
+    fun getStringExpression(): String {
         return expressionLetters.joinToString(DELIMITER)
     }
 

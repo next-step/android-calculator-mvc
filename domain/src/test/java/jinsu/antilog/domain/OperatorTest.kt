@@ -53,7 +53,7 @@ class ParameterizedOperatorTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters
+        @Parameterized.Parameters(name = "연산자가 {0} 일때")
         fun operateTestList() = listOf(
             arrayOf("+", 15, Operator.Plus),
             arrayOf("-", 5, Operator.Minus),
@@ -94,7 +94,7 @@ class ParameterizedSubSymbolOperatorTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters
+        @Parameterized.Parameters(name = "연산자 기호가 {0} 일때")
         fun operateTestList() = listOf(
             arrayOf("×", 50, Operator.Multiply),
             arrayOf("÷", 2, Operator.Divide)
@@ -115,7 +115,7 @@ class OperatorSubSymbolTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters
+        @Parameterized.Parameters(name = "연산자 {1} 일때")
         fun operatorSubSymbolTest() = listOf(
             arrayOf(null, Operator.Plus),
             arrayOf(null, Operator.Minus),

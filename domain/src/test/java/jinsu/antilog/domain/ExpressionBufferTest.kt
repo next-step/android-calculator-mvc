@@ -92,7 +92,19 @@ class ExpressionBufferTest {
         assertThat(actualExpression).isEmpty()
     }
 
-
+    @Test
+    fun `입력된 수식이 있을 때 수식을 반환하면 현재 저장된 수식을 반환한다`() {
+        // given :
+        val expressionBuffer = ExpressionBuffer().apply {
+            addOperand(Operand("32"))
+            addOperator(Operator.findOperatorBySymbol("+"))
+            addOperand(Operand("1"))
+        }
+        // when :
+        val actualExpression = expressionBuffer.getStringExpression()
+        // then :
+        assertThat(actualExpression).isEqualTo("32 + 1")
+    }
 }
 
 @RunWith(Parameterized::class)
@@ -110,7 +122,7 @@ class ExpressionRemoveTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters
+        @Parameterized.Parameters(name = "수식이 {0} 이고 기대 결과가 {1} 일 때")
         fun removeExpressionTestList() = listOf(
             arrayOf(
                 ExpressionBuffer().apply {
