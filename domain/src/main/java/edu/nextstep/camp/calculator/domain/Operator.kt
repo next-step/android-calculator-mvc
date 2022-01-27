@@ -4,11 +4,11 @@ enum class Operator(
     val operator: String?,
     val operatorFunc: (Float, Float) -> Float
 ) : OperatorFactory {
-    PLUS("+", { a, b -> a + b }),
-    MINUS("-", { a, b -> a - b }),
-    MULTIPLY("×", { a, b -> a * b }),
-    DIVIDE("÷", { a, b -> a / b }),
-    NONE(null, { _, b -> b });
+    PLUS("+", { operand1, operand2 -> operand1 + operand2 }),
+    MINUS("-", { operand1, operand2 -> operand1 - operand2 }),
+    MULTIPLY("×", { operand1, operand2 -> operand1 * operand2 }),
+    DIVIDE("÷", { operand1, operand2 -> operand1 / operand2 }),
+    NONE(null, { _, operand2 -> operand2 });
 
     override fun calculate(first: Float, second: Float): Float {
         return operatorFunc(first, second)
