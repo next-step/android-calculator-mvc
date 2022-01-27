@@ -1,20 +1,20 @@
 package edu.nextstep.camp.calculator.domain
 
 object Calculator {
+    private val operandRegex = "[0-9]+".toRegex()
 
-    fun evaluate(data: String): Float {
+    fun evaluate(rawExpression: String): Float {
         var result = 0f
         var operator = Operator.NONE
 
-        if (data.isEmpty()) {
-            throw IllegalArgumentException("exception data")
-        } else {
-            data.forEach {
-                if (it.isDigit()) {
-                    result = operator.calculate(result, Character.getNumericValue(it).toFloat())
-                } else {
-                    operator = Operator.getOperator(it.toString())
-                }
+        if (rawExpression.isEmpty()) throw IllegalArgumentException("exception data")
+        val rawArray = rawExpression.split(" ")
+        if (!operandRegex.matches(rawArray.last())) throw IllegalArgumentException("exception data")
+        rawArray.forEach {
+            if (operandRegex.matches(it)) {
+                result = operator.calculate(result, it.toFloat())
+            } else {
+                operator = Operator.getOperator(it)
             }
         }
         return result
