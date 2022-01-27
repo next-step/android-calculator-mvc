@@ -24,20 +24,20 @@ data class Expression(val rawExpression: String) {
         return if (rawExpression.last().isDigit()) {
             removeLastDigit()
         } else {
-            Expression(rawExpression.dropLast(2))
+            Expression(rawExpression.dropLast(DROP_LAST_OPERATOR))
         }
     }
 
     private fun removeLastDigit(): Expression {
         return when {
             rawExpression.length == 1 -> {
-                Expression(rawExpression.dropLast(1))
+                Expression(rawExpression.dropLast(DROP_LAST_OPERAND))
             }
-            rawExpression.dropLast(1).last().toString() == " " -> {
-                Expression(rawExpression.dropLast(2))
+            rawExpression.dropLast(DROP_LAST_OPERAND).last().toString() == " " -> {
+                Expression(rawExpression.dropLast(OPERAND_MIX_OPERATOR))
             }
             else -> {
-                Expression(rawExpression.dropLast(1))
+                Expression(rawExpression.dropLast(DROP_LAST_OPERAND))
             }
         }
     }
@@ -48,5 +48,9 @@ data class Expression(val rawExpression: String) {
 
     companion object {
         val EMPTY = Expression("")
+
+        const val DROP_LAST_OPERAND = 1
+        const val DROP_LAST_OPERATOR = 2
+        const val OPERAND_MIX_OPERATOR = 2
     }
 }
