@@ -4,7 +4,7 @@ class Calculator {
 
     fun evaluate(input: String?): Int {
         var result = 0
-        var mutableOperand = '+'
+        var mutableOperand = Operator.findOperator('+')
 
         val expression = checkInputString(input).also {
             checkInputLength(it)
@@ -13,16 +13,8 @@ class Calculator {
 
         expression.forEach { value ->
             when (value.isDigit()) {
-                true -> {
-                    result = Operator.calculateValue(
-                        symbol = mutableOperand,
-                        left = result,
-                        right = value.digitToInt()
-                    )
-                }
-                false -> {
-                    mutableOperand = value
-                }
+                true -> result = mutableOperand.operate(result, value.digitToInt())
+                false -> mutableOperand = Operator.findOperator(value)
             }
         }
         return result
@@ -34,13 +26,16 @@ class Calculator {
     }
 
     private fun checkInputLength(input: String) {
-        if (input.length <= 2)
+        require(input.length > 2) {
             throw IllegalArgumentException(IS_NOT_MATH_EXPRESSION)
+        }
 
     }
 
     private fun checkInputFirstLetter(input: String) {
-        if (!input[0].isDigit()) throw IllegalArgumentException(IS_NOT_MATH_EXPRESSION)
+        require(input[0].isDigit()) {
+            throw IllegalArgumentException(IS_NOT_MATH_EXPRESSION)
+        }
 
     }
 
