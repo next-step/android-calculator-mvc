@@ -1,6 +1,6 @@
 package com.example.domain
 
-enum class Operation(val operation: String) : IOperation {
+enum class Operand(val operand: String) : IOperand {
     PLUS("+") {
         override fun calculate(firstNumber: Float, secondNumber: Float) = firstNumber + secondNumber
     },
@@ -17,16 +17,16 @@ enum class Operation(val operation: String) : IOperation {
 
     companion object {
 
-        fun check(operation: String) = values().find { it.operation == operation } != null
+        fun check(operand: String) = values().find { it.operand == operand } != null
 
-        fun get(operation: String) = values().find { it.operation == operation }
+        fun get(operand: String) = values().find { it.operand == operand }
 
-        fun calculate(firstNumber: Float, operator: Operation, secondNumber: Float) =
-            operator.calculate(firstNumber, secondNumber)
+        fun calculate(firstNumber: Float, operand: Operand, secondNumber: Float) =
+            operand.calculate(firstNumber, secondNumber)
     }
 }
 
-interface IOperation {
+interface IOperand {
 
     fun calculate(firstNumber: Float, secondNumber: Float): Float
 }

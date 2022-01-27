@@ -4,7 +4,7 @@ class Calculator {
 
     @Throws(IllegalArgumentException::class)
     fun evaluate(inputs: String): Float {
-        var opertaion: Operation? = null
+        var operand: Operand? = null
         var result = 0f
 
         inputs.split(" ").forEachIndexed { index, value ->
@@ -18,18 +18,18 @@ class Calculator {
                 EVEN_IS_NUMBER -> {
                     val number = value.toFloatOrNull() ?: throw IllegalArgumentException()
 
-                    if (opertaion == null) {
+                    if (operand == null) {
                         throw IllegalArgumentException()
                     }
 
-                    result = Operation.calculate(result, opertaion!!, number)
+                    result = Operand.calculate(result, operand!!, number)
                 }
                 ODD_IS_OPERATION -> {
-                    if (Operation.check(value).not()) {
+                    if (Operand.check(value).not()) {
                         throw IllegalArgumentException()
                     }
 
-                    opertaion = Operation.get(value)
+                    operand = Operand.get(value)
                 }
                 else -> {
                     throw IllegalArgumentException()

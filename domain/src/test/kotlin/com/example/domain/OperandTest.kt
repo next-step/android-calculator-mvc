@@ -3,7 +3,7 @@ package com.example.domain
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
-class OperationTest {
+class OperandTest {
 
     @Test
     fun `given operation then check available`() {
@@ -15,11 +15,11 @@ class OperationTest {
         val and = "&"
 
         //when
-        val resultPlus = Operation.check(plus)
-        val resultSubtraction = Operation.check(subtraction)
-        val resultMultiplication = Operation.check(multiplication)
-        val resultDivision = Operation.check(division)
-        val resultAnd = Operation.check(and)
+        val resultPlus = Operand.check(plus)
+        val resultSubtraction = Operand.check(subtraction)
+        val resultMultiplication = Operand.check(multiplication)
+        val resultDivision = Operand.check(division)
+        val resultAnd = Operand.check(and)
 
         //then
         assertThat(resultPlus).isEqualTo(true)
@@ -39,17 +39,17 @@ class OperationTest {
         val and = "&"
 
         //when
-        val resultPlus = Operation.get(plus)
-        val resultSubtraction = Operation.get(subtraction)
-        val resultMultiplication = Operation.get(multiplication)
-        val resultDivision = Operation.get(division)
-        val resultAnd = Operation.get(and)
+        val resultPlus = Operand.get(plus)
+        val resultSubtraction = Operand.get(subtraction)
+        val resultMultiplication = Operand.get(multiplication)
+        val resultDivision = Operand.get(division)
+        val resultAnd = Operand.get(and)
 
         //then
-        assertThat(resultPlus).isEqualTo(Operation.PLUS)
-        assertThat(resultSubtraction).isEqualTo(Operation.SUBTRACTION)
-        assertThat(resultMultiplication).isEqualTo(Operation.MULTIPLICATION)
-        assertThat(resultDivision).isEqualTo(Operation.DIVISION)
+        assertThat(resultPlus).isEqualTo(Operand.PLUS)
+        assertThat(resultSubtraction).isEqualTo(Operand.SUBTRACTION)
+        assertThat(resultMultiplication).isEqualTo(Operand.MULTIPLICATION)
+        assertThat(resultDivision).isEqualTo(Operand.DIVISION)
         assertThat(resultAnd).isEqualTo(null)
     }
 
@@ -57,11 +57,11 @@ class OperationTest {
     fun `given plus then calculate result`() {
         //given
         val input1 = 20f
-        val operation = Operation.PLUS
+        val operation = Operand.PLUS
         val input2 = 10f
 
         //when
-        val result = Operation.calculate(input1, operation, input2)
+        val result = Operand.calculate(input1, operation, input2)
 
         //then
         assertThat(result).isEqualTo(30f)
@@ -71,11 +71,11 @@ class OperationTest {
     fun `given subtraction then calculate result`() {
         //given
         val input1 = 20f
-        val operation = Operation.SUBTRACTION
+        val operation = Operand.SUBTRACTION
         val input2 = 10f
 
         //when
-        val result = Operation.calculate(input1, operation, input2)
+        val result = Operand.calculate(input1, operation, input2)
 
         //then
         assertThat(result).isEqualTo(10f)
@@ -85,11 +85,11 @@ class OperationTest {
     fun `given multiplication then calculate result`() {
         //given
         val input1 = 20f
-        val operation = Operation.MULTIPLICATION
+        val operation = Operand.MULTIPLICATION
         val input2 = 10f
 
         //when
-        val result = Operation.calculate(input1, operation, input2)
+        val result = Operand.calculate(input1, operation, input2)
 
         //then
         assertThat(result).isEqualTo(200f)
@@ -99,11 +99,11 @@ class OperationTest {
     fun `given division then calculate result`() {
         //given
         val input1 = 20f
-        val operation = Operation.DIVISION
+        val operation = Operand.DIVISION
         val input2 = 10f
 
         //when
-        val result = Operation.calculate(input1, operation, input2)
+        val result = Operand.calculate(input1, operation, input2)
 
         //then
         assertThat(result).isEqualTo(2f)
