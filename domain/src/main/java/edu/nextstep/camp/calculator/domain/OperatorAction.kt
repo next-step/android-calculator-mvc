@@ -1,5 +1,5 @@
 package edu.nextstep.camp.calculator.domain
 
-interface OperatorFactory {
+interface OperatorAction {
     fun calculate(first: Float, second: Float): Float
 }
