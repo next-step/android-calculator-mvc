@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.domain.Expression
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val calculatorUtil = CalculatorUtil()
+    private var expression = Expression.empty()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,33 +24,33 @@ class MainActivity : AppCompatActivity() {
     private fun initOperationButton() {
         with(binding) {
             buttonDelete.setOnClickListener {
-                calculatorUtil.delete()
+                expression = expression.delete()
                 showCalculatorResult()
             }
 
             buttonDivide.setOnClickListener {
-                calculatorUtil.divide()
+                expression = expression.divide()
                 showCalculatorResult()
             }
 
             buttonMultiply.setOnClickListener {
-                calculatorUtil.multiply()
+                expression = expression.multiply()
                 showCalculatorResult()
             }
 
             buttonMinus.setOnClickListener {
-                calculatorUtil.minus()
+                expression = expression.minus()
                 showCalculatorResult()
             }
 
             buttonPlus.setOnClickListener {
-                calculatorUtil.plus()
+                expression = expression.plus()
                 showCalculatorResult()
             }
 
             buttonEquals.setOnClickListener {
                 try {
-                    calculatorUtil.equals()
+                    expression = expression.equals()
                     showCalculatorResult()
                 } catch (exception: IllegalArgumentException) {
                     showIncompleteToast()
@@ -68,14 +69,14 @@ class MainActivity : AppCompatActivity() {
             val buttonId = resources.getIdentifier("button$postfixId", "id", packageName)
             val button = findViewById<Button?>(buttonId)
             button?.setOnClickListener {
-                calculatorUtil.addText(button.text.toString())
+                expression = expression.addText(button.text.toString())
                 showCalculatorResult()
             }
         }
     }
 
     private fun showCalculatorResult() {
-        binding.textView.text = calculatorUtil.result
+        binding.textView.text = expression.value
     }
 
     companion object {
