@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.isDigitsOnly
 import com.example.calculator.Calculator
 import com.example.calculator.Expression
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
@@ -12,7 +11,7 @@ import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val calculator = Calculator()
-    private val expression = Expression.EMPTY
+    private var expression = Expression.EMPTY
 
     private val buttonNumberList: List<Button> by lazy {
         listOf(
@@ -41,17 +40,21 @@ class MainActivity : AppCompatActivity() {
     private fun initViews() {
         buttonNumberList.forEach { addNumberButtonListener(it) }
         buttonOperatorList.forEach { addOperatorButtonListener(it) }
-        binding.buttonEquals.setOnClickListener { checkAndCompute() }
-        binding.buttonDelete.setOnClickListener { deleteExpression() }
+        binding.buttonEquals.setOnClickListener { displayResult() }
+        binding.buttonDelete.setOnClickListener { displayDelete() }
     }
 
     private fun addNumberButtonListener(button: Button) {
-        button.setOnClickListener { addExpression(button) }
+        button.setOnClickListener {
+            expression += button.text.toString()
+            display()
+        }
     }
 
     private fun addOperatorButtonListener(button: Button) {
         button.setOnClickListener {
-            addOperator(button)
+            expression = expression.addOperator(button.text.toString())
+            display()
         }
     }
 
@@ -63,49 +66,17 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
-    private fun checkAndCompute() {
-        if (expression.rawExpression.isEmpty()) {
+    private fun displayResult() {
+        if (!expression.isValidate()) {
             displayToast(getString(R.string.toastIncompleteExpression))
             return
         }
-        if (!expression.rawExpression.last().isDigit()) {
-            displayToast(getString(R.string.toastIncompleteExpression))
-            return
-        }
-        if (expression.rawExpression.isDigitsOnly()) {
-            displayToast(getString(R.string.toastIncompleteExpression))
-            return
-        }
-
-        expression.rawExpression = calculator.evaluate(expression.rawExpression).toString()
+        expression = Expression.EMPTY + calculator.evaluate(expression.rawExpression).toString()
         display()
     }
 
-    private fun addExpression(button: Button) {
-        expression.rawExpression += button.text.toString()
-        display()
-    }
-
-    private fun modifyOperator(operator: String) {
-        expression.rawExpression = expression.rawExpression.dropLast(1)
-            .plus(operator)
-        display()
-    }
-
-    private fun addOperator(button: Button) {
-        if (expression.rawExpression.isEmpty()) return
-        if (!expression.rawExpression.last().isDigit()) {
-            modifyOperator(button.text.toString())
-            return
-        }
-        addExpression(button)
-    }
-
-    private fun deleteExpression() {
-        if (expression.rawExpression.isEmpty()) return
-        expression.rawExpression =
-            expression.rawExpression.subSequence(0 until expression.rawExpression.lastIndex)
-                .toString()
+    private fun displayDelete() {
+        expression = expression.deleteExpression()
         display()
     }
 }
