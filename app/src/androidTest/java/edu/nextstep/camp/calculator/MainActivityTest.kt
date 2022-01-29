@@ -103,4 +103,83 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(withText("9")))
     }
 
+    // 피연산자를 여러번 누르면 피연산자가 화면에 이어서 출력되어야 한다.
+    @Test
+    fun clickOperand_Continuously() {
+        // when : 사용자가 피연산자 3,2 버튼을 이어서 누르면
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+
+        // then : 계산기 텍스트뷰에 32가 화면에 보여야 한다.
+        onView(withId(R.id.textView)).check(matches(withText("32")))
+    }
+
+    // 계산기 텍스트뷰에 아무런 수식이 없을때, 연산자를 누르면 아무런 변화가 없어야 한다.
+    @Test
+    fun clickOperator_When_Empty() {
+        // when : 사용자가 +,-,x,÷ 연산자 버튼을 누르면
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.buttonMinus)).perform(click())
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        onView(withId(R.id.buttonDivide)).perform(click())
+
+        // then : 계산기 텍스트뷰에 아무런 변화가 없다.
+        onView(withId(R.id.textView)).check(matches(withText("")))
+    }
+
+    // 피연산자와 연산자를 이어서 누르면, 피연산자와 연산자가 화면에 이어서 출력되어야 한다.
+    @Test
+    fun clickOperator() {
+        // when : 사용자가 3과 마이너스 연산자 버튼을 누르면
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonMinus)).perform(click())
+
+        // then : 계산기 텍스트뷰에 3-가 출력되어야 한다.
+        onView(withId(R.id.textView)).check(matches(withText("3-")))
+    }
+
+    // 계산기 텍스트뷰에 아무런 수식이 없을때, 지우기 버튼을 누르면 아무런 변화가 없어야한다.
+    @Test
+    fun clickDelete_When_Empty() {
+        // when : 사용자가 지우기 버튼을 누르면
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        // then : 아무런 변화가 없어야한다.
+        onView(withId(R.id.textView)).check(matches(withText("")))
+    }
+
+    // 계산기 텍스트뷰에 수식이 있을때, 지우기 버튼을 수식의 마지막 문자가 지워진다.
+    @Test
+    fun clickDelete() {
+        // when : 사용자가 3,2,+,1 버튼을 누른후 지우기 버튼을 누르면
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        // then : 계산기 텍스트뷰에 32+가 출력되어야 한다.
+        onView(withId(R.id.textView)).check(matches(withText("32+")))
+    }
+
+    // 계산기 텍스트뷰에 수식이 있을때, = 버튼을 누르면 계산의 결과값이 텍스트뷰에 출력 되어야한다.
+    @Test
+    fun clickEqual() {
+        // when : 사용자가 3,2,+,1,÷,3,x,9,-,6,= 버튼을 누르면
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonDivide)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        onView(withId(R.id.button9)).perform(click())
+        onView(withId(R.id.buttonMinus)).perform(click())
+        onView(withId(R.id.button6)).perform(click())
+        onView(withId(R.id.buttonEquals)).perform(click()) // 32+1÷3x9-6
+
+        // then : 계산기 텍스트뷰에 93이 출력되어야 한다.
+        onView(withId(R.id.textView)).check(matches(withText("93")))
+    }
+
 }

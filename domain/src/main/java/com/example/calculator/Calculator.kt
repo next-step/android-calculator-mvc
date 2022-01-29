@@ -3,8 +3,8 @@ package com.example.calculator
 import java.lang.IllegalArgumentException
 
 class Calculator {
-    private val expressionCheckRegex = "^([0-9]+[-*/+])+[0-9]+".toRegex()
-    private val operandSplitRegex = "[-*/+]".toRegex()
+    private val expressionCheckRegex = "^([0-9]+[-×÷+])+[0-9]+".toRegex()
+    private val operandSplitRegex = "[-×÷+]".toRegex()
 
     fun evaluate(inputString: String?): Int {
         val expression = isValidate(inputString)
