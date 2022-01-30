@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.domain.Calculator
 import com.example.domain.Expression
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    private val calculate by lazy { Calculator() }
 
     private var expression = Expression.empty()
 
@@ -50,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
             buttonEquals.setOnClickListener {
                 try {
-                    expression = expression.equals()
+                    expression = expression.express(calculate)
                     showCalculatorResult()
                 } catch (exception: IllegalArgumentException) {
                     showIncompleteToast()

@@ -4,8 +4,6 @@ data class Expression(
     val value: String
 ) {
 
-    private val calculator = Calculator()
-
     fun addText(input: String): Expression {
         if (Operand.check(input)) {
             return empty()
@@ -49,7 +47,7 @@ data class Expression(
     }
 
     @Throws(IllegalArgumentException::class)
-    fun equals(): Expression {
+    fun express(calculator: Calculator): Expression {
         val equalsBuilder = StringBuilder()
 
         value.forEach { input ->
