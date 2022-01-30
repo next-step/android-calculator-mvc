@@ -4,46 +4,25 @@ data class Expression(
     val value: String
 ) {
 
-    fun addText(input: String): Expression {
-        if (Operand.check(input)) {
+    operator fun plus(operator: String): Expression {
+        if (Operand.check(operator)) {
             return empty()
         }
-        return copy(value = "$value$input")
+        return copy(value = "$value$operator")
     }
 
-    fun delete(): Expression {
+    operator fun plus(operand: Operand): Expression {
+        if (value.isEmpty()) {
+            return this
+        }
+        return copy(value = "$value${operand.operand}")
+    }
+
+    fun deleteLast(): Expression {
         if (value.isEmpty()) {
             return empty()
         }
         return copy(value = value.dropLast(1))
-    }
-
-    fun divide(): Expression {
-        if (value.isEmpty()) {
-            return empty()
-        }
-        return copy(value = "$value${Operand.DIVISION.operand}")
-    }
-
-    fun multiply(): Expression {
-        if (value.isEmpty()) {
-            return empty()
-        }
-        return copy(value = "$value${Operand.MULTIPLICATION.operand}")
-    }
-
-    fun minus(): Expression {
-        if (value.isEmpty()) {
-            return empty()
-        }
-        return copy(value = "$value${Operand.SUBTRACTION.operand}")
-    }
-
-    fun plus(): Expression {
-        if (value.isEmpty()) {
-            return empty()
-        }
-        return copy(value = "$value${Operand.PLUS.operand}")
     }
 
     @Throws(IllegalArgumentException::class)

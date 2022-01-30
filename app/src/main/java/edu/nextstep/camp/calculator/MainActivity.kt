@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.domain.Calculator
 import com.example.domain.Expression
+import com.example.domain.Operand
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -27,27 +28,27 @@ class MainActivity : AppCompatActivity() {
     private fun initOperationButton() {
         with(binding) {
             buttonDelete.setOnClickListener {
-                expression = expression.delete()
+                expression = expression.deleteLast()
                 showCalculatorResult()
             }
 
             buttonDivide.setOnClickListener {
-                expression = expression.divide()
+                expression += Operand.DIVISION
                 showCalculatorResult()
             }
 
             buttonMultiply.setOnClickListener {
-                expression = expression.multiply()
+                expression += Operand.MULTIPLICATION
                 showCalculatorResult()
             }
 
             buttonMinus.setOnClickListener {
-                expression = expression.minus()
+                expression += Operand.SUBTRACTION
                 showCalculatorResult()
             }
 
             buttonPlus.setOnClickListener {
-                expression = expression.plus()
+                expression += Operand.PLUS
                 showCalculatorResult()
             }
 
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             val buttonId = resources.getIdentifier("button$postfixId", "id", packageName)
             val button = findViewById<Button?>(buttonId)
             button?.setOnClickListener {
-                expression = expression.addText(button.text.toString())
+                expression += button.text.toString()
                 showCalculatorResult()
             }
         }
