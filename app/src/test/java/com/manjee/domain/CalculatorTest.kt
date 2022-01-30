@@ -13,32 +13,67 @@ class CalculatorTest {
     }
 
     @Test
-    fun `123 - 5 - 10 - 8`() {
-        assertThat(calculator.calculate("123 - 5 - 10 - 8")).isEqualTo(100)
+    fun `수식이 완전하지 않을시 IllegalArgumentException 발생`() {
+        // given
+        val expression = "2 * "
+
+        // when
+        val actualException = runCatching { calculator.calculate(expression) }.exceptionOrNull()
+
+        // then
+        assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(actualException).hasMessageThat().contains("완전하지 않은 수식입니다")
     }
 
     @Test
-    fun `125-123 나누기 2 = 1`() {
-        assertThat(calculator.calculate("125 - 123 / 2")).isEqualTo(1)
+    fun `사칙연산이 아닌 연산자 입력시 IllegalArgumentException 발생`() {
+        // given
+        val expression = "2 & 0"
+
+        // when
+        val actualException = runCatching { calculator.calculate(expression) }.exceptionOrNull()
+
+        // then
+        assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(actualException).hasMessageThat().contains("허용하지 않는 연산자입니다")
     }
 
     @Test
-    fun `12 * 12 = 144`() {
-        assertThat(calculator.calculate("12 * 12")).isEqualTo(144)
-    }
-
-    @Test(expected = IllegalArgumentException::class)
     fun `0으로 나누면 IllegalArgumentException 발생`() {
-        calculator.calculate("2 / 0")
+        // given
+        val expression = "2 / 0"
+
+        // when
+        val actualException = runCatching { calculator.calculate(expression ) }.exceptionOrNull()
+
+        // then
+        assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(actualException).hasMessageThat().contains("값을 0으로 나눌 수 없음")
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun `입력 값이 null이면 IllegalArgumentException 발생`() {
-        calculator.calculate(null)
+        // given
+        val expression = null
+
+        // when
+        val actualException = runCatching { calculator.calculate(expression ) }.exceptionOrNull()
+
+        // then
+        assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(actualException).hasMessageThat().contains("입력 값은 null 이거나 비어있을 수 없습니다")
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun `입력 값이 공백이면 IllegalArgumentException 발생`() {
-        calculator.calculate("")
+        // given
+        val expression = ""
+
+        // when
+        val actualException = runCatching { calculator.calculate(expression ) }.exceptionOrNull()
+
+        // then
+        assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(actualException).hasMessageThat().contains("입력 값은 null 이거나 비어있을 수 없습니다")
     }
 }
