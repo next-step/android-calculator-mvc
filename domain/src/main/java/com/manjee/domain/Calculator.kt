@@ -6,9 +6,9 @@ class Calculator {
         var formulaType = Operator.PLUS
 
         if (input.isNullOrEmpty()) {
-            throw IllegalArgumentException("입력 값은 null 이거나 비어있을 수 없습니다")
+            throw IllegalArgumentException("입력 값은 null 이거나 비어있을 수 없습니다 (현재 입력값: $input)")
         } else if (!input.last().isDigit()) {
-            throw IllegalArgumentException("완전하지 않은 수식입니다")
+            throw IllegalArgumentException("완전하지 않은 수식입니다 (현재 수식: $input)")
         }
 
         input.split(" ").forEach {
