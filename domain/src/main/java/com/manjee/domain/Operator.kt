@@ -20,17 +20,14 @@ enum class Operator {
     };
 
     companion object {
-        fun getOperatorType(text: String): Operator {
+        fun isOperatorType(text: String): Operator {
             return when (text) {
                 "+" -> PLUS
                 "-" -> MINUS
+                "/" -> DIVIDE
                 "*" -> MULTIPLE
-                else -> DIVIDE
+                else -> throw IllegalArgumentException("허용하지 않는 연산자입니다 (현재 연산자: $text)")
             }
-        }
-
-        fun isOperatorType(text: String): Boolean {
-            return text == "+" || text == "-" || text == "*" || text == "/"
         }
     }
 
