@@ -12,7 +12,12 @@ sourceSets {
     test.java.srcDirs += 'src/test/kotlin'
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'com.google.truth:truth:1.1.2'
     testImplementation 'io.mockk:mockk:1.10.6'
