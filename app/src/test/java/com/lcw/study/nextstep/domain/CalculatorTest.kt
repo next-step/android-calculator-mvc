@@ -92,25 +92,25 @@ class CalculatorTest {
 
     @Test
     fun `입력된 타입이 PLUS이면 첫번째 입력값과 두번째 입력값을 더한다`(){
-        val result: Int = operation.operationExecution(OperationType.PLUS,1,2)
+        val result: Int = operation.calculateOperation(OperationType.PLUS,1,2)
         assertThat(result).isEqualTo(3)
     }
 
     @Test
     fun `입력된 타입이 MINUS이면 첫번째 입력값과 두번째 입력값을 뺀다`(){
-        val result: Int = operation.operationExecution(OperationType.MINUS,5,2)
+        val result: Int = operation.calculateOperation(OperationType.MINUS,5,2)
         assertThat(result).isEqualTo(3)
     }
 
     @Test
     fun `입력된 타입이 MULTIPLY이면 첫번째 입력값과 두번째 입력값을 곱한다`(){
-        val result: Int = operation.operationExecution(OperationType.MULTIPLY,5,2)
+        val result: Int = operation.calculateOperation(OperationType.MULTIPLY,5,2)
         assertThat(result).isEqualTo(10)
     }
 
     @Test
     fun `입력된 타입이 DIVIDE이면 첫번째 입력값과 두번째 입력값을 나눈다`(){
-        val result: Int = operation.operationExecution(OperationType.DIVIDE,6,2)
+        val result: Int = operation.calculateOperation(OperationType.DIVIDE,6,2)
         assertThat(result).isEqualTo(3)
     }
 }
