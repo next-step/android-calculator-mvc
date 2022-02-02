@@ -12,38 +12,38 @@ class CalculatorTest {
     }
 
     @Test
-    fun `공백없는 덧셈이 주어진 경우 계산에 성공한다`() {
-        val actual: Int = calculator.evaluate("1+2+3")
+    fun `공백이 있는 덧셈이 주어진 경우 계산에 성공한다`() {
+        val actual: Int = calculator.evaluate("1 + 2 + 3")
         assertThat(actual).isEqualTo(6)
     }
 
     @Test
-    fun `공백없는 뺄셈이 주어진 경우 계산에 성공한다`() {
-        val actual: Int = calculator.evaluate("3-2-1")
+    fun `공백이 있는 뺄셈이 주어진 경우 계산에 성공한다`() {
+        val actual: Int = calculator.evaluate("3 - 2 - 1")
         assertThat(actual).isEqualTo(0)
     }
 
     @Test
-    fun `공백없는 곱셈이 주어진 경우 계산에 성공한다`() {
-        val actual: Int = calculator.evaluate("1*2*3")
+    fun `공백이 있는 곱셈이 주어진 경우 계산에 성공한다`() {
+        val actual: Int = calculator.evaluate("1 × 2 × 3")
         assertThat(actual).isEqualTo(6)
     }
 
     @Test
-    fun `공백없는 나눗셈이 주어진 경우 계산에 성공한다`() {
-        val actual: Int = calculator.evaluate("6/3/2")
+    fun `공백이 있는 나눗셈이 주어진 경우 계산에 성공한다`() {
+        val actual: Int = calculator.evaluate("6 ÷ 3 ÷ 2")
         assertThat(actual).isEqualTo(1)
     }
 
     @Test
     fun `공백이 있는 덧셈과 뺄셈이 주어진 경우 계산에 성공한다`() {
-        val actual: Int = calculator.evaluate("1+2+3 +4 - 5")
+        val actual: Int = calculator.evaluate("1 + 2 + 3 + 4 - 5")
         assertThat(actual).isEqualTo(5)
     }
 
     @Test
     fun `공백이 있는 곱셈과 나눗셈이 주어진 경우 계산에 성공한다`() {
-        val actual: Int = calculator.evaluate("1*2*3 /4 * 5")
+        val actual: Int = calculator.evaluate("1 × 2 × 3 ÷ 4 × 5")
         assertThat(actual).isEqualTo(5)
     }
 

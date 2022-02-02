@@ -16,92 +16,320 @@ class MainActivityTest {
     @get:Rule
     val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
-    // 사용자가 피연산자 0 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
+    /**
+     * GIVEN 입력된 수식이 없을 때
+     * WHEN 사용자가 피연산자 N을 누르면 (N: 0~9)
+     * THEN 해당 숫자가 화면에 보여야 한다.
+     * */
+    // N = 0
     @Test
-    fun test0() {
-        // when: 사용자가 피연산자 0 버튼을 누르면
+    fun when_click_zero_show_zero() {
         onView(withId(R.id.button0)).perform(click())
-        // then: 화면에 0이 보여야 한다
-        onView(withId(R.id.textView)).check(matches(withText("0")))
+        onView(withId(R.id.expressionText)).check(matches(withText("0")))
     }
 
-    // 사용자가 피연산자 1 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
+    // N = 1
     @Test
-    fun test1() {
-        // when: 사용자가 피연산자 1 버튼을 누르면
+    fun when_click_one_show_one() {
         onView(withId(R.id.button1)).perform(click())
-        // then: 화면에 1이 보여야 한다
-        onView(withId(R.id.textView)).check(matches(withText("1")))
+        onView(withId(R.id.expressionText)).check(matches(withText("1")))
     }
 
-    // 사용자가 피연산자 1 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
+    // N = 2
     @Test
-    fun test2() {
-        // when: 사용자가 피연산자 2 버튼을 누르면
+    fun when_click_two_show_two() {
         onView(withId(R.id.button2)).perform(click())
-        // then: 화면에 1이 보여야 한다
-        onView(withId(R.id.textView)).check(matches(withText("2")))
+        onView(withId(R.id.expressionText)).check(matches(withText("2")))
     }
 
-    // 사용자가 피연산자 3 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
+    // N = 3
     @Test
-    fun test3() {
-        // when: 사용자가 피연산자 3 버튼을 누르면
+    fun when_click_three_show_three() {
         onView(withId(R.id.button3)).perform(click())
-        // then: 화면에 3이 보여야 한다
-        onView(withId(R.id.textView)).check(matches(withText("3")))
+        onView(withId(R.id.expressionText)).check(matches(withText("3")))
     }
 
-    // 사용자가 피연산자 4 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
+    // N = 4
     @Test
-    fun test4() {
-        // when: 사용자가 피연산자 4 버튼을 누르면
+    fun when_click_four_show_four() {
         onView(withId(R.id.button4)).perform(click())
-        // then: 화면에 4이 보여야 한다
-        onView(withId(R.id.textView)).check(matches(withText("4")))
+        onView(withId(R.id.expressionText)).check(matches(withText("4")))
     }
 
-    // 사용자가 피연산자 5 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
+    // N = 5
     @Test
-    fun test5() {
-        // when: 사용자가 피연산자 5 버튼을 누르면
+    fun when_click_five_show_five() {
         onView(withId(R.id.button5)).perform(click())
-        // then: 화면에 5이 보여야 한다
-        onView(withId(R.id.textView)).check(matches(withText("5")))
+        onView(withId(R.id.expressionText)).check(matches(withText("5")))
     }
-    // 사용자가 피연산자 6 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
+    // N = 6
     @Test
-    fun test6() {
-        // when: 사용자가 피연산자 6 버튼을 누르면
+    fun when_click_six_show_six() {
         onView(withId(R.id.button6)).perform(click())
-        // then: 화면에 6이 보여야 한다
-        onView(withId(R.id.textView)).check(matches(withText("6")))
+        onView(withId(R.id.expressionText)).check(matches(withText("6")))
     }
 
-    // 사용자가 피연산자 7 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
+    // N = 7
     @Test
-    fun test7() {
-        // when: 사용자가 피연산자 7 버튼을 누르면
+    fun when_click_seven_show_seven() {
         onView(withId(R.id.button7)).perform(click())
-        // then: 화면에 7이 보여야 한다
-        onView(withId(R.id.textView)).check(matches(withText("7")))
+        onView(withId(R.id.expressionText)).check(matches(withText("7")))
     }
 
-    // 사용자가 피연산자 8 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
+    // N = 8
     @Test
-    fun test8() {
-        // when: 사용자가 피연산자 8 버튼을 누르면
+    fun when_click_eight_show_eight() {
         onView(withId(R.id.button8)).perform(click())
-        // then: 화면에 8이 보여야 한다
-        onView(withId(R.id.textView)).check(matches(withText("8")))
+        onView(withId(R.id.expressionText)).check(matches(withText("8")))
     }
 
-    // 사용자가 피연산자 9 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
+    // N = 9
     @Test
-    fun test9() {
-        // when: 사용자가 피연산자 9 버튼을 누르면
+    fun when_click_nine_show_nine() {
         onView(withId(R.id.button9)).perform(click())
-        // then: 화면에 9이 보여야 한다
-        onView(withId(R.id.textView)).check(matches(withText("9")))
+        onView(withId(R.id.expressionText)).check(matches(withText("9")))
+    }
+
+    /**
+     * GIVEN 연산자로 끝나는 수식이 주어졌을 때 (Operator: +, -, ×, ÷)[ex] '5 + '
+     * WHEN 사용자가 피연산자 N을 누르면 (N: 0~9) [ex] '9'
+     * THEN 해당 숫자가 화면에 보여야 한다. [ex] '5 + 9'
+     * */
+    // Operator +
+    @Test
+    fun given_formula_that_ends_with_an_operator_plus_when_click_number_then_concat_number_to_the_end() {
+        // given: '5 +'
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        // when: '1'
+        onView(withId(R.id.button1)).perform(click())
+        // then: '5 + 1'
+        onView(withId(R.id.expressionText)).check(matches(withText("5 + 1")))
+    }
+
+    // Operator -
+    @Test
+    fun given_formula_that_ends_with_an_operator_minus_when_click_number_then_concat_number_to_the_end() {
+        // given: '5 -'
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonMinus)).perform(click())
+        // when: '1'
+        onView(withId(R.id.button1)).perform(click())
+        // then: '5 - 1'
+        onView(withId(R.id.expressionText)).check(matches(withText("5 - 1")))
+    }
+
+    // Operator ×
+    @Test
+    fun given_formula_that_ends_with_an_operator_multiply_when_click_number_then_concat_number_to_the_end() {
+        // given: '5 ×'
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        // when: '1'
+        onView(withId(R.id.button1)).perform(click())
+        // then: '5 × 1'
+        onView(withId(R.id.expressionText)).check(matches(withText("5 × 1")))
+    }
+
+    // Operator ÷
+    @Test
+    fun given_formula_that_ends_with_an_operator_divide_when_click_number_then_concat_number_to_the_end() {
+        // given: '5 ÷'
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonDivide)).perform(click())
+        // when: '1'
+        onView(withId(R.id.button1)).perform(click())
+        // then: '5 ÷ 1'
+        onView(withId(R.id.expressionText)).check(matches(withText("5 ÷ 1")))
+    }
+
+    /**
+     * GIVEN 피연산자로 끝나는 수식이 주어졌을 때 [ex] '51 + 2'
+     * WHEN 사용자가 피연산자 N을 누르면 (N: 0~9) [ex] '8'
+     * THEN 해당 숫자가 수식의 끝에 추가되어야 한다. [ex] '51 + 28'
+     * */
+    @Test
+    fun given_formula_that_ends_with_an_operand_when_click_number_then_concat_number_to_the_end() {
+        // given: '51 +'
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        // when: '8'
+        onView(withId(R.id.button8)).perform(click())
+        // then: '51 + 28'
+        onView(withId(R.id.expressionText)).check(matches(withText("51 + 28")))
+    }
+
+    /**
+     * GIVEN 피연산자가 주어졌을 때 [ex] '5'
+     * WHEN 사용자가 피연산자 N을 누르면 (N: 0~9) [ex] '9'
+     * THEN 해당 숫자가 수식의 끝에 추가되어야 한다. [ex] '59'
+     * */
+    @Test
+    fun given_an_operand_when_click_number_then_concat_number_to_the_end() {
+        // given: '5'
+        onView(withId(R.id.button5)).perform(click())
+        // when: '9'
+        onView(withId(R.id.button9)).perform(click())
+        // then: '59'
+        onView(withId(R.id.expressionText)).check(matches(withText("59")))
+    }
+
+    /**
+     * GIVEN 입력된 수식이 없을 때
+     * WHEN 사용자가 연산자를 누르면 (Operator: +, -, ×, ÷)
+     * THEN 화면에 아무 변화가 없어야 한다.
+     * */
+    // +
+    @Test
+    fun given_empty_expression_when_click_operator_then_no_change() {
+        // when '+'
+        onView(withId(R.id.buttonPlus)).perform(click())
+        // then: ''
+        onView(withId(R.id.expressionText)).check(matches(withText("")))
+    }
+
+    // -
+    @Test
+    fun given_empty_expression_when_click_operator_minus_then_no_change() {
+        // when '-'
+        onView(withId(R.id.buttonMinus)).perform(click())
+        // then: ''
+        onView(withId(R.id.expressionText)).check(matches(withText("")))
+    }
+
+    // ×
+    @Test
+    fun given_empty_expression_when_click_operator_multiply_then_no_change() {
+        // when '×'
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        // then: ''
+        onView(withId(R.id.expressionText)).check(matches(withText("")))
+    }
+
+    // ÷
+    @Test
+    fun given_empty_expression_when_click_operator_divide_then_no_change() {
+        // when '÷'
+        onView(withId(R.id.buttonDivide)).perform(click())
+        // then: ''
+        onView(withId(R.id.expressionText)).check(matches(withText("")))
+    }
+
+    /**
+     * GIVEN 피연산자가 주어진 경우 [ex] '1'
+     * WHEN 사용자가 연산자를 누르면 (Operator: +, -, ×, ÷) [ex] '+'
+     * THEN 해당 연산자가 수식의 끝에 추가되어야 한다. [ex] '1 +
+     * */
+    @Test
+    fun given_operand_when_click_operator_then_concat_operator_to_the_end() {
+        // given: '1'
+        onView(withId(R.id.button1)).perform(click())
+        // when '+'
+        onView(withId(R.id.buttonPlus)).perform(click())
+        // then: ''
+        onView(withId(R.id.expressionText)).check(matches(withText("1 +")))
+    }
+
+    /**
+     * GIVEN 피연산자로 끝나는 수식이 주어진 경우 [ex] '12 + 3'
+     * WHEN 사용자가 연산자를 누르면 (Operator: +, -, ×, ÷) [ex] '×'
+     * THEN 해당 연산자가 수식의 끝에 추가되어야 한다. [ex] '12 + 3 ×'
+     * */
+    @Test
+    fun given_expression_that_ends_with_operand_when_click_operator_then_concat_operator_to_the_end() {
+        // given: '12 + 3'
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        // when '×'
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        // then: ''
+        onView(withId(R.id.expressionText)).check(matches(withText("12 + 3 ×")))
+    }
+
+    /**
+     * GIVEN 입력된 수식이 없을 때
+     * WHEN 사용자가 지우기 버튼을 누르면
+     * THEN 면화면에 아무 변화가 없어야 한다.
+     * */
+    @Test
+    fun given_empty_expression_when_click_delete_then_no_change() {
+        // when '<-'
+        onView(withId(R.id.buttonDelete)).perform(click())
+        // then: ''
+        onView(withId(R.id.expressionText)).check(matches(withText("")))
+    }
+
+    /**
+     * GIVEN 한자릿수 피연산자로 끝나는 수식이 주어졌을 때 [ex] '12 + 3'
+     * WHEN 사용자가 지우기 버튼을 누르면
+     * THEN 마지막 피연산자가 지워져야 한다. [ex] '12 +'
+     * */
+    @Test
+    fun given_expression_that_ends_with_single_digit_operand_when_click_delete_then_truncate_last_operand() {
+        // given: '12 + 3'
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        // when '<-'
+        onView(withId(R.id.buttonDelete)).perform(click())
+        // then: '12 +'
+        onView(withId(R.id.expressionText)).check(matches(withText("12 +")))
+    }
+
+    /**
+     * GIVEN 두자릿수 피연산자로 끝나는 수식이 주어졌을 때 [ex] '1 + 34'
+     * WHEN 사용자가 지우기 버튼을 누르면
+     * THEN 마지막 피연산자가 지워져야 한다. [ex] '1 + 3'
+     * */
+    @Test
+    fun given_expression_that_ends_with_multi_digit_operand_when_click_delete_then_truncate_last_operand() {
+        // given: '1+ 34'
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.button4)).perform(click())
+        // when '<-'
+        onView(withId(R.id.buttonDelete)).perform(click())
+        // then: '1 + 3'
+        onView(withId(R.id.expressionText)).check(matches(withText("1 + 3")))
+    }
+
+    /**
+     * GIVEN 연산자로 끝나는 수식이 주어졌을 때 [ex] '13 +'
+     * WHEN 사용자가 지우기 버튼을 누르면
+     * THEN 마지막 피연산자가 지워져야 한다. [ex] '13'
+     * */
+    @Test
+    fun given_expression_that_ends_with_operator_when_click_delete_then_truncate_last_operator() {
+        // given: '13 +'
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        // when '<-'
+        onView(withId(R.id.buttonDelete)).perform(click())
+        // then: '13'
+        onView(withId(R.id.expressionText)).check(matches(withText("13")))
+    }
+
+    /**
+     * GIVEN 입력된 수식이 완전할 때 [ex] '3 +2'
+     * WHEN 사용자가 = 버튼을 누르면
+     * THEN 마지막 피연산자가 지워져야 한다. [ex] '5'
+     * */
+    @Test
+    fun given_valid_expression_when_click_equal_then_show_result() {
+        // given: '3 +2'
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        // when '<-'
+        onView(withId(R.id.buttonEquals)).perform(click())
+        // then: ''
+        onView(withId(R.id.expressionText)).check(matches(withText("5")))
     }
 }
