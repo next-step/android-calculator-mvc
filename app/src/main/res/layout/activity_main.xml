@@ -70,7 +70,7 @@
             app:icon="@drawable/ic_baseline_keyboard_backspace_24"
             app:layout_constraintBottom_toTopOf="@id/input"
             app:layout_constraintEnd_toEndOf="@id/input"
-            android:onClick="@{() -> viewModel.onClickDeleteBtn()}"/>
+            android:onClick="@{() -> viewModel.removeLastElement()}"/>
 
         <GridLayout
             android:id="@+id/input"
@@ -88,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_7"
-                android:onClick="@{()-> viewModel.onClickNumberBtn(7)}"/>
+                android:onClick="@{()-> viewModel.appendOperand(7)}"/>
 
             <Button
                 android:id="@+id/button8"
@@ -96,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_8"
-                android:onClick="@{()-> viewModel.onClickNumberBtn(8)}"/>
+                android:onClick="@{()-> viewModel.appendOperand(8)}"/>
 
             <Button
                 android:id="@+id/button9"
@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_9"
-                android:onClick="@{()-> viewModel.onClickNumberBtn(9)}" />
+                android:onClick="@{()-> viewModel.appendOperand(9)}" />
 
             <Button
                 android:id="@+id/buttonDivide"
@@ -112,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_divide"
-                android:onClick="@{() -> viewModel.onClickOperationBtn(divide)}"/>
+                android:onClick="@{() -> viewModel.appendOperation(divide)}"/>
 
             <Button
                 android:id="@+id/button4"
@@ -120,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_4"
-                android:onClick="@{()-> viewModel.onClickNumberBtn(4)}"/>
+                android:onClick="@{()-> viewModel.appendOperand(4)}"/>
 
             <Button
                 android:id="@+id/button5"
@@ -128,7 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_5"
-                android:onClick="@{()-> viewModel.onClickNumberBtn(5)}"/>
+                android:onClick="@{()-> viewModel.appendOperand(5)}"/>
 
             <Button
                 android:id="@+id/button6"
@@ -136,7 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_6"
-                android:onClick="@{()-> viewModel.onClickNumberBtn(6)}" />
+                android:onClick="@{()-> viewModel.appendOperand(6)}" />
 
             <Button
                 android:id="@+id/buttonMultiply"
@@ -144,7 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_multiply"
-                android:onClick="@{() -> viewModel.onClickOperationBtn(multiply)}"/>
+                android:onClick="@{() -> viewModel.appendOperation(multiply)}"/>
 
             <Button
                 android:id="@+id/button1"
@@ -152,7 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_1"
-                android:onClick="@{()-> viewModel.onClickNumberBtn(1)}" />
+                android:onClick="@{()-> viewModel.appendOperand(1)}" />
 
             <Button
                 android:id="@+id/button2"
@@ -160,7 +160,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_2"
-                android:onClick="@{()-> viewModel.onClickNumberBtn(2)}"/>
+                android:onClick="@{()-> viewModel.appendOperand(2)}"/>
 
             <Button
                 android:id="@+id/button3"
@@ -168,7 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_3"
-                android:onClick="@{()-> viewModel.onClickNumberBtn(3)}" />
+                android:onClick="@{()-> viewModel.appendOperand(3)}" />
 
             <Button
                 android:id="@+id/buttonMinus"
@@ -176,7 +176,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_minus"
-                android:onClick="@{() -> viewModel.onClickOperationBtn(minus)}"/>
+                android:onClick="@{() -> viewModel.appendOperation(minus)}"/>
 
             <Button
                 android:id="@+id/button0"
@@ -184,7 +184,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_0"
-                android:onClick="@{()-> viewModel.onClickNumberBtn(0)}" />
+                android:onClick="@{()-> viewModel.appendOperand(0)}" />
 
             <Space
                 android:id="@+id/space1"
@@ -197,7 +197,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_equals"
-                android:onClick="@{() -> viewModel.onClickEqualBtn()}"/>
+                android:onClick="@{() -> viewModel.evaluate()}"/>
 
             <Button
                 android:id="@+id/buttonPlus"
@@ -205,7 +205,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_plus"
-                android:onClick="@{() -> viewModel.onClickOperationBtn(plus)}"/>
+                android:onClick="@{() -> viewModel.appendOperation(plus)}"/>
         </GridLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

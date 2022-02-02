@@ -3,34 +3,34 @@ package edu.nextstep.camp.calculator
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.example.domain.Calculator
-import com.example.domain.ExpressionUtils
+import com.example.domain.Expression
 import com.example.domain.Operation
 import com.jakewharton.rxrelay3.PublishRelay
 import com.jakewharton.rxrelay3.Relay
 
 class MainViewModel() : ViewModel() {
-    private val expressionUtils = ExpressionUtils()
+    private val expressionUtils = Expression()
     val expressionObservable = ObservableField<String>("")
     private val calculator = Calculator()
 
     val showToast: Relay<Boolean> = PublishRelay.create()
 
-    fun onClickOperationBtn(operation: Operation) {
+    fun appendOperation(operation: Operation) {
         expressionUtils.appendOperator(getSymbol(operation))
         expressionObservable.set(expressionUtils.getExpression())
     }
 
-    fun onClickNumberBtn(num: Int) {
+    fun appendOperand(num: Int) {
         expressionUtils.appendNumber(num.toString())
         expressionObservable.set(expressionUtils.getExpression())
     }
 
-    fun onClickDeleteBtn() {
+    fun removeLastElement() {
         expressionUtils.removeLast()
         expressionObservable.set(expressionUtils.getExpression())
     }
 
-    fun onClickEqualBtn() {
+    fun evaluate() {
         if (expressionUtils.endsWithOperator()) showToast.accept(true)
         else {
             val result = calculator.evaluate(expressionUtils.getExpression())

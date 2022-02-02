@@ -1,6 +1,6 @@
 package com.example.domain
 
-class ExpressionUtils {
+class Expression {
     private val componentList = mutableListOf<String>()
     private val operatorList = listOf("+", "-", "×", "÷")
 
@@ -17,7 +17,9 @@ class ExpressionUtils {
 
     fun appendOperator(operator: String) {
         when {
-            isEmpty() -> {}
+            isEmpty() -> {
+                // no-op
+            }
             endsWithOperator() -> replaceLastElement(operator)
             endsWithOperand() -> addComponent(operator)
         }
@@ -49,7 +51,9 @@ class ExpressionUtils {
 
     fun removeLast() {
         when {
-            isEmpty() -> {}
+            isEmpty() -> {
+                // no-op
+            }
             endsWithOperator() -> removeLastComponent()
             endsWithOperand() -> replaceLastElement(getLast().dropLast(1))
         }
