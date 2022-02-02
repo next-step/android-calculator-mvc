@@ -1,19 +1,25 @@
-package edu.nextstep.camp.domain
+package edu.nextstep.camp.domain.calculator
 
+import edu.nextstep.camp.domain.calculator.Calculator
+import edu.nextstep.camp.domain.expression.ExpressionParser
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.lang.IllegalArgumentException
 
+private const val DELIMITER = " "
+
 class CalculatorTest {
+    private val expressionParser = ExpressionParser(DELIMITER)
+    private val calculator = Calculator(expressionParser)
+
     @Test
     fun testAdd() {
         //given
         val expression = "2 + 3"
-        val delimiter = " "
-        val expected = 5
+        val expected = "5"
 
         //when
-        val result = Calculator.evaluate(expression, delimiter)
+        val result = calculator.evaluate(expression)
 
         //then
         assertThat(result).isEqualTo(expected)
@@ -23,11 +29,10 @@ class CalculatorTest {
     fun testSubtract() {
         //given
         val expression = "2 - 3"
-        val delimiter = " "
-        val expected = -1
+        val expected = "-1"
 
         //when
-        val result = Calculator.evaluate(expression, delimiter)
+        val result = calculator.evaluate(expression)
 
         //then
         assertThat(result).isEqualTo(expected)
@@ -36,12 +41,11 @@ class CalculatorTest {
     @Test
     fun testMultiply() {
         //given
-        val expression = "2 * 3"
-        val delimiter = " "
-        val expected = 6
+        val expression = "2 × 3"
+        val expected = "6"
 
         //when
-        val result = Calculator.evaluate(expression, delimiter)
+        val result = calculator.evaluate(expression)
 
         //then
         assertThat(result).isEqualTo(expected)
@@ -50,12 +54,11 @@ class CalculatorTest {
     @Test
     fun testDivide() {
         //given
-        val expression = "4 / 2"
-        val delimiter = " "
-        val expected = 2
+        val expression = "4 ÷ 2"
+        val expected = "2"
 
         //when
-        val result = Calculator.evaluate(expression, delimiter)
+        val result = calculator.evaluate(expression)
 
         //then
         assertThat(result).isEqualTo(expected)
@@ -64,12 +67,11 @@ class CalculatorTest {
     @Test
     fun evaluatesExpression() {
         //given
-        val expression = "1 - 2 + 3 * 4 / 2"
-        val delimiter = " "
-        val expected = 4
+        val expression = "1 - 2 + 3 × 4 ÷ 2"
+        val expected = "4"
 
         //when
-        val result = Calculator.evaluate(expression, delimiter)
+        val result = calculator.evaluate(expression)
 
         //then
         assertThat(result).isEqualTo(expected)
@@ -79,10 +81,11 @@ class CalculatorTest {
     fun testNonArithmeticOperatorInput() {
         //given
         val expression = "2 $ 3"
-        val delimiter = " "
 
         //when
-        val actualException = runCatching { Calculator.evaluate(expression, delimiter) }.exceptionOrNull()
+        val actualException = runCatching {
+            calculator.evaluate(expression)
+        }.exceptionOrNull()
 
         //then
         assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
@@ -93,10 +96,11 @@ class CalculatorTest {
     fun testNullInput() {
         //given
         val expression = ""
-        val delimiter = " "
 
         //when
-        val actualException = runCatching { Calculator.evaluate(expression, delimiter) }.exceptionOrNull()
+        val actualException = runCatching {
+            calculator.evaluate(expression)
+        }.exceptionOrNull()
 
         //then
         assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
@@ -107,10 +111,11 @@ class CalculatorTest {
     fun testBlankInput() {
         //given
         val expression = " "
-        val delimiter = " "
 
         //when
-        val actualException = runCatching { Calculator.evaluate(expression, delimiter) }.exceptionOrNull()
+        val actualException = runCatching {
+            calculator.evaluate(expression)
+        }.exceptionOrNull()
 
         //then
         assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
@@ -120,11 +125,13 @@ class CalculatorTest {
     @Test
     fun testDividedByZero() {
         //given
-        val expression = "1 / 0"
-        val delimiter = " "
+        val expression = "1 ÷ 0"
 
         //when
-        val actualException = runCatching { Calculator.evaluate(expression, delimiter) }.exceptionOrNull()
+        val actualException =
+            runCatching {
+                calculator.evaluate(expression)
+            }.exceptionOrNull()
 
         //then
         assertThat(actualException).isInstanceOf(ArithmeticException::class.java)

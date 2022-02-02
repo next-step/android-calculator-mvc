@@ -1,4 +1,4 @@
-package edu.nextstep.camp.domain
+package edu.nextstep.camp.domain.calculator
 
 import java.lang.IllegalArgumentException
 
@@ -25,8 +25,8 @@ internal class BinaryCalculator private constructor(private val operator: Operat
         private fun matchOp(token: String): Op = when(token) {
             "+" -> Op.PLUS
             "-" -> Op.MINUS
-            "*" -> Op.MULTIPLY
-            "/" -> Op.DIVIDE
+            "×" -> Op.MULTIPLY
+            "÷" -> Op.DIVIDE
             else -> throw IllegalArgumentException("사칙연산 기호가 아닙니다")
         }
     }
