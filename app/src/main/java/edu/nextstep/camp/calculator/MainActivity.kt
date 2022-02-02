@@ -16,20 +16,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.button0.setOnClickListener { addOperand("0") }
-        binding.button1.setOnClickListener { addOperand("1") }
-        binding.button2.setOnClickListener { addOperand("2") }
-        binding.button3.setOnClickListener { addOperand("3") }
-        binding.button4.setOnClickListener { addOperand("4") }
-        binding.button5.setOnClickListener { addOperand("5") }
-        binding.button6.setOnClickListener { addOperand("6") }
-        binding.button7.setOnClickListener { addOperand("7") }
-        binding.button8.setOnClickListener { addOperand("8") }
-        binding.button9.setOnClickListener { addOperand("9") }
-        binding.buttonPlus.setOnClickListener { addOperator("+") }
-        binding.buttonMinus.setOnClickListener { addOperator("-") }
-        binding.buttonMultiply.setOnClickListener { addOperator("*") }
-        binding.buttonDivide.setOnClickListener { addOperator("/") }
+        binding.button0.setOnClickListener { addOperand(binding.button0.text.toString()) }
+        binding.button1.setOnClickListener { addOperand(binding.button1.text.toString()) }
+        binding.button2.setOnClickListener { addOperand(binding.button2.text.toString()) }
+        binding.button3.setOnClickListener { addOperand(binding.button3.text.toString()) }
+        binding.button4.setOnClickListener { addOperand(binding.button4.text.toString()) }
+        binding.button5.setOnClickListener { addOperand(binding.button5.text.toString()) }
+        binding.button6.setOnClickListener { addOperand(binding.button6.text.toString()) }
+        binding.button7.setOnClickListener { addOperand(binding.button7.text.toString()) }
+        binding.button8.setOnClickListener { addOperand(binding.button8.text.toString()) }
+        binding.button9.setOnClickListener { addOperand(binding.button9.text.toString()) }
+        binding.buttonPlus.setOnClickListener { addOperator(binding.buttonPlus.text.toString()) }
+        binding.buttonMinus.setOnClickListener { addOperator(binding.buttonMinus.text.toString()) }
+        binding.buttonMultiply.setOnClickListener { addOperator(binding.buttonMultiply.text.toString()) }
+        binding.buttonDivide.setOnClickListener { addOperator(binding.buttonDivide.text.toString()) }
         binding.buttonEquals.setOnClickListener { calculate() }
         binding.buttonDelete.setOnClickListener { dropLastText() }
     }
