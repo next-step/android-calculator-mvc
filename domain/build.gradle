@@ -10,4 +10,10 @@ java {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation 'junit:junit:4.13.2'
+    // Junit5
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.1"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:5.8.1"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.1"
+    testImplementation "com.google.truth:truth:1.1.3"
 }
