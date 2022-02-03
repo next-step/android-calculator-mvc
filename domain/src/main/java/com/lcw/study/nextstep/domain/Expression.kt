@@ -3,11 +3,12 @@ package com.lcw.study.nextstep.domain
 data class Expression(
     val rawExpression: String
 ) {
+    private var operation: OperationType = OperationType.PLUS
     operator fun plus(operand: Int): Expression {
         if (this == EMPTY) {
             return Expression(operand.toString())
         }
-        val newRawExpression = if (rawExpression.last().toString().isOperator()) {
+        val newRawExpression = if (operation.checkTextIsOperationType(rawExpression.last().toString())) {
             rawExpression + operand
 
         } else {
@@ -18,11 +19,8 @@ data class Expression(
 
     operator fun plus(operator: String): Expression {
         if (this == EMPTY) return EMPTY
-        return Expression("$rawExpression $operator ")
+        return Expression("$rawExpression $operator")
     }
-
-
-    private fun String.isOperator(): Boolean = OPERATORS.contains(this)
 
     fun dropLast(): Expression {
         if (this == EMPTY) return EMPTY
@@ -32,6 +30,5 @@ data class Expression(
 
     companion object {
         val EMPTY = Expression("")
-        val OPERATORS = listOf("+", "-", "*", "/")
     }
 }
