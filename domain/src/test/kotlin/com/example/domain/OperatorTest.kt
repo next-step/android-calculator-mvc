@@ -2,31 +2,34 @@ package com.example.domain
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 
-class OperatorTest {
+@RunWith(Parameterized::class)
+class OperatorTest(
+    private val operator: Char,
+) {
+    companion object {
+        @JvmStatic
+        @Parameterized.Parameters
+        fun getTestParameters(): Collection<Array<Char>> {
+            return listOf(
+                arrayOf('+'),
+                arrayOf('-'),
+                arrayOf('*'),
+                arrayOf('/'),
+            )
+        }
+    }
+
     @Test
     fun `가능한_연산자_찾기`() {
-        //given
-        val plus = '+'
-        val minus = '-'
-        val multiply = '*'
-        val divide = '/'
-        val equal = '='
-
         //when
-        val resultPlus = Operator.findOperator(plus).symbol
-        val resultMinus = Operator.findOperator(minus).symbol
-        val resultMultiply = Operator.findOperator(multiply).symbol
-        val resultDivide = Operator.findOperator(divide).symbol
-        val resultEqual = kotlin.runCatching { Operator.findOperator(equal).symbol }.exceptionOrNull()
+        val result = Operator.find(operator).symbol
 
         //then
-        assertThat(resultPlus).isEqualTo('+')
-        assertThat(resultMinus).isEqualTo('-')
-        assertThat(resultMultiply).isEqualTo('*')
-        assertThat(resultDivide).isEqualTo('/')
-        assertThat(resultEqual).isInstanceOf(IllegalArgumentException::class.java)
-        assertThat(resultEqual).hasMessageThat().contains(Operator.CANT_EXIST_OPERATOR)
+        assertThat(result).isEqualTo(operator)
+
     }
 
     @Test
@@ -37,7 +40,7 @@ class OperatorTest {
         val input2 = 3
 
         //when
-        val result = operation.operate(input1, input2)
+        val result = operation.calculateStrategy(input1, input2)
 
         //then
         assertThat(result).isEqualTo(4)
@@ -51,7 +54,7 @@ class OperatorTest {
         val input2 = 1
 
         //when
-        val result = operation.operate(input1, input2)
+        val result = operation.calculateStrategy(input1, input2)
 
         //then
         assertThat(result).isEqualTo(1)
@@ -65,7 +68,7 @@ class OperatorTest {
         val input2 = 1
 
         //when
-        val result = operation.operate(input1, input2)
+        val result = operation.calculateStrategy(input1, input2)
 
         //then
         assertThat(result).isEqualTo(2)
@@ -79,7 +82,7 @@ class OperatorTest {
         val input2 = 1
 
         //when
-        val result = operation.operate(input1, input2)
+        val result = operation.calculateStrategy(input1, input2)
 
         //then
         assertThat(result).isEqualTo(2)
