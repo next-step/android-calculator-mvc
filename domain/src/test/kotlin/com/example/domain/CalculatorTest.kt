@@ -1,7 +1,7 @@
 package com.example.domain
 
+import com.example.domain.Operator.Companion.CANT_DIVIDE
 import com.google.common.truth.Truth.assertThat
-import org.junit.Assert.assertThrows
 import org.junit.Test
 
 class CalculatorTest {
@@ -28,7 +28,7 @@ class CalculatorTest {
         val actualException =
             kotlin.runCatching { calculator.evaluate(expression) }.exceptionOrNull()
         assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
-        assertThat(actualException).hasMessageThat().contains(Operator.CANT_DIVIDE)
+        assertThat(actualException).hasMessageThat().contains(CANT_DIVIDE)
     }
 
     @Test

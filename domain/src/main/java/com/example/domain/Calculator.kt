@@ -3,26 +3,23 @@ package com.example.domain
 class Calculator {
 
     fun evaluate(input: String?): Int {
-        var result = 0
-        var mutableOperand = Operator.findOperator('+')
+        var values = checkInputNullOrBlank(input)
+        values = values.replace(" ", "")
+        checkInputLength(values)
+        checkInputFirstLetter(values)
 
-        val expression = checkInputString(input).also {
-            checkInputLength(it)
-            checkInputFirstLetter(it)
-        }
-
-        expression.forEach { value ->
-            when (value.isDigit()) {
-                true -> result = mutableOperand.operate(result, value.digitToInt())
-                false -> mutableOperand = Operator.findOperator(value)
-            }
+        var result = values[0].digitToInt()
+        for (i in 1..values.lastIndex step 2) {
+            val operator = Operator.find(values[i])
+            val secondOperand = values[i + 1].digitToInt()
+            result = operator.calculateStrategy(result, secondOperand)
         }
         return result
     }
 
-    private fun checkInputString(input: String?): String {
+    private fun checkInputNullOrBlank(input: String?): String {
         if (input.isNullOrBlank()) throw IllegalArgumentException(IS_NOT_NULL_OR_BLANK)
-        return input.replace(" ", "")
+        return input
     }
 
     private fun checkInputLength(input: String) {
