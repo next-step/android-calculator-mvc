@@ -21,7 +21,7 @@ enum class OperationType {
         return NOT_OPERATION_TYPE
     }
 
-    fun operationExecution(operation: OperationType, totalValue: Int, inputValue: Int): Int { //사칙 연산 수행
+    fun calculateOperation(operation: OperationType, totalValue: Int, inputValue: Int): Int {
         return when (operation) {
             PLUS -> {
                 totalValue + inputValue
