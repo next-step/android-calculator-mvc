@@ -53,10 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun calculator() {
         try {
-            val calculatedValue = StringCalculator().calculate("$expression").toInt()
-            expression = Expression().apply {
-                insertOperand("$calculatedValue")
-            }
+            expression = StringCalculator().calculate(expression)
             binding.textViewDisplay.text = "$expression"
         } catch (e: IllegalArgumentException) {
             Toast.makeText(this, R.string.err_invalid_formula, Toast.LENGTH_SHORT).show()
