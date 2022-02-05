@@ -1,9 +1,8 @@
 package edu.nextstep.camp.calculator.model.formular
 
-import edu.nextstep.camp.calculator.domain.StringCalculator
 import edu.nextstep.camp.calculator.model.EMPTY
 
-class Formula(private val calculator: StringCalculator) {
+class Formula {
     private val elements: MutableList<FormulaElement> = mutableListOf(EmptyElement())
 
     fun insertOperator(operator: String): String {
@@ -29,15 +28,6 @@ class Formula(private val calculator: StringCalculator) {
                     add(it)
                 }
             }
-        }
-        return this.toString()
-    }
-
-    fun calculate(): String {
-        val calculatedValue = calculator.calculate(this.toString()).toInt()
-        elements.run {
-            clear()
-            add(Operand(calculatedValue.toString()))
         }
         return this.toString()
     }
