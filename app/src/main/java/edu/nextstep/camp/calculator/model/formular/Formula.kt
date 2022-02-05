@@ -26,7 +26,7 @@ class Formula(private val calculator: StringCalculator) {
                 add(EmptyElement())
             } else {
                 removeLast().delete()?.let {
-                    elements.add(it)
+                    add(it)
                 }
             }
         }
