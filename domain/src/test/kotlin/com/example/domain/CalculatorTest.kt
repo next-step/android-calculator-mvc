@@ -1,39 +1,38 @@
 package com.example.domain
 
+import com.example.domain.Operator.Companion.CANT_DIVIDE
 import com.google.common.truth.Truth.assertThat
-import org.junit.Assert.assertThrows
 import org.junit.Test
 
 class CalculatorTest {
     private val calculator = Calculator()
 
     @Test
-    fun whenFirstValueIsNotNumber() {
-        val result = assertThrows(IllegalArgumentException::class.java) {
-            // given
-            val expression = " -3 + 1+ 2"
-            // when
-            calculator.evaluate(expression)
-        }
+    fun 첫번째_자리가_숫자가_아닐때_에러가_발생() {
+        // given
+        val expression = " -3 + 1+ 2"
+        // when
+        val actualException =
+            kotlin.runCatching { calculator.evaluate(expression) }.exceptionOrNull()
+
         // then
-        assertThat(result).isInstanceOf(IllegalArgumentException::class.java)
-        assertThat(result).hasMessageThat().contains(Calculator.IS_NOT_MATH_EXPRESSION)
+        assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(actualException).hasMessageThat().contains(Calculator.IS_NOT_MATH_EXPRESSION)
     }
 
     @Test
-    fun whenZeroDivideNumber(){
-        val result = assertThrows(IllegalArgumentException::class.java) {
-            // given
-            val expression = " 0 / 9"
-            // when
-            calculator.evaluate(expression)
-        }
-        assertThat(result).isInstanceOf(IllegalArgumentException::class.java)
-        assertThat(result).hasMessageThat().contains(Operator.CANT_DIVIDE)
+    fun 숫자를_0으로_나눌때_에러가_발생() {
+        // given
+        val expression = " 0 / 9"
+        // when
+        val actualException =
+            kotlin.runCatching { calculator.evaluate(expression) }.exceptionOrNull()
+        assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(actualException).hasMessageThat().contains(CANT_DIVIDE)
     }
 
     @Test
-    fun when_calculate_combination_operation() {
+    fun 여러_연산을_계산할때_값의_결과가_나옴() {
         //given
         val expression = " 1 + 2 * 3 -5 /2"
         //when
@@ -43,7 +42,7 @@ class CalculatorTest {
     }
 
     @Test
-    fun when_calculate_plus_operation() {
+    fun 더하기를_이용하여_계산할때_값의_결과가_나옴() {
         //given
         val expression = " 1 + 2 "
         //when
@@ -53,7 +52,7 @@ class CalculatorTest {
     }
 
     @Test
-    fun when_calculate_minus_operation() {
+    fun 빼기를_이용하여_계산할때_값의_결과가_나옴() {
         //given
         val expression = " 6-3 "
         //when
@@ -63,7 +62,7 @@ class CalculatorTest {
     }
 
     @Test
-    fun when_calculate_multiply_operation() {
+    fun 곱하기를_이용하여_계산할때_값의_결과가_나옴() {
         //given
         val expression = " 6*3 "
         //when
@@ -73,7 +72,7 @@ class CalculatorTest {
     }
 
     @Test
-    fun when_calculate_divide_operation() {
+    fun 나누기를_이용하여_계산할때_값의_결과가_나옴() {
         //given
         val expression = " 9/3 "
         //when
@@ -83,14 +82,13 @@ class CalculatorTest {
     }
 
     @Test
-    fun when_expression_is_blank() {
-        val result = assertThrows(IllegalArgumentException::class.java) {
-            // given
-            val expression = "      "
-            // when
-            calculator.evaluate(expression)
-        }
-        assertThat(result).isInstanceOf(IllegalArgumentException::class.java)
-        assertThat(result).hasMessageThat().contains(Calculator.IS_NOT_NULL_OR_BLANK)
+    fun 계산식이_빈칸_일때_에러가_발생() {
+        // given
+        val expression = "      "
+        // when
+        val actualException =
+            kotlin.runCatching { calculator.evaluate(expression) }.exceptionOrNull()
+        assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(actualException).hasMessageThat().contains(Calculator.IS_NOT_NULL_OR_BLANK)
     }
 }
