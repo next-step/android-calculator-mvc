@@ -4,7 +4,7 @@ import edu.nextstep.camp.calculator.domain.StringCalculator
 import edu.nextstep.camp.calculator.model.EMPTY
 
 class Formula(private val calculator: StringCalculator) {
-    private val elements: ArrayList<FormulaElement> = arrayListOf(EmptyElement())
+    private val elements: MutableList<FormulaElement> = mutableListOf(EmptyElement())
 
     fun insertOperator(operator: String): String {
         elements.run {
