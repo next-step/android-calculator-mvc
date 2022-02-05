@@ -1,4 +1,4 @@
-package edu.nextstep.camp.calculator.model.expression
+package edu.nextstep.camp.calculator.domain.expression
 
 data class OperandElement(private val value: String) : Element {
     override fun insert(operatorElement: OperatorElement): List<Element> {

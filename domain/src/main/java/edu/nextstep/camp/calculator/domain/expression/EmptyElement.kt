@@ -1,6 +1,6 @@
-package edu.nextstep.camp.calculator.model.expression
+package edu.nextstep.camp.calculator.domain.expression
 
-import edu.nextstep.camp.calculator.model.EMPTY
+import edu.nextstep.camp.calculator.domain.EMPTY
 
 class EmptyElement : Element {
     override fun insert(operatorElement: OperatorElement): List<Element> {

@@ -1,4 +1,4 @@
-package edu.nextstep.camp.calculator.model.expression
+package edu.nextstep.camp.calculator.domain.expression
 
 interface Element {
     fun insert(operatorElement: OperatorElement): List<Element>

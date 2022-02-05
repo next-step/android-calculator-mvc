@@ -1,6 +1,6 @@
-package edu.nextstep.camp.calculator.model.expression
+package edu.nextstep.camp.calculator.domain.expression
 
-import edu.nextstep.camp.calculator.model.EMPTY
+import edu.nextstep.camp.calculator.domain.EMPTY
 
 class Expression {
     private val elements: MutableList<Element> = mutableListOf(EmptyElement())
