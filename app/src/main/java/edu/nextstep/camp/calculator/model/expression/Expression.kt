@@ -1,20 +1,20 @@
-package edu.nextstep.camp.calculator.model.formular
+package edu.nextstep.camp.calculator.model.expression
 
 import edu.nextstep.camp.calculator.model.EMPTY
 
-class Formula {
-    private val elements: MutableList<FormulaElement> = mutableListOf(EmptyElement())
+class Expression {
+    private val elements: MutableList<Element> = mutableListOf(EmptyElement())
 
     fun insertOperator(operator: String): String {
         elements.run {
-            addAll(removeLast().insert(Operator(operator)))
+            addAll(removeLast().insert(OperatorElement(operator)))
         }
         return toString()
     }
 
     fun insertOperand(operand: String): String {
         elements.run {
-            addAll(removeLast().insert(Operand(operand)))
+            addAll(removeLast().insert(OperandElement(operand)))
         }
         return toString()
     }

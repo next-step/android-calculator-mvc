@@ -5,12 +5,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.StringCalculator
-import edu.nextstep.camp.calculator.model.formular.Formula
+import edu.nextstep.camp.calculator.model.expression.Expression
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private val formula: Formula = Formula()
+    private val expression: Expression = Expression()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,20 +40,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun delete() {
-        binding.textViewDisplay.text = formula.delete()
+        binding.textViewDisplay.text = expression.delete()
     }
 
     private fun clickOperand(value: String) {
-        binding.textViewDisplay.text = formula.insertOperand(value)
+        binding.textViewDisplay.text = expression.insertOperand(value)
     }
 
     private fun clickOperator(value: String) {
-        binding.textViewDisplay.text = formula.insertOperator(value)
+        binding.textViewDisplay.text = expression.insertOperator(value)
     }
 
     private fun calculator() {
         try {
-            binding.textViewDisplay.text = "${StringCalculator().calculate(formula.toString()).toInt()}"
+            binding.textViewDisplay.text = "${StringCalculator().calculate(expression.toString()).toInt()}"
         } catch (e: IllegalArgumentException) {
             Toast.makeText(this, R.string.err_invalid_formula, Toast.LENGTH_SHORT).show()
         }
