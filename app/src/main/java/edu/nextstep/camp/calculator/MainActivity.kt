@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun calculator() {
         try {
-            val calculatedValue = StringCalculator().calculate(expression.toString()).toInt()
+            val calculatedValue = StringCalculator().calculate("$expression").toInt()
             expression = Expression().apply {
                 insertOperand("$calculatedValue")
             }

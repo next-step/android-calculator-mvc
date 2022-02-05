@@ -9,14 +9,14 @@ class Expression {
         elements.run {
             addAll(removeLast().insert(OperatorElement(operator)))
         }
-        return toString()
+        return "$this"
     }
 
     fun insertOperand(operand: String): String {
         elements.run {
             addAll(removeLast().insert(OperandElement(operand)))
         }
-        return toString()
+        return "$this"
     }
 
     fun delete(): String {
@@ -29,7 +29,7 @@ class Expression {
                 }
             }
         }
-        return this.toString()
+        return "$this"
     }
 
     override fun toString(): String {
