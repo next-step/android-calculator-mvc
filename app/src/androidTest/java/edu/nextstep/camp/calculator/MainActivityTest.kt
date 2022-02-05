@@ -339,6 +339,21 @@ class MainActivityTest {
     }
 
     @Test
+    fun 입력된_계산가능한_수식이_있을때_사용자가_Equal_버튼을_누른_후_다시_수식을_입력하면_Equal_누를때_결과에_수식이_입력된다_32_더하기_1_곱하기_2_equal클릭_나누기_4_기대값_66_나누기_4() {
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonMultiply)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonEquals)).perform(click())
+        onView(withId(R.id.buttonDivide)).perform(click())
+        onView(withId(R.id.button4)).perform(click())
+
+        onView(withId(R.id.textViewDisplay)).check(matches(withText("66 / 4")))
+    }
+
+    @Test
     fun 입력된_수식이_완전하지_않을때_사용자가_Equal_버튼을_누르면_토스트가_노출된다() {
         onView(withId(R.id.button3)).perform(click())
         onView(withId(R.id.button2)).perform(click())

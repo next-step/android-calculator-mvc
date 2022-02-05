@@ -10,7 +10,7 @@ import edu.nextstep.camp.calculator.model.expression.Expression
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private val expression: Expression = Expression()
+    private var expression: Expression = Expression()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +53,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun calculator() {
         try {
-            binding.textViewDisplay.text = "${StringCalculator().calculate(expression.toString()).toInt()}"
+            val calculatedValue = StringCalculator().calculate(expression.toString()).toInt()
+            expression = Expression().apply {
+                insertOperand("$calculatedValue")
+            }
+            binding.textViewDisplay.text = "$expression"
         } catch (e: IllegalArgumentException) {
             Toast.makeText(this, R.string.err_invalid_formula, Toast.LENGTH_SHORT).show()
         }
