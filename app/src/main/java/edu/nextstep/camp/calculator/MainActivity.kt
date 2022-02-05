@@ -10,7 +10,7 @@ import edu.nextstep.camp.calculator.model.formular.Formula
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private val formula: Formula = Formula(StringCalculator())
+    private val formula: Formula = Formula()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun calculator() {
         try {
-            binding.textViewDisplay.text = formula.calculate()
+            binding.textViewDisplay.text = "${StringCalculator().calculate(formula.toString()).toInt()}"
         } catch (e: IllegalArgumentException) {
             Toast.makeText(this, R.string.err_invalid_formula, Toast.LENGTH_SHORT).show()
         }
