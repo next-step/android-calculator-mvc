@@ -15,4 +15,5 @@
     <string name="calculator_minus">-</string>
     <string name="calculator_multiply">×</string>
     <string name="calculator_divide">÷</string>
+    <string name="err_invalid_formula">완성되지 않은 수식입니다</string>
 </resources>

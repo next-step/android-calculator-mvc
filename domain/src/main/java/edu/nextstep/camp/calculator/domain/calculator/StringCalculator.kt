@@ -1,4 +1,6 @@
-package edu.nextstep.camp.calculator.domain
+package edu.nextstep.camp.calculator.domain.calculator
+
+import edu.nextstep.camp.calculator.domain.expression.Expression
 
 class StringCalculator {
     companion object {
@@ -6,6 +8,13 @@ class StringCalculator {
         private const val ERROR_MESSAGE_ARGUMENT_INVALID_FORMULA_FORMAT = "입력 받은 파라메터가 올바른 형식의 수식이 아닙니다."
 
         private const val FORMULA_SPLIT_DELIMITER = " "
+    }
+
+    fun calculate(expression: Expression): Expression {
+        val calculatedValue = calculate("$expression").toInt()
+        return Expression().apply {
+            insertOperand("$calculatedValue")
+        }
     }
 
     fun calculate(formula: String): Double {
