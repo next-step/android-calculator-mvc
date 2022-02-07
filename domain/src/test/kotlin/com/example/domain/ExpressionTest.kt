@@ -31,8 +31,6 @@ internal class ExpressionTest {
         value = [
             "1,2,12",
             "8,9,89",
-            "8,+,8+",
-            "8,-,8-",
         ]
     )
     @ParameterizedTest(name = "입력된 {0} 피연산자가 있을 때, {1} 입력하면 화면에 {2} 보여야 한다.")
