@@ -31,12 +31,18 @@ internal class ExpressionTest {
         value = [
             "1,2,12",
             "8,9,89",
+            "8,+,8+",
+            "8,-,8-",
         ]
     )
     @ParameterizedTest(name = "입력된 {0} 피연산자가 있을 때, {1} 입력하면 화면에 {2} 보여야 한다.")
     fun test2(input1: String, input2: String, expected: String) {
         expression += input1
-        expression += input2
+        if (Operand.check(input2)) {
+            expression += Operand.get(input2)!!
+        } else {
+            expression += input2
+        }
         assertThat(expression.value).isEqualTo(expected)
     }
 
