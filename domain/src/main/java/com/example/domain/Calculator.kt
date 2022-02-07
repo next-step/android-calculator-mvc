@@ -2,8 +2,9 @@ package com.example.domain
 
 class Calculator {
 
+    @Throws(IllegalArgumentException::class)
     fun evaluate(inputs: String): Float {
-        var opertaion: Operation? = null
+        var operand: Operand? = null
         var result = 0f
 
         inputs.split(" ").forEachIndexed { index, value ->
@@ -13,22 +14,22 @@ class Calculator {
                 return@forEachIndexed
             }
 
-            when (index % 2) {
+            when (index % EVEN_AND_ODD_CONDITION) {
                 EVEN_IS_NUMBER -> {
                     val number = value.toFloatOrNull() ?: throw IllegalArgumentException()
 
-                    if (opertaion == null) {
+                    if (operand == null) {
                         throw IllegalArgumentException()
                     }
 
-                    result = Operation.calculate(result, opertaion!!, number)
+                    result = Operand.calculate(result, operand!!, number)
                 }
                 ODD_IS_OPERATION -> {
-                    if (Operation.check(value).not()) {
+                    if (Operand.check(value).not()) {
                         throw IllegalArgumentException()
                     }
 
-                    opertaion = Operation.get(value)
+                    operand = Operand.get(value)
                 }
                 else -> {
                     throw IllegalArgumentException()
@@ -42,6 +43,8 @@ class Calculator {
     companion object {
 
         private const val FIRST_INDEX = 0
+
+        private const val EVEN_AND_ODD_CONDITION = 2
 
         private const val EVEN_IS_NUMBER = 0
 
