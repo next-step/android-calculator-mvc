@@ -30,10 +30,7 @@ class CalculatorInterfaceTest {
         calculatorInterface.insert("+")
 
         //when
-        val actualException =
-            runCatching {
-                calculatorInterface.evaluate()
-            }.exceptionOrNull()
+        val actualException = calculatorInterface.evaluate().exceptionOrNull()
 
         //then
         assertThat(actualException).isInstanceOf(InvalidExpressionException::class.java)

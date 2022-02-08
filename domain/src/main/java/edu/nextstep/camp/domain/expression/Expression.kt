@@ -2,33 +2,73 @@ package edu.nextstep.camp.domain.expression
 
 private const val MIN_SIZE_FOR_EVALUATE = 3
 
-class Expression {
-    private val symbols = mutableListOf<String>()
+class Expression(private val joinDelimiter: String) {
 
-    fun add(symbol: String) = symbols.add(symbol)
+    val symbols: MutableList<String> = mutableListOf()
 
-    fun removeLast() = symbols.removeLast()
+    fun append(symbol: String): Expression = apply {
+        when {
+            isDigit(symbol) -> processDigit(symbol)
+            else -> processOperator(symbol)
+        }
+    }
 
-    fun replaceLast(symbol: String) {
+    fun delete(): Expression = apply {
+        processDelete()
+    }
+
+    fun update(symbol: String): Expression = apply {
+        clearBy(symbol)
+    }
+
+    fun generate(): String = symbols.joinToString(joinDelimiter)
+
+    private fun processDigit(symbol: String): Any = with(this) {
+        when {
+            isLastDigit() -> mergeLast(symbol)
+            else -> add(symbol)
+        }
+    }
+
+    private fun processOperator(symbol: String): Any = with(this) {
+        when {
+            isEmpty() -> {}
+            isLastDigit() -> add(symbol)
+            else -> replaceLast(symbol)
+        }
+    }
+
+    private fun processDelete(): Any = with(this) {
+        when {
+            isEmpty() -> {}
+            else -> removeLast()
+        }
+    }
+
+    private fun add(symbol: String): Boolean = symbols.add(symbol)
+
+    private fun removeLast(): String = symbols.removeLast()
+
+    private fun replaceLast(symbol: String) {
         removeLast()
         add(symbol)
     }
 
-    fun mergeLast(symbol: String) {
+    private fun mergeLast(symbol: String) {
         val lastSymbol = removeLast()
         symbols.add(lastSymbol + symbol)
     }
 
-    fun clearBy(symbol: String) {
+    private fun clearBy(symbol: String) {
         symbols.clear()
         symbols.add(symbol)
     }
 
-    fun isLastDigit() = symbols.lastOrNull()?.toIntOrNull() != null
+    private fun isDigit(symbol: String): Boolean = symbol.toIntOrNull() != null
 
-    fun isEmpty() = symbols.isEmpty()
+    private fun isLastDigit(): Boolean = symbols.lastOrNull()?.toIntOrNull() != null
 
-    fun isValid() = symbols.size >= MIN_SIZE_FOR_EVALUATE
+    private fun isEmpty(): Boolean = symbols.isEmpty()
 
-    fun generate(joinDelimiter: String) = symbols.joinToString(joinDelimiter)
+    fun isValid(): Boolean = symbols.size >= MIN_SIZE_FOR_EVALUATE
 }

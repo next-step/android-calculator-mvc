@@ -115,6 +115,7 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(withText("89")))
     }
 
+
     // 입력된 피연산자가 없을 때, 사용자가 연산자 +, -, ×, ÷ 버튼을 누르면 화면에 아무런 변화가 없어야 한다.
     @Test
     fun `입력된 피연산자가 없을 때 사용자가 사칙 연산자 버튼을 누르면 화면에 아무런 변화가 없어야 한다`() {
