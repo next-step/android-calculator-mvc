@@ -2,31 +2,31 @@ package edu.nextstep.camp.domain.calculator
 
 import java.lang.IllegalArgumentException
 
-typealias Operator = (Int, Int) -> Int
+typealias CalculationStrategy = (Int, Int) -> Int
 
-enum class Op {
+enum class Operator {
     PLUS, MINUS, MULTIPLY, DIVIDE
 }
 
-internal class BinaryCalculator private constructor(private val operator: Operator) {
+internal class BinaryCalculator private constructor(private val calculationStrategy: CalculationStrategy) {
 
-    fun calculate(operator1: Int, operator2: Int) = operator(operator1, operator2)
+    fun calculate(operator1: Int, operator2: Int) = calculationStrategy(operator1, operator2)
 
     companion object {
-        fun searchOperator(token: String) = BinaryCalculator(operator(matchOp(token)))
+        fun searchOperator(token: String) = BinaryCalculator(setCalculationStrategy(matchOperator(token)))
 
-        fun operator(token: Op): Operator = when (token) {
-            Op.PLUS -> { x, y -> x + y }
-            Op.MINUS -> { x, y -> x - y }
-            Op.MULTIPLY -> { x, y -> x * y }
-            Op.DIVIDE -> { x, y -> x / y }
+        fun setCalculationStrategy(token: Operator): CalculationStrategy = when (token) {
+            Operator.PLUS -> { x, y -> x + y }
+            Operator.MINUS -> { x, y -> x - y }
+            Operator.MULTIPLY -> { x, y -> x * y }
+            Operator.DIVIDE -> { x, y -> x / y }
         }
 
-        private fun matchOp(token: String): Op = when(token) {
-            "+" -> Op.PLUS
-            "-" -> Op.MINUS
-            "×" -> Op.MULTIPLY
-            "÷" -> Op.DIVIDE
+        private fun matchOperator(token: String): Operator = when(token) {
+            "+" -> Operator.PLUS
+            "-" -> Operator.MINUS
+            "×" -> Operator.MULTIPLY
+            "÷" -> Operator.DIVIDE
             else -> throw IllegalArgumentException("사칙연산 기호가 아닙니다")
         }
     }
