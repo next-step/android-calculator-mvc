@@ -1,11 +1,11 @@
 package edu.nextstep.camp.domain.calculator
 
-import edu.nextstep.camp.domain.expression.ExpressionParser
+import edu.nextstep.camp.domain.expression.ExpressionProcessor
 
-internal class Calculator(private val expressionParser: ExpressionParser) {
+internal class Calculator(private val expressionProcessor: ExpressionProcessor) {
 
     fun evaluate(expression: String?): String {
-        val chunks = expressionParser.splitExpression(expression)
+        val chunks = expressionProcessor.splitExpression(expression)
         var acc = chunks.first().toInt()
         val restChunks = chunks.drop(1)
 

@@ -3,14 +3,14 @@ package edu.nextstep.camp.domain
 import edu.nextstep.camp.domain.calculator.Calculator
 import edu.nextstep.camp.domain.exception.InvalidExpressionException
 import edu.nextstep.camp.domain.expression.ExpressionGenerator
-import edu.nextstep.camp.domain.expression.ExpressionParser
+import edu.nextstep.camp.domain.expression.ExpressionProcessor
 
 private const val DELIMITER = " "
 
 class CalculatorInterface {
     private val expressionGenerator = ExpressionGenerator(DELIMITER)
-    private val expressionParser = ExpressionParser(DELIMITER)
-    private val calculator = Calculator(expressionParser)
+    private val expressionProcessor = ExpressionProcessor(DELIMITER)
+    private val calculator = Calculator(expressionProcessor)
 
     fun insert(symbol: String) = Result.success(
         expressionGenerator.append(symbol).generate()

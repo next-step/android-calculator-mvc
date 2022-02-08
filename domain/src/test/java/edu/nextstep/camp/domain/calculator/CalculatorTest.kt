@@ -1,7 +1,7 @@
 package edu.nextstep.camp.domain.calculator
 
 import edu.nextstep.camp.domain.calculator.Calculator
-import edu.nextstep.camp.domain.expression.ExpressionParser
+import edu.nextstep.camp.domain.expression.ExpressionProcessor
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.lang.IllegalArgumentException
@@ -9,8 +9,8 @@ import java.lang.IllegalArgumentException
 private const val DELIMITER = " "
 
 class CalculatorTest {
-    private val expressionParser = ExpressionParser(DELIMITER)
-    private val calculator = Calculator(expressionParser)
+    private val expressionProcessor = ExpressionProcessor(DELIMITER)
+    private val calculator = Calculator(expressionProcessor)
 
     @Test
     fun testAdd() {
