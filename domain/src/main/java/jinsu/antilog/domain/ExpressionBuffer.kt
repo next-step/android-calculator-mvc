@@ -1,41 +1,45 @@
 package jinsu.antilog.domain
 
-import java.util.LinkedList
-
 class ExpressionBuffer {
-    private val expressionLetters = LinkedList<ExpressionLetter>()
+    private val expressionLetters = mutableListOf<ExpressionLetter>()
 
 
     fun addOperand(operand: Operand): String {
-        when (getExpressionLastOrNull()) {
-            is Operand -> {(expressionLetters.last as Operand).addLastLetter(operand)}
+        when (val lastInput = getExpressionLastOrNull()) {
+            is Operand -> expressionLetters.replaceLastTo(lastInput.addLastLetter(operand))
             is Operator, null -> expressionLetters.add(operand)
         }
         return getStringExpression()
     }
 
     fun addOperator(operator: Operator): String {
-        when (getExpressionLastOrNull() ?: return EMPTY_STRING) {
+        when (getExpressionLastOrNull()) {
             is Operand -> expressionLetters.add(operator)
             is Operator -> expressionLetters.replaceLastTo(operator)
+            null -> return EMPTY_STRING
         }
         return getStringExpression()
     }
 
     fun removeLast(): String {
-        when (getExpressionLastOrNull() ?: return EMPTY_STRING) {
-            is Operand -> {
-                (expressionLetters.last as Operand).removeLastLetter()
-                    ?:expressionLetters.removeLast()
-            }
+        when (getExpressionLastOrNull()) {
+            is Operand -> removeLastOperandLetter()
             is Operator -> expressionLetters.removeLast()
+            null -> return EMPTY_STRING
         }
         return getStringExpression()
     }
 
-    private fun LinkedList<ExpressionLetter>.replaceLastTo(operator: Operator) {
+    private fun removeLastOperandLetter() {
+        val operand = expressionLetters.last() as Operand
+        operand.removeLastLetter()
+            ?.let { expressionLetters.replaceLastTo(it) }
+            ?: expressionLetters.removeLast()
+    }
+
+    private fun MutableList<ExpressionLetter>.replaceLastTo(letter: ExpressionLetter) {
         this.removeLastOrNull() ?: return
-        this.add(operator)
+        this.add(letter)
     }
 
     private fun getExpressionLastOrNull(): ExpressionLetter? {

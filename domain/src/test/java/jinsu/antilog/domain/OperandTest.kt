@@ -35,10 +35,9 @@ class OperandTest {
         // given : 한자리 피연산자
         val operand = Operand("5")
         // when : 뒤에 피연산자를 추가하면
-        operand.addLastLetter(Operand("6"))
-        val actualOperandValue = operand.toString()
+        val actualOperandValue = operand.addLastLetter(Operand("6"))
         // then :
-        assertThat(actualOperandValue).isEqualTo("56")
+        assertThat(actualOperandValue.toString()).isEqualTo("56")
     }
 
     @Test
@@ -46,10 +45,9 @@ class OperandTest {
         // given : 두 자리 피연산자
         val operand = Operand("56")
         // when : 뒷 자리를 제거하면
-        operand.removeLastLetter()
-        val actualOperandValue = operand.toString()
+        val actualOperandValue = operand.removeLastLetter()
         // then :
-        assertThat(actualOperandValue).isEqualTo("5")
+        assertThat(actualOperandValue.toString()).isEqualTo("5")
     }
 
     @Test

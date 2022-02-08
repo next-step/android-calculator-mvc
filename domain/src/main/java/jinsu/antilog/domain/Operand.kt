@@ -1,33 +1,26 @@
 package jinsu.antilog.domain
 
 data class Operand(
-    private val operand: String
+    private var value: Int
 ) : ExpressionLetter {
+    constructor(operand: String): this(
+        operand.toIntOrNull() ?: throw IllegalArgumentException("$operand 는 피연산자가 될 수 없습니다.")
+    )
 
-    private var _value: Int = 0
+    fun toDouble() = value.toDouble()
 
-    init {
-        require(operand.toIntOrNull() is Int) {
-            "$operand 는 피연산자가 될 수 없습니다."
-        }
-        this._value = operand.toInt()
+    override fun toString(): String = "${this.value}"
+
+    fun addLastLetter(operand: Operand): Operand {
+        val tens = this.value * PLACE_VALUE
+        val units = operand.value
+        return Operand(tens + units)
     }
 
-    fun toDouble() = _value.toDouble()
-
-    override fun toString(): String = "${this._value}"
-
-    fun addLastLetter(operand: Operand) {
-        val tens = this._value * PLACE_VALUE
-        val units = operand._value
-        _value = (tens + units)
-    }
-
-    fun removeLastLetter(): Unit? {
-        val removeUnitsValue = this._value / PLACE_VALUE
+    fun removeLastLetter(): Operand? {
+        val removeUnitsValue = this.value / PLACE_VALUE
         if (removeUnitsValue < 1) return null
-        _value = removeUnitsValue
-        return Unit
+        return Operand(removeUnitsValue)
     }
 
     companion object {
