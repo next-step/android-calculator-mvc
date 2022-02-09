@@ -7,21 +7,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import java.lang.IllegalArgumentException
 
-@RunWith(Parameterized::class)
-class OperatorTest(
-    private val symbol: String,
-    private val operateValue: Int,
-    private val operator : Operator
-) {
-    @Test
-    fun givenOperatorSymbol_whenFindOperator_thenCorrectOperator() {
-        // given : 연산자 기호가 주어지고
-        // when : Operator 에서 기호를 찾았을 때
-        val foundOperator = Operator.findOperatorBySymbol(symbol)
-        // then : 연산자와 일치하는 Operator 가 주어진다.
-        assertThat(foundOperator).isEqualTo(operator)
-    }
-
+class OperatorTest {
     @Test
     fun givenNotOperatorSymbol_whenFindOperator_thenWrongOperator() {
         // given : 연산자 기호가 아닌 기호가 주어지고
@@ -35,6 +21,22 @@ class OperatorTest(
                 "$notOperateSymbol 을 연산자로 사용할 수 없습니다."
             )
         }
+    }
+}
+
+@RunWith(Parameterized::class)
+class ParameterizedOperatorTest(
+    private val symbol: String,
+    private val operateValue: Int,
+    private val operator : Operator
+) {
+    @Test
+    fun givenOperatorSymbol_whenFindOperator_thenCorrectOperator() {
+        // given : 연산자 기호가 주어지고
+        // when : Operator 에서 기호를 찾았을 때
+        val foundOperator = Operator.findOperatorBySymbol(symbol)
+        // then : 연산자와 일치하는 Operator 가 주어진다.
+        assertThat(foundOperator).isEqualTo(operator)
     }
 
     @Test
@@ -51,12 +53,15 @@ class OperatorTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters
+        @Parameterized.Parameters(name = "연산자가 {0} 일때")
         fun operateTestList() = listOf(
             arrayOf("+", 15, Operator.Plus),
             arrayOf("-", 5, Operator.Minus),
             arrayOf("*", 50, Operator.Multiply),
-            arrayOf("/", 2, Operator.Divide)
+            arrayOf("/", 2, Operator.Divide),
+            arrayOf("×", 50, Operator.Multiply),
+            arrayOf("÷", 2, Operator.Divide)
         )
     }
 }
+
