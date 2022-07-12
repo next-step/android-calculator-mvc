@@ -75,9 +75,9 @@ class MainActivityTest {
 
     @Test
     fun `7_버튼을_누르면_화면에_7이_보여야_한다`() {
-        // when : 0 버튼을 누르면
+        // when : 7 버튼을 누르면
         onView(withId(R.id.button7)).perform(click())
-        // then : 화면에 0이 보여야 한다
+        // then : 화면에 7이 보여야 한다
         onView(withId(R.id.textView)).check(matches(withText("7")))
     }
 
