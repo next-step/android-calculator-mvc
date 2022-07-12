@@ -32,6 +32,11 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    // 테스트 시점에 애니메이션 으로 인한 오작동을 줄일 수 있고 테스트 속도가 빨라진다.
+    testOptions {
+        animationsDisabled = true
+    }
 }
 
 dependencies {
