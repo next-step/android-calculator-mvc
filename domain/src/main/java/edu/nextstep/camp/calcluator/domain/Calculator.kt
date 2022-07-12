@@ -1,4 +1,4 @@
-package edu.nextstep.camp.calclator.domain
+package edu.nextstep.camp.calcluator.domain
 
 class Calculator {
 

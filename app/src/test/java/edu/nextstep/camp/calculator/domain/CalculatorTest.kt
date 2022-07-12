@@ -1,6 +1,7 @@
-package edu.nextstep.camp.calclator.domain
+package edu.nextstep.camp.calculator.domain
 
 import com.google.common.truth.Truth.assertThat
+import edu.nextstep.camp.calcluator.domain.Calculator
 import org.junit.Before
 import org.junit.Test
 
