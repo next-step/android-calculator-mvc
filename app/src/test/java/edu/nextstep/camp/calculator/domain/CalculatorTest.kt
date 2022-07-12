@@ -79,7 +79,7 @@ class CalculatorTest {
     }
 
     @Test
-    fun `입력값이 null이거나 빈 공백 문자일 경우 IllegalArgumentException throw`() {
+    fun `입력값이 null일 경우 IllegalArgumentException throw`() {
         //given
         val input = null
         val exceptedInstanceOf = IllegalArgumentException::class.java
@@ -95,9 +95,25 @@ class CalculatorTest {
     }
 
     @Test
+    fun `입력값이 공백 일 경우 IllegalArgumentException throw`() {
+        //given
+        val input = " "
+        val exceptedInstanceOf = IllegalArgumentException::class.java
+
+        //when
+        val actual = runCatching {
+            calculator.evalute(input)
+        }.exceptionOrNull()
+
+        //then
+        assertThat(actual).isInstanceOf(exceptedInstanceOf)
+
+    }
+
+    @Test
     fun `사칙연산 기호가 아닌 경우 IllegalArgumentException throw`() {
         //given
-        val input = "121 + % 222"
+        val input = "121  % 222"
         val exceptedInstanceOf = IllegalArgumentException::class.java
 
         //when
@@ -110,7 +126,7 @@ class CalculatorTest {
     }
 
     @Test
-    fun `사칙 연산을 모두 포함하는 기능 구현`() {
+    fun `사칙 연산을 모두 포함하는 경우`() {
         //given
         val input = "2 + 3 * 4 / 2"
         val excepted = 10
