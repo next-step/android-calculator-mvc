@@ -39,4 +39,13 @@ class CalculatorTest {
         // then
         assertThat(actual).isEqualTo(6)
     }
+
+    @Test
+    fun `10 나누기 2는 5다`() {
+        // when
+        val actual = calculator.evaluate("10 / 2")
+
+        // then
+        assertThat(actual).isEqualTo(5)
+    }
 }
