@@ -29,9 +29,16 @@ class CalculatorTest {
     }
 
     @Test
-    fun `입력값이 null이거나 빈 공백 문자일 경우 IllegalArgumentException throw`() {
+    fun `입력값이 null일 경우 IllegalArgumentException throw`() {
         assertThrows(IllegalArgumentException::class.java) {
             Calculator().evaluate(null)
+        }
+    }
+
+    @Test
+    fun `입력값이 빈 공백 문자일 경우 IllegalArgumentException throw`() {
+        assertThrows(IllegalArgumentException::class.java) {
+            Calculator().evaluate("")
         }
     }
 

@@ -5,7 +5,7 @@ class Calculator {
         if (input.isNullOrBlank()) {
             throw IllegalArgumentException(IS_NULL_OR_BLANK)
         }
-        
+
         return 0
     }
 
