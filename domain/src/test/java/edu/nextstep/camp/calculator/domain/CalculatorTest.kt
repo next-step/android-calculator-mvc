@@ -60,4 +60,10 @@ class CalculatorTest {
         // when
         calculator.evaluate("")
     }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun `입력값이 공백이면 오류를 던진다`() {
+        // when
+        calculator.evaluate(" ")
+    }
 }
