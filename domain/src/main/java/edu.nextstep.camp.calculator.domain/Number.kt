@@ -14,6 +14,9 @@ value class Number(val value: Double) {
     operator fun times(target: Number): Number =
         Number(value * target.value)
 
+    operator fun div(target: Number): Number =
+        Number(value / target.value)
+
     companion object {
         fun of(raw: String): Number = Number(raw.toDouble())
     }

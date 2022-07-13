@@ -34,7 +34,7 @@ internal class NumberTest {
         assertThat(result).isEqualTo(Number(expected))
     }
 
-    @ParameterizedTest(name = "{0}에서 {1}을 곱하면 {2}가 된다.")
+    @ParameterizedTest(name = "{0}와 {1}을 곱하면 {2}가 된다.")
     @CsvSource(
         "3, 4, 12",
         "10, 10, 100",
@@ -43,6 +43,20 @@ internal class NumberTest {
     fun `두 숫자는 곱하기 연산을 할 수 있다`(first: Int, second: Int, expected: Int) {
         // when
         val result = Number(first) * Number(second)
+
+        // then
+        assertThat(result).isEqualTo(Number(expected))
+    }
+
+    @ParameterizedTest(name = "{0}에서 {1}을 나누면 {2}가 된다.")
+    @CsvSource(
+        "10, 2, 5",
+        "3, 1, 3",
+        "64, 8, 8",
+    )
+    fun `두 숫자는 나누기 연산을 할 수 있다`(first: Int, second: Int, expected: Int) {
+        // when
+        val result = Number(first) / Number(second)
 
         // then
         assertThat(result).isEqualTo(Number(expected))
