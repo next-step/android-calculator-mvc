@@ -8,6 +8,9 @@ value class Number(val value: Double) {
     operator fun plus(target: Number): Number =
         Number(value + target.value)
 
+    operator fun minus(target: Number): Number =
+        Number(value - target.value)
+
     companion object {
         fun of(raw: String): Number = Number(raw.toDouble())
     }

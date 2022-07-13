@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource
 
 internal class NumberTest {
 
-    @ParameterizedTest(name = "{0}와 {1}을 더하면 {2}를 리턴한다.")
+    @ParameterizedTest(name = "{0}와 {1}을 더하면 {2}가 된다.")
     @CsvSource(
         "1, 2, 3",
         "11, 12, 23",
@@ -15,6 +15,20 @@ internal class NumberTest {
     fun `두 숫자는 덧셈 연산을 할 수 있다`(first: Int, second: Int, expected: Int) {
         // when
         val result = Number(first) + Number(second)
+
+        // then
+        assertThat(result).isEqualTo(Number(expected))
+    }
+
+    @ParameterizedTest(name = "{0}에서 {1}을 빼면 {2}가 된다.")
+    @CsvSource(
+        "10, 1, 9",
+        "3, 20, -17",
+        "1000, 123, 877",
+    )
+    fun `두 숫자는 뺄셈 연산을 할 수 있다`(first: Int, second: Int, expected: Int) {
+        // when
+        val result = Number(first) - Number(second)
 
         // then
         assertThat(result).isEqualTo(Number(expected))
