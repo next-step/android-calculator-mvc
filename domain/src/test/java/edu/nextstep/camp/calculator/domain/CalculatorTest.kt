@@ -21,4 +21,13 @@ class CalculatorTest {
         // then
         assertThat(actual).isEqualTo(3)
     }
+
+    @Test
+    fun `3 빼기 2는 1이다`() {
+        // when
+        val actual = calculator.evaluate("3 - 2")
+
+        // then
+        assertThat(actual).isEqualTo(1)
+    }
 }
