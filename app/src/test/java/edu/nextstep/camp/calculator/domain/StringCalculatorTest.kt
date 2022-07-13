@@ -25,6 +25,20 @@ internal class StringCalculatorTest {
         assertThat(result).isEqualTo(Number(expected))
     }
 
+    @ParameterizedTest(name = "사칙연산자 여러 개가 포함된 {0}의 계산 결과가 {1}를 만족한다.")
+    @CsvSource(
+        "1 + 2 + 3 + 4 + 5, 15",
+        "1004 - 4 / 2, 500",
+        "10 * 5 / 10, 5",
+    )
+    fun `사칙연산 기호 여러 개가 포함된 문자열의 계산 결과값을 알 수 있다`(input: String, expected: Int) {
+        // when
+        val result = stringCalculator.calculate(input)
+
+        // then
+        assertThat(result).isEqualTo(Number(expected))
+    }
+
     @ParameterizedTest
     @NullAndEmptySource
     fun `입력값이 null이거나 빈 공백 문자일 경우 IllegalArgumentException이 발생한다`(input: String?) {
