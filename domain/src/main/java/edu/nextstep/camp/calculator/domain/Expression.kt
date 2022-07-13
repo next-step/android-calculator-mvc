@@ -1,10 +1,10 @@
 package edu.nextstep.camp.calculator.domain
 
-interface Expression {
+internal interface Expression {
     fun evaluate(): Int
 }
 
-class ExpressionNode(
+internal class ExpressionNode(
     private val left: Expression,
     private val right: Expression,
     private val op: String
@@ -23,7 +23,7 @@ class ExpressionNode(
     }
 }
 
-class ValueNode(
+internal class ValueNode(
     private val value: Int
 ) : Expression {
     override fun evaluate(): Int {

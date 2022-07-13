@@ -3,8 +3,8 @@ package edu.nextstep.camp.calculator.domain
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
-class ExpressionTest {
-    lateinit var expression: Expression
+internal class ExpressionTest {
+    private lateinit var expression: Expression
 
     @Test
     fun `evaluate two value expressions`() {
