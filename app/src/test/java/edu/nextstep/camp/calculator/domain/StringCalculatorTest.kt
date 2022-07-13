@@ -12,6 +12,7 @@ internal class StringCalculatorTest {
     @CsvSource(
         "1 + 2, 3",
         "1004 - 4, 1000",
+        "10 * 5, 50",
     )
     fun `사칙연산자 하나가 포함된 문자열의 계산 결과값을 알 수 있다`(original: String, expected: Int) {
         // when
