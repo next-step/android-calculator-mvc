@@ -3,61 +3,62 @@ package edu.nextstep.camp.calculator.domain
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 
 /**
  * Created by link.js on 2022. 07. 13..
  */
-class CalculatorTest {
+
+@RunWith(Parameterized::class)
+class CalculatorTest(private val expression: String, private val answer: Int) {
 
     @Test
-    fun `덧셈이 잘 동작한다`() {
-        val calculator = Calculator()
-        assertEquals(calculator.evaluate("2 + 3"), 5)
+    fun `계산기가 정상 동작한다`() {
+        assertEquals(Calculator().evaluate(expression),answer)
     }
 
-    @Test
-    fun `뺄셈이 잘 동작한다`() {
-        val calculator = Calculator()
-        assertEquals(calculator.evaluate("4 - 3"), 1)
+    companion object {
+        @JvmStatic
+        @Parameterized.Parameters(name = "{index}: ({0}) = {1}")
+        fun data() = listOf(
+            arrayOf("2 + 3", 5),
+            arrayOf("5 * 2 - 3", 7),
+            arrayOf("200 - 10 / 10", 19),
+            arrayOf("10 - 2 / 4", 2),
+            arrayOf("6 - 0 + 3", 9)
+        )
     }
+}
 
-    @Test
-    fun `곱셈이 잘 동작한다`() {
-        val calculator = Calculator()
-        assertEquals(calculator.evaluate("2 * 3"), 6)
-    }
-
-    @Test
-    fun `나눗셈이 잘 동작한다`() {
-        val calculator = Calculator()
-        assertEquals(calculator.evaluate("4 / 2"), 2)
-    }
+class CalculatorExceptionTest {
+    private val calculator = Calculator()
 
     @Test
     fun `입력값이 null일 경우 IllegalArgumentException throw`() {
         assertThrows(IllegalArgumentException::class.java) {
-            Calculator().evaluate(null)
+            calculator.evaluate(null)
         }
     }
 
     @Test
     fun `입력값이 빈 공백 문자일 경우 IllegalArgumentException throw`() {
         assertThrows(IllegalArgumentException::class.java) {
-            Calculator().evaluate("")
+            calculator.evaluate("")
         }
     }
 
     @Test
     fun `사칙연산 기호가 아닌 경우 IllegalArgumentException throw`() {
         assertThrows(IllegalArgumentException::class.java) {
-            Calculator().evaluate("2 [ 3")
+            calculator.evaluate("2 [ 3")
         }
     }
 
     @Test
     fun `숫자 위치에 숫자가 아닌 경우 IllegalArgumentException throw`() {
         assertThrows(IllegalArgumentException::class.java) {
-            Calculator().evaluate("2 3 3")
+            calculator.evaluate("2 3 3")
         }
     }
 
@@ -72,7 +73,7 @@ class CalculatorTest {
     @Test
     fun `0으로 나눌 경우 IllegalArgumentException throw`() {
         assertThrows(IllegalArgumentException::class.java) {
-            Calculator().evaluate("2 / 0")
+            calculator.evaluate("2 / 0")
         }
     }
 }
