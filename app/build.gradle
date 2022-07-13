@@ -33,7 +33,7 @@ android {
         viewBinding true
     }
     testOptions {
-//        animationsDisabled = true
+        animationsDisabled = true
     }
 }
 
