@@ -8,16 +8,23 @@ object StringCalculator {
 
     fun calculate(raw: String?): Number {
         requireNotNull(raw)
-        val params = raw.split(SPLIT_DELIMITER)
-        val (rawOperands, rawOperators) = params
+        val (rawOperands, rawOperators) = splitParams(raw)
             .withIndex()
             .partition { it.index % OPERATOR_INDEX_UNIT == 0 }
-        val operands = rawOperands.map { Number.of(it.value) }
-        val operators = rawOperators.map { Operation.of(it.value) }
+        val operands = parseOperands(rawOperands)
+        val operators = parseOperators(rawOperators)
 
         return operands.reduceIndexed { index, first, second ->
             operators[index - OPERATOR_INDEX_BUFFER].run(first, second)
         }
     }
+
+    private fun splitParams(raw: String): List<String> = raw.split(SPLIT_DELIMITER)
+
+    private fun parseOperands(rawOperands: List<IndexedValue<String>>): List<Number> =
+        rawOperands.map { Number.of(it.value) }
+
+    private fun parseOperators(rawOperators: List<IndexedValue<String>>): List<Operation> =
+        rawOperators.map { Operation.of(it.value) }
 
 }
