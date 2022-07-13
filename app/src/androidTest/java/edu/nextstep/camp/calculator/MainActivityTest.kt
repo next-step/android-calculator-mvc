@@ -8,118 +8,46 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
+import org.junit.runners.Parameterized.Parameters
 
-class MainActivityTest {
+@RunWith(Parameterized::class)
+class MainActivityTest(input: Pair<Int, String>) {
+    private var buttonId: Int
+    private var experted: String
+
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
+    init {
+        this.buttonId = input.first
+        this.experted = input.second
+    }
+
+    companion object {
+        @Parameters
+        @JvmStatic
+        fun getTestParameters() = arrayOf(
+            R.id.button0 to "0",
+            R.id.button1 to "1",
+            R.id.button2 to "2",
+            R.id.button3 to "3",
+            R.id.button4 to "4",
+            R.id.button5 to "5",
+            R.id.button6 to "6",
+            R.id.button7 to "7",
+            R.id.button8 to "8",
+            R.id.button9 to "9"
+        )
+    }
+
     @Test
-    fun `0_버튼을_누르면_화면에_0이_보여야_한다`() {
+    fun `숫자_버튼을_누르면_화면에_숫자가_보여야_한다`() {
         //when: 0 버튼을 누르면
-        onView(withId(R.id.button0))
-            .perform(ViewActions.click())
+        onView(withId(buttonId)).perform(ViewActions.click())
 
         //then: 화면에 0이 보여야 한다
-        onView(withId(R.id.textView))
-            .check(matches(withText("0")))
-    }
-
-    @Test
-    fun `1_버튼을_누르면_화면에_1이_보여야_한다`() {
-        //when: 1 버튼을 누르면
-        onView(withId(R.id.button1))
-            .perform(ViewActions.click())
-
-        //then: 화면에 1이 보여야 한다
-        onView(withId(R.id.textView))
-            .check(matches(withText("1")))
-    }
-
-    @Test
-    fun `2_버튼을_누르면_화면에_2이_보여야_한다`() {
-        //when: 2 버튼을 누르면
-        onView(withId(R.id.button2))
-            .perform(ViewActions.click())
-
-        //then: 화면에 2이 보여야 한다
-        onView(withId(R.id.textView))
-            .check(matches(withText("2")))
-    }
-
-    @Test
-    fun `3_버튼을_누르면_화면에_3이_보여야_한다`() {
-        //when: 3 버튼을 누르면
-        onView(withId(R.id.button3))
-            .perform(ViewActions.click())
-
-        //then: 화면에 3이 보여야 한다
-        onView(withId(R.id.textView))
-            .check(matches(withText("3")))
-    }
-
-    @Test
-    fun `4_버튼을_누르면_화면에_4가_보여야_한다`() {
-        //when: 4 버튼을 누르면
-        onView(withId(R.id.button4))
-            .perform(ViewActions.click())
-
-        //then: 화면에 4이 보여야 한다
-        onView(withId(R.id.textView))
-            .check(matches(withText("4")))
-    }
-
-    @Test
-    fun `5_버튼을_누르면_화면에_5가_보여야_한다`() {
-        //when: 5 버튼을 누르면
-        onView(withId(R.id.button5))
-            .perform(ViewActions.click())
-
-        //then: 화면에 0이 보여야 한다
-        onView(withId(R.id.textView))
-            .check(matches(withText("5")))
-    }
-
-    @Test
-    fun `6_버튼을_누르면_화면에_6이_보여야_한다`() {
-        //when: 6 버튼을 누르면
-        onView(withId(R.id.button6))
-            .perform(ViewActions.click())
-
-        //then: 화면에 0이 보여야 한다
-        onView(withId(R.id.textView))
-            .check(matches(withText("6")))
-    }
-
-    @Test
-    fun `7_버튼을_누르면_화면에_7이_보여야_한다`() {
-        //when: 7 버튼을 누르면
-        onView(withId(R.id.button7))
-            .perform(ViewActions.click())
-
-        //then: 화면에 7이 보여야 한다
-        onView(withId(R.id.textView))
-            .check(matches(withText("7")))
-    }
-
-    @Test
-    fun `8_버튼을_누르면_화면에_8이_보여야_한다`() {
-        //when: 8 버튼을 누르면
-        onView(withId(R.id.button8))
-            .perform(ViewActions.click())
-
-        //then: 화면에 8이 보여야 한다
-        onView(withId(R.id.textView))
-            .check(matches(withText("8")))
-    }
-
-    @Test
-    fun `9_버튼을_누르면_화면에_9가_보여야_한다`() {
-        //when: 9 버튼을 누르면
-        onView(withId(R.id.button9))
-            .perform(ViewActions.click())
-
-        //then: 화면에 9이 보여야 한다
-        onView(withId(R.id.textView))
-            .check(matches(withText("9")))
+        onView(withId(R.id.textView)).check(matches(withText(experted)))
     }
 }
