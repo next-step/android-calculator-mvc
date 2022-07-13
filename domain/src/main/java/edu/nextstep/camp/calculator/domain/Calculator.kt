@@ -12,14 +12,14 @@ class Calculator {
         }
 
         // 첫숫자는 바로 계산하기 위해 저장한다.
-        var output = changeStringToInt(inputList.first())
+        var output = changeStringToNumber(inputList.first())
         for (index in NUMBER_OF_EXCLUDING_THE_FIRST_INDEX until inputList.size step SIZE_OF_CALCULATION_UNIT) {
             output =
                 Operator.of(inputList[index])
-                    .calculate(output, changeStringToInt(inputList[index + INDEX_OF_NUMBER]))
+                    .calculate(output, changeStringToNumber(inputList[index + INDEX_OF_NUMBER]))
         }
 
-        return output
+        return output.value
     }
 
     /**
@@ -32,9 +32,9 @@ class Calculator {
     /**
      * 계산가능한 숫자인지 확인하는 메소드.
      */
-    private fun changeStringToInt(input: String): Int {
-        return input.toIntOrNull()
-            ?: throw IllegalArgumentException(IS_NON_DIGIT_CHARACTER)
+    private fun changeStringToNumber(input: String): Number {
+        val inputToInt = input.toIntOrNull() ?: throw IllegalArgumentException(IS_NON_DIGIT_CHARACTER)
+        return Number(inputToInt)
     }
 
     companion object {
