@@ -2,7 +2,7 @@ package edu.nextstep.camp.calculator.domain
 
 /**
  * 사칙연산자 체크 및 제한을 위한 Operator Enum class
- * Created by Jaesungchi on 2022.05.05..
+ * Created by Jaesungchi on 2022.07.14..
  */
 enum class Operator(
     val operator: String,
