@@ -8,7 +8,7 @@ class Calculator {
         if (containsInvalidSymbol(expression))
             throw IllegalArgumentException("수식에는 +, -, *, /만 사용될 수 있습니다.")
 
-        return evaluate(splitToSymbols(expression))
+        return evaluateSymbols(splitToSymbols(expression))
     }
 
     private fun containsInvalidSymbol(expression: String): Boolean {
@@ -19,26 +19,26 @@ class Calculator {
         return expression.split(' ')
     }
 
-    private fun evaluate(symbols: List<String>): Int {
-        var result = 0
+    private fun evaluateSymbols(symbols: List<String>): Int {
         var sign: String? = null
 
-        symbols.forEach { symbol ->
-            when (symbol) {
-                "+", "-", "*", "/" -> sign = symbol
-                else -> {
-                    val number = symbol.toInt()
-                    when (sign) {
-                        "+" -> result += number
-                        "-" -> result -= number
-                        "*" -> result *= number
-                        "/" -> result /= number
-                        null -> result = number
-                    }
-                }
+        return symbols.fold(0) { prevResult, symbol ->
+            if ("+-*/".contains(symbol)) {
+                sign = symbol
+                return@fold prevResult
             }
-        }
 
-        return result
+            evaluateOne(prevResult, sign, symbol.toInt())
+        }
+    }
+
+    private fun evaluateOne(prevResult: Int, sign: String?, number: Int): Int {
+        return when (sign) {
+            "+" -> prevResult + number
+            "-" -> prevResult - number
+            "*" -> prevResult * number
+            "/" -> prevResult / number
+            else -> number
+        }
     }
 }
