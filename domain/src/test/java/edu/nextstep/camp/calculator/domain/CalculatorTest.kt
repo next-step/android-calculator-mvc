@@ -48,4 +48,10 @@ class CalculatorTest {
         // then
         assertThat(actual).isEqualTo(5)
     }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun `입력값이 null 이면 오류를 던진다`() {
+        // when
+        calculator.evaluate(null)
+    }
 }
