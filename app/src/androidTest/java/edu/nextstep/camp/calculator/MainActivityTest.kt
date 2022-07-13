@@ -13,56 +13,56 @@ class MainActivityTest {
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun on0ButtonPressed() {
+    fun whenButton0IsPressed0IsShown() {
         onView(withId(R.id.button0)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText("0")))
     }
 
     @Test
-    fun on1ButtonPressed() {
+    fun whenButton1IsPressed1IsShown() {
         onView(withId(R.id.button1)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText("1")))
     }
 
     @Test
-    fun on2ButtonPressed() {
+    fun whenButton2IsPressed2IsShown() {
         onView(withId(R.id.button2)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText("2")))
     }
 
     @Test
-    fun on3ButtonPressed() {
+    fun whenButton3IsPressed3IsShown() {
         onView(withId(R.id.button3)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText("3")))
     }
     @Test
-    fun on4ButtonPressed() {
+    fun whenButton4IsPressed4IsShown() {
         onView(withId(R.id.button4)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText("4")))
     }
     @Test
-    fun on5ButtonPressed() {
+    fun whenButton5IsPressed5IsShown() {
         onView(withId(R.id.button5)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText("5")))
     }
     @Test
-    fun on6ButtonPressed() {
+    fun whenButton6IsPressed6IsShown() {
         onView(withId(R.id.button6)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText("6")))
     }
     @Test
-    fun on7ButtonPressed() {
+    fun whenButton7IsPressed7IsShown() {
         onView(withId(R.id.button7)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText("7")))
     }
 
     @Test
-    fun on8ButtonPressed() {
+    fun whenButton8IsPressed8IsShown() {
         onView(withId(R.id.button8)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText("8")))
     }
     @Test
-    fun on9ButtonPressed() {
+    fun whenButton9IsPressed9IsShown() {
         onView(withId(R.id.button9)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText("9")))
     }
