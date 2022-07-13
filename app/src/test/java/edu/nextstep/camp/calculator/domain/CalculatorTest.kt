@@ -1,5 +1,6 @@
 package edu.nextstep.camp.calculator.domain
 
+import org.junit.Assert.assertThrows
 import org.junit.Test
 
 /**
@@ -29,7 +30,9 @@ class CalculatorTest {
 
     @Test
     fun `입력값이 null이거나 빈 공백 문자일 경우 IllegalArgumentException throw`() {
-        TODO("Not yet implemented")
+        assertThrows(IllegalArgumentException::class.java) {
+            Calculator().evaluate(null)
+        }
     }
 
     @Test
