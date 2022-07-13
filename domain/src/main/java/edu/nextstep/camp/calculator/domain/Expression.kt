@@ -4,7 +4,7 @@ internal interface Expression {
     fun evaluate(): Int
 }
 
-internal class ExpressionNode(
+internal data class ExpressionNode(
     private val left: Expression,
     private val right: Expression,
     private val op: String
@@ -23,7 +23,7 @@ internal class ExpressionNode(
     }
 }
 
-internal class ValueNode(
+internal data class ValueNode(
     private val value: Int
 ) : Expression {
     override fun evaluate(): Int {
