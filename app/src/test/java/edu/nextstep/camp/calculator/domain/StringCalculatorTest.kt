@@ -17,7 +17,7 @@ internal class StringCalculatorTest {
         "10 * 5, 50",
         "24 / 6, 4",
     )
-    fun `사칙연산자 하나가 포함된 문자열의 계산 결과값을 알 수 있다`(input: String, expected: Int) {
+    fun `사칙연산 기호 하나가 포함된 문자열의 계산 결과값을 알 수 있다`(input: String, expected: Int) {
         // when
         val result = stringCalculator.calculate(input)
 
@@ -28,6 +28,17 @@ internal class StringCalculatorTest {
     @ParameterizedTest
     @NullAndEmptySource
     fun `입력값이 null이거나 빈 공백 문자일 경우 IllegalArgumentException이 발생한다`(input: String?) {
+        // then
+        assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
+    }
+
+    @ParameterizedTest(name = "사칙연산 기호가 아닌 {0}의 경우 IllegalArgumentException이 발생한다")
+    @CsvSource(
+        "1 @ 2",
+        "1 + 2(3)",
+        "1 # %",
+    )
+    fun `사칙연산 기호가 아닌 경우 IllegalArgumentException이 발생한다`(input: String?) {
         // then
         assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
     }

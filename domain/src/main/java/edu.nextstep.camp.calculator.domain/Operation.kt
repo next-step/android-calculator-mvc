@@ -36,7 +36,7 @@ sealed interface Operation {
             Minus.symbol -> Minus
             Multiply.symbol -> Multiply
             Divide.symbol -> Divide
-            else -> TODO()
+            else -> throw IllegalArgumentException()
         }
     }
 }
