@@ -72,4 +72,13 @@ class CalculatorTest {
         // when
         calculator.evaluate("5 % 3")
     }
+
+    @Test
+    fun `2 더하기 3 곱하기 4 나누기 2는 10이다`() {
+        // when
+        val actual = calculator.evaluate("2 + 3 * 4 / 2")
+
+        // then
+        assertThat(actual).isEqualTo(10)
+    }
 }
