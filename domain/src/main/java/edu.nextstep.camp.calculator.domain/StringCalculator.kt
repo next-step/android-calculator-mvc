@@ -6,7 +6,8 @@ object StringCalculator {
     private const val OPERATOR_INDEX_UNIT = 2
     private const val OPERATOR_INDEX_BUFFER = 1
 
-    fun calculate(raw: String): Number {
+    fun calculate(raw: String?): Number {
+        requireNotNull(raw)
         val params = raw.split(SPLIT_DELIMITER)
         val (rawOperands, rawOperators) = params
             .withIndex()

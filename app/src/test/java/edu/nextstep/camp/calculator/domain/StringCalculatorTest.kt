@@ -1,8 +1,10 @@
 package edu.nextstep.camp.calculator.domain
 
 import com.google.common.truth.Truth.assertThat
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
+import org.junit.jupiter.params.provider.NullAndEmptySource
 
 internal class StringCalculatorTest {
 
@@ -15,11 +17,18 @@ internal class StringCalculatorTest {
         "10 * 5, 50",
         "24 / 6, 4",
     )
-    fun `사칙연산자 하나가 포함된 문자열의 계산 결과값을 알 수 있다`(original: String, expected: Int) {
+    fun `사칙연산자 하나가 포함된 문자열의 계산 결과값을 알 수 있다`(input: String, expected: Int) {
         // when
-        val result = stringCalculator.calculate(original)
+        val result = stringCalculator.calculate(input)
 
         // then
         assertThat(result).isEqualTo(Number(expected))
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    fun `입력값이 null이거나 빈 공백 문자일 경우 IllegalArgumentException이 발생한다`(input: String?) {
+        // then
+        assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
     }
 }
