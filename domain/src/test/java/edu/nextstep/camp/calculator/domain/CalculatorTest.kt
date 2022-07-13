@@ -30,4 +30,13 @@ class CalculatorTest {
         // then
         assertThat(actual).isEqualTo(1)
     }
+
+    @Test
+    fun `2 곱하기 3은 6이다`() {
+        // when
+        val actual = calculator.evaluate("2 * 3")
+
+        // then
+        assertThat(actual).isEqualTo(6)
+    }
 }
