@@ -66,4 +66,10 @@ class CalculatorTest {
         // when
         calculator.evaluate(" ")
     }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun `사칙연산이 아닌 기호가 포함되어 있으면 오류를 던진다`() {
+        // when
+        calculator.evaluate("5 % 3")
+    }
 }
