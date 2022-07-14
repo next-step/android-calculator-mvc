@@ -1,6 +1,8 @@
 package edu.nextstep.camp.calculator.domain
 
 import com.google.common.truth.Truth
+import edu.nextstep.camp.calculator.domain.model.Operand
+import edu.nextstep.camp.calculator.domain.model.Operator
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
@@ -16,7 +18,7 @@ class OperatorTest {
         "1073741823, 1073741824, 2147483647",
     )
     fun addition(firstOperand: Int, secondOperand: Int, expected: Int) {
-        val actual: Int = Operator.ADDITION.evaluate(firstOperand, secondOperand)
+        val actual: Int = Operator.ADDITION.evaluate(Operand(firstOperand), Operand(secondOperand)).value
         Truth.assertThat(actual).isEqualTo(expected)
     }
 
@@ -27,7 +29,7 @@ class OperatorTest {
         "0, 1073741824, -1073741824",
     )
     fun subtraction(firstOperand: Int, secondOperand: Int, expected: Int) {
-        val actual: Int = Operator.SUBTRACTION.evaluate(firstOperand, secondOperand)
+        val actual: Int = Operator.SUBTRACTION.evaluate(Operand(firstOperand), Operand(secondOperand)).value
         Truth.assertThat(actual).isEqualTo(expected)
     }
 
@@ -40,7 +42,7 @@ class OperatorTest {
         "-1, -1, 1"
     )
     fun multiplication(firstOperand: Int, secondOperand: Int, expected: Int) {
-        val actual: Int = Operator.MULTIPLICATION.evaluate(firstOperand, secondOperand)
+        val actual: Int = Operator.MULTIPLICATION.evaluate(Operand(firstOperand), Operand(secondOperand)).value
         Truth.assertThat(actual).isEqualTo(expected)
     }
 
@@ -51,12 +53,12 @@ class OperatorTest {
         "2, 2, 1",
     )
     fun division(firstOperand: Int, secondOperand: Int, expected: Int) {
-        val actual: Int = Operator.DIVISION.evaluate(firstOperand, secondOperand)
+        val actual: Int = Operator.DIVISION.evaluate(Operand(firstOperand), Operand(secondOperand)).value
         Truth.assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun divideByZero_ThrowArithmeticException() {
-        assertThrows<ArithmeticException> { Operator.DIVISION.evaluate(3, 0) }
+        assertThrows<ArithmeticException> { Operator.DIVISION.evaluate(Operand(3), Operand(0)) }
     }
 }

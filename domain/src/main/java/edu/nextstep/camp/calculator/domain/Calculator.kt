@@ -1,5 +1,8 @@
 package edu.nextstep.camp.calculator.domain
 
+import edu.nextstep.camp.calculator.domain.model.Operand
+import edu.nextstep.camp.calculator.domain.model.Operator
+
 
 object Calculator {
     fun evaluate(expression: String) : Int =
@@ -10,12 +13,12 @@ object Calculator {
         val opsList = RegexUtils.getOperatorsList(expression)
         val numList = RegexUtils.getOperandsList(expression)
 
-        var result = numList[0]
+        var result = Operand(numList[0])
 
         numList.subList(1, numList.size).forEachIndexed { index, num ->
-            result = Operator.getFromRaw(opsList[index]).evaluate(result, num)
+            result = Operator.getFromRaw(opsList[index]).evaluate(result, Operand(num))
         }
 
-        return result
+        return result.value
     }
 }
