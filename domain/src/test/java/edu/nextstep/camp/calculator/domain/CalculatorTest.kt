@@ -68,4 +68,11 @@ class CalculatorExceptionTest {
             calculator.evaluate("2 / 0")
         }
     }
+
+    @Test
+    fun `연산자와 피연산자 갯수가 맞지 않는 경우 IllegalArgumentException throw`() {
+        assertThrows(IllegalArgumentException::class.java) {
+            calculator.evaluate("2 / 0 +")
+        }
+    }
 }

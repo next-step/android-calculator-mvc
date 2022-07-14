@@ -2,12 +2,10 @@ package edu.nextstep.camp.calculator.domain
 
 class Calculator {
     fun evaluate(input: String?): Int {
-        if (input.isNullOrBlank()) {
-            throw IllegalArgumentException(IS_NULL_OR_BLANK)
-        }
+        require(!input.isNullOrBlank()) { throw IllegalArgumentException(IS_NULL_OR_BLANK) }
 
         val inputList = splitByDelimiter(input)
-        if (inputList.size % EVEN_COMPARISON_NUMBER == RESULT_WHEN_EVEN_NUMBER) {
+        require(inputList.size % EVEN_COMPARISON_NUMBER == RESULT_WHEN_ODD_NUMBER) {
             throw IllegalArgumentException(NOT_MATCH_OPERATORS_AND_OPERANDS)
         }
 
@@ -33,7 +31,7 @@ class Calculator {
         private const val DELIMITER = " "
 
         private const val EVEN_COMPARISON_NUMBER = 2
-        private const val RESULT_WHEN_EVEN_NUMBER = 0
+        private const val RESULT_WHEN_ODD_NUMBER = 1
 
         private const val NUMBER_OF_EXCLUDING_THE_FIRST_INDEX = 1
         private const val SIZE_OF_CALCULATION_UNIT = 2
