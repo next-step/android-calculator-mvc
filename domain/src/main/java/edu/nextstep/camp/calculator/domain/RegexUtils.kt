@@ -9,7 +9,7 @@ object RegexUtils {
     fun getOperatorsList(expression: String) =
         NON_NUMBER_REGEX.toRegex().findAll(expression).map { it.value }.toList()
 
-    fun getNumbersList(expression: String) =
+    fun getOperandsList(expression: String) =
         NUMBER_REGEX.toRegex().findAll(expression).map { Integer.parseInt(it.value) }.toList()
 
     fun checkExpressionIsValid(expression: String) =

@@ -8,7 +8,7 @@ object Calculator {
     private fun evaluateNonEmptyExpression(expression: String) : Int {
         if (!RegexUtils.checkExpressionIsValid(expression)) throw IllegalArgumentException("Wrong Format")
         val opsList = RegexUtils.getOperatorsList(expression)
-        val numList = RegexUtils.getNumbersList(expression)
+        val numList = RegexUtils.getOperandsList(expression)
 
         var result = numList[0]
 
