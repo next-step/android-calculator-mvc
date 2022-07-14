@@ -63,14 +63,6 @@ class CalculatorExceptionTest {
     }
 
     @Test
-    fun `Operator는 연산자를 잘 찾아내는가`() {
-        assertEquals(Operator.of("+"), Operator.PLUS)
-        assertEquals(Operator.of("-"), Operator.MINUS)
-        assertEquals(Operator.of("/"), Operator.DIVISION)
-        assertEquals(Operator.of("*"), Operator.MULTIPLY)
-    }
-
-    @Test
     fun `0으로 나눌 경우 IllegalArgumentException throw`() {
         assertThrows(IllegalArgumentException::class.java) {
             calculator.evaluate("2 / 0")
