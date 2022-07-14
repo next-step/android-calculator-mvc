@@ -5,8 +5,6 @@ class Calculator {
         get() = _expressionContents
     private val _expressionContents = mutableListOf<String>()
 
-    private val operation = listOf("+", "-", "*", "/")
-
     fun input(expression: String?) {
         require(!expression.isNullOrBlank()) {
             "입력값이 null이거나 빈 공백 문자입니다."
@@ -39,17 +37,17 @@ class Calculator {
     }
 
     private fun checkOperation(content: String) {
-        require(operation.contains(content)) {
+        require(Operation.toOperation(content) != Operation.UNDEFINED) {
             "사칙연산 기호가 아닙니다"
         }
     }
 
     fun calculate(): Int {
         var result = _expressionContents.first().toInt()
-        var operation = ""
+        var operation = Operation.UNDEFINED
         _expressionContents.forEach { content ->
-            if (this.operation.contains(content)) {
-                operation = content
+            if (Operation.toOperation(content) != Operation.UNDEFINED) {
+                operation = Operation.toOperation(content)
                 return@forEach
             }
             result = calculateExpression(first = result, second = content.toInt(), operation = operation)
@@ -58,12 +56,12 @@ class Calculator {
         return result
     }
 
-    private fun calculateExpression(first: Int, second: Int, operation: String): Int {
+    private fun calculateExpression(first: Int, second: Int, operation: Operation): Int {
         return when (operation) {
-            "+" -> plus(first = first, second = second)
-            "-" -> minus(first = first, second = second)
-            "*" -> multiply(first = first, second = second)
-            "/" -> divide(first = first, second = second)
+            Operation.PLUS -> plus(first = first, second = second)
+            Operation.MINUS -> minus(first = first, second = second)
+            Operation.MULTIPLY -> multiply(first = first, second = second)
+            Operation.DIVIDE -> divide(first = first, second = second)
             else -> first
         }
     }
