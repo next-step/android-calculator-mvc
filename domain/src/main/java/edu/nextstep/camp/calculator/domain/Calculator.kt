@@ -32,9 +32,9 @@ class Calculator {
     /**
      * 계산가능한 숫자인지 확인하는 메소드.
      */
-    private fun changeStringToNumber(input: String): Number {
+    private fun changeStringToNumber(input: String): Operand {
         val inputToInt = input.toIntOrNull() ?: throw IllegalArgumentException(IS_NON_DIGIT_CHARACTER)
-        return Number(inputToInt)
+        return Operand(inputToInt)
     }
 
     companion object {

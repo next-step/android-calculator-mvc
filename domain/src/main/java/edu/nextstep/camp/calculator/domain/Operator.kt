@@ -6,7 +6,7 @@ package edu.nextstep.camp.calculator.domain
  */
 enum class Operator(
     val operator: String,
-    val calculate: (Number, Number) -> Number
+    val calculate: (Operand, Operand) -> Operand
 ) {
     PLUS("+", { a, b -> a + b }),
     MINUS("-", { a, b -> a - b }),
