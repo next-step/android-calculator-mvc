@@ -12,11 +12,11 @@ class Calculator {
         }
 
         // 첫숫자는 바로 계산하기 위해 저장한다.
-        var output = changeStringToNumber(inputList.first())
+        var output = Operand.of(inputList.first())
         for (index in NUMBER_OF_EXCLUDING_THE_FIRST_INDEX until inputList.size step SIZE_OF_CALCULATION_UNIT) {
             output =
                 Operator.of(inputList[index])
-                    .calculate(output, changeStringToNumber(inputList[index + INDEX_OF_NUMBER]))
+                    .calculate(output, Operand.of(inputList[index + INDEX_OF_NUMBER]))
         }
 
         return output.value
@@ -27,14 +27,6 @@ class Calculator {
      */
     private fun splitByDelimiter(input: String): List<String> {
         return input.split(DELIMITER)
-    }
-
-    /**
-     * 계산가능한 숫자인지 확인하는 메소드.
-     */
-    private fun changeStringToNumber(input: String): Operand {
-        val inputToInt = input.toIntOrNull() ?: throw IllegalArgumentException(IS_NON_DIGIT_CHARACTER)
-        return Operand(inputToInt)
     }
 
     companion object {
@@ -50,6 +42,5 @@ class Calculator {
 
         private const val IS_NULL_OR_BLANK = "인풋이 null이거나 blank입니다."
         private const val NOT_MATCH_OPERATORS_AND_OPERANDS = "연산자와 피연산자 갯수가 맞지 않습니다."
-        private const val IS_NON_DIGIT_CHARACTER = "숫자 위치에 숫자가 오지 않았습니다."
     }
 }

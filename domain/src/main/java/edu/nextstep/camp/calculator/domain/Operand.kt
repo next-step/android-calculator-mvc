@@ -28,6 +28,14 @@ value class Operand(val value: Int) {
     }
 
     companion object {
+        fun of(number: String): Operand {
+            val inputToInt = number.toIntOrNull() ?: throw IllegalArgumentException(IS_NON_DIGIT_CHARACTER)
+            return Operand(inputToInt)
+        }
+
         private const val ZERO = 0
+
+        private const val IS_NON_DIGIT_CHARACTER = "숫자 위치에 숫자가 오지 않았습니다."
+
     }
 }
