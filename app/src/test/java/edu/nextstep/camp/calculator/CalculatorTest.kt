@@ -100,4 +100,14 @@ class CalculatorTest {
             calculator.divide(-10, 0)
         }
     }
+
+    @Test
+    fun `빈 문자열이나 null을 input하면 IllegalArgumentException이 나온다`() {
+        assertThrows(IllegalArgumentException::class.java) {
+            calculator.input("")
+        }
+        assertThrows(IllegalArgumentException::class.java) {
+            calculator.input(null)
+        }
+    }
 }
