@@ -3,6 +3,7 @@ package edu.nextstep.camp.calculator.domain
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.NullAndEmptySource
@@ -28,35 +29,35 @@ class CalculatorTest {
     @ParameterizedTest
     @NullAndEmptySource
     fun `입력값이 null이거나 빈 공백 문자일 경우 IllegalArgumentException throw`(source: String?) {
-        assertThrows(IllegalArgumentException::class.java) {
+        assertThrows<IllegalArgumentException> {
             calculator.evaluate(source)
         }
     }
 
     @Test
     fun `사칙연산 기호가 아닌 경우 IllegalArgumentException throw`() {
-        assertThrows(IllegalArgumentException::class.java) {
+        assertThrows<IllegalArgumentException> {
             calculator.evaluate("2 ] 3")
         }
     }
 
     @Test
     fun `숫자 위치에 숫자가 아닌 경우 IllegalArgumentException throw`() {
-        assertThrows(IllegalArgumentException::class.java) {
+        assertThrows<IllegalArgumentException> {
             calculator.evaluate("2 3 3")
         }
     }
 
     @Test
     fun `0으로 나눌 경우 IllegalArgumentException throw`() {
-        assertThrows(IllegalArgumentException::class.java) {
+        assertThrows<IllegalArgumentException> {
             calculator.evaluate("2 / 0")
         }
     }
 
     @Test
     fun `연산자와 피연산자 갯수가 맞지 않는 경우 IllegalArgumentException throw`() {
-        assertThrows(IllegalArgumentException::class.java) {
+        assertThrows<IllegalArgumentException> {
             calculator.evaluate("2 / 0 +")
         }
     }
