@@ -110,4 +110,25 @@ class CalculatorTest {
             calculator.input(null)
         }
     }
+
+    @Test
+    fun `숫자나 사칙연산 기호가 입력되지 않은 경우 IllegalArgumentException이 발생한다`() {
+        assertThrows(IllegalArgumentException::class.java) {
+            calculator.input("1 a 2 * 1")
+        }
+
+        assertThrows(IllegalArgumentException::class.java) {
+            calculator.input("a + 5 + 2")
+        }
+    }
+
+    @Test
+    fun `수식을 입력하면 공백을 기준으로 숫자와 연산기호가 나눠진다`() {
+        calculator.input("10 + 552 * -1")
+        assertThat(calculator.expressionContents[0]).isEqualTo("10")
+        assertThat(calculator.expressionContents[1]).isEqualTo("+")
+        assertThat(calculator.expressionContents[2]).isEqualTo("552")
+        assertThat(calculator.expressionContents[3]).isEqualTo("*")
+        assertThat(calculator.expressionContents[4]).isEqualTo("-1")
+    }
 }
