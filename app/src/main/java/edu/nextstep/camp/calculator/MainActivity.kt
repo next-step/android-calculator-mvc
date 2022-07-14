@@ -3,6 +3,7 @@ package edu.nextstep.camp.calculator
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
+import edu.nextstep.camp.calculator.domain.CalculatorDomainSample
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -23,5 +24,7 @@ class MainActivity : AppCompatActivity() {
         binding.button8.setOnClickListener { binding.textView.text = "8" }
         binding.button9.setOnClickListener { binding.textView.text = "9" }
 
+        val domain = CalculatorDomainSample(5)
+        binding.textView.text = domain.number.toString()
     }
 }
