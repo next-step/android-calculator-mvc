@@ -148,7 +148,7 @@ class CalculatorTest {
         assertThat(calculator.calculate()).isEqualTo(1)
     }
 
-    @Test()
+    @Test
     fun `0으로 나누면 ArithmeticException 이 나온다`() {
         assertThrows(ArithmeticException::class.java) {
             calculator.input("1 / 0")
