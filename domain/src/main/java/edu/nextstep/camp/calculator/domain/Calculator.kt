@@ -13,24 +13,9 @@ object Calculator {
         var result = numList[0]
 
         numList.subList(1, numList.size).forEachIndexed { index, num ->
-            result = evaluateCurrentOperation(result, num, opsList[index])
+            result = Operator.getFromRaw(opsList[index]).evaluate(result, num)
         }
 
         return result
     }
-
-    private fun evaluateCurrentOperation(currNum: Int, numToOp: Int, op: String) : Int {
-        return when (op) {
-            "+" -> evaluateAddition(currNum, numToOp)
-            "-" -> evaluateSubtraction(currNum, numToOp)
-            "*" -> evaluateMultiplication(currNum, numToOp)
-            "/" -> evaluateDivision(currNum, numToOp)
-            else -> throw IllegalArgumentException("Unsupported Operator")
-        }
-    }
-
-    fun evaluateAddition(currNum: Int, numToAdd: Int) = currNum + numToAdd
-    fun evaluateSubtraction(currNum: Int, numToSubtract: Int) = currNum - numToSubtract
-    fun evaluateMultiplication(currNum: Int, numToMultiply: Int) = currNum * numToMultiply
-    fun evaluateDivision(currNum: Int, numToDivide: Int) = currNum / numToDivide
 }
