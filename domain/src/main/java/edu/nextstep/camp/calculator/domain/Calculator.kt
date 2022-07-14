@@ -2,11 +2,11 @@ package edu.nextstep.camp.calculator.domain
 
 class Calculator {
     fun evaluate(input: String?): Int {
-        require(!input.isNullOrBlank()) { throw IllegalArgumentException(IS_NULL_OR_BLANK) }
+        require(!input.isNullOrBlank()) { IllegalArgumentException(IS_NULL_OR_BLANK) }
 
         val inputList = Splitter.splitByDelimiter(input)
         require(inputList.size % EVEN_COMPARISON_NUMBER == RESULT_WHEN_ODD_NUMBER) {
-            throw IllegalArgumentException(NOT_MATCH_OPERATORS_AND_OPERANDS)
+            IllegalArgumentException(NOT_MATCH_OPERATORS_AND_OPERANDS)
         }
 
         // 첫숫자는 바로 계산하기 위해 저장한다.
