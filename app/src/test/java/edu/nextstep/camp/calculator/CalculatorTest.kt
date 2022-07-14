@@ -2,6 +2,7 @@ package edu.nextstep.camp.calculator
 
 import com.google.common.truth.Truth.assertThat
 import edu.nextstep.calculator.domain.Calculator
+import org.junit.Assert.assertThrows
 import org.junit.Before
 import org.junit.Test
 
@@ -32,5 +33,71 @@ class CalculatorTest {
         assertThat(calculator.plus(0, 2)).isEqualTo(2)
         assertThat(calculator.plus(1, 0)).isEqualTo(1)
         assertThat(calculator.plus(-10, 0)).isEqualTo(-10)
+    }
+
+    @Test
+    fun `양의 정수를 빼면 뺄셈의 결과가 정상이다`() {
+        assertThat(calculator.minus(1, 2)).isEqualTo(-1)
+        assertThat(calculator.minus(5, 2)).isEqualTo(3)
+        assertThat(calculator.minus(1000, 504)).isEqualTo(496)
+    }
+
+    @Test
+    fun `음의 정수를 빼면 뺄셈의 결과가 정상이다`() {
+        assertThat(calculator.minus(1, -2)).isEqualTo(3)
+        assertThat(calculator.minus(-1, 2)).isEqualTo(-3)
+        assertThat(calculator.minus(-1, -2)).isEqualTo(1)
+    }
+
+    @Test
+    fun `0을 빼면 뺄셈의 결과가 정상이다`() {
+        assertThat(calculator.minus(0, 2)).isEqualTo(-2)
+        assertThat(calculator.minus(1, 0)).isEqualTo(1)
+        assertThat(calculator.minus(-10, 0)).isEqualTo(-10)
+    }
+
+    @Test
+    fun `양의 정수를 곱하면 곱셈의 결과가 정상이다`() {
+        assertThat(calculator.multiply(1, 2)).isEqualTo(2)
+        assertThat(calculator.multiply(5, 2)).isEqualTo(10)
+        assertThat(calculator.multiply(1000, 504)).isEqualTo(504000)
+    }
+
+    @Test
+    fun `음의 정수를 곱하면 곱셈의 결과가 정상이다`() {
+        assertThat(calculator.multiply(1, -2)).isEqualTo(-2)
+        assertThat(calculator.multiply(-1, 2)).isEqualTo(-2)
+        assertThat(calculator.multiply(-1, -2)).isEqualTo(2)
+    }
+
+    @Test
+    fun `0을 곱하면 곱셈의 결과가 0이다`() {
+        assertThat(calculator.multiply(0, 2)).isEqualTo(0)
+        assertThat(calculator.multiply(1, 0)).isEqualTo(0)
+        assertThat(calculator.multiply(-10, 0)).isEqualTo(0)
+    }
+
+    @Test
+    fun `양의 정수를 나누면 나눗셈의 결과는 몫이다`() {
+        assertThat(calculator.divide(1, 2)).isEqualTo(0)
+        assertThat(calculator.divide(5, 2)).isEqualTo(2)
+        assertThat(calculator.divide(1000, 504)).isEqualTo(1)
+    }
+
+    @Test
+    fun `음의 정수를 나누면 나눗셈의 결과가 정상이다`() {
+        assertThat(calculator.divide(2, -2)).isEqualTo(-1)
+        assertThat(calculator.divide(-2, 2)).isEqualTo(-1)
+        assertThat(calculator.divide(-2, -2)).isEqualTo(1)
+    }
+
+    @Test()
+    fun `0으로 나누면 ArithmeticException 이 나온다`() {
+        assertThrows(ArithmeticException::class.java) {
+            calculator.divide(1, 0)
+        }
+        assertThrows(ArithmeticException::class.java) {
+            calculator.divide(-10, 0)
+        }
     }
 }
