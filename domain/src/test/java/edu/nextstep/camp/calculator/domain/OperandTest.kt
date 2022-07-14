@@ -1,7 +1,7 @@
 package edu.nextstep.camp.calculator.domain
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 /**
  * Created by link.js on 2022. 07. 14..
