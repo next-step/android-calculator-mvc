@@ -2,6 +2,7 @@ package edu.nextstep.camp.calculator.domain
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
@@ -15,7 +16,7 @@ import org.junit.jupiter.params.provider.NullAndEmptySource
 class CalculatorTest {
     private val calculator = Calculator()
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{0} = {1}")
     @CsvSource("2 + 3, 5",
         "5 - 2, 3",
         "5 * 3, 15",

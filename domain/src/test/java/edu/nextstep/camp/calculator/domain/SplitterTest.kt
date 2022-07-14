@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.CsvSource
  */
 class SplitterTest {
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{0}의 문자 갯수는 {1}")
     @CsvSource("2 + 3, 3",
         "5 - 2, 3",
         "5 * 3, 3",
