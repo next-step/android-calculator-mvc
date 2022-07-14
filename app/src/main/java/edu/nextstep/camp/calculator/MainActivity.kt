@@ -26,5 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         val domain = CalculatorDomainSample(5)
         binding.textView.text = domain.number.toString()
+
     }
 }
