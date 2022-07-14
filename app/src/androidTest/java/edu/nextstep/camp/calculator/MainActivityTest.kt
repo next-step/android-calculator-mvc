@@ -96,4 +96,13 @@ class MainActivityTest {
         // then : 화면에 9이 보여야 한다
         onView(withId(R.id.textView)).check(matches(withText("9")))
     }
+
+    @Test
+    fun `입력된_피연산자가_있을_때_기존_숫자_뒤에_해당_숫자가_화면에_보여야_한다`() {
+        // when : 8 이 적혀있는 상태에서 9버튼을 누르면
+        onView(withId(R.id.button8)).perform(click())
+        onView(withId(R.id.button9)).perform(click())
+        // then : 화면에 89가 보여야한다.
+        onView(withId(R.id.textView)).check(matches(withText("89")))
+    }
 }

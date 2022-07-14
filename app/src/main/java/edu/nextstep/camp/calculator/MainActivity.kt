@@ -12,15 +12,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.button0.setOnClickListener { binding.textView.text = "0" }
-        binding.button1.setOnClickListener { binding.textView.text = "1" }
-        binding.button2.setOnClickListener { binding.textView.text = "2" }
-        binding.button3.setOnClickListener { binding.textView.text = "3" }
-        binding.button4.setOnClickListener { binding.textView.text = "4" }
-        binding.button5.setOnClickListener { binding.textView.text = "5" }
-        binding.button6.setOnClickListener { binding.textView.text = "6" }
-        binding.button7.setOnClickListener { binding.textView.text = "7" }
-        binding.button8.setOnClickListener { binding.textView.text = "8" }
-        binding.button9.setOnClickListener { binding.textView.text = "9" }
+        binding.button0.setOnClickListener { onClickNumber(0) }
+        binding.button1.setOnClickListener { onClickNumber(1) }
+        binding.button2.setOnClickListener { onClickNumber(2) }
+        binding.button3.setOnClickListener { onClickNumber(3) }
+        binding.button4.setOnClickListener { onClickNumber(4) }
+        binding.button5.setOnClickListener { onClickNumber(5) }
+        binding.button6.setOnClickListener { onClickNumber(6) }
+        binding.button7.setOnClickListener { onClickNumber(7) }
+        binding.button8.setOnClickListener { onClickNumber(8) }
+        binding.button9.setOnClickListener { onClickNumber(9) }
+    }
+
+    private fun onClickNumber(number: Int) {
+        binding.textView.text = "${binding.textView.text}$number"
     }
 }
