@@ -4,7 +4,7 @@ class Calculator {
     fun evaluate(input: String?): Int {
         require(!input.isNullOrBlank()) { throw IllegalArgumentException(IS_NULL_OR_BLANK) }
 
-        val inputList = splitByDelimiter(input)
+        val inputList = Splitter.splitByDelimiter(input)
         require(inputList.size % EVEN_COMPARISON_NUMBER == RESULT_WHEN_ODD_NUMBER) {
             throw IllegalArgumentException(NOT_MATCH_OPERATORS_AND_OPERANDS)
         }
@@ -20,16 +20,8 @@ class Calculator {
         return output.value
     }
 
-    /**
-     * 문자열을 스페이스로 나눠 List로 돌려주는 메소드.
-     */
-    private fun splitByDelimiter(input: String): List<String> {
-        return input.split(DELIMITER)
-    }
 
     companion object {
-        private const val DELIMITER = " "
-
         private const val EVEN_COMPARISON_NUMBER = 2
         private const val RESULT_WHEN_ODD_NUMBER = 1
 
