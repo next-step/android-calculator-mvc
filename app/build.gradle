@@ -6,6 +6,10 @@ plugins {
 android {
     compileSdkVersion 30
 
+    packagingOptions {
+        exclude 'META-INF/LICENSE.md'
+        exclude 'META-INF/LICENSE-notice.md'
+    }
     defaultConfig {
         applicationId "edu.nextstep.camp.calculator"
         minSdkVersion 21
@@ -35,16 +39,22 @@ android {
 }
 
 dependencies {
+    implementation project(":domain")
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation project(":domain")
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'com.google.truth:truth:1.1.2'
     testImplementation 'io.mockk:mockk:1.10.6'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
+
+repositories{
+    mavenCentral()
 }
