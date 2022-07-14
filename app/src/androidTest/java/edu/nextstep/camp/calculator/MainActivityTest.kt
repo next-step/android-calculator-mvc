@@ -1,5 +1,6 @@
 package edu.nextstep.camp.calculator
 
+import androidx.annotation.IdRes
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -8,99 +9,40 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
+import org.junit.runners.Parameterized.Parameters
 
-class MainActivityTest {
+@RunWith(Parameterized::class)
+class MainActivityTest(
+    private val buttonID: Int,
+    private val expected: String
+) {
     @get:Rule
-    var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
+    val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
-    //사용자가 피연산자 0~9 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
-    @Test
-    fun 버튼_0을_누르면_화면에_0이_보여야_한다() {
-        //when
-        onView(withId(R.id.button0)).perform(click())
-
-        //then
-        onView(withId(R.id.textView)).check(matches(withText("0")))
+    companion object {
+        @JvmStatic
+        @Parameters(name = "버튼{index}를 클릭하면 결과값 {1}이 나오도록 한다.")
+        fun buttonNumberList() = listOf(
+            arrayOf(R.id.button0, "0"),
+            arrayOf(R.id.button1, "1"),
+            arrayOf(R.id.button2, "2"),
+            arrayOf(R.id.button3, "3"),
+            arrayOf(R.id.button4, "4"),
+            arrayOf(R.id.button5, "5"),
+            arrayOf(R.id.button6, "6"),
+            arrayOf(R.id.button7, "7"),
+            arrayOf(R.id.button8, "8"),
+            arrayOf(R.id.button9, "9"),
+        )
     }
 
     @Test
-    fun 버튼_1을_누르면_화면에_1이_보여야_한다() {
+    fun testGetButtonNumber() {
         //when
-        onView(withId(R.id.button1)).perform(click())
-
+        onView(withId(buttonID)).perform(click())
         //then
-        onView(withId(R.id.textView)).check(matches(withText("1")))
-    }
-
-    @Test
-    fun 버튼_2을_누르면_화면에_2이_보여야_한다() {
-        //when
-        onView(withId(R.id.button2)).perform(click())
-
-        //then
-        onView(withId(R.id.textView)).check(matches(withText("2")))
-    }
-
-    @Test
-    fun 버튼_3을_누르면_화면에_3이_보여야_한다() {
-        //when
-        onView(withId(R.id.button3)).perform(click())
-
-        //then
-        onView(withId(R.id.textView)).check(matches(withText("3")))
-    }
-
-    @Test
-    fun 버튼_4을_누르면_화면에_4이_보여야_한다() {
-        //when
-        onView(withId(R.id.button4)).perform(click())
-
-        //then
-        onView(withId(R.id.textView)).check(matches(withText("4")))
-    }
-
-    @Test
-    fun 버튼_5을_누르면_화면에_5이_보여야_한다() {
-        //when
-        onView(withId(R.id.button5)).perform(click())
-
-        //then
-        onView(withId(R.id.textView)).check(matches(withText("5")))
-    }
-
-    @Test
-    fun 버튼_6을_누르면_화면에_6이_보여야_한다() {
-        //when
-        onView(withId(R.id.button6)).perform(click())
-
-        //then
-        onView(withId(R.id.textView)).check(matches(withText("6")))
-    }
-    
-    @Test
-    fun 버튼_7을_누르면_화면에_7이_보여야_한다() {
-        //when
-        onView(withId(R.id.button7)).perform(click())
-
-        //then
-        onView(withId(R.id.textView)).check(matches(withText("7")))
-    }
-
-    @Test
-    fun 버튼_8을_누르면_화면에_8이_보여야_한다() {
-        //when
-        onView(withId(R.id.button8)).perform(click())
-
-        //then
-        onView(withId(R.id.textView)).check(matches(withText("8")))
-    }
-
-    @Test
-    fun 버튼_9을_누르면_화면에_9이_보여야_한다() {
-        //when
-        onView(withId(R.id.button9)).perform(click())
-
-        //then
-        onView(withId(R.id.textView)).check(matches(withText("9")))
+        onView(withId(R.id.textView)).check(matches(withText(expected)))
     }
 }
