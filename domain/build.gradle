@@ -1,9 +1,12 @@
-apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
+
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 }
 
 repositories {
