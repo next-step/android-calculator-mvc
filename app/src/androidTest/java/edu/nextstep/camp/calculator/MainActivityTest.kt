@@ -105,4 +105,13 @@ class MainActivityTest {
         // then : 화면에 89가 보여야한다.
         onView(withId(R.id.textView)).check(matches(withText("89")))
     }
+
+    @Test
+    fun `입력된_피연산자가_있을_때_사용자가_연산자_버튼을_누르면_해당_기호가_화면에_보여야_한다`() {
+        // when : 피연산자가 입력된 상태에서 연산자 버튼을 누르면
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        // then : 화면에 해당 기호가 보여야 한다.
+        onView(withId(R.id.textView)).check(matches(withText("1 +")))
+    }
 }

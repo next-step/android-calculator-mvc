@@ -22,9 +22,18 @@ class MainActivity : AppCompatActivity() {
         binding.button7.setOnClickListener { onClickNumber(7) }
         binding.button8.setOnClickListener { onClickNumber(8) }
         binding.button9.setOnClickListener { onClickNumber(9) }
+
+        binding.buttonPlus.setOnClickListener { onClickOperator("+") }
+        binding.buttonMinus.setOnClickListener { onClickOperator("-") }
+        binding.buttonDivide.setOnClickListener { onClickOperator("/") }
+        binding.buttonMultiply.setOnClickListener { onClickOperator("*") }
     }
 
     private fun onClickNumber(number: Int) {
         binding.textView.text = "${binding.textView.text}$number"
+    }
+
+    private fun onClickOperator(operator: String) {
+        binding.textView.text = "${binding.textView.text} $operator"
     }
 }
