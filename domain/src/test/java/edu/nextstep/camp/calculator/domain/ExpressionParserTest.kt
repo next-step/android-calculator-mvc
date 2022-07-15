@@ -25,7 +25,11 @@ class ExpressionParserTest {
 
     @Test
     fun `공백으로 구분되지 않은 올바른 수식을 파싱한다`() {
-        TODO("Not yet implemented")
+        // when
+        val actual = parser.parse("1+2/3")
+
+        // then
+        assertThat(actual).isEqualTo(Expression(listOf(1, 2, 3), listOf(Symbol.Sign.PLUS, Symbol.Sign.DIVISION)))
     }
 
     @Test
