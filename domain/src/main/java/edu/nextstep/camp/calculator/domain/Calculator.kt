@@ -9,7 +9,8 @@ class Calculator(
             throw IllegalArgumentException("null 또는 빈 공백 문자열은 수식이 아닙니다.")
 
         val symbolList = expressionParser.parse(expression)
-        return evaluateSymbols(symbolList)
+        TODO("변경된 파서 반영")
+//        return evaluateSymbols(symbolList)
     }
 
     private fun evaluateSymbols(symbols: List<Symbol>): Int {
