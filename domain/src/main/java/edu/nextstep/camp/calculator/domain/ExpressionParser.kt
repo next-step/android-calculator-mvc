@@ -19,6 +19,7 @@ class ExpressionParser {
         val numberList = """[^0-9 ]""".toRegex()
             .split(expression)
             .map {
+                if (it.isBlank()) throw IllegalArgumentException("수식은 연속된 기호를 포함할 수 없습니다.")
                 it.trim().toInt()
             }
 

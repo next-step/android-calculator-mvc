@@ -32,9 +32,10 @@ class ExpressionParserTest {
         assertThat(actual).isEqualTo(Expression(listOf(1, 2, 3), listOf(Symbol.Sign.PLUS, Symbol.Sign.DIVISION)))
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException::class)
     fun `기호가 연속으로 등장하면 오류를 반환한다`() {
-        TODO("Not yet implemented")
+        // when
+        parser.parse("1++2/3")
     }
 
     @Test
