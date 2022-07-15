@@ -1,27 +1,15 @@
 package edu.nextstep.camp.calculator.domain
 
-class Calculator {
+class Calculator(
+    private val expressionParser: ExpressionParser = ExpressionParser()
+) {
 
     fun evaluate(expression: String?): Int {
         if (expression.isNullOrBlank())
             throw IllegalArgumentException("null 또는 빈 공백 문자열은 수식이 아닙니다.")
 
-        return evaluateSymbols(splitToSymbols(expression))
-    }
-
-    private fun splitToSymbols(expression: String): List<Symbol> {
-        return expression.split(' ')
-            .map { symbol ->
-                when (symbol) {
-                    "+" -> Symbol.Sign.PLUS
-                    "-" -> Symbol.Sign.MINUS
-                    "*" -> Symbol.Sign.TIMES
-                    "/" -> Symbol.Sign.DIVISION
-                    else -> symbol.toIntOrNull()?.let {
-                        Symbol.Number(it)
-                    } ?: throw IllegalArgumentException("수식에는 +, -, *, /만 사용될 수 있습니다.")
-                }
-            }
+        val symbolList = expressionParser.parse(expression)
+        return evaluateSymbols(symbolList)
     }
 
     private fun evaluateSymbols(symbols: List<Symbol>): Int {
