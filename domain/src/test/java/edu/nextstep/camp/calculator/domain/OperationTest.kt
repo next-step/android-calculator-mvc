@@ -19,10 +19,10 @@ class OperationTest(
         @JvmStatic
         @Parameters(name = " {2} {0} {3} = {4} ")
         fun getTestParameters() = listOf(
-            arrayOf(Operation.Plus.char, Operation.Plus, 2, 3, 5),
-            arrayOf(Operation.Minus.char, Operation.Minus, 2, 3, -1),
-            arrayOf(Operation.Div.char,  Operation.Div, 6, 3, 2),
-            arrayOf(Operation.Mult.char, Operation.Mult, 2, 3, 6),
+            arrayOf(Operation.Plus.operator, Operation.Plus, 2, 3, 5),
+            arrayOf(Operation.Minus.operator, Operation.Minus, 2, 3, -1),
+            arrayOf(Operation.Div.operator,  Operation.Div, 6, 3, 2),
+            arrayOf(Operation.Mult.operator, Operation.Mult, 2, 3, 6),
         )
     }
 

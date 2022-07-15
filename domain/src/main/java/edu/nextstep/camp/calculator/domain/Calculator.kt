@@ -1,18 +1,15 @@
 package edu.nextstep.camp.calculator.domain
 
 class Calculator {
-    @Throws(IllegalArgumentException::class)
-    fun evalute(text: String?): Int {
-        assertValidText(text)
-        return text!!.let {
-            compute(getNumbers(it), getOperators(it))
-        }
+    private companion object {
+        val OPERATOR_SPLIT_REGEX = "[0-9]".toRegex()
     }
 
     @Throws(IllegalArgumentException::class)
-    private fun assertValidText(text: String?) = when {
-        text.isNullOrBlank() -> throw IllegalArgumentException("wrong text input : $text")
-        else -> {}
+    fun evalute(text: String?): Int {
+        requireNotNull(text) { "wrong text input : $text" }
+        require(text.isNotBlank()) { "wrong text input : $text" }
+        return compute(getNumbers(text), getOperators(text))
     }
 
     @Throws(IllegalArgumentException::class)
@@ -25,7 +22,7 @@ class Calculator {
 
     private fun getOperators(text: String): List<Char> {
         return text
-            .split("[0-9]".toRegex())
+            .split(OPERATOR_SPLIT_REGEX)
             .filter { it.isNotBlank() }
             .map { it.trim().last() }
     }
