@@ -1,6 +1,5 @@
 plugins {
-    id 'java-library'
-    id 'org.jetbrains.kotlin.jvm'
+    id "kotlin"
 }
 
 java {
@@ -9,7 +8,6 @@ java {
 }
 
 dependencies {
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     testImplementation "junit:junit:$junit_version"
