@@ -4,42 +4,32 @@ class Calculator(
     private val expressionParser: ExpressionParser = ExpressionParser()
 ) {
 
-    fun evaluate(expression: String?): Int {
-        if (expression.isNullOrBlank())
+    fun evaluate(expressionString: String?): Int {
+        if (expressionString.isNullOrBlank())
             throw IllegalArgumentException("null 또는 빈 공백 문자열은 수식이 아닙니다.")
 
-        val symbolList = expressionParser.parse(expression)
-        TODO("변경된 파서 반영")
-//        return evaluateSymbols(symbolList)
+        val expression = expressionParser.parse(expressionString)
+        return evaluateSymbols(expression)
     }
 
-    private fun evaluateSymbols(symbols: List<Symbol>): Int {
-        var sign: Symbol.Sign? = null
-
-        return symbols.fold(Symbol.Number(0)) { prevResult, symbol ->
-            when (symbol) {
-                is Symbol.Sign -> {
-                    sign = symbol
-                    prevResult
-                }
-                is Symbol.Number -> {
-                    evaluateOne(prevResult, sign, symbol)
-                }
+    private fun evaluateSymbols(expression: Expression): Int {
+        return expression.signList
+            .zip(expression.numberList.drop(1))
+            .fold(expression.numberList.first()) { prevResult, (sign, number) ->
+                evaluateOne(prevResult, sign, number)
             }
-        }.n
     }
 
     private fun evaluateOne(
-        prevResult: Symbol.Number,
-        sign: Symbol.Sign?,
-        number: Symbol.Number,
-    ): Symbol.Number {
+        prevResult: Int,
+        sign: Sign,
+        number: Int,
+    ): Int {
         return when (sign) {
-            Symbol.Sign.PLUS -> prevResult + number
-            Symbol.Sign.MINUS -> prevResult - number
-            Symbol.Sign.TIMES -> prevResult * number
-            Symbol.Sign.DIVISION -> prevResult / number
-            null -> number
+            Sign.PLUS -> prevResult + number
+            Sign.MINUS -> prevResult - number
+            Sign.TIMES -> prevResult * number
+            Sign.DIVISION -> prevResult / number
         }
     }
 }

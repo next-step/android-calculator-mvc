@@ -1,6 +1,5 @@
 package edu.nextstep.camp.calculator.domain
 
-import com.google.common.truth.Truth
 import com.google.common.truth.Truth.*
 import org.junit.Before
 import org.junit.Test
@@ -20,7 +19,7 @@ class ExpressionParserTest {
         val actual = parser.parse("1 + 2 / 3")
 
         // then
-        assertThat(actual).isEqualTo(Expression(listOf(1, 2, 3), listOf(Symbol.Sign.PLUS, Symbol.Sign.DIVISION)))
+        assertThat(actual).isEqualTo(Expression(listOf(1, 2, 3), listOf(Sign.PLUS, Sign.DIVISION)))
     }
 
     @Test
@@ -29,7 +28,7 @@ class ExpressionParserTest {
         val actual = parser.parse("1+2/3")
 
         // then
-        assertThat(actual).isEqualTo(Expression(listOf(1, 2, 3), listOf(Symbol.Sign.PLUS, Symbol.Sign.DIVISION)))
+        assertThat(actual).isEqualTo(Expression(listOf(1, 2, 3), listOf(Sign.PLUS, Sign.DIVISION)))
     }
 
     @Test(expected = IllegalArgumentException::class)

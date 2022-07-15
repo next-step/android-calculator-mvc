@@ -12,15 +12,15 @@ class ExpressionParser {
         )
     }
 
-    private fun findSigns(expression: String): List<Symbol.Sign> {
+    private fun findSigns(expression: String): List<Sign> {
         return """[^0-9 ]""".toRegex()
             .findAll(expression)
             .map {
                 when (it.value) {
-                    "+" -> Symbol.Sign.PLUS
-                    "-" -> Symbol.Sign.MINUS
-                    "*" -> Symbol.Sign.TIMES
-                    "/" -> Symbol.Sign.DIVISION
+                    "+" -> Sign.PLUS
+                    "-" -> Sign.MINUS
+                    "*" -> Sign.TIMES
+                    "/" -> Sign.DIVISION
                     else -> throw IllegalArgumentException("수식에는 +, -, *, /만 사용될 수 있습니다.")
                 }
             }
