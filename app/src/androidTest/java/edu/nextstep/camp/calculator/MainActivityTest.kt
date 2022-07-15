@@ -29,7 +29,7 @@ class MainActivityTest(@IdRes val numberButtonID: Int, private val actualResult:
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{index} - button{1}")
+        @Parameterized.Parameters(name = "{index} - button{1} 이 눌리면 {1}이 출력된다.")
         fun testData(): Collection<Array<Any>> {
             return listOf(
                 arrayOf(R.id.button0, "0"),
