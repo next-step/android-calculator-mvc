@@ -2,8 +2,8 @@ package edu.nextstep.camp.calculator.domain
 
 object RegexUtils {
     private const val NUMBER_REGEX = "\\d+"
-    private const val NON_NUMBER_REGEX = "[-+*/]"
-    private const val VALID_EXPRESSION_REGEX = "(((\\d+)([-+*/]))*)(\\d+)"
+    private const val NON_NUMBER_REGEX = "[-+×÷]"
+    private const val VALID_EXPRESSION_REGEX = "(((\\d+)([-+×÷]))*)(\\d+)"
 
 
     fun getOperatorsList(expression: String) =

@@ -2,7 +2,9 @@ package edu.nextstep.camp.calculator.domain
 
 import edu.nextstep.camp.calculator.domain.model.ExpressionElement
 import edu.nextstep.camp.calculator.domain.model.Operand
+import edu.nextstep.camp.calculator.domain.model.Operator
 import edu.nextstep.camp.calculator.domain.model.Symbol
+import org.jetbrains.annotations.TestOnly
 
 class InputController {
     private val inputList = mutableListOf<ExpressionElement>()
@@ -40,5 +42,19 @@ class InputController {
             sb.append(it.value)
         }
         return sb.toString()
+    }
+
+    @TestOnly
+    fun setCurrentDisplayedText(displayedText: String) : String{
+        inputList.clear()
+        val operands = RegexUtils.getOperandsList(displayedText)
+        val operators = RegexUtils.getOperatorsList(displayedText)
+        operands.forEachIndexed { index, operand ->
+            inputList.add(Operand(operand))
+            operators.getOrNull(index)?.let {
+                inputList.add(Operator.getFromRaw(it))
+            }
+        }
+        return inputList.toExpression()
     }
 }

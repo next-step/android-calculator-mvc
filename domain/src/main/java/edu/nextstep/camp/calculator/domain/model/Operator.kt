@@ -7,10 +7,10 @@ enum class Operator(override val value: String) : ExpressionElement {
     SUBTRACTION("-") {
         override fun evaluate(firstOperand: Operand, secondOperand: Operand): Operand = firstOperand - secondOperand
     },
-    MULTIPLICATION("*") {
+    MULTIPLICATION("×") {
         override fun evaluate(firstOperand: Operand, secondOperand: Operand): Operand = firstOperand * secondOperand
     },
-    DIVISION("/") {
+    DIVISION("÷") {
         override fun evaluate(firstOperand: Operand, secondOperand: Operand): Operand = firstOperand / secondOperand
     },
     UNKNOWN("") {

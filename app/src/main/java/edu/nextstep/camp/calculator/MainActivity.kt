@@ -7,6 +7,7 @@ import edu.nextstep.camp.calculator.domain.InputController
 import edu.nextstep.camp.calculator.domain.model.Operand
 import edu.nextstep.camp.calculator.domain.model.Operator
 import edu.nextstep.camp.calculator.domain.model.Symbol
+import org.jetbrains.annotations.TestOnly
 
 class MainActivity : AppCompatActivity(), InputHandler {
     private lateinit var binding: ActivityMainBinding
@@ -33,5 +34,10 @@ class MainActivity : AppCompatActivity(), InputHandler {
 
     override fun handleSymbolInput(symbol: Symbol) {
         binding.textView.text = inputController.onReceiveInput(symbol)
+    }
+
+    @TestOnly
+    fun setDisplayedText(displayedText: String) {
+        binding.textView.text = inputController.setCurrentDisplayedText(displayedText)
     }
 }
