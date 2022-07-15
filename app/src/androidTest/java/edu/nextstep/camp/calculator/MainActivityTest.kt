@@ -1,70 +1,37 @@
 package edu.nextstep.camp.calculator
 
-import androidx.test.espresso.Espresso.*
-import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.assertion.ViewAssertions.*
-import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.rules.ActivityScenarioRule
-import org.junit.Rule
-import org.junit.Test
+
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import de.mannodermaus.junit5.ActivityScenarioExtension
+import org.junit.jupiter.api.extension.RegisterExtension
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 
 class MainActivityTest {
-    @get:Rule
-    var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
+    @JvmField
+    @RegisterExtension
+    val scenarioExtension = ActivityScenarioExtension.launch<MainActivity>()
 
-    @Test
-    fun whenButton0IsPressedThen0IsShown() {
-        onView(withId(R.id.button0)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("0")))
-    }
 
-    @Test
-    fun whenButton1IsPressedThen1IsShown() {
-        onView(withId(R.id.button1)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("1")))
+    @ParameterizedTest(name = "Given no output, When button{0} is pressed, Then output is {1}")
+    @CsvSource(
+        "0, 0",
+        "1, 1",
+        "2, 2",
+        "3, 3",
+        "4, 4",
+        "5, 5",
+        "6, 6",
+        "7, 7",
+        "8, 8",
+        "9, 9",
+    )
+    fun givenNoOutput_WhenNumberButtonPressed_ThenOutputIsNumber(buttonText: String, expected: String) {
+        onView(withText(buttonText)).perform(click())
+        onView(withId(R.id.textView)).check(matches(withText(expected)))
     }
-
-    @Test
-    fun whenButton2IsPressedThen2IsShown() {
-        onView(withId(R.id.button2)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("2")))
-    }
-
-    @Test
-    fun whenButton3IsPressedThen3IsShown() {
-        onView(withId(R.id.button3)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("3")))
-    }
-    @Test
-    fun whenButton4IsPressedThen4IsShown() {
-        onView(withId(R.id.button4)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("4")))
-    }
-    @Test
-    fun whenButton5IsPressedThen5IsShown() {
-        onView(withId(R.id.button5)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("5")))
-    }
-    @Test
-    fun whenButton6IsPressedThen6IsShown() {
-        onView(withId(R.id.button6)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("6")))
-    }
-    @Test
-    fun whenButton7IsPressedThen7IsShown() {
-        onView(withId(R.id.button7)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("7")))
-    }
-
-    @Test
-    fun whenButton8IsPressedThen8IsShown() {
-        onView(withId(R.id.button8)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("8")))
-    }
-    @Test
-    fun whenButton9IsPressedThen9IsShown() {
-        onView(withId(R.id.button9)).perform(click())
-        onView(withId(R.id.textView)).check(matches(withText("9")))
-    }
-
 }
