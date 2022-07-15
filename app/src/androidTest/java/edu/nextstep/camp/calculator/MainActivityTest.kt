@@ -12,7 +12,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
-class MainActivityTest(@IdRes val numberButtonID: Int, private val actualResult: String) {
+class MainActivityTest(@IdRes val numberButtonID: Int, private val expectedResult: String) {
 
     //사용자가 피연산자 0 ~ 9 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
     @get:Rule
@@ -24,7 +24,7 @@ class MainActivityTest(@IdRes val numberButtonID: Int, private val actualResult:
         onView(withId(numberButtonID)).perform(click())
 
         //then 해당 숫자의 버튼이 보여야한다.
-        onView(withId(R.id.textView)).check(matches(withText(actualResult)))
+        onView(withId(R.id.textView)).check(matches(withText(expectedResult)))
     }
 
     companion object {
