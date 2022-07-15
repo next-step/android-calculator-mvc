@@ -38,8 +38,8 @@ class ExpressionParserTest {
         parser.parse("1++2/3")
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException::class)
     fun `공백으로 구분된 숫자가 연속으로 등장하면 오류를 반환한다`() {
-        TODO("Not yet implemented")
+        parser.parse("1+2 2/3")
     }
 }
