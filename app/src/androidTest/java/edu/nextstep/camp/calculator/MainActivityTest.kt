@@ -68,4 +68,13 @@ class MainActivityTest {
         // then
         onView(withId(R.id.textView)).check(matches(withText("")))
     }
+
+    @Test
+    fun 입력된_수식이_없을_때_지우기를_누르면_아무것도_표시되지_않는다() {
+        // when
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        // then
+        onView(withId(R.id.textView)).check(matches(withText("")))
+    }
 }
