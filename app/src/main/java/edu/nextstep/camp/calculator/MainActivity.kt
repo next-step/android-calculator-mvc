@@ -53,5 +53,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun onClickDelete() {
         if (resultText.isEmpty()) return
+        if (!resultText.last().isDigit()) {
+            resultText = resultText.dropLast(2)
+        }
+        binding.textView.text = resultText
     }
 }
