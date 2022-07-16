@@ -36,7 +36,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickOperator(operator: String) {
-        resultText += " $operator"
+        if (resultText.last().isDigit())
+            resultText += " $operator"
+        else {
+            resultText = resultText.dropLast(1)
+            resultText += operator
+        }
         binding.textView.text = resultText
     }
 }
