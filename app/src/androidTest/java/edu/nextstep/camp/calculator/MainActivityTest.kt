@@ -6,6 +6,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import de.mannodermaus.junit5.ActivityScenarioExtension
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -71,6 +72,19 @@ class MainActivityTest {
 
         // then
         onView(textView).check(matches(withText("$operand $operator")))
+    }
+
+    @Test
+    fun 입력된_수식이_없을_때_사용자가_지우기_버튼을_누르면_화면에_아무런_변화가_없어야_한다() {
+        // given
+        val textView = withId(R.id.textView)
+        onView(textView).perform(setTextInTextView(""))
+
+        // when
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        // then
+        onView(textView).check(matches(withText("")))
     }
 
 }
