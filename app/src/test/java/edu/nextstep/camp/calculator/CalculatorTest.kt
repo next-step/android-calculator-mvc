@@ -127,4 +127,14 @@ class CalculatorTest {
         assertThat(calculator.calculate("1 + 2 * 10 / 2 + 2")).isEqualTo(17)
         assertThat(calculator.calculate("0 + -2 * 10 / 2 + 2")).isEqualTo(-8)
     }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun `피연산자 자리에 연산자가 들어가는 경우 IllegalArgumentException가 발생한다`() {
+        calculator.calculate("+ + 5")
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun `연산자와 피연산자를 구분하지 않는 경우 IllegalArgumentException가 발생한다`() {
+        calculator.calculate("5+5")
+    }
 }
