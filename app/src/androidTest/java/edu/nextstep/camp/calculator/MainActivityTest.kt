@@ -22,4 +22,16 @@ class MainActivityTest {
         // then
         onView(withId(R.id.textView)).check(matches(withText("0")))
     }
+
+    @Test
+    fun `5가_입력되어_있을_때_더하기를_누르면_5_더하기가_표시된다`() {
+        // given
+        onView(withId(R.id.button5)).perform(click())
+
+        // when
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        // then
+        onView(withId(R.id.textView)).check(matches(withText("5 +")))
+    }
 }
