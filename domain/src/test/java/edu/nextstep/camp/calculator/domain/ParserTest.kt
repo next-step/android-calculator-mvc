@@ -9,7 +9,7 @@ class ParserTest {
     @Test
     fun `throw when token ends with operator`() {
         // given
-        val tokens = listOf(Number(1), Operator("+"))
+        val tokens = listOf(Operand(1), Operator("+"))
 
         // when
         val result = runCatching { parser.parse(tokens) }
@@ -22,7 +22,7 @@ class ParserTest {
     @Test
     fun `throw when token starts with operator`() {
         // given
-        val tokens = listOf(Operator("+"), Number(1))
+        val tokens = listOf(Operator("+"), Operand(1))
 
         // when
         val result = runCatching { parser.parse(tokens) }
@@ -35,7 +35,7 @@ class ParserTest {
     @Test
     fun `return expression when token is valid`() {
         // given
-        val tokens = listOf(Number(1), Operator("+"), Number(3))
+        val tokens = listOf(Operand(1), Operator("+"), Operand(3))
 
         // when
         val actual = parser.parse(tokens)
@@ -53,13 +53,13 @@ class ParserTest {
     fun `ignore operator precedence`() {
         // given "2 + 3 * 4 / 2"
         val tokens = listOf(
-            Number(2),
+            Operand(2),
             Operator("+"),
-            Number(3),
+            Operand(3),
             Operator("*"),
-            Number(4),
+            Operand(4),
             Operator("/"),
-            Number(2),
+            Operand(2),
         )
 
         // when

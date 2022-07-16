@@ -18,7 +18,7 @@ internal data class Operator(val op: String) : Token() {
     }
 }
 
-internal data class Number(val number: Int) : Token()
+internal data class Operand(val number: Int) : Token()
 
 internal class Tokenizer {
     fun tokenize(expression: String): List<Token> {
@@ -26,7 +26,7 @@ internal class Tokenizer {
     }
 
     private fun getToken(piece: String): Token {
-        piece.toIntOrNull()?.let { return Number(it) }
+        piece.toIntOrNull()?.let { return Operand(it) }
         return Operator.opOf(piece)
     }
 }

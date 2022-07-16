@@ -8,14 +8,14 @@ internal class Parser {
             val deque = ArrayDeque(tokens)
 
             val firstToken = deque.removeFirst()
-            check(firstToken is Number)
+            check(firstToken is Operand)
             var expression: Expression = ValueNode(firstToken.number)
 
             while (deque.isNotEmpty()) {
                 val opToken = deque.removeFirst()
                 check(opToken is Operator)
                 val numberToken = deque.removeFirst()
-                check(numberToken is Number)
+                check(numberToken is Operand)
                 expression = ExpressionNode(
                     left = expression,
                     right = ValueNode(numberToken.number),

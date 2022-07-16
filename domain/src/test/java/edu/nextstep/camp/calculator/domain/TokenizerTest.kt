@@ -18,13 +18,13 @@ class TokenizerTest {
         assertThat(result).hasSize(7)
 
         val expected = listOf(
-            Number(1),
+            Operand(1),
             Operator("+"),
-            Number(3),
+            Operand(3),
             Operator("*"),
-            Number(4),
+            Operand(4),
             Operator("/"),
-            Number(6),
+            Operand(6),
         )
         assertThat(result).isEqualTo(expected)
     }
