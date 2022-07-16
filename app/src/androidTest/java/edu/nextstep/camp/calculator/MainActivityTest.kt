@@ -62,14 +62,15 @@ class MainActivityTest {
         operator: String
     ) {
         // given
+        val operand = "123"
         val textView = withId(R.id.textView)
-        onView(textView).perform(setTextInTextView("1"))
+        onView(textView).perform(setTextInTextView(operand))
 
         // when
         onView(withText(operator)).perform(click())
 
         // then
-        onView(textView).check(matches(withText("1 $operator")))
+        onView(textView).check(matches(withText("$operand $operator")))
     }
 
 }
