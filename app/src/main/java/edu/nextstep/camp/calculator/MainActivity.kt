@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private fun handleInput(input: Char) {
         when {
             isNumber(expression.lastOrNull()) && isNumber(input) -> expression += input
+            !isNumber(expression.lastOrNull()) && isSign(input) -> return
             expression.isEmpty() -> expression += input
             else -> expression += " $input"
         }
@@ -46,7 +47,14 @@ class MainActivity : AppCompatActivity() {
         } ?: false
     }
 
+    private fun isSign(char: Char?): Boolean {
+        return char?.let {
+            SIGN_LIST.contains(it)
+        } ?: false
+    }
+
     companion object {
         private val NUMBER_LIST = "0123456789".toList()
+        private val SIGN_LIST = "+-*/".toList()
     }
 }
