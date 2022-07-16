@@ -58,12 +58,16 @@ class MainActivityTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["+", "-", "×", "÷"])
+    @CsvSource(
+        "123, +, 123 +",
+        "2000 + 3, ×, 2000 + 3 *",
+    )
     fun 입력된_피연산자가_있을_때_사용자가_연산자_버튼을_누르면_해당_기호가_화면에_보여야_한다(
-        operator: String
+        operand: String,
+        operator: String,
+        expected: String
     ) {
         // given
-        val operand = "123"
         val textView = withId(R.id.textView)
         onView(textView).perform(setTextInTextView(operand))
 
@@ -71,7 +75,7 @@ class MainActivityTest {
         onView(withText(operator)).perform(click())
 
         // then
-        onView(textView).check(matches(withText("$operand $operator")))
+        onView(textView).check(matches(withText(expected)))
     }
 
     @Test
@@ -103,6 +107,27 @@ class MainActivityTest {
 
         // when
         onView(withId(R.id.buttonDelete)).perform(click())
+
+        // then
+        onView(textView).check(matches(withText(expected)))
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+        "5 + 5, 10.0",
+        "48 / 4 * 2, 24.0",
+        "1 / 2 + 8, 8.5",
+    )
+    fun 입력된_수신이_완전할_때_사용자가_결과_버튼을_누르면_입력된_수식의_결과가_화면에_보여야_한다(
+        expression: String,
+        expected: String
+    ) {
+        // given
+        val textView = withId(R.id.textView)
+        onView(textView).perform(setTextInTextView(expression))
+
+        // when
+        onView(withId(R.id.buttonEquals)).perform(click())
 
         // then
         onView(textView).check(matches(withText(expected)))

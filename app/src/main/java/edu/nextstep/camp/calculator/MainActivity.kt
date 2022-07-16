@@ -5,6 +5,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Operator
+import edu.nextstep.camp.calculator.domain.StringCalculator
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,13 +23,6 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private val Operator.displayedValue: String
-        get() = when (this) {
-            Operator.MULTIPLY -> "×"
-            Operator.DIVIDE -> "÷"
-            else -> symbol
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         initOperandButtons()
         initOperatorButtons()
         initDeleteButton()
+        initEqualsButton()
     }
 
     private fun initViewBinding() {
@@ -78,7 +73,7 @@ class MainActivity : AppCompatActivity() {
     private fun setOperatorButtonListener(button: Button, operator: Operator) {
         button.setOnClickListener {
             if (displayedText.isEmpty()) return@setOnClickListener
-            val text = displayedText + "$SPACE${operator.displayedValue}"
+            val text = displayedText + "$SPACE${operator.symbol}"
             binding.textView.text = text
         }
     }
@@ -89,6 +84,15 @@ class MainActivity : AppCompatActivity() {
             binding.textView.text = displayedText
                 .dropLast(CHARACTER_DELETE_UNIT)
                 .trim()
+        }
+    }
+
+    private fun initEqualsButton() {
+        binding.buttonEquals.setOnClickListener {
+            binding.textView.text = StringCalculator
+                .calculate(displayedText)
+                .value
+                .toString()
         }
     }
 
