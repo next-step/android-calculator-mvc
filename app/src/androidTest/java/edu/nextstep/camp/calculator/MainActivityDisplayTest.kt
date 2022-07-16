@@ -49,6 +49,16 @@ class MainActivityDisplayTest {
         checkDisplayText("89")
     }
 
+    @Test
+    fun `do_nothing_when_press_op_button_when_the_operand_is_absent`() {
+        // when
+        click("+")
+        
+        // then
+        checkDisplayText("")
+    }
+    
+
 
     private fun checkDisplayText(text: String) {
         onView(withId(R.id.textView)).check(matches(withText(text)))

@@ -35,7 +35,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun appendOp(op: String) {
-        appendText(op)
+        val origin = binding.textView.text.toString()
+
+        if (origin.isEmpty()) return
+        if (origin.last().isDigit()) appendText(op)
     }
 
     private fun appendText(text: String) {
