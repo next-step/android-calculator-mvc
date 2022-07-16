@@ -5,8 +5,9 @@ class Calculator(
 ) {
 
     fun evaluate(expressionString: String?): Int {
-        if (expressionString.isNullOrBlank())
-            throw IllegalArgumentException("null 또는 빈 공백 문자열은 수식이 아닙니다.")
+        require(!expressionString.isNullOrBlank()) {
+            "null 또는 빈 공백 문자열은 수식이 아닙니다."
+        }
 
         val expression = expressionParser.parse(expressionString)
         return evaluateSymbols(expression)
