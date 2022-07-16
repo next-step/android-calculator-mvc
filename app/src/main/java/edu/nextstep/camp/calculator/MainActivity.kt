@@ -31,6 +31,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleInput(input: String) {
-        expression += input
+        expression += if (expression.isEmpty()) {
+            input
+        } else {
+            " $input"
+        }
+        binding.textView.text = expression
     }
 }
