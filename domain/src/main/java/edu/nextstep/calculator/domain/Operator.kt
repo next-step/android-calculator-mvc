@@ -1,6 +1,6 @@
 package edu.nextstep.calculator.domain
 
-enum class Operator(value: String) {
+enum class Operator(val value: String) {
     PLUS("+"),
     MINUS("-"),
     MULTIPLY("*"),
@@ -9,6 +9,8 @@ enum class Operator(value: String) {
     UNDEFINED("UNDEFINED");
 
     companion object {
+        fun fromValue(value: String) = values().associateBy(Operator::value)[value] ?: UNDEFINED
+
         fun calculateExpression(first: Int, second: Int, operation: Operator): Int {
             return when (operation) {
                 PLUS -> plus(first = first, second = second)

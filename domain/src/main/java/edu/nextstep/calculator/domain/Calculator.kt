@@ -31,7 +31,7 @@ class Calculator {
     private fun checkOperator(content: String, index: Int) {
         if (index % 2 != 1) return
 
-        require(Operator.valueOf(content) != Operator.UNDEFINED) {
+        require(Operator.fromValue(content) != Operator.UNDEFINED) {
             "사칙연산 기호가 아닙니다"
         }
     }
@@ -46,8 +46,8 @@ class Calculator {
         var result = expressionContents.first().toInt()
         var operator = Operator.UNDEFINED
         expressionContents.forEach { content ->
-            if (Operator.valueOf(content) != Operator.UNDEFINED) {
-                operator = Operator.valueOf(content)
+            if (Operator.fromValue(content) != Operator.UNDEFINED) {
+                operator = Operator.fromValue(content)
                 return@forEach
             }
             result = Operator.calculateExpression(
