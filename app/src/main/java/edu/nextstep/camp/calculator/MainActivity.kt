@@ -47,9 +47,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleSign(sign: Char) {
-        if (!isNumber(expression.lastOrNull())) return
+        val lastSymbol = expression.lastOrNull()
+        when {
+            lastSymbol == null -> return
+            isNumber(lastSymbol) -> expression += " $sign"
+            else -> expression = expression.dropLast(1) + sign
+        }
 
-        expression += " $sign"
         binding.textView.text = expression
     }
 
