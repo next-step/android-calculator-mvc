@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         binding.buttonMinus.setOnClickListener { handleInput('-') }
         binding.buttonMultiply.setOnClickListener { handleInput('*') }
         binding.buttonDivide.setOnClickListener { handleInput('/') }
+        binding.buttonDelete.setOnClickListener { handleDelete() }
     }
 
     private fun handleInput(input: Char) {
@@ -51,6 +52,13 @@ class MainActivity : AppCompatActivity() {
         return char?.let {
             SIGN_LIST.contains(it)
         } ?: false
+    }
+
+    private fun handleDelete() {
+        if (expression.lastOrNull() != null) {
+            expression = expression.dropLast(1).trim()
+            binding.textView.text = expression
+        }
     }
 
     companion object {
