@@ -1,15 +1,13 @@
 package edu.nextstep.camp.calculator.domain
 
-import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
-import org.junit.Assert.*
 import org.junit.Test
 
-class OpTest {
+class OperatorTest {
     @Test
     fun `plus operator plus two numbers`() {
         // given
-        val op = Op.Plus
+        val op = Operator.Plus
 
         // when
         val actual = op.operate(1, 2)
@@ -21,7 +19,7 @@ class OpTest {
     @Test
     fun `minus operator plus two numbers`() {
         // given
-        val op = Op.Minus
+        val op = Operator.Minus
 
         // when
         val actual = op.operate(1,2)
@@ -33,7 +31,7 @@ class OpTest {
     @Test
     fun `multiply operator plus two numbers`() {
         // given
-        val op = Op.Multiply
+        val op = Operator.Multiply
 
         // when
         val actual = op.operate(2, 3)
@@ -45,7 +43,7 @@ class OpTest {
     @Test
     fun `divide operator plus two numbers`() {
         // given
-        val op = Op.Divide
+        val op = Operator.Divide
 
         // when
         val actual = op.operate(6,3)

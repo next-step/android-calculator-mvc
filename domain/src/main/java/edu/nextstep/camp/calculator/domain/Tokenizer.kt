@@ -5,7 +5,7 @@ internal sealed interface Token
 open class InvalidTokenException(message: String) : IllegalArgumentException(message)
 class UnsupportedOperatorException(message: String) : InvalidTokenException(message)
 
-internal enum class Op(
+internal enum class Operator(
     private val id: String,
 ) : Token {
     Plus("+") {
@@ -34,37 +34,9 @@ internal enum class Op(
     abstract fun operate(a: Int, b: Int): Int
 
     companion object {
-        fun of(op: String): Op {
+        fun of(op: String): Operator {
             return values().find { it.id == op }
                 ?: throw UnsupportedOperatorException("operator $op is not supported")
-        }
-    }
-}
-
-// TODO: 지원하는 operator 코드가 산재되어 있음.
-internal class Operator private constructor(val op: String) : Token {
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as Operator
-
-        if (op != other.op) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return op.hashCode()
-    }
-
-    companion object {
-        fun of(op: String): Operator {
-            return when (op) {
-                "+", "-", "*", "/" -> Operator(op)
-                else -> throw UnsupportedOperatorException("operator $op is not supported")
-            }
         }
     }
 }

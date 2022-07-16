@@ -7,19 +7,12 @@ internal interface Expression {
 internal data class ExpressionNode(
     private val left: Expression,
     private val right: Expression,
-    private val op: String
+    private val op: Operator
 ) : Expression {
     override fun evaluate(): Int {
         val a = left.evaluate()
         val b = right.evaluate()
-
-        return when (op) {
-            "+" -> a + b
-            "-" -> a - b
-            "*" -> a * b
-            "/" -> a / b
-            else -> throw IllegalArgumentException("op must be one of following -> +, -, * or /")
-        }
+        return op.operate(a, b)
     }
 }
 

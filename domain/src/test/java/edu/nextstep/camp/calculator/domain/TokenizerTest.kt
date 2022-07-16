@@ -19,11 +19,11 @@ class TokenizerTest {
 
         val expected = listOf(
             Operand(1),
-            Operator.of("+"),
+            Operator.Plus,
             Operand(3),
-            Operator.of("*"),
+            Operator.Multiply,
             Operand(4),
-            Operator.of("/"),
+            Operator.Divide,
             Operand(6),
         )
         assertThat(result).isEqualTo(expected)

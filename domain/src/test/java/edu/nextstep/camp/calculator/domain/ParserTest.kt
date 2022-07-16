@@ -9,7 +9,7 @@ class ParserTest {
     @Test
     fun `throw when token ends with operator`() {
         // given
-        val tokens = listOf(Operand(1), Operator.of("+"))
+        val tokens = listOf(Operand(1), Operator.Plus)
 
         // when
         val result = runCatching { parser.parse(tokens) }
@@ -22,7 +22,7 @@ class ParserTest {
     @Test
     fun `throw when token starts with operator`() {
         // given
-        val tokens = listOf(Operator.of("+"), Operand(1))
+        val tokens = listOf(Operator.Plus, Operand(1))
 
         // when
         val result = runCatching { parser.parse(tokens) }
@@ -35,7 +35,7 @@ class ParserTest {
     @Test
     fun `return expression when token is valid`() {
         // given
-        val tokens = listOf(Operand(1), Operator.of("+"), Operand(3))
+        val tokens = listOf(Operand(1), Operator.Plus, Operand(3))
 
         // when
         val actual = parser.parse(tokens)
@@ -44,7 +44,7 @@ class ParserTest {
         val expected = ExpressionNode(
             left = ValueNode(1),
             right = ValueNode(3),
-            op = "+"
+            op = Operator.Plus
         )
         assertThat(actual).isEqualTo(expected)
     }
@@ -54,11 +54,11 @@ class ParserTest {
         // given "2 + 3 * 4 / 2"
         val tokens = listOf(
             Operand(2),
-            Operator.of("+"),
+            Operator.Plus,
             Operand(3),
-            Operator.of("*"),
+            Operator.Multiply,
             Operand(4),
-            Operator.of("/"),
+            Operator.Divide,
             Operand(2),
         )
 
@@ -71,13 +71,13 @@ class ParserTest {
                 left = ExpressionNode(
                     left = ValueNode(2),
                     right = ValueNode(3),
-                    op = "+"
+                    op = Operator.Plus
                 ),
                 right = ValueNode(4),
-                op = "*"
+                op = Operator.Multiply
             ),
             right = ValueNode(2),
-            op = "/",
+            op = Operator.Divide
         )
         assertThat(actual).isEqualTo(expected)
     }

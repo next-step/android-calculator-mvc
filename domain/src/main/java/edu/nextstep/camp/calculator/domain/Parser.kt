@@ -19,7 +19,7 @@ internal class Parser {
                 expression = ExpressionNode(
                     left = expression,
                     right = ValueNode(numberToken.number),
-                    op = opToken.op
+                    op = opToken
                 )
             }
             return expression

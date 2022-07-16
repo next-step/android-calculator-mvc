@@ -11,7 +11,7 @@ internal class ExpressionTest {
         // given
         val a = ValueNode(1)
         val b = ValueNode(2)
-        val op = "+"
+        val op = Operator.Plus
         expression = ExpressionNode(a, b, op)
 
         // when
@@ -31,12 +31,12 @@ internal class ExpressionTest {
                 right = ExpressionNode(
                     left = ValueNode(3),
                     right = ValueNode(4),
-                    op = "*"
+                    op = Operator.Multiply
                 ),
-                op = "+"
+                op = Operator.Plus
             ),
             right = ValueNode(2),
-            op = "/"
+            op = Operator.Divide
         )
 
         // when
