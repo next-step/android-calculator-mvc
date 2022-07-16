@@ -6,6 +6,7 @@ import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private var resultText = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +31,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickNumber(number: Int) {
-        binding.textView.text = "${binding.textView.text}$number"
+        resultText += number
+        binding.textView.text = resultText
     }
 
     private fun onClickOperator(operator: String) {
-        binding.textView.text = "${binding.textView.text} $operator"
+        resultText += " $operator"
+        binding.textView.text = resultText
     }
 }
