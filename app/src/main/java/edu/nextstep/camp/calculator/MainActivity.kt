@@ -1,6 +1,7 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Calculator
@@ -62,10 +63,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickEquals() {
-        if (resultText.isEmpty()) return
-        if (resultText.last().isDigit()) {
-            resultText = Calculator().evaluate(resultText).toString()
+        if (resultText.isEmpty() || !resultText.last().isDigit()) {
+            Toast.makeText(this, "완성되지 않은 수식입니다.", Toast.LENGTH_SHORT).show()
+            return
         }
+        resultText = Calculator().evaluate(resultText).toString()
         binding.textView.text = resultText
     }
 }
