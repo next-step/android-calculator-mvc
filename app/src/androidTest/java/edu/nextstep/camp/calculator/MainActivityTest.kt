@@ -116,7 +116,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun 마지막_글자가_연산자인경우_사용자가_연산자_버튼을_누르면_기호가_바뀌어서_화면에_보여야_한다() {
+    fun `마지막_글자가_연산자인경우_사용자가_연산자_버튼을_누르면_기호가_바뀌어서_화면에_보여야_한다`() {
         // when : 마지막 글자가 연산자인경우 입력된 상태에서 연산자 버튼을 누르면
         onView(withId(R.id.button1)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
@@ -131,5 +131,15 @@ class MainActivityTest {
         onView(withId(R.id.buttonPlus)).perform(click())
         // then : 화면에 아무런 변화가 없어야 한다.
         onView(withId(R.id.textView)).check(matches(withText("")))
+    }
+
+    @Test
+    fun `마지막_글자가_연산자인경우_사용자가_피연산자_버튼을_누르면_해당_숫자가_화면에_보여야_한다`() {
+        // when : 마지막 글자가 연산자인경우 사용자가 피연산자 버튼을 누르면
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button3)).perform(click())
+        // then : 해당 숫자가 화면에 보여야 한다
+        onView(withId(R.id.textView)).check(matches(withText("1 + 3")))
     }
 }

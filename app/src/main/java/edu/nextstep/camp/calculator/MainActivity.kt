@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickNumber(number: Int) {
+        if (resultText.isNotEmpty() && !resultText.last().isDigit())
+            resultText += " "
         resultText += number
         binding.textView.text = resultText
     }
