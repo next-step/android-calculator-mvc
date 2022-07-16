@@ -15,12 +15,12 @@ class MainActivityTest {
     @get:Rule var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun 입력된_내용이_없을_때_0을_누르면_화면에_0이_표시된다() {
+    fun 입력된_내용이_없을_때_5를_누르면_화면에_5가_표시된다() {
         // when
-        onView(withId(R.id.button0)).perform(click())
+        onView(withId(R.id.button5)).perform(click())
 
         // then
-        onView(withId(R.id.textView)).check(matches(withText("0")))
+        onView(withId(R.id.textView)).check(matches(withText("5")))
     }
 
     @Test
@@ -33,5 +33,18 @@ class MainActivityTest {
 
         // then
         onView(withId(R.id.textView)).check(matches(withText("5 +")))
+    }
+
+    @Test
+    fun `5_더하기가_입력되어_있을_때_1을_누르면_5_더하기_1이_표시된다`() {
+        // given
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        // when
+        onView(withId(R.id.button1)).perform(click())
+
+        // then
+        onView(withId(R.id.textView)).check(matches(withText("5 + 1")))
     }
 }
