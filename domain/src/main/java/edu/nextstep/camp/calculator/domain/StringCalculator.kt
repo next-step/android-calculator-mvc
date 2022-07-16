@@ -6,8 +6,7 @@ object StringCalculator {
     private const val OPERATOR_INDEX_UNIT = 2
     private const val OPERATOR_INDEX_BUFFER = 1
 
-    fun calculate(raw: String?): Operand {
-        requireNotNull(raw)
+    fun calculate(raw: String): Operand {
         val (rawOperands, rawOperators) = splitParams(raw)
             .withIndex()
             .partition { it.index % OPERATOR_INDEX_UNIT == 0 }

@@ -4,7 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import org.junit.jupiter.params.provider.NullAndEmptySource
+import org.junit.jupiter.params.provider.EmptySource
 
 internal class StringCalculatorTest {
 
@@ -40,8 +40,8 @@ internal class StringCalculatorTest {
     }
 
     @ParameterizedTest
-    @NullAndEmptySource
-    fun `입력값이 null이거나 빈 공백 문자일 경우 IllegalArgumentException이 발생한다`(input: String?) {
+    @EmptySource
+    fun `입력값이 빈 공백 문자일 경우 IllegalArgumentException이 발생한다`(input: String) {
         // then
         assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
     }
@@ -52,7 +52,7 @@ internal class StringCalculatorTest {
         "1 + 2 ( 3",
         "1 # 3",
     )
-    fun `사칙연산 기호가 아닌 경우 IllegalArgumentException이 발생한다`(input: String?) {
+    fun `사칙연산 기호가 아닌 경우 IllegalArgumentException이 발생한다`(input: String) {
         // then
         val exception = assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
         assertThat(exception.message).isEqualTo("해당하는 Operation을 찾을 수 없습니다.")
@@ -64,7 +64,7 @@ internal class StringCalculatorTest {
         "- + 3",
         "1(3)",
     )
-    fun `적절한 형식의 식이 아닌 경우 IllegalArgumentException이 발생한다`(input: String?) {
+    fun `적절한 형식의 식이 아닌 경우 IllegalArgumentException이 발생한다`(input: String) {
         // then
         val exception = assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
         assertThat(exception.message).isEqualTo("해당하는 Operand를 찾을 수 없습니다.")
