@@ -47,4 +47,16 @@ class MainActivityTest {
         // then
         onView(withId(R.id.textView)).check(matches(withText("5 + 1")))
     }
+
+    @Test
+    fun `5가_입력되어_있을_때_5를_누르면_55가_표시된다`() {
+        // given
+        onView(withId(R.id.button5)).perform(click())
+
+        // when
+        onView(withId(R.id.button5)).perform(click())
+
+        // then
+        onView(withId(R.id.textView)).check(matches(withText("55")))
+    }
 }
