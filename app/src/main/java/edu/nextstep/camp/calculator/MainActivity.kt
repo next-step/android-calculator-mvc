@@ -28,6 +28,8 @@ class MainActivity : AppCompatActivity() {
         binding.buttonMinus.setOnClickListener { onClickOperator("-") }
         binding.buttonDivide.setOnClickListener { onClickOperator("/") }
         binding.buttonMultiply.setOnClickListener { onClickOperator("*") }
+
+        binding.buttonDelete.setOnClickListener { onClickDelete() }
     }
 
     private fun onClickNumber(number: Int) {
@@ -47,5 +49,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.textView.text = resultText
+    }
+
+    private fun onClickDelete() {
+        if (resultText.isEmpty()) return
     }
 }

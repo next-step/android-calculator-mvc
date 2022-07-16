@@ -142,4 +142,12 @@ class MainActivityTest {
         // then : 해당 숫자가 화면에 보여야 한다
         onView(withId(R.id.textView)).check(matches(withText("1 + 3")))
     }
+
+    @Test
+    fun `입력된_수식이_없을_때_사용자가_지우기_버튼을_누르면_화면에_아무런_변화가_없어야_한다`() {
+        // when : 입력된 수식이 없을 때 사용자가 지우기 버튼을 누르면
+        onView(withId(R.id.buttonDelete)).perform(click())
+        // then : 화면에 아무런 변화가 없어야 한다
+        onView(withId(R.id.textView)).check(matches(withText("")))
+    }
 }
