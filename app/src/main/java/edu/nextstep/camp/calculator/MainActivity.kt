@@ -14,43 +14,42 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.button0.setOnClickListener { handleInput('0') }
-        binding.button1.setOnClickListener { handleInput('1') }
-        binding.button2.setOnClickListener { handleInput('2') }
-        binding.button3.setOnClickListener { handleInput('3') }
-        binding.button4.setOnClickListener { handleInput('4') }
-        binding.button5.setOnClickListener { handleInput('5') }
-        binding.button6.setOnClickListener { handleInput('6') }
-        binding.button7.setOnClickListener { handleInput('7') }
-        binding.button8.setOnClickListener { handleInput('8') }
-        binding.button9.setOnClickListener { handleInput('9') }
-        binding.buttonPlus.setOnClickListener { handleInput('+') }
-        binding.buttonMinus.setOnClickListener { handleInput('-') }
-        binding.buttonMultiply.setOnClickListener { handleInput('*') }
-        binding.buttonDivide.setOnClickListener { handleInput('/') }
+        binding.button0.setOnClickListener { handleNumber('0') }
+        binding.button1.setOnClickListener { handleNumber('1') }
+        binding.button2.setOnClickListener { handleNumber('2') }
+        binding.button3.setOnClickListener { handleNumber('3') }
+        binding.button4.setOnClickListener { handleNumber('4') }
+        binding.button5.setOnClickListener { handleNumber('5') }
+        binding.button6.setOnClickListener { handleNumber('6') }
+        binding.button7.setOnClickListener { handleNumber('7') }
+        binding.button8.setOnClickListener { handleNumber('8') }
+        binding.button9.setOnClickListener { handleNumber('9') }
+        binding.buttonPlus.setOnClickListener { handleSign('+') }
+        binding.buttonMinus.setOnClickListener { handleSign('-') }
+        binding.buttonMultiply.setOnClickListener { handleSign('*') }
+        binding.buttonDivide.setOnClickListener { handleSign('/') }
         binding.buttonDelete.setOnClickListener { handleDelete() }
     }
 
-    private fun handleInput(input: Char) {
+    private fun handleNumber(number: Char) {
         when {
-            isNumber(expression.lastOrNull()) && isNumber(input) -> expression += input
-            !isNumber(expression.lastOrNull()) && isSign(input) -> return
-            expression.isEmpty() -> expression += input
-            else -> expression += " $input"
+            expression.isEmpty() -> expression += number
+            isNumber(expression.lastOrNull()) -> expression += number
+            else -> expression += " $number"
         }
+        binding.textView.text = expression
+    }
 
+    private fun handleSign(sign: Char) {
+        if (!isNumber(expression.lastOrNull())) return
+
+        expression += " $sign"
         binding.textView.text = expression
     }
 
     private fun isNumber(char: Char?): Boolean {
         return char?.let {
             NUMBER_LIST.contains(it)
-        } ?: false
-    }
-
-    private fun isSign(char: Char?): Boolean {
-        return char?.let {
-            SIGN_LIST.contains(it)
         } ?: false
     }
 
@@ -63,6 +62,5 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private val NUMBER_LIST = "0123456789".toList()
-        private val SIGN_LIST = "+-*/".toList()
     }
 }
