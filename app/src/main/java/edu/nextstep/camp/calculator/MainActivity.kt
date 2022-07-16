@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         if (resultText.last().isDigit())
             resultText += DELIMITER
         else {
-            resultText = resultText.dropLast(1)
+            resultText = resultText.dropLast(ONE_LETTER_NUMBER)
         }
         resultText += operator
         binding.textView.text = resultText
@@ -55,9 +55,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun onClickDelete() {
         if (resultText.isEmpty()) return
-        resultText = resultText.dropLast(1)
+        resultText = resultText.dropLast(ONE_LETTER_NUMBER)
         if (resultText.last() == DELIMITER) {
-            resultText = resultText.dropLast(1)
+            resultText = resultText.dropLast(ONE_LETTER_NUMBER)
         }
         binding.textView.text = resultText
     }
@@ -74,5 +74,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val DELIMITER = ' '
+        private const val ONE_LETTER_NUMBER = 1
     }
 }
