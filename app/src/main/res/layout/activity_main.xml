@@ -41,6 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:onClick="onClickDelete"
         app:icon="@drawable/ic_baseline_keyboard_backspace_24"
         app:layout_constraintBottom_toTopOf="@id/input"
         app:layout_constraintEnd_toEndOf="@id/input"
@@ -63,6 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_7"
+            android:onClick="onClickNumber"
             />
 
         <Button
@@ -71,6 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_8"
+            android:onClick="onClickNumber"
             />
 
         <Button
@@ -79,6 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_9"
+            android:onClick="onClickNumber"
             />
 
         <Button
@@ -87,6 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_divide"
+            android:onClick="onClickOperation"
             />
 
         <Button
@@ -95,6 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_4"
+            android:onClick="onClickNumber"
             />
 
         <Button
@@ -103,6 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_5"
+            android:onClick="onClickNumber"
             />
 
         <Button
@@ -111,6 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_6"
+            android:onClick="onClickNumber"
             />
 
         <Button
@@ -119,6 +127,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_multiply"
+            android:onClick="onClickOperation"
+
             />
 
         <Button
@@ -127,6 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_1"
+            android:onClick="onClickNumber"
             />
 
         <Button
@@ -135,6 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_2"
+            android:onClick="onClickNumber"
             />
 
         <Button
@@ -143,6 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_3"
+            android:onClick="onClickNumber"
             />
 
         <Button
@@ -151,6 +164,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_minus"
+            android:onClick="onClickOperation"
             />
 
         <Button
@@ -159,6 +173,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_0"
+            android:onClick="onClickNumber"
             />
 
         <Space
@@ -173,6 +188,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_equals"
+            android:onClick="onClickEqual"
             />
 
         <Button
@@ -181,6 +197,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_plus"
+            android:onClick="onClickOperation"
             />
     </GridLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
