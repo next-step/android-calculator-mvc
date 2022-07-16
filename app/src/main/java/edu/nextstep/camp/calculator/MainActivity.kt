@@ -3,6 +3,7 @@ package edu.nextstep.camp.calculator
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
+import edu.nextstep.camp.calculator.domain.Calculator
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         binding.buttonMultiply.setOnClickListener { onClickOperator("*") }
 
         binding.buttonDelete.setOnClickListener { onClickDelete() }
+        binding.buttonEquals.setOnClickListener { onClickEquals() }
     }
 
     private fun onClickOperand(number: Int) {
@@ -55,6 +57,14 @@ class MainActivity : AppCompatActivity() {
         resultText = resultText.dropLast(1)
         if (resultText.last() == ' ') {
             resultText = resultText.dropLast(1)
+        }
+        binding.textView.text = resultText
+    }
+
+    private fun onClickEquals() {
+        if (resultText.isEmpty()) return
+        if (resultText.last().isDigit()) {
+            resultText = Calculator().evaluate(resultText).toString()
         }
         binding.textView.text = resultText
     }

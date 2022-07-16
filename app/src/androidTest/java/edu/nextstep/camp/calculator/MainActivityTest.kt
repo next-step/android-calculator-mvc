@@ -182,4 +182,15 @@ class MainActivityTest {
         // then : "3"가 보여야 한다.
         onView(withId(R.id.textView)).check(matches(withText("3")))
     }
+
+    @Test
+    fun `입력된_수식이_완전할_때_사용자가_equals_버튼을_누르면_입력된_수식의_결과가_화면에_보여야_한다`() {
+        // when : "3 + 2" 이 입력 되어있을때, 사용자가 = 버튼을 누르면
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonEquals)).perform(click())
+        // then : "5"가 보여야 한다.
+        onView(withId(R.id.textView)).check(matches(withText("5")))
+    }
 }
