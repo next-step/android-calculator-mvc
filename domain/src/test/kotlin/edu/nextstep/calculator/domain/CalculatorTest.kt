@@ -1,6 +1,5 @@
 package edu.nextstep.calculator.domain
 
-import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertThrows
 import org.junit.Before
 import org.junit.Test
@@ -11,93 +10,6 @@ class CalculatorTest {
     @Before
     fun init() {
         calculator = Calculator()
-    }
-
-    @Test
-    fun `양의 정수를 더하면 덧셈의 결과가 정상이다`() {
-        assertThat(calculator.calculate("1 + 2")).isEqualTo(3)
-        assertThat(calculator.calculate("5 + 2")).isEqualTo(7)
-        assertThat(calculator.calculate("1000 + 504")).isEqualTo(1504)
-    }
-
-    @Test
-    fun `음의 정수를 더하면 덧셈의 결과가 정상이다`() {
-        assertThat(calculator.calculate("1 + -2")).isEqualTo(-1)
-        assertThat(calculator.calculate("-1 + 2")).isEqualTo(1)
-        assertThat(calculator.calculate("-1 + -2")).isEqualTo(-3)
-    }
-
-    @Test
-    fun `0을 더하면 덧셈의 결과가 정상이다`() {
-        assertThat(calculator.calculate("0 + 2")).isEqualTo(2)
-        assertThat(calculator.calculate("1 + 0")).isEqualTo(1)
-        assertThat(calculator.calculate("-10 + 0")).isEqualTo(-10)
-    }
-
-    @Test
-    fun `양의 정수를 빼면 뺄셈의 결과가 정상이다`() {
-        assertThat(calculator.calculate("1 - 2")).isEqualTo(-1)
-        assertThat(calculator.calculate("5 - 2")).isEqualTo(3)
-        assertThat(calculator.calculate("1000 - 504")).isEqualTo(496)
-    }
-
-    @Test
-    fun `음의 정수를 빼면 뺄셈의 결과가 정상이다`() {
-        assertThat(calculator.calculate("1 - -2")).isEqualTo(3)
-        assertThat(calculator.calculate("-1 - 2")).isEqualTo(-3)
-        assertThat(calculator.calculate("-1 - -2")).isEqualTo(1)
-    }
-
-    @Test
-    fun `0을 빼면 뺄셈의 결과가 정상이다`() {
-        assertThat(calculator.calculate("0 - 2")).isEqualTo(-2)
-        assertThat(calculator.calculate("1 - 0")).isEqualTo(1)
-        assertThat(calculator.calculate("-10 - 0")).isEqualTo(-10)
-    }
-
-    @Test
-    fun `양의 정수를 곱하면 곱셈의 결과가 정상이다`() {
-        assertThat(calculator.calculate("1 * 2")).isEqualTo(2)
-        assertThat(calculator.calculate("5 * 2")).isEqualTo(10)
-        assertThat(calculator.calculate("1000 * 504")).isEqualTo(504000)
-    }
-
-    @Test
-    fun `음의 정수를 곱하면 곱셈의 결과가 정상이다`() {
-        assertThat(calculator.calculate("1 * -2")).isEqualTo(-2)
-        assertThat(calculator.calculate("-1 * 2")).isEqualTo(-2)
-        assertThat(calculator.calculate("-1 * -2")).isEqualTo(2)
-    }
-
-    @Test
-    fun `0을 곱하면 곱셈의 결과가 0이다`() {
-        assertThat(calculator.calculate("0 * 2")).isEqualTo(0)
-        assertThat(calculator.calculate("1 * 0")).isEqualTo(0)
-        assertThat(calculator.calculate("-10 * 0")).isEqualTo(0)
-    }
-
-    @Test
-    fun `양의 정수를 나누면 나눗셈의 결과는 몫이다`() {
-        assertThat(calculator.calculate("1 / 2")).isEqualTo(0)
-        assertThat(calculator.calculate("5 / 2")).isEqualTo(2)
-        assertThat(calculator.calculate("1000 / 504")).isEqualTo(1)
-    }
-
-    @Test
-    fun `음의 정수를 나누면 나눗셈의 결과가 정상이다`() {
-        assertThat(calculator.calculate("2 / -2")).isEqualTo(-1)
-        assertThat(calculator.calculate("-2 / 2")).isEqualTo(-1)
-        assertThat(calculator.calculate("-2 / -2")).isEqualTo(1)
-    }
-
-    @Test
-    fun `0으로 나누면 ArithmeticException 이 나온다`() {
-        assertThrows(ArithmeticException::class.java) {
-            calculator.calculate("1 / 0")
-        }
-        assertThrows(ArithmeticException::class.java) {
-            calculator.calculate("-10 / 0")
-        }
     }
 
     @Test
@@ -119,12 +31,6 @@ class CalculatorTest {
         assertThrows(IllegalArgumentException::class.java) {
             calculator.calculate("a + 5 + 2")
         }
-    }
-
-    @Test
-    fun `사칙연산 모두 포함하여 계산하는 기능을 진행한다`() {
-        assertThat(calculator.calculate("1 + 2 * 10 / 2 + 2")).isEqualTo(17)
-        assertThat(calculator.calculate("0 + -2 * 10 / 2 + 2")).isEqualTo(-8)
     }
 
     @Test(expected = IllegalArgumentException::class)
