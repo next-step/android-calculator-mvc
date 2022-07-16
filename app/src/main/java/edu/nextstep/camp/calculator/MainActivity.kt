@@ -13,16 +13,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.button0.setOnClickListener { onClickNumber(0) }
-        binding.button1.setOnClickListener { onClickNumber(1) }
-        binding.button2.setOnClickListener { onClickNumber(2) }
-        binding.button3.setOnClickListener { onClickNumber(3) }
-        binding.button4.setOnClickListener { onClickNumber(4) }
-        binding.button5.setOnClickListener { onClickNumber(5) }
-        binding.button6.setOnClickListener { onClickNumber(6) }
-        binding.button7.setOnClickListener { onClickNumber(7) }
-        binding.button8.setOnClickListener { onClickNumber(8) }
-        binding.button9.setOnClickListener { onClickNumber(9) }
+        binding.button0.setOnClickListener { onClickOperand(0) }
+        binding.button1.setOnClickListener { onClickOperand(1) }
+        binding.button2.setOnClickListener { onClickOperand(2) }
+        binding.button3.setOnClickListener { onClickOperand(3) }
+        binding.button4.setOnClickListener { onClickOperand(4) }
+        binding.button5.setOnClickListener { onClickOperand(5) }
+        binding.button6.setOnClickListener { onClickOperand(6) }
+        binding.button7.setOnClickListener { onClickOperand(7) }
+        binding.button8.setOnClickListener { onClickOperand(8) }
+        binding.button9.setOnClickListener { onClickOperand(9) }
 
         binding.buttonPlus.setOnClickListener { onClickOperator("+") }
         binding.buttonMinus.setOnClickListener { onClickOperator("-") }
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         binding.buttonDelete.setOnClickListener { onClickDelete() }
     }
 
-    private fun onClickNumber(number: Int) {
+    private fun onClickOperand(number: Int) {
         if (resultText.isNotEmpty() && !resultText.last().isDigit())
             resultText += " "
         resultText += number
@@ -40,14 +40,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickOperator(operator: String) {
-        when {
-            resultText.isEmpty() -> return
-            resultText.last().isDigit() -> resultText += " $operator"
-            else -> {
-                resultText = resultText.dropLast(1)
-                resultText += operator
-            }
+        if (resultText.isEmpty()) return
+        if (resultText.last().isDigit())
+            resultText += " "
+        else {
+            resultText = resultText.dropLast(1)
         }
+        resultText += operator
         binding.textView.text = resultText
     }
 

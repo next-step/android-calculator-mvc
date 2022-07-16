@@ -152,7 +152,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun `입력된_수식이_있을_때_사용자가_지우기_버튼을_누르면_수식에_마지막으로_입력된_연산자가_지워져야_한다`() {
+    fun `마지막_글자가_연산자일때_사용자가_지우기_버튼을_누르면_수식에_마지막으로_입력된_연산자가_지워져야_한다`() {
         // when : 1 + 가 입력 되어있을때, 사용자가 지우기 버튼을 누르면
         onView(withId(R.id.button1)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
