@@ -1,11 +1,13 @@
 package edu.nextstep.camp.calculator
 
+import android.view.View
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import de.mannodermaus.junit5.ActivityScenarioExtension
+import org.hamcrest.Matcher
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
 import org.junit.jupiter.params.ParameterizedTest
@@ -30,15 +32,11 @@ class MainActivityTest {
         pressed: String,
         expected: String,
     ) {
-        // given
-        val textView = withId(R.id.textView)
-        onView(textView).perform(setTextInTextView(original))
-
-        // when
-        onView(withText(pressed)).perform(click())
-
-        // then
-        onView(textView).check(matches(withText(expected)))
+        assertTextViewWithAction(
+            givenText = original,
+            clickedButton = withText(pressed),
+            expectedText = expected,
+        )
     }
 
     @ParameterizedTest
@@ -46,15 +44,11 @@ class MainActivityTest {
     fun 입력된_피연산자가_없을_때_사용자가_연산자_버튼을_누르면_화면에_아무런_변화가_없어야_한다(
         operator: String
     ) {
-        // given
-        val textView = withId(R.id.textView)
-        onView(textView).perform(setTextInTextView(""))
-
-        // when
-        onView(withText(operator)).perform(click())
-
-        // then
-        onView(textView).check(matches(withText("")))
+        assertTextViewWithAction(
+            givenText = "",
+            clickedButton = withText(operator),
+            expectedText = "",
+        )
     }
 
     @ParameterizedTest
@@ -67,28 +61,20 @@ class MainActivityTest {
         operator: String,
         expected: String
     ) {
-        // given
-        val textView = withId(R.id.textView)
-        onView(textView).perform(setTextInTextView(operand))
-
-        // when
-        onView(withText(operator)).perform(click())
-
-        // then
-        onView(textView).check(matches(withText(expected)))
+        assertTextViewWithAction(
+            givenText = operand,
+            clickedButton = withText(operator),
+            expectedText = expected,
+        )
     }
 
     @Test
     fun 입력된_수식이_없을_때_사용자가_지우기_버튼을_누르면_화면에_아무런_변화가_없어야_한다() {
-        // given
-        val textView = withId(R.id.textView)
-        onView(textView).perform(setTextInTextView(""))
-
-        // when
-        onView(withId(R.id.buttonDelete)).perform(click())
-
-        // then
-        onView(textView).check(matches(withText("")))
+        assertTextViewWithAction(
+            givenText = "",
+            clickedButton = withId(R.id.buttonDelete),
+            expectedText = "",
+        )
     }
 
     @ParameterizedTest
@@ -101,15 +87,11 @@ class MainActivityTest {
         original: String,
         expected: String,
     ) {
-        // given
-        val textView = withId(R.id.textView)
-        onView(textView).perform(setTextInTextView(original))
-
-        // when
-        onView(withId(R.id.buttonDelete)).perform(click())
-
-        // then
-        onView(textView).check(matches(withText(expected)))
+        assertTextViewWithAction(
+            givenText = original,
+            clickedButton = withId(R.id.buttonDelete),
+            expectedText = expected,
+        )
     }
 
     @ParameterizedTest
@@ -122,15 +104,27 @@ class MainActivityTest {
         expression: String,
         expected: String
     ) {
+        assertTextViewWithAction(
+            givenText = expression,
+            clickedButton = withId(R.id.buttonEquals),
+            expectedText = expected,
+        )
+    }
+
+    private fun assertTextViewWithAction(
+        givenText: String,
+        clickedButton: Matcher<View>,
+        expectedText: String,
+    ) {
         // given
         val textView = withId(R.id.textView)
-        onView(textView).perform(setTextInTextView(expression))
+        onView(textView).perform(setTextInTextView(givenText))
 
         // when
-        onView(withId(R.id.buttonEquals)).perform(click())
+        onView(clickedButton).perform(click())
 
         // then
-        onView(textView).check(matches(withText(expected)))
+        onView(textView).check(matches(withText(expectedText)))
     }
 
 }
