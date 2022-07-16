@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onClickOperand(number: Int) {
         if (resultText.isNotEmpty() && !resultText.last().isDigit())
-            resultText += " "
+            resultText += DELIMITER
         resultText += number
         binding.textView.text = resultText
     }
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     private fun onClickOperator(operator: String) {
         if (resultText.isEmpty()) return
         if (resultText.last().isDigit())
-            resultText += " "
+            resultText += DELIMITER
         else {
             resultText = resultText.dropLast(1)
         }
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     private fun onClickDelete() {
         if (resultText.isEmpty()) return
         resultText = resultText.dropLast(1)
-        if (resultText.last() == ' ') {
+        if (resultText.last() == DELIMITER) {
             resultText = resultText.dropLast(1)
         }
         binding.textView.text = resultText
@@ -68,7 +68,11 @@ class MainActivity : AppCompatActivity() {
                 .show()
             return
         }
-        resultText = Calculator().evaluate(resultText).toString()
+        resultText = Calculator(DELIMITER).evaluate(resultText).toString()
         binding.textView.text = resultText
+    }
+
+    companion object {
+        private const val DELIMITER = ' '
     }
 }
