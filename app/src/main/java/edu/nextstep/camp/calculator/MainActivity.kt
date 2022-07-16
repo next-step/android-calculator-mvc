@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initOperandButtons() {
         (0..9).forEach { number ->
-            val viewId = resources.getIdentifier("button$number", "id", packageName)
+            val viewId = resources.getIdentifier("$BUTTON_VIEW_PREFIX$number", "id", packageName)
             val button = findViewById(viewId) as? Button ?: return@forEach
             setOperandButtonListener(button, number)
         }
@@ -96,5 +96,6 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val SPACE = " "
         private const val CHARACTER_DELETE_UNIT = 1
+        private const val BUTTON_VIEW_PREFIX = "button"
     }
 }
