@@ -91,4 +91,18 @@ class MainActivityTest {
         // then
         onView(withId(R.id.textView)).check(matches(withText("5 +")))
     }
+
+    @Test
+    fun `5_더하기_1이_입력되어_있을_때_등호를_누르면_6이_표시된다`() {
+        // given
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+
+        // when
+        onView(withId(R.id.buttonEquals)).perform(click())
+
+        // then
+        onView(withId(R.id.textView)).check(matches(withText("6")))
+    }
 }
