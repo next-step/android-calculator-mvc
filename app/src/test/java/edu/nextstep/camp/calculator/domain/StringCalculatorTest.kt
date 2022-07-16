@@ -49,11 +49,24 @@ internal class StringCalculatorTest {
     @ParameterizedTest(name = "사칙연산 기호가 아닌 {0}의 경우 IllegalArgumentException이 발생한다")
     @CsvSource(
         "1 @ 2",
-        "1 + 2(3)",
-        "1 # %",
+        "1 + 2 ( 3",
+        "1 # 3",
     )
     fun `사칙연산 기호가 아닌 경우 IllegalArgumentException이 발생한다`(input: String?) {
         // then
-        assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
+        val exception = assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
+        assertThat(exception.message).isEqualTo("해당하는 Operation을 찾을 수 없습니다.")
+    }
+
+    @ParameterizedTest(name = "적절한 형식의 식이 아닌 {0}의 경우 IllegalArgumentException이 발생한다")
+    @CsvSource(
+        "+",
+        "- + 3",
+        "1(3)",
+    )
+    fun `적절한 형식의 식이 아닌 경우 IllegalArgumentException이 발생한다`(input: String?) {
+        // then
+        val exception = assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
+        assertThat(exception.message).isEqualTo("해당하는 Operand를 찾을 수 없습니다.")
     }
 }

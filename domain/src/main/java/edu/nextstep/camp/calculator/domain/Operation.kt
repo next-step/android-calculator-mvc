@@ -14,6 +14,6 @@ enum class Operation(
         fun of(raw: String): Operation =
             values()
                 .find { it.symbol == raw }
-                ?: throw IllegalArgumentException()
+                ?: throw IllegalArgumentException("해당하는 Operation을 찾을 수 없습니다.")
     }
 }
