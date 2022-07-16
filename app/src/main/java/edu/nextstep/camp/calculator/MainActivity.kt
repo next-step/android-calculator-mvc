@@ -2,6 +2,7 @@ package edu.nextstep.camp.calculator
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Operator
@@ -89,10 +90,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun initEqualsButton() {
         binding.buttonEquals.setOnClickListener {
-            binding.textView.text = StringCalculator
-                .calculate(displayedText)
-                .value
-                .toString()
+            try {
+                binding.textView.text = StringCalculator
+                    .calculate(displayedText)
+                    .value
+                    .toString()
+            } catch (e: IllegalArgumentException) {
+                Toast
+                    .makeText(this, R.string.illegal_expression_toast, Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
     }
 

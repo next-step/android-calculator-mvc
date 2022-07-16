@@ -58,15 +58,26 @@ internal class StringCalculatorTest {
         assertThat(exception.message).isEqualTo("해당하는 Operator를 찾을 수 없습니다.")
     }
 
-    @ParameterizedTest(name = "적절한 형식의 식이 아닌 {0}의 경우 IllegalArgumentException이 발생한다")
+    @ParameterizedTest(name = "피연산자가 숫자가 아닌 {0}의 경우 IllegalArgumentException이 발생한다")
     @CsvSource(
         "+",
         "- + 3",
         "1(3)",
     )
-    fun `적절한 형식의 식이 아닌 경우 IllegalArgumentException이 발생한다`(input: String) {
+    fun `피연산자가 숫자가 아닌 경우 IllegalArgumentException이 발생한다`(input: String) {
         // then
         val exception = assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
         assertThat(exception.message).isEqualTo("해당하는 Operand를 찾을 수 없습니다.")
+    }
+
+    @ParameterizedTest(name = "완전하지 않은 수식인 {0}의 경우 IllegalArgumentException이 발생한다")
+    @CsvSource(
+        "1 +",
+        "2 - 8 +",
+    )
+    fun `완전하지 않은 수식인 경우 IllegalArgumentException이 발생한다`(input: String) {
+        // then
+        val exception = assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
+        assertThat(exception.message).isEqualTo("완전하지 않은 수식이 입력되었습니다.")
     }
 }
