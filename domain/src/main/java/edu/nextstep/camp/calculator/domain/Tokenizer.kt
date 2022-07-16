@@ -1,6 +1,6 @@
 package edu.nextstep.camp.calculator.domain
 
-sealed class Token
+internal sealed class Token
 
 open class InvalidTokenException(message: String) : IllegalArgumentException(message)
 class UnsupportedOperatorException(message: String) : InvalidTokenException(message)
@@ -9,7 +9,7 @@ class UnsupportedOperatorException(message: String) : InvalidTokenException(mess
 internal data class Operator(val op: String) : Token() {
 
     companion object {
-        fun opOf(op: String): Operator {
+        fun of(op: String): Operator {
             return when (op) {
                 "+", "-", "*", "/" -> Operator(op)
                 else -> throw UnsupportedOperatorException("operator $op is not supported")
@@ -21,12 +21,20 @@ internal data class Operator(val op: String) : Token() {
 internal data class Operand(val number: Int) : Token()
 
 internal class Tokenizer {
+    private val tokenFactory = TokenFactory()
+
     fun tokenize(expression: String): List<Token> {
         return expression.split(" ").map { getToken(it) }
     }
 
     private fun getToken(piece: String): Token {
+        return tokenFactory.get(piece)
+    }
+}
+
+internal class TokenFactory {
+    fun get(piece: String): Token {
         piece.toIntOrNull()?.let { return Operand(it) }
-        return Operator.opOf(piece)
+        return Operator.of(piece)
     }
 }
