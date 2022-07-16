@@ -6,7 +6,22 @@ open class InvalidTokenException(message: String) : IllegalArgumentException(mes
 class UnsupportedOperatorException(message: String) : InvalidTokenException(message)
 
 // TODO: 지원하는 operator 코드가 산재되어 있음.
-internal data class Operator(val op: String) : Token() {
+internal class Operator private constructor(val op: String) : Token() {
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Operator
+
+        if (op != other.op) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return op.hashCode()
+    }
 
     companion object {
         fun of(op: String): Operator {
