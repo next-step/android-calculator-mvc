@@ -4,29 +4,29 @@ sealed interface Operation {
 
     val symbol: String
 
-    fun run(first: Number, second: Number): Number
+    fun run(first: Operand, second: Operand): Operand
 
     object Plus : Operation {
         override val symbol = "+"
-        override fun run(first: Number, second: Number): Number =
+        override fun run(first: Operand, second: Operand): Operand =
             first + second
     }
 
     object Minus : Operation {
         override val symbol = "-"
-        override fun run(first: Number, second: Number): Number =
+        override fun run(first: Operand, second: Operand): Operand =
             first - second
     }
 
     object Multiply : Operation {
         override val symbol = "*"
-        override fun run(first: Number, second: Number): Number =
+        override fun run(first: Operand, second: Operand): Operand =
             first * second
     }
 
     object Divide : Operation {
         override val symbol = "/"
-        override fun run(first: Number, second: Number): Number =
+        override fun run(first: Operand, second: Operand): Operand =
             first / second
     }
 

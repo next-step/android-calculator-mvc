@@ -6,7 +6,7 @@ object StringCalculator {
     private const val OPERATOR_INDEX_UNIT = 2
     private const val OPERATOR_INDEX_BUFFER = 1
 
-    fun calculate(raw: String?): Number {
+    fun calculate(raw: String?): Operand {
         requireNotNull(raw)
         val (rawOperands, rawOperators) = splitParams(raw)
             .withIndex()
@@ -21,8 +21,8 @@ object StringCalculator {
 
     private fun splitParams(raw: String): List<String> = raw.split(SPLIT_DELIMITER)
 
-    private fun parseOperands(rawOperands: List<IndexedValue<String>>): List<Number> =
-        rawOperands.map { Number.of(it.value) }
+    private fun parseOperands(rawOperands: List<IndexedValue<String>>): List<Operand> =
+        rawOperands.map { Operand.of(it.value) }
 
     private fun parseOperators(rawOperators: List<IndexedValue<String>>): List<Operation> =
         rawOperators.map { Operation.of(it.value) }
