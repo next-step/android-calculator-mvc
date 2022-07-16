@@ -36,17 +36,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickOperand(number: Int) {
-        if (resultText.isNotEmpty() && !resultText.last().isDigit())
+        if (resultText.isNotEmpty() && !resultText.last().isDigit()) {
             resultText += DELIMITER
+        }
         resultText += number
         binding.textView.text = resultText
     }
 
     private fun onClickOperator(operator: String) {
         if (resultText.isEmpty()) return
-        if (resultText.last().isDigit())
+
+        if (resultText.last().isDigit()) {
             resultText += DELIMITER
-        else {
+        } else {
             resultText = resultText.dropLast(ONE_LETTER_NUMBER)
         }
         resultText += operator
@@ -55,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onClickDelete() {
         if (resultText.isEmpty()) return
+
         resultText = resultText.dropLast(ONE_LETTER_NUMBER)
         if (resultText.last() == DELIMITER) {
             resultText = resultText.dropLast(ONE_LETTER_NUMBER)
