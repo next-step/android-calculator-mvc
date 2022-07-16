@@ -14,28 +14,39 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.button0.setOnClickListener { handleInput("0") }
-        binding.button1.setOnClickListener { handleInput("1") }
-        binding.button2.setOnClickListener { handleInput("2") }
-        binding.button3.setOnClickListener { handleInput("3") }
-        binding.button4.setOnClickListener { handleInput("4") }
-        binding.button5.setOnClickListener { handleInput("5") }
-        binding.button6.setOnClickListener { handleInput("6") }
-        binding.button7.setOnClickListener { handleInput("7") }
-        binding.button8.setOnClickListener { handleInput("8") }
-        binding.button9.setOnClickListener { handleInput("9") }
-        binding.buttonPlus.setOnClickListener { handleInput("+") }
-        binding.buttonMinus.setOnClickListener { handleInput("-") }
-        binding.buttonMultiply.setOnClickListener { handleInput("*") }
-        binding.buttonDivide.setOnClickListener { handleInput("/") }
+        binding.button0.setOnClickListener { handleInput('0') }
+        binding.button1.setOnClickListener { handleInput('1') }
+        binding.button2.setOnClickListener { handleInput('2') }
+        binding.button3.setOnClickListener { handleInput('3') }
+        binding.button4.setOnClickListener { handleInput('4') }
+        binding.button5.setOnClickListener { handleInput('5') }
+        binding.button6.setOnClickListener { handleInput('6') }
+        binding.button7.setOnClickListener { handleInput('7') }
+        binding.button8.setOnClickListener { handleInput('8') }
+        binding.button9.setOnClickListener { handleInput('9') }
+        binding.buttonPlus.setOnClickListener { handleInput('+') }
+        binding.buttonMinus.setOnClickListener { handleInput('-') }
+        binding.buttonMultiply.setOnClickListener { handleInput('*') }
+        binding.buttonDivide.setOnClickListener { handleInput('/') }
     }
 
-    private fun handleInput(input: String) {
-        expression += if (expression.isEmpty()) {
-            input
-        } else {
-            " $input"
+    private fun handleInput(input: Char) {
+        when {
+            isNumber(expression.lastOrNull()) && isNumber(input) -> expression += input
+            expression.isEmpty() -> expression += input
+            else -> expression += " $input"
         }
+
         binding.textView.text = expression
+    }
+
+    private fun isNumber(char: Char?): Boolean {
+        return char?.let {
+            NUMBER_LIST.contains(it)
+        } ?: false
+    }
+
+    companion object {
+        private val NUMBER_LIST = "0123456789".toList()
     }
 }
