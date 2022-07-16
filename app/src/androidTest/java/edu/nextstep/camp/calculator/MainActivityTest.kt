@@ -124,4 +124,12 @@ class MainActivityTest {
         // then : 화면에 해당 기호가 보여야 한다.
         onView(withId(R.id.textView)).check(matches(withText("1 -")))
     }
+
+    @Test
+    fun `입력된_피연산자가_없을_때_사용자가_연산자_버튼을_누르면_화면에_아무런_변화가_없어야_한다`() {
+        // when : 입력된 피연산자가 없을 때, 사용자가 연산자 +, -, ×, ÷ 버튼을 누르면
+        onView(withId(R.id.buttonPlus)).perform(click())
+        // then : 화면에 아무런 변화가 없어야 한다.
+        onView(withId(R.id.textView)).check(matches(withText("")))
+    }
 }
