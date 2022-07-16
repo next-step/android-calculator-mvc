@@ -5,15 +5,17 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
+import edu.nextstep.camp.calculator.domain.Operand
 import edu.nextstep.camp.calculator.domain.Operator
 import edu.nextstep.camp.calculator.domain.StringCalculator
+import edu.nextstep.camp.calculator.domain.StringExpression
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private val displayedText: String
-        get() = binding.textView.text.toString()
+    private val stringExpression: StringExpression
+        get() = StringExpression(binding.textView.text.toString())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,16 +36,13 @@ class MainActivity : AppCompatActivity() {
         (0..9).forEach { number ->
             val viewId = resources.getIdentifier("$BUTTON_VIEW_PREFIX$number", "id", packageName)
             val button = findViewById(viewId) as? Button ?: return@forEach
-            setOperandButtonListener(button, number)
+            setOperandButtonListener(button, Operand(number))
         }
     }
 
-    private fun setOperandButtonListener(button: Button, number: Int) {
+    private fun setOperandButtonListener(button: Button, operand: Operand) {
         button.setOnClickListener {
-            val shouldAddSpace =
-                displayedText.lastOrNull() != null && !displayedText.last().isDigit()
-            val text = displayedText + if (shouldAddSpace) "$SPACE$number" else number
-            binding.textView.text = text
+            binding.textView.text = stringExpression.plusElement(operand).value
         }
     }
 
@@ -63,18 +62,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setOperatorButtonListener(button: Button, operator: Operator) {
         button.setOnClickListener {
-            if (displayedText.isEmpty()) return@setOnClickListener
-            val text = displayedText + "$SPACE${operator.symbol}"
-            binding.textView.text = text
+            binding.textView.text = stringExpression.plusElement(operator).value
         }
     }
 
     private fun initDeleteButton() {
         binding.buttonDelete.setOnClickListener {
-            if (displayedText.isEmpty()) return@setOnClickListener
-            binding.textView.text = displayedText
-                .dropLast(CHARACTER_DELETE_UNIT)
-                .trim()
+            binding.textView.text = stringExpression.minusElement().value
         }
     }
 
@@ -82,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         binding.buttonEquals.setOnClickListener {
             try {
                 binding.textView.text = StringCalculator
-                    .calculate(displayedText)
+                    .calculate(stringExpression)
                     .value
                     .toString()
             } catch (e: IllegalArgumentException) {
@@ -94,8 +88,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val SPACE = " "
-        private const val CHARACTER_DELETE_UNIT = 1
         private const val BUTTON_VIEW_PREFIX = "button"
     }
 }
