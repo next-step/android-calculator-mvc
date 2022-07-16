@@ -157,7 +157,19 @@ class MainActivityTest {
         onView(withId(R.id.button1)).perform(click())
         onView(withId(R.id.buttonPlus)).perform(click())
         onView(withId(R.id.buttonDelete)).perform(click())
-        // then : 수식에 마지막으로 입력된 피연산자가 지워져야 한다
+        // then : 수식에 마지막으로 입력된 연산자가 지워져야 한다
         onView(withId(R.id.textView)).check(matches(withText("1")))
+    }
+
+    @Test
+    fun `마지막_글자가_한자리_숫자일때_사용자가_지우기_버튼을_누르면_수식에_마지막으로_입력된_숫자가_지워져야_한다`() {
+        // when : "32 + 1" 이 입력 되어있을때, 사용자가 지우기 버튼을 누르면
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonDelete)).perform(click())
+        // then : "32 +"가 보여야 한다.
+        onView(withId(R.id.textView)).check(matches(withText("32 +")))
     }
 }
