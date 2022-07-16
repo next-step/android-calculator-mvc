@@ -36,6 +36,19 @@ class MainActivityTest {
     }
 
     @Test
+    fun `5_더하기가_입력되어_있을_때_빼기를_누르면_5_빼기가_표시된다`() {
+        // given
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        // when
+        onView(withId(R.id.buttonMinus)).perform(click())
+
+        // then
+        onView(withId(R.id.textView)).check(matches(withText("5 -")))
+    }
+
+    @Test
     fun `5_더하기가_입력되어_있을_때_1을_누르면_5_더하기_1이_표시된다`() {
         // given
         onView(withId(R.id.button5)).perform(click())
