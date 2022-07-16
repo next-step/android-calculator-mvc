@@ -1,7 +1,7 @@
 package edu.nextstep.camp.calculator.domain
 
 class Calculator(
-    private val expressionParser: ExpressionParser = ExpressionParser()
+    private val expressionParser: ExpressionParser
 ) {
 
     fun evaluate(expressionString: String?): Int {
