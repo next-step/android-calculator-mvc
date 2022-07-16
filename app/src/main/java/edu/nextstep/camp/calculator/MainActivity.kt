@@ -3,10 +3,14 @@ package edu.nextstep.camp.calculator
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
+import edu.nextstep.camp.calculator.domain.Calculator
+import edu.nextstep.camp.calculator.domain.ExpressionParser
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    private val calculator = Calculator(ExpressionParser())
     private var expression = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         binding.buttonMultiply.setOnClickListener { handleSign('*') }
         binding.buttonDivide.setOnClickListener { handleSign('/') }
         binding.buttonDelete.setOnClickListener { handleDelete() }
+        binding.buttonEquals.setOnClickListener { handleEquals() }
     }
 
     private fun handleNumber(number: Char) {
@@ -56,6 +61,15 @@ class MainActivity : AppCompatActivity() {
     private fun handleDelete() {
         if (expression.lastOrNull() != null) {
             expression = expression.dropLast(1).trim()
+            binding.textView.text = expression
+        }
+    }
+
+    private fun handleEquals() {
+        runCatching {
+            calculator.evaluate(expression)
+        }.onSuccess { result ->
+            expression = result.toString()
             binding.textView.text = expression
         }
     }
