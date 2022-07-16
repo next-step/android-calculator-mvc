@@ -1,6 +1,7 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Calculator
@@ -71,6 +72,8 @@ class MainActivity : AppCompatActivity() {
         }.onSuccess { result ->
             expression = result.toString()
             binding.textView.text = expression
+        }.onFailure {
+            Toast.makeText(this, getString(R.string.toast_incompleteExpression), Toast.LENGTH_SHORT).show()
         }
     }
 
