@@ -9,6 +9,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
 
+
 class MainActivityDisplayTest {
 
     @get:Rule
@@ -53,12 +54,91 @@ class MainActivityDisplayTest {
     fun `do_nothing_when_press_op_button_when_the_operand_is_absent`() {
         // when
         click("+")
-        
+
         // then
         checkDisplayText("")
     }
-    
 
+    @Test
+    fun `the_most_recent_operator_is_displayed_when_the_operand_is_present`() {
+        // given "1"
+        click(1)
+
+        // when
+        click("+")
+
+        // then
+        checkDisplayText("1 +")
+    }
+
+    @Test
+    fun `the_most_recent_operator_is_displayed_when_the_operand_is_present2`() {
+        // given "1 -"
+        click(1)
+        click("-")
+
+        // when
+        click("+")
+
+        // then
+        checkDisplayText("1 +")
+    }
+
+    @Test
+    fun `display_nothing_when_press_delete_on_empty_display`() {
+        // when
+        click("<")
+
+        // then
+        checkDisplayText("")
+    }
+
+    @Test
+    fun `delete_from_the_most_recent_value_when_press_delete`() {
+        // given
+        click(3)
+        click(2)
+        click("+")
+        click(1)
+
+        // when
+        click("<")
+
+        // then
+        checkDisplayText("32 +")
+
+        // when
+        click("<")
+
+        // then
+        checkDisplayText("32")
+
+        // when
+        click("<")
+
+        // then
+        checkDisplayText("3")
+
+        // when
+        click("<")
+
+        // then
+        checkDisplayText("")
+    }
+
+    @Test
+    fun `calculate_when_provides_a_complete_expression`() {
+        // given
+        click(3)
+        click("+")
+        click(2)
+
+        // when
+        click("=")
+
+        // then
+        checkDisplayText("5")
+    }
 
     private fun checkDisplayText(text: String) {
         onView(withId(R.id.textView)).check(matches(withText(text)))

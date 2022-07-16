@@ -1,11 +1,14 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
+import edu.nextstep.camp.calculator.domain.ExpressionParsingException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val model = CalculatorDisplayModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,24 +29,35 @@ class MainActivity : AppCompatActivity() {
         binding.buttonMinus.setOnClickListener { appendOp("-") }
         binding.buttonMultiply.setOnClickListener { appendOp("*") }
         binding.buttonDivide.setOnClickListener { appendOp("/") }
-        binding.buttonEquals.setOnClickListener { appendOp("=") }
-        binding.buttonDelete.setOnClickListener { appendOp("<") }
+        binding.buttonEquals.setOnClickListener {
+            try {
+                model.calculate()
+            } catch (error: ExpressionParsingException) {
+                Toast.makeText(
+                    this,
+                    R.string.calculator_invalid_expression_message,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            update()
+        }
+        binding.buttonDelete.setOnClickListener {
+            model.delete()
+            update()
+        }
     }
 
     private fun appendNumber(number: Int) {
-        appendText(number.toString())
+        model.put(number)
+        update()
     }
 
     private fun appendOp(op: String) {
-        val origin = binding.textView.text.toString()
-
-        if (origin.isEmpty()) return
-        if (origin.last().isDigit()) appendText(op)
+        model.put(op)
+        update()
     }
 
-    private fun appendText(text: String) {
-        val origin = binding.textView.text.toString()
-        if (origin.isEmpty() || origin.toIntOrNull() != null) binding.textView.append(text)
-        else binding.textView.append(" $text")
+    private fun update() {
+        binding.textView.text = model.state
     }
 }

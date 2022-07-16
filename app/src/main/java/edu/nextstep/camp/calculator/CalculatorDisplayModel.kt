@@ -12,7 +12,6 @@ class CalculatorDisplayModel {
 
     fun put(number: Int) {
         require(number in 0..9) { "Invalid number $number, must be between 0 and 9." }
-
         if (_state.isEmpty()) {
             _state.add(number.toString())
         } else if (_state.last().isOperand()) {
