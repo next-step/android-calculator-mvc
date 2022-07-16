@@ -15,7 +15,7 @@ object StringCalculator {
         val operators = parseOperators(rawOperators)
 
         return operands.reduceIndexed { index, first, second ->
-            operators[index - OPERATOR_INDEX_BUFFER].run(first, second)
+            operators[index - OPERATOR_INDEX_BUFFER].action(first, second)
         }
     }
 

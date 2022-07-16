@@ -1,42 +1,19 @@
 package edu.nextstep.camp.calculator.domain
 
-sealed interface Operation {
+enum class Operation(
+    val symbol: String,
+    val action: (Operand, Operand) -> Operand
+) {
 
-    val symbol: String
-
-    fun run(first: Operand, second: Operand): Operand
-
-    object Plus : Operation {
-        override val symbol = "+"
-        override fun run(first: Operand, second: Operand): Operand =
-            first + second
-    }
-
-    object Minus : Operation {
-        override val symbol = "-"
-        override fun run(first: Operand, second: Operand): Operand =
-            first - second
-    }
-
-    object Multiply : Operation {
-        override val symbol = "*"
-        override fun run(first: Operand, second: Operand): Operand =
-            first * second
-    }
-
-    object Divide : Operation {
-        override val symbol = "/"
-        override fun run(first: Operand, second: Operand): Operand =
-            first / second
-    }
+    PLUS(symbol = "+", action = { first, second -> first + second }),
+    MINUS(symbol = "-", action = { first, second -> first - second }),
+    MULTIPLY(symbol = "*", action = { first, second -> first * second }),
+    DIVIDE(symbol = "/", action = { first, second -> first / second });
 
     companion object {
-        fun of(raw: String): Operation = when (raw) {
-            Plus.symbol -> Plus
-            Minus.symbol -> Minus
-            Multiply.symbol -> Multiply
-            Divide.symbol -> Divide
-            else -> throw IllegalArgumentException()
-        }
+        fun of(raw: String): Operation =
+            values()
+                .find { it.symbol == raw }
+                ?: throw IllegalArgumentException()
     }
 }
