@@ -15,15 +15,6 @@ class MainActivity : AppCompatActivity() {
     private val displayedText: String
         get() = binding.textView.text.toString()
 
-    private val buttonToOperator: Map<Button, Operator> by lazy {
-        mapOf(
-            binding.buttonPlus to Operator.PLUS,
-            binding.buttonMinus to Operator.MINUS,
-            binding.buttonMultiply to Operator.MULTIPLY,
-            binding.buttonDivide to Operator.DIVIDE,
-        )
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -58,15 +49,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun initOperatorButtons() {
         listOf(
-            binding.buttonPlus,
-            binding.buttonMinus,
-            binding.buttonMultiply,
-            binding.buttonDivide,
-        ).forEach {
+            binding.buttonPlus to Operator.PLUS,
+            binding.buttonMinus to Operator.MINUS,
+            binding.buttonMultiply to Operator.MULTIPLY,
+            binding.buttonDivide to Operator.DIVIDE,
+        ).forEach { (button, operator) ->
             setOperatorButtonListener(
-                button = it,
-                operator = buttonToOperator[it]
-                    ?: throw IllegalArgumentException("지원되지 않는 형식의 Operator입니다.")
+                button = button,
+                operator = operator
             )
         }
     }
