@@ -77,4 +77,18 @@ class MainActivityTest {
         // then
         onView(withId(R.id.textView)).check(matches(withText("")))
     }
+
+    @Test
+    fun `5_더하기_1이_입력되어_있을_때_지우기를_누르면_5_더하기를_표시한다`() {
+        // given
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+
+        // when
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        // then
+        onView(withId(R.id.textView)).check(matches(withText("5 +")))
+    }
 }
