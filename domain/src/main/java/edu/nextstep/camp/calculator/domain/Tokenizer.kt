@@ -6,7 +6,7 @@ open class InvalidTokenException(message: String) : IllegalArgumentException(mes
 class UnsupportedOperatorException(message: String) : InvalidTokenException(message)
 
 internal enum class Operator(
-    private val id: String,
+    private val symbol: String,
 ) : Token {
     Plus("+") {
         override fun operate(a: Int, b: Int): Int {
@@ -35,7 +35,7 @@ internal enum class Operator(
 
     companion object {
         fun of(op: String): Operator {
-            return values().find { it.id == op }
+            return values().find { it.symbol == op }
                 ?: throw UnsupportedOperatorException("operator $op is not supported")
         }
     }
