@@ -12,29 +12,49 @@ class CalculatorDisplayModel {
 
     fun put(number: Int) {
         require(number in 0..9) { "Invalid number $number, must be between 0 and 9." }
-        if (_state.isEmpty()) {
-            _state.add(number.toString())
-        } else if (_state.last().isOperand()) {
-            val prevOperand = _state.pop()
-            _state.push("$prevOperand$number")
-        } else {
-            _state.add(number.toString())
+        when {
+            _state.isEmpty() -> {
+                _state.add(number.toString())
+            }
+            _state.last().isOperand() -> {
+                val prevOperand = _state.pop()
+                _state.push("$prevOperand$number")
+            }
+            else -> {
+                _state.add(number.toString())
+            }
         }
     }
 
     fun put(op: String) {
-        if (_state.isEmpty()) return
-        if (_state.last().isOperator()) {
-            _state.pop()
+        when {
+            _state.isEmpty() -> {
+                return
+            }
+            _state.last().isOperand() -> {
+                _state.add(op)
+            }
+            else -> {
+                _state.pop()
+                _state.add(op)
+            }
         }
-        _state.add(op)
     }
 
     fun delete() {
-        if (_state.isEmpty()) return
-        val prev = _state.pop()
-        if (prev.isOperand() && prev.length >= 2) {
-            _state.push(prev.substring(0, prev.length - 1))
+        when {
+            _state.isEmpty() -> {
+                return
+            }
+            _state.last().isOperand() -> {
+                val prev = _state.pop()
+                if (prev.length >= 2) {
+                    _state.push(prev.substring(0, prev.length - 1))
+                }
+            }
+            else -> {
+                _state.pop()
+            }
         }
     }
 
@@ -46,9 +66,5 @@ class CalculatorDisplayModel {
 
     private fun String.isOperand(): Boolean {
         return this.toIntOrNull() != null
-    }
-
-    private fun String.isOperator(): Boolean {
-        return !isOperand()
     }
 }
