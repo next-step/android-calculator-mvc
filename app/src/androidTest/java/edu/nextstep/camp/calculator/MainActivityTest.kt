@@ -1,6 +1,5 @@
 package edu.nextstep.camp.calculator
 
-import androidx.annotation.IdRes
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches

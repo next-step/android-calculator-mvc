@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     packagingOptions {
         exclude 'META-INF/LICENSE.md'
@@ -12,7 +12,7 @@ android {
     }
     defaultConfig {
         applicationId "edu.nextstep.camp.calculator"
-        minSdkVersion 21
+        minSdkVersion 30
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
