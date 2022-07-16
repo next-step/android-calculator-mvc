@@ -37,6 +37,19 @@ class MainActivityDisplayTest {
         checkDisplayText("5 + 1")
     }
 
+    @Test
+    fun `append_number_when_the_operand_is_present`() {
+        // given "8"
+        click(8)
+
+        // when
+        click(9)
+
+        // then
+        checkDisplayText("89")
+    }
+
+
     private fun checkDisplayText(text: String) {
         onView(withId(R.id.textView)).check(matches(withText(text)))
     }

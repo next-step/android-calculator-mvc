@@ -39,8 +39,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun appendText(text: String) {
-        val origin = binding.textView.text
-        if (origin.isEmpty()) binding.textView.append(text)
+        val origin = binding.textView.text.toString()
+        if (origin.isEmpty() || origin.toIntOrNull() != null) binding.textView.append(text)
         else binding.textView.append(" $text")
     }
 }
