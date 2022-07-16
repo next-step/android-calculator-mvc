@@ -64,7 +64,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun onClickEquals() {
         if (resultText.isEmpty() || !resultText.last().isDigit()) {
-            Toast.makeText(this, "완성되지 않은 수식입니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getText(R.string.not_completed_expression), Toast.LENGTH_SHORT)
+                .show()
             return
         }
         resultText = Calculator().evaluate(resultText).toString()
