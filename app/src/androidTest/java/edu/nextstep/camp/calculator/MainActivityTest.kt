@@ -87,4 +87,25 @@ class MainActivityTest {
         onView(textView).check(matches(withText("")))
     }
 
+    @ParameterizedTest
+    @CsvSource(
+        "5 +, 5",
+        "8, ''",
+        "1 ÷ 2 + 8, 1 ÷ 2 +",
+    )
+    fun 입력된_수식이_있을_때_사용자가_지우기_버튼을_누르면_수식에_마지막으로_입력된_연산자_또는_피연산자가_지워져야_한다(
+        original: String,
+        expected: String,
+    ) {
+        // given
+        val textView = withId(R.id.textView)
+        onView(textView).perform(setTextInTextView(original))
+
+        // when
+        onView(withId(R.id.buttonDelete)).perform(click())
+
+        // then
+        onView(textView).check(matches(withText(expected)))
+    }
+
 }

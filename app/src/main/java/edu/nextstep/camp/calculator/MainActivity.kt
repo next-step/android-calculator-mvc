@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         initViewBinding()
         initOperandButtons()
         initOperatorButtons()
+        initDeleteButton()
     }
 
     private fun initViewBinding() {
@@ -82,7 +83,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun initDeleteButton() {
+        binding.buttonDelete.setOnClickListener {
+            if (displayedText.isEmpty()) return@setOnClickListener
+            binding.textView.text = displayedText
+                .dropLast(CHARACTER_DELETE_UNIT)
+                .trim()
+        }
+    }
+
     companion object {
         private const val SPACE = " "
+        private const val CHARACTER_DELETE_UNIT = 1
     }
 }
