@@ -23,7 +23,7 @@ object StringCalculator {
     private fun parseOperands(rawOperands: List<IndexedValue<String>>): List<Operand> =
         rawOperands.map { Operand.of(it.value) }
 
-    private fun parseOperators(rawOperators: List<IndexedValue<String>>): List<Operation> =
-        rawOperators.map { Operation.of(it.value) }
+    private fun parseOperators(rawOperators: List<IndexedValue<String>>): List<Operator> =
+        rawOperators.map { Operator.of(it.value) }
 
 }

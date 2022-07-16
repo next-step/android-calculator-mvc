@@ -20,7 +20,7 @@ class MainActivityTest {
     @ParameterizedTest
     @CsvSource(
         "'', 1, 1",
-        "'5 + ', 1, 5 + 1",
+        "5 +, 1, 5 + 1",
         "8, 9, 89",
         "123, 4, 1234",
     )
@@ -54,6 +54,22 @@ class MainActivityTest {
 
         // then
         onView(textView).check(matches(withText("")))
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["+", "-", "×", "÷"])
+    fun 입력된_피연산자가_있을_때_사용자가_연산자_버튼을_누르면_해당_기호가_화면에_보여야_한다(
+        operator: String
+    ) {
+        // given
+        val textView = withId(R.id.textView)
+        onView(textView).perform(setTextInTextView("1"))
+
+        // when
+        onView(withText(operator)).perform(click())
+
+        // then
+        onView(textView).check(matches(withText("1 $operator")))
     }
 
 }

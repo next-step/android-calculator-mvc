@@ -55,7 +55,7 @@ internal class StringCalculatorTest {
     fun `사칙연산 기호가 아닌 경우 IllegalArgumentException이 발생한다`(input: String) {
         // then
         val exception = assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
-        assertThat(exception.message).isEqualTo("해당하는 Operation을 찾을 수 없습니다.")
+        assertThat(exception.message).isEqualTo("해당하는 Operator를 찾을 수 없습니다.")
     }
 
     @ParameterizedTest(name = "적절한 형식의 식이 아닌 {0}의 경우 IllegalArgumentException이 발생한다")

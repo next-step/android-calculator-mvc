@@ -1,6 +1,6 @@
 package edu.nextstep.camp.calculator.domain
 
-enum class Operation(
+enum class Operator(
     val symbol: String,
     val action: (Operand, Operand) -> Operand
 ) {
@@ -11,9 +11,9 @@ enum class Operation(
     DIVIDE(symbol = "/", action = { first, second -> first / second });
 
     companion object {
-        fun of(raw: String): Operation =
+        fun of(raw: String): Operator =
             values()
                 .find { it.symbol == raw }
-                ?: throw IllegalArgumentException("해당하는 Operation을 찾을 수 없습니다.")
+                ?: throw IllegalArgumentException("해당하는 Operator를 찾을 수 없습니다.")
     }
 }
