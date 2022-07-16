@@ -59,4 +59,13 @@ class MainActivityTest {
         // then
         onView(withId(R.id.textView)).check(matches(withText("55")))
     }
+
+    @Test
+    fun 아무것도_입력되지_않았을_때_더하기를_누르면_아무것도_표시되지_않는다() {
+        // when
+        onView(withId(R.id.buttonPlus)).perform(click())
+
+        // then
+        onView(withId(R.id.textView)).check(matches(withText("")))
+    }
 }
