@@ -172,4 +172,14 @@ class MainActivityTest {
         // then : "32 +"가 보여야 한다.
         onView(withId(R.id.textView)).check(matches(withText("32 +")))
     }
+
+    @Test
+    fun `마지막_글자가_두자리이상_숫자일때_사용자가_지우기_버튼을_누르면_수식에_마지막으로_입력된_숫자만_지워져야_한다`() {
+        // when : "32" 이 입력 되어있을때, 사용자가 지우기 버튼을 누르면
+        onView(withId(R.id.button3)).perform(click())
+        onView(withId(R.id.button2)).perform(click())
+        onView(withId(R.id.buttonDelete)).perform(click())
+        // then : "3"가 보여야 한다.
+        onView(withId(R.id.textView)).check(matches(withText("3")))
+    }
 }
