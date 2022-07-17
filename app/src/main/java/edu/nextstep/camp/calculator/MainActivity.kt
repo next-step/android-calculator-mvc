@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
+import edu.nextstep.camp.calculator.domain.CalculatorDisplayModel
 import edu.nextstep.camp.calculator.domain.ExpressionParsingException
 
 class MainActivity : AppCompatActivity() {

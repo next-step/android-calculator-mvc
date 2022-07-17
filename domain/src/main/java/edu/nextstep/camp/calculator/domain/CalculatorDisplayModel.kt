@@ -1,6 +1,5 @@
-package edu.nextstep.camp.calculator
+package edu.nextstep.camp.calculator.domain
 
-import edu.nextstep.camp.calculator.domain.Calculator
 import java.util.Stack
 
 class CalculatorDisplayModel {
