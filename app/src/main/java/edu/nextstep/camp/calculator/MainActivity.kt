@@ -6,82 +6,62 @@ import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Calculator
 import edu.nextstep.camp.calculator.domain.ExpressionParser
+import edu.nextstep.camp.calculator.domain.raw.RawExpression
+import edu.nextstep.camp.calculator.domain.raw.RawNumber
+import edu.nextstep.camp.calculator.domain.raw.RawSign
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
     private val calculator = Calculator(ExpressionParser())
-    private var expression = ""
+    private val builder = RawExpression.Builder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.button0.setOnClickListener { handleNumber('0') }
-        binding.button1.setOnClickListener { handleNumber('1') }
-        binding.button2.setOnClickListener { handleNumber('2') }
-        binding.button3.setOnClickListener { handleNumber('3') }
-        binding.button4.setOnClickListener { handleNumber('4') }
-        binding.button5.setOnClickListener { handleNumber('5') }
-        binding.button6.setOnClickListener { handleNumber('6') }
-        binding.button7.setOnClickListener { handleNumber('7') }
-        binding.button8.setOnClickListener { handleNumber('8') }
-        binding.button9.setOnClickListener { handleNumber('9') }
-        binding.buttonPlus.setOnClickListener { handleSign('+') }
-        binding.buttonMinus.setOnClickListener { handleSign('-') }
-        binding.buttonMultiply.setOnClickListener { handleSign('*') }
-        binding.buttonDivide.setOnClickListener { handleSign('/') }
-        binding.buttonDelete.setOnClickListener { handleDelete() }
-        binding.buttonEquals.setOnClickListener { handleEquals() }
+        binding.button0.setOnClickListener { enterNumber(RawNumber.ZERO) }
+        binding.button1.setOnClickListener { enterNumber(RawNumber.ONE) }
+        binding.button2.setOnClickListener { enterNumber(RawNumber.TWO) }
+        binding.button3.setOnClickListener { enterNumber(RawNumber.THREE) }
+        binding.button4.setOnClickListener { enterNumber(RawNumber.FOUR) }
+        binding.button5.setOnClickListener { enterNumber(RawNumber.FIVE) }
+        binding.button6.setOnClickListener { enterNumber(RawNumber.SIX) }
+        binding.button7.setOnClickListener { enterNumber(RawNumber.SEVEN) }
+        binding.button8.setOnClickListener { enterNumber(RawNumber.EIGHT) }
+        binding.button9.setOnClickListener { enterNumber(RawNumber.NINE) }
+        binding.buttonPlus.setOnClickListener { enterSign(RawSign.PLUS) }
+        binding.buttonMinus.setOnClickListener { enterSign(RawSign.MINUS) }
+        binding.buttonMultiply.setOnClickListener { enterSign(RawSign.TIMES) }
+        binding.buttonDivide.setOnClickListener { enterSign(RawSign.DIVISION) }
+        binding.buttonDelete.setOnClickListener { remove() }
+        binding.buttonEquals.setOnClickListener { calculate() }
     }
 
-    private fun handleNumber(number: Char) {
-        when {
-            expression.isEmpty() -> expression += number
-            isNumber(expression.lastOrNull()) -> expression += number
-            else -> expression += " $number"
-        }
-        binding.textView.text = expression
+    private fun enterNumber(number: RawNumber) {
+        builder.enterNumber(number)
+        binding.textView.text = builder.build()
     }
 
-    private fun handleSign(sign: Char) {
-        val lastSymbol = expression.lastOrNull()
-        when {
-            lastSymbol == null -> return
-            isNumber(lastSymbol) -> expression += " $sign"
-            else -> expression = expression.dropLast(1) + sign
-        }
-
-        binding.textView.text = expression
+    private fun enterSign(sign: RawSign) {
+        builder.enterSign(sign)
+        binding.textView.text = builder.build()
     }
 
-    private fun isNumber(char: Char?): Boolean {
-        return char?.let {
-            NUMBER_LIST.contains(it)
-        } ?: false
+    private fun remove() {
+        builder.remove()
+        binding.textView.text = builder.build()
     }
 
-    private fun handleDelete() {
-        if (expression.lastOrNull() != null) {
-            expression = expression.dropLast(1).trim()
-            binding.textView.text = expression
-        }
-    }
-
-    private fun handleEquals() {
+    private fun calculate() {
         runCatching {
-            calculator.evaluate(expression)
+            calculator.evaluate(builder.build())
         }.onSuccess { result ->
-            expression = result.toString()
-            binding.textView.text = expression
+            binding.textView.text = result.toString()
         }.onFailure {
             Toast.makeText(this, getString(R.string.toast_incompleteExpression), Toast.LENGTH_SHORT).show()
         }
-    }
-
-    companion object {
-        private val NUMBER_LIST = "0123456789".toList()
     }
 }
