@@ -5,7 +5,7 @@ class CalculatorDisplayModel {
     private val tokenizer = Tokenizer()
     private var expression = ""
     private val tokens get() = tokenizer.tokenize(expression)
-    val state
+    val displayText
         get() = tokens.joinToString(
             separator = " ",
             transform = {

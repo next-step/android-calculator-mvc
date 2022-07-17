@@ -59,6 +59,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun update() {
-        binding.textView.text = model.state
+        binding.textView.text = model.displayText
     }
 }

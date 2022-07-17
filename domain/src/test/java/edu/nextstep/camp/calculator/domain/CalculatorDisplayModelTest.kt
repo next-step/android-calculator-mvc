@@ -12,7 +12,7 @@ class CalculatorDisplayModelTest {
         model.put(1)
 
         // then
-        assertThat(model.state).isEqualTo("1")
+        assertThat(model.displayText).isEqualTo("1")
     }
 
     @Test
@@ -25,7 +25,7 @@ class CalculatorDisplayModelTest {
         model.put(1)
 
         // then
-        assertThat(model.state).isEqualTo("5 + 1")
+        assertThat(model.displayText).isEqualTo("5 + 1")
     }
 
     @Test
@@ -37,7 +37,7 @@ class CalculatorDisplayModelTest {
         model.put(9)
 
         // then
-        assertThat(model.state).isEqualTo("89")
+        assertThat(model.displayText).isEqualTo("89")
     }
 
     @Test
@@ -46,7 +46,7 @@ class CalculatorDisplayModelTest {
         model.put("+")
 
         // then
-        assertThat(model.state).isEqualTo("")
+        assertThat(model.displayText).isEqualTo("")
     }
 
     @Test
@@ -59,7 +59,7 @@ class CalculatorDisplayModelTest {
         model.put("-")
 
         // then
-        assertThat(model.state).isEqualTo("1 -")
+        assertThat(model.displayText).isEqualTo("1 -")
     }
 
     @Test
@@ -68,7 +68,7 @@ class CalculatorDisplayModelTest {
         model.delete()
 
         // then
-        assertThat(model.state).isEqualTo("")
+        assertThat(model.displayText).isEqualTo("")
     }
 
     @Test
@@ -83,25 +83,25 @@ class CalculatorDisplayModelTest {
         model.delete()
 
         // then
-        assertThat(model.state).isEqualTo("32 +")
+        assertThat(model.displayText).isEqualTo("32 +")
 
         // when
         model.delete()
 
         // then
-        assertThat(model.state).isEqualTo("32")
+        assertThat(model.displayText).isEqualTo("32")
 
         // when
         model.delete()
 
         // then
-        assertThat(model.state).isEqualTo("3")
+        assertThat(model.displayText).isEqualTo("3")
 
         // when
         model.delete()
 
         // then
-        assertThat(model.state).isEqualTo("")
+        assertThat(model.displayText).isEqualTo("")
     }
 
     @Test
@@ -115,7 +115,7 @@ class CalculatorDisplayModelTest {
         model.calculate()
 
         // then
-        assertThat(model.state).isEqualTo("5")
+        assertThat(model.displayText).isEqualTo("5")
     }
 
     @Test
