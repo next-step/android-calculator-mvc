@@ -12,7 +12,10 @@ class CalculatorDisplayModelTest {
         model.put(1)
 
         // then
-        assertThat(model.displayText).isEqualTo("1")
+        val expected = listOf(
+            Operand(1)
+        )
+        assertThat(model.tokens).isEqualTo(expected)
     }
 
     @Test
@@ -25,7 +28,12 @@ class CalculatorDisplayModelTest {
         model.put(1)
 
         // then
-        assertThat(model.displayText).isEqualTo("5 + 1")
+        val expected = listOf(
+            Operand(5),
+            Operator.Plus,
+            Operand(1)
+        )
+        assertThat(model.tokens).isEqualTo(expected)
     }
 
     @Test
@@ -37,7 +45,10 @@ class CalculatorDisplayModelTest {
         model.put(9)
 
         // then
-        assertThat(model.displayText).isEqualTo("89")
+        val expected = listOf(
+            Operand(89),
+        )
+        assertThat(model.tokens).isEqualTo(expected)
     }
 
     @Test
@@ -46,7 +57,7 @@ class CalculatorDisplayModelTest {
         model.put("+")
 
         // then
-        assertThat(model.displayText).isEqualTo("")
+        assertThat(model.tokens).isEmpty()
     }
 
     @Test
@@ -59,7 +70,11 @@ class CalculatorDisplayModelTest {
         model.put("-")
 
         // then
-        assertThat(model.displayText).isEqualTo("1 -")
+        val expected = listOf(
+            Operand(1),
+            Operator.Minus
+        )
+        assertThat(model.tokens).isEqualTo(expected)
     }
 
     @Test
@@ -68,7 +83,7 @@ class CalculatorDisplayModelTest {
         model.delete()
 
         // then
-        assertThat(model.displayText).isEqualTo("")
+        assertThat(model.tokens).isEmpty()
     }
 
     @Test
@@ -82,26 +97,36 @@ class CalculatorDisplayModelTest {
         // when
         model.delete()
 
-        // then
-        assertThat(model.displayText).isEqualTo("32 +")
+        // then "32 +"
+        var expected = listOf(
+            Operand(32),
+            Operator.Plus
+        )
+        assertThat(model.tokens).isEqualTo(expected)
+
+        // when
+        model.delete()
+
+        // then "32"
+        expected = listOf(
+            Operand(32),
+        )
+        assertThat(model.tokens).isEqualTo(expected)
+
+        // when
+        model.delete()
+
+        // then "3"
+        expected = listOf(
+            Operand(3),
+        )
+        assertThat(model.tokens).isEqualTo(expected)
 
         // when
         model.delete()
 
         // then
-        assertThat(model.displayText).isEqualTo("32")
-
-        // when
-        model.delete()
-
-        // then
-        assertThat(model.displayText).isEqualTo("3")
-
-        // when
-        model.delete()
-
-        // then
-        assertThat(model.displayText).isEqualTo("")
+        assertThat(model.tokens).isEmpty()
     }
 
     @Test
@@ -115,7 +140,10 @@ class CalculatorDisplayModelTest {
         model.calculate()
 
         // then
-        assertThat(model.displayText).isEqualTo("5")
+        val expected = listOf(
+            Operand(5),
+        )
+        assertThat(model.tokens).isEqualTo(expected)
     }
 
     @Test

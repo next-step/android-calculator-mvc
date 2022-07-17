@@ -1,11 +1,11 @@
 package edu.nextstep.camp.calculator.domain
 
-internal sealed interface Token
+sealed interface Token
 
 open class InvalidTokenException(message: String) : EvaluationException(message)
 class UnsupportedOperatorException(message: String) : InvalidTokenException(message)
 
-internal enum class Operator(
+enum class Operator(
     val symbol: String,
 ) : Token {
     Plus("+") {
@@ -41,4 +41,4 @@ internal enum class Operator(
     }
 }
 
-internal data class Operand(val number: Int) : Token
+data class Operand(val number: Int) : Token

@@ -4,72 +4,63 @@ import java.util.Stack
 
 class CalculatorDisplayModel {
 
-    private val tokens = Stack<Token>()
-    val displayText
-        get() = tokens.joinToString(
-            separator = " ",
-            transform = {
-                when (it) {
-                    is Operand -> it.number.toString()
-                    is Operator -> it.symbol
-                }
-            }
-        )
+    private val _tokens = Stack<Token>()
+    val tokens get() = _tokens.toList()
 
     fun put(number: Int) {
         require(number in 0..9) { "Invalid number $number, must be between 0 and 9." }
-        if (tokens.isEmpty()) {
-            tokens.add(number.toOperand())
+        if (_tokens.isEmpty()) {
+            _tokens.add(number.toOperand())
             return
         }
 
-        when (val last = tokens.last()) {
+        when (val last = _tokens.last()) {
             is Operand -> {
-                tokens.pop()
-                tokens.push(last.merge(number))
+                _tokens.pop()
+                _tokens.push(last.merge(number))
             }
             is Operator -> {
-                tokens.push(number.toOperand())
+                _tokens.push(number.toOperand())
             }
         }
     }
 
     fun put(op: String) {
-        if (tokens.isEmpty()) {
+        if (_tokens.isEmpty()) {
             return
         }
 
-        when (tokens.last()) {
+        when (_tokens.last()) {
             is Operand -> {
-                tokens.push(op.toOperator())
+                _tokens.push(op.toOperator())
             }
             is Operator -> {
-                tokens.pop()
-                tokens.push(op.toOperator())
+                _tokens.pop()
+                _tokens.push(op.toOperator())
             }
         }
     }
 
     fun delete() {
-        if (tokens.isEmpty()) return
-        when (val last = tokens.last()) {
+        if (_tokens.isEmpty()) return
+        when (val last = _tokens.last()) {
             is Operand -> {
                 if (last.number < 10) {
-                    tokens.pop()
+                    _tokens.pop()
                 } else {
-                    tokens.pop()
-                    tokens.push(last.dropLast())
+                    _tokens.pop()
+                    _tokens.push(last.dropLast())
                 }
             }
-            is Operator -> tokens.pop()
+            is Operator -> _tokens.pop()
         }
     }
 
     fun calculate() {
         val parser = Parser()
-        val result = parser.parse(tokens).evaluate()
-        tokens.clear()
-        tokens.push(result.toOperand())
+        val result = parser.parse(_tokens).evaluate()
+        _tokens.clear()
+        _tokens.push(result.toOperand())
     }
 
     private fun Int.toOperand() = Operand(this)
