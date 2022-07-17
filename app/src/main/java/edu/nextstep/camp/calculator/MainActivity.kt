@@ -8,14 +8,14 @@ import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Operand
 import edu.nextstep.camp.calculator.domain.Operator
 import edu.nextstep.camp.calculator.domain.StringCalculator
-import edu.nextstep.camp.calculator.domain.StringExpression
+import edu.nextstep.camp.calculator.domain.StringExpressionState
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private val stringExpression: StringExpression
-        get() = StringExpression(binding.textView.text.toString())
+    private val stringExpressionState: StringExpressionState
+        get() = StringExpressionState.of(binding.textView.text.toString())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setOperandButtonListener(button: Button, operand: Operand) {
         button.setOnClickListener {
-            binding.textView.text = stringExpression.plusElement(operand).value
+            binding.textView.text = stringExpressionState.plusElement(operand).value
         }
     }
 
@@ -62,13 +62,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setOperatorButtonListener(button: Button, operator: Operator) {
         button.setOnClickListener {
-            binding.textView.text = stringExpression.plusElement(operator).value
+            binding.textView.text = stringExpressionState.plusElement(operator).value
         }
     }
 
     private fun initDeleteButton() {
         binding.buttonDelete.setOnClickListener {
-            binding.textView.text = stringExpression.minusElement().value
+            binding.textView.text = stringExpressionState.minusElement().value
         }
     }
 
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         binding.buttonEquals.setOnClickListener {
             try {
                 binding.textView.text = StringCalculator
-                    .calculate(stringExpression)
+                    .calculate(stringExpressionState)
                     .value
                     .toString()
             } catch (e: IllegalArgumentException) {

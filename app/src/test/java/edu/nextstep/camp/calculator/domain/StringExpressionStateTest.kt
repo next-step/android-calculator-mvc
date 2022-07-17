@@ -4,7 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
-internal class StringExpressionTest {
+internal class StringExpressionStateTest {
 
     @ParameterizedTest(name = "{0} 수식에 피연산자 {1}을 추가하면 {2}가 된다.")
     @CsvSource(
@@ -14,15 +14,14 @@ internal class StringExpressionTest {
     )
     fun `수식에 새로운 피연산자를 추가할 수 있다`(given: String, operandNumber: Int, expected: String) {
         // given
-        val givenExpression = StringExpression(given)
-        val expectedExpression = StringExpression(expected)
+        val givenExpression = StringExpressionState.of(given)
         val operand = Operand(operandNumber)
 
         // when
         val result = givenExpression.plusElement(operand)
 
         // then
-        assertThat(result).isEqualTo(expectedExpression)
+        assertThat(result.value).isEqualTo(expected)
     }
 
     @ParameterizedTest(name = "{0} 수식에 연산자 {1}을 추가하면 {2}가 된다.")
@@ -33,15 +32,14 @@ internal class StringExpressionTest {
     )
     fun `수식에 새로운 연산자를 추가할 수 있다`(given: String, operatorSymbol: String, expected: String) {
         // given
-        val givenExpression = StringExpression(given)
-        val expectedExpression = StringExpression(expected)
+        val givenExpression = StringExpressionState.of(given)
         val operator = Operator.of(operatorSymbol)
 
         // when
         val result = givenExpression.plusElement(operator)
 
         // then
-        assertThat(result).isEqualTo(expectedExpression)
+        assertThat(result.value).isEqualTo(expected)
     }
 
     @ParameterizedTest(name = "{0} 수식에서 마지막 요소를 제거하면 {1}가 된다.")
@@ -53,13 +51,12 @@ internal class StringExpressionTest {
     )
     fun `수식의 마지막 요소를 제거할 수 있다`(given: String, expected: String) {
         // given
-        val givenExpression = StringExpression(given)
-        val expectedExpression = StringExpression(expected)
+        val givenExpression = StringExpressionState.of(given)
 
         // when
         val result = givenExpression.minusElement()
 
         // then
-        assertThat(result).isEqualTo(expectedExpression)
+        assertThat(result.value).isEqualTo(expected)
     }
 }

@@ -6,7 +6,7 @@ object StringCalculator {
     private const val OPERATOR_INDEX_UNIT = 2
     private const val OPERATOR_INDEX_BUFFER = 1
 
-    fun calculate(expression: StringExpression): Operand = calculate(expression.value)
+    fun calculate(expression: StringExpressionState): Operand = calculate(expression.value)
 
     fun calculate(raw: String): Operand {
         val (rawOperands, rawOperators) = splitParams(raw)
