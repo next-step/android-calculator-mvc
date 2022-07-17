@@ -6,7 +6,7 @@ open class InvalidTokenException(message: String) : IllegalArgumentException(mes
 class UnsupportedOperatorException(message: String) : InvalidTokenException(message)
 
 internal enum class Operator(
-    private val symbol: String,
+    val symbol: String,
 ) : Token {
     Plus("+") {
         override fun operate(a: Int, b: Int): Int {
@@ -46,8 +46,10 @@ internal data class Operand(val number: Int) : Token
 internal class Tokenizer {
     private val tokenFactory = TokenFactory()
 
+    private val tokenRegex = Regex("[-+/*]|[1-9][0-9]*")
+
     fun tokenize(expression: String): List<Token> {
-        return expression.split(" ").map { getToken(it) }
+        return tokenRegex.findAll(expression).map { getToken(it.value) }.toList()
     }
 
     private fun getToken(piece: String): Token {

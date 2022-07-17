@@ -9,7 +9,7 @@ class TokenizerTest {
     @Test
     fun `tokenizer can parse expression`() {
         // given
-        val expression = "1 + 3 * 4 / 6"
+        val expression = "1+3*4/6"
 
         // when
         val result = tokenizer.tokenize(expression)
@@ -29,19 +29,6 @@ class TokenizerTest {
         assertThat(result).isEqualTo(expected)
     }
 
-
-    @Test
-    fun `tokenizer only can parse divided by space expression`() {
-        // given
-        val expression = "1+5*3"
-
-        // when
-        val result = runCatching { tokenizer.tokenize(expression) }
-
-        // then
-        assertThat(result.exceptionOrNull()).isInstanceOf(InvalidTokenException::class.java)
-    }
-
     @Test
     fun `only arithmetic operator is supported`() {
         // +, -, *, /
@@ -49,10 +36,16 @@ class TokenizerTest {
         val expression = "5 ** 5"
 
         // when
-        val result = runCatching { tokenizer.tokenize(expression) }
+        val result = tokenizer.tokenize(expression)
 
         // then
-        assertThat(result.exceptionOrNull()).isInstanceOf(UnsupportedOperatorException::class.java)
+        val expected = listOf(
+            Operand(5),
+            Operator.Multiply,
+            Operator.Multiply,
+            Operand(5),
+        )
+        assertThat(result).isEqualTo(expected)
     }
 
 }
