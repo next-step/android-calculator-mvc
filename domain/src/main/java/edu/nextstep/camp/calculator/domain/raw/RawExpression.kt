@@ -8,6 +8,23 @@ sealed interface RawExpression {
 
         private var rawList = listOf<RawExpression>()
 
+        fun initialize(initialValue: Int? = null): Builder {
+            rawList = if (initialValue == null) {
+                listOf()
+            } else {
+                integerToRawNumberList(initialValue)
+            }
+
+            return this
+        }
+
+        private fun integerToRawNumberList(value: Int): List<RawNumber> {
+            val charToNumber = RawNumber.values().associateBy { it.char }
+            return value.toString()
+                .map { charToNumber[it] }
+                .filterNotNull()
+        }
+
         fun enterNumber(number: RawNumber): Builder {
             rawList = rawList + number
             return this

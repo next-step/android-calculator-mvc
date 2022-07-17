@@ -110,4 +110,15 @@ class RawExpressionTest {
         // then
         assertThat(actual).isEqualTo("1")
     }
+
+    @Test
+    fun `123으로 초기화를 하고 빌드하면 123이 반환된다`() {
+        // when
+        val actual = builder
+            .initialize(123)
+            .build()
+
+        // then
+        assertThat(actual).isEqualTo("123")
+    }
 }
