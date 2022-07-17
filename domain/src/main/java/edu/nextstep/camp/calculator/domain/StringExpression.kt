@@ -5,16 +5,23 @@ value class StringExpression(val value: String) {
 
     fun plusElement(operand: Operand): StringExpression {
         val shouldAddSpace = value.isNotEmpty() && !value.last().isDigit()
-        return StringExpression(
-            value + if (shouldAddSpace) "$SPACE${operand.value.toInt()}" else operand.value.toInt()
-        )
+        val element = if (shouldAddSpace) {
+            operand.value
+                .toInt()
+                .toString()
+                .withSpacePrefix()
+        } else {
+            operand.value
+                .toInt()
+        }
+        return StringExpression(value + element)
     }
 
     fun plusElement(operator: Operator): StringExpression = StringExpression(
         if (value.isEmpty()) {
             value
         } else {
-            value + "$SPACE${operator.symbol}"
+            value + operator.symbol.withSpacePrefix()
         }
     )
 
@@ -25,6 +32,8 @@ value class StringExpression(val value: String) {
             value.dropLast(CHARACTER_DELETE_UNIT).trim()
         }
     )
+
+    private fun String.withSpacePrefix() = "$SPACE$this"
 
     companion object {
         private const val SPACE = " "
