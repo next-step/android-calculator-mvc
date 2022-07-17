@@ -16,7 +16,7 @@ class CalculatorTest {
         val result = runCatching { calculator.evaluate(tokens) }
 
         // then
-        assertThat(result.exceptionOrNull()).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(result.exceptionOrNull()).isInstanceOf(EvaluationException::class.java)
     }
 
     @Test
