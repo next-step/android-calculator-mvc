@@ -2,6 +2,8 @@ package edu.nextstep.camp.calculator.domain
 
 sealed interface RawExpression {
 
+    val char: Char
+
     class Builder {
 
         private var rawList = listOf<RawExpression>()
@@ -26,16 +28,16 @@ sealed interface RawExpression {
         }
 
         fun build(): String {
-            return rawList.fold("") { acc, exp ->
-                acc + when (exp) {
-                    is Number -> exp.char
-                    is Sign -> " ${exp.char}"
+            return rawList.foldIndexed("") { i, acc, exp ->
+                acc + when {
+                    acc.isEmpty() -> exp.char
+                    else -> " ${exp.char}"
                 }
             }
         }
     }
 
-    enum class Number(val char: Char) : RawExpression {
+    enum class Number(override val char: Char) : RawExpression {
         ZERO('0'),
         ONE('1'),
         TWO('2'),
@@ -48,7 +50,7 @@ sealed interface RawExpression {
         NINE('9'),
     }
 
-    enum class Sign(val char: Char) : RawExpression {
+    enum class Sign(override val char: Char) : RawExpression {
         PLUS('+'),
         MINUS('-'),
         TIMES('*'),
