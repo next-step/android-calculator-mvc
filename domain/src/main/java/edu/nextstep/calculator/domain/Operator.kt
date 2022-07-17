@@ -1,29 +1,26 @@
 package edu.nextstep.calculator.domain
 
 enum class Operator(val value: String) {
-    PLUS("+"),
-    MINUS("-"),
-    MULTIPLY("*"),
-    DIVIDE("/"),
+    PLUS("+") {
+        override fun calculate(first: Int, second: Int): Int = first + second
+    },
+    MINUS("-") {
+        override fun calculate(first: Int, second: Int): Int = first - second
+    },
+    MULTIPLY("*") {
+        override fun calculate(first: Int, second: Int): Int = first * second
+    },
+    DIVIDE("/") {
+        override fun calculate(first: Int, second: Int): Int = first / second
+    },
 
-    UNDEFINED("UNDEFINED");
+    UNDEFINED("UNDEFINED") {
+        override fun calculate(first: Int, second: Int): Int = first
+    };
+
+    abstract fun calculate(first: Int, second: Int): Int
 
     companion object {
-        fun fromValue(value: String) = values().associateBy(Operator::value)[value] ?: UNDEFINED
-
-        fun calculateExpression(first: Int, second: Int, operation: Operator): Int {
-            return when (operation) {
-                PLUS -> plus(first = first, second = second)
-                MINUS -> minus(first = first, second = second)
-                MULTIPLY -> multiply(first = first, second = second)
-                DIVIDE -> divide(first = first, second = second)
-                else -> first
-            }
-        }
-
-        private fun plus(first: Int, second: Int): Int = first + second
-        private fun minus(first: Int, second: Int): Int = first - second
-        private fun multiply(first: Int, second: Int): Int = first * second
-        private fun divide(first: Int, second: Int): Int = first / second
+        fun fromValue(value: String): Operator? = values().associateBy(Operator::value)[value]
     }
 }
