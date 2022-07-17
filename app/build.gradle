@@ -37,6 +37,10 @@ android {
     }
 }
 
+apply {
+    from("$rootDir/base-module.gradle")
+}
+
 dependencies {
     implementation(project(":domain"))
 
@@ -46,9 +50,6 @@ dependencies {
     implementation "com.google.android.material:material:${versions.material}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.contraintlayout}"
 
-    testImplementation "junit:junit:${versions.junit}"
-    testImplementation "com.google.truth:truth:${versions.truth}"
-    testImplementation "io.mockk:mockk:${versions.mockk}"
     androidTestImplementation "androidx.test.ext:junit:${versions.junitAndroidExt}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${versions.espresso}"
 }
