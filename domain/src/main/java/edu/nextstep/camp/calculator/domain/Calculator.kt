@@ -1,24 +1,28 @@
 package edu.nextstep.camp.calculator.domain
 
 class Calculator {
-    fun evaluate(input: String?):Int {
-        if (input.isNullOrBlank()) throw IllegalArgumentException("입력값은 null이거나 빈값일 수 없습니다.")
 
-        val expressionNodeQueue = Splitter.split(input)
+    fun evaluate(inputExpression: String?):Int {
+        require(!inputExpression.isNullOrBlank()) {"입력값은 null이거나 빈값일 수 없습니다."}
 
-        var result = 0
-        var left = 0
-        var operator: Operator? = null
+        val expressionNodeList = Splitter.split(inputExpression)
 
-        for(i in 0 until expressionNodeQueue.size) {
-            when(val node = expressionNodeQueue.poll()) {
-                is Operand -> {
-                    result = operator?.calculate?.let { it(left, node.value) } ?: node.value
-                    left = result
-                }
-                is Operator -> {
-                    operator = node
-                }
+        val firstNode = expressionNodeList.first()
+
+        if (expressionNodeList.size % 2 != 1 || firstNode is Operator)
+            throw IllegalArgumentException("정상적인 식이 아닙니다.")
+
+        //이전 연산 결과값을 저장
+        var result = (firstNode as Operand).value
+
+        for(i in 1 until expressionNodeList.size step 2) {
+            val operator = expressionNodeList[i]
+            val operand = expressionNodeList[i + 1]
+
+            if (operator is Operator && operand is Operand) {
+                result = operator.calculate(result, operand.value)
+            } else {
+                throw IllegalArgumentException("정상적인 식이 아닙니다.")
             }
         }
 
