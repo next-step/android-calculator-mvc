@@ -42,24 +42,3 @@ internal enum class Operator(
 }
 
 internal data class Operand(val number: Int) : Token
-
-internal class Tokenizer {
-    private val tokenFactory = TokenFactory()
-
-    private val tokenRegex = Regex("[-+/*]|[1-9][0-9]*")
-
-    fun tokenize(expression: String): List<Token> {
-        return tokenRegex.findAll(expression).map { getToken(it.value) }.toList()
-    }
-
-    private fun getToken(piece: String): Token {
-        return tokenFactory.get(piece)
-    }
-}
-
-internal class TokenFactory {
-    fun get(piece: String): Token {
-        piece.toIntOrNull()?.let { return Operand(it) }
-        return Operator.of(piece)
-    }
-}
