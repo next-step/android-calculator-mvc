@@ -17,127 +17,51 @@ class MainActivityDisplayTest {
 
     @Test
     fun `display_number_when_the_present_operand_is_absent`() {
-        // when
-        click(1)
-
-        // then
-        checkDisplayText("1")
+        clicks(1) shouldHaveText "1"
     }
 
     @Test
     fun `display_number_when_the_present_operand_is_absent_2`() {
-        // given "5 +"
-        click(5)
-        click("+")
-
-
-        // when
-        click(1)
-
-        // then
-        checkDisplayText("5 + 1")
+        clicks(5, "+", 1) shouldHaveText "5 + 1"
     }
 
     @Test
     fun `append_number_when_the_operand_is_present`() {
-        // given "8"
-        click(8)
-
-        // when
-        click(9)
-
-        // then
-        checkDisplayText("89")
+        clicks(8, 9) shouldHaveText "89"
     }
 
     @Test
     fun `do_nothing_when_press_op_button_when_the_operand_is_absent`() {
-        // when
-        click("+")
-
-        // then
-        checkDisplayText("")
+        clicks("+") shouldHaveText ""
     }
 
     @Test
     fun `the_most_recent_operator_is_displayed_when_the_operand_is_present`() {
-        // given "1"
-        click(1)
-
-        // when
-        click("+")
-
-        // then
-        checkDisplayText("1 +")
+        clicks(1, "+") shouldHaveText "1 +"
     }
 
     @Test
     fun `the_most_recent_operator_is_displayed_when_the_operand_is_present2`() {
-        // given "1 -"
-        click(1)
-        click("-")
-
-        // when
-        click("+")
-
-        // then
-        checkDisplayText("1 +")
+        clicks(1, "-", "+") shouldHaveText "1 +"
     }
 
     @Test
     fun `display_nothing_when_press_delete_on_empty_display`() {
-        // when
-        click("<")
-
-        // then
-        checkDisplayText("")
+        clicks("<") shouldHaveText ""
     }
 
     @Test
     fun `delete_from_the_most_recent_value_when_press_delete`() {
-        // given
-        click(3)
-        click(2)
-        click("+")
-        click(1)
-
-        // when
-        click("<")
-
-        // then
-        checkDisplayText("32 +")
-
-        // when
-        click("<")
-
-        // then
-        checkDisplayText("32")
-
-        // when
-        click("<")
-
-        // then
-        checkDisplayText("3")
-
-        // when
-        click("<")
-
-        // then
-        checkDisplayText("")
+        clicks(3, 2, "+", 1) shouldHaveText "32 + 1"
+        clicks("<") shouldHaveText "32 +"
+        clicks("<") shouldHaveText "32"
+        clicks("<") shouldHaveText "3"
+        clicks("<") shouldHaveText ""
     }
 
     @Test
     fun `calculate_when_provides_a_complete_expression`() {
-        // given
-        click(3)
-        click("+")
-        click(2)
-
-        // when
-        click("=")
-
-        // then
-        checkDisplayText("5")
+        clicks(3, "+", 2, "=") shouldHaveText "5"
     }
 
     private fun checkDisplayText(text: String) {
@@ -173,4 +97,21 @@ class MainActivityDisplayTest {
         }
         onView(withId(buttonId)).perform(click())
     }
+
+    private fun clicks(vararg args: Any): ClickContext {
+        for (arg in args) {
+            when (arg) {
+                is Int -> click(arg)
+                is String -> click(arg)
+                else -> throw UnsupportedOperationException()
+            }
+        }
+        return ClickContext
+    }
+
+    private infix fun ClickContext.shouldHaveText(expected: String) {
+        checkDisplayText(expected)
+    }
+
+    private object ClickContext
 }
