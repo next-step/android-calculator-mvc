@@ -58,20 +58,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun eventDeleteLast(event: MainEvent.DeleteLast) {
-        val text = getLastDeletedText(event.displayedText)
+        val text = deleteLastOperatorOrNumber(event.displayedText)
         viewState = MainState.DisplayText(text)
     }
 
-    private fun getLastDeletedText(displayedText: String) = displayedText
+    private fun deleteLastOperatorOrNumber(displayedText: String) = displayedText
         .dropLastWhile { it == ' ' || it == '.' }
         .dropLast(1)
         .dropLastWhile { it == ' ' || it == '.' }
 
     private fun eventAddOperator(event: MainEvent.AddOperator) {
-        val lastChar = getTextViewLastChar(event.displayedText) ?: return
+        val lastChar = event.displayedText.getOrNull(event.displayedText.lastIndex) ?: return
         val displayedText = when(lastChar.isDigit()) {
             true -> event.displayedText
-            false -> getLastDeletedText(event.displayedText)
+            false -> deleteLastOperatorOrNumber(event.displayedText)
         }
 
         val text = "$displayedText ${event.operator}"
@@ -82,26 +82,26 @@ class MainActivity : AppCompatActivity() {
         runCatching {
             Calculator().evalute(event.displayedText)
         }.onSuccess {
-            viewState = MainState.DisplayText(getDisplayTextByEvalute(it))
+            viewState = MainState.DisplayText(getEvalutedDisplayText(it))
         }.onFailure {
             Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun getDisplayTextByEvalute(computed: Double): String = when(computed - computed.toInt()) {
+    private fun getEvalutedDisplayText(computed: Double): String = when(computed - computed.toInt()) {
         0.0 -> "${computed.toInt()}"
         else -> "$computed"
     }
 
     private fun eventAddNumber(event: MainEvent.AddNumber) {
-        viewState = MainState.DisplayText(getDisplayTextByAddNumber(event, event.displayedText))
+        viewState = MainState.DisplayText(getNumberAddedDisplayText(event, event.displayedText))
     }
 
-    private fun getDisplayTextByAddNumber(
+    private fun getNumberAddedDisplayText(
         event: MainEvent.AddNumber,
         displayedText: CharSequence
     ) : String {
-        val lastChar: Char? = getTextViewLastChar(displayedText)
+        val lastChar: Char? = displayedText.getOrNull(displayedText.lastIndex)
         return when {
             displayedText == "0" -> "${event.num}"
             lastChar == null -> "${event.num}"
@@ -110,8 +110,4 @@ class MainActivity : AppCompatActivity() {
             else -> "$displayedText ${event.num}"
         }
     }
-
-    private fun getTextViewLastChar(
-        text: CharSequence
-    ) = text.getOrNull(text.lastIndex)
 }
