@@ -38,6 +38,9 @@ android {
 }
 
 dependencies {
+
+    implementation project(":domain")
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
