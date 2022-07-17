@@ -2,6 +2,8 @@ package edu.nextstep.camp.calculator.domain
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 import java.lang.IllegalArgumentException
 
 class CalculatorDomainTest {
@@ -24,26 +26,57 @@ class CalculatorDomainTest {
         calculator.calculate("1 P 1")
     }
 
-    @Test
-    fun 연산자가_하나인_경우의_계산() {
-        val calculator = Calculator()
-        assertThat(calculator.calculate("1 + 1")).isEqualTo(2.0)
-        assertThat(calculator.calculate("2 - 1")).isEqualTo(1.0)
-        assertThat(calculator.calculate("2 / 1")).isEqualTo(2.0)
-        assertThat(calculator.calculate("3 / 2")).isEqualTo(1.5)
-        assertThat(calculator.calculate("4 * 2")).isEqualTo(8.0)
-        assertThat(calculator.calculate("1 * 1")).isEqualTo(1.0)
+    @RunWith(Parameterized::class)
+    class CalculatorOperatorTest(val inputFunction: String, private val expectResult: Double) {
+        private val calculator = Calculator()
+
+        @Test
+        fun 연산자가_하나인_경우의_계산() {
+            assertThat(calculator.calculate(inputFunction)).isEqualTo(expectResult)
+        }
+
+        companion object {
+            @JvmStatic
+            @Parameterized.Parameters(name = "{index} - {0}의 계산 결과는 {1}이 되어야 한다.")
+            fun testData(): Collection<Array<Any>> {
+                return listOf(
+                    arrayOf("1 + 1", 2.0),
+                    arrayOf("2 - 1", 1.0),
+                    arrayOf("2 / 1", 2.0),
+                    arrayOf("3 / 2", 1.5),
+                    arrayOf("4 * 2", 8.0),
+                    arrayOf("1 * 1", 1.0),
+                )
+            }
+        }
     }
 
-    @Test
-    fun 연산자가_두개_이상인_경우의_계산() {
-        val calculator = Calculator()
-        assertThat(calculator.calculate("1 + 1 + 1")).isEqualTo(3.0)
-        assertThat(calculator.calculate("2 - 1 - 1")).isEqualTo(0.0)
-        assertThat(calculator.calculate("2 / 1 - 1")).isEqualTo(1.0)
-        assertThat(calculator.calculate("3 / 2 + 0.5")).isEqualTo(2.0)
-        assertThat(calculator.calculate("4 * 2 + 2")).isEqualTo(10.0)
-        assertThat(calculator.calculate("1 * 2 * 3 / 6")).isEqualTo(1.0)
-        assertThat(calculator.calculate("1 * 1 - 2 / 0.25 + 4")).isEqualTo(0.0)
+    @RunWith(Parameterized::class)
+    class CalculatorMoreThenTwoOperatorTest(
+        val inputFunction: String,
+        private val expectResult: Double
+    ) {
+        private val calculator = Calculator()
+
+        @Test
+        fun 연산자가_두개_이상인_경우의_계산() {
+            assertThat(calculator.calculate(inputFunction)).isEqualTo(expectResult)
+        }
+
+        companion object {
+            @JvmStatic
+            @Parameterized.Parameters(name = "{index} - {0}의 계산 결과는 {1}이 되어야 한다.")
+            fun testData(): Collection<Array<Any>> {
+                return listOf(
+                    arrayOf("1 + 1 + 1", 3.0),
+                    arrayOf("2 - 1 - 1", 0.0),
+                    arrayOf("2 / 1 - 1", 1.0),
+                    arrayOf("3 / 2 + 0.5", 2.0),
+                    arrayOf("4 * 2 + 2", 10.0),
+                    arrayOf("1 * 2 * 3 / 6", 1.0),
+                    arrayOf("1 * 1 - 2 / 0.25 + 4", 0.0)
+                )
+            }
+        }
     }
 }
