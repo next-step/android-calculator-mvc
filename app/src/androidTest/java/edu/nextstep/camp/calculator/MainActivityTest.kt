@@ -17,134 +17,142 @@ class MainActivityTest {
     @Test
     fun 입력된_내용이_없을_때_5를_누르면_화면에_5가_표시된다() {
         // when
-        onView(withId(R.id.button5)).perform(click())
+        clickButtonWithId(R.id.button5)
 
         // then
-        onView(withId(R.id.textView)).check(matches(withText("5")))
+        checkResultMatches("5")
     }
 
     @Test
     fun `5가_입력되어_있을_때_더하기를_누르면_5_더하기가_표시된다`() {
         // given
-        onView(withId(R.id.button5)).perform(click())
+        clickButtonWithId(R.id.button5)
 
         // when
-        onView(withId(R.id.buttonPlus)).perform(click())
+        clickButtonWithId(R.id.buttonPlus)
 
         // then
-        onView(withId(R.id.textView)).check(matches(withText("5 +")))
+        checkResultMatches("5 +")
     }
 
     @Test
     fun `5_더하기가_입력되어_있을_때_빼기를_누르면_5_빼기가_표시된다`() {
         // given
-        onView(withId(R.id.button5)).perform(click())
-        onView(withId(R.id.buttonPlus)).perform(click())
+        clickButtonWithId(R.id.button5)
+        clickButtonWithId(R.id.buttonPlus)
 
         // when
-        onView(withId(R.id.buttonMinus)).perform(click())
+        clickButtonWithId(R.id.buttonMinus)
 
         // then
-        onView(withId(R.id.textView)).check(matches(withText("5 -")))
+        checkResultMatches("5 -")
     }
 
     @Test
     fun `5_더하기가_입력되어_있을_때_1을_누르면_5_더하기_1이_표시된다`() {
         // given
-        onView(withId(R.id.button5)).perform(click())
-        onView(withId(R.id.buttonPlus)).perform(click())
+        clickButtonWithId(R.id.button5)
+        clickButtonWithId(R.id.buttonPlus)
 
         // when
-        onView(withId(R.id.button1)).perform(click())
+        clickButtonWithId(R.id.button1)
 
         // then
-        onView(withId(R.id.textView)).check(matches(withText("5 + 1")))
+        checkResultMatches("5 + 1")
     }
 
     @Test
     fun `5가_입력되어_있을_때_5를_누르면_55가_표시된다`() {
         // given
-        onView(withId(R.id.button5)).perform(click())
+        clickButtonWithId(R.id.button5)
 
         // when
-        onView(withId(R.id.button5)).perform(click())
+        clickButtonWithId(R.id.button5)
 
         // then
-        onView(withId(R.id.textView)).check(matches(withText("55")))
+        checkResultMatches("55")
     }
 
     @Test
     fun 아무것도_입력되지_않았을_때_더하기를_누르면_아무것도_표시되지_않는다() {
         // when
-        onView(withId(R.id.buttonPlus)).perform(click())
+        clickButtonWithId(R.id.buttonPlus)
 
         // then
-        onView(withId(R.id.textView)).check(matches(withText("")))
+        checkResultMatches("")
     }
 
     @Test
     fun 입력된_수식이_없을_때_지우기를_누르면_아무것도_표시되지_않는다() {
         // when
-        onView(withId(R.id.buttonDelete)).perform(click())
+        clickButtonWithId(R.id.buttonDelete)
 
         // then
-        onView(withId(R.id.textView)).check(matches(withText("")))
+        checkResultMatches("")
     }
 
     @Test
     fun `5_더하기_1이_입력되어_있을_때_지우기를_누르면_5_더하기를_표시한다`() {
         // given
-        onView(withId(R.id.button5)).perform(click())
-        onView(withId(R.id.buttonPlus)).perform(click())
-        onView(withId(R.id.button1)).perform(click())
+        clickButtonWithId(R.id.button5)
+        clickButtonWithId(R.id.buttonPlus)
+        clickButtonWithId(R.id.button1)
 
         // when
-        onView(withId(R.id.buttonDelete)).perform(click())
+        clickButtonWithId(R.id.buttonDelete)
 
         // then
-        onView(withId(R.id.textView)).check(matches(withText("5 +")))
+        checkResultMatches("5 +")
     }
 
     @Test
     fun `5_더하기_1이_입력되어_있을_때_등호를_누르면_6이_표시된다`() {
         // given
-        onView(withId(R.id.button5)).perform(click())
-        onView(withId(R.id.buttonPlus)).perform(click())
-        onView(withId(R.id.button1)).perform(click())
+        clickButtonWithId(R.id.button5)
+        clickButtonWithId(R.id.buttonPlus)
+        clickButtonWithId(R.id.button1)
 
         // when
-        onView(withId(R.id.buttonEquals)).perform(click())
+        clickButtonWithId(R.id.buttonEquals)
 
         // then
-        onView(withId(R.id.textView)).check(matches(withText("6")))
+        checkResultMatches("6")
     }
 
     @Test
     fun `5_더하기가_입력되어_있을_때_등호를_누르면_화면에_5_더하기가_표시된다`() {
         // given
-        onView(withId(R.id.button5)).perform(click())
-        onView(withId(R.id.buttonPlus)).perform(click())
+        clickButtonWithId(R.id.button5)
+        clickButtonWithId(R.id.buttonPlus)
 
         // when
-        onView(withId(R.id.buttonEquals)).perform(click())
+        clickButtonWithId(R.id.buttonEquals)
 
         // then
-        onView(withId(R.id.textView)).check(matches(withText("5 +")))
+        checkResultMatches("5 +")
     }
 
     @Test
     fun `5_더하기_1이_계산되고_더하기_1을_누르면_6_더하기_1이_표시된다`() {
         // given
-        onView(withId(R.id.button5)).perform(click())
-        onView(withId(R.id.buttonPlus)).perform(click())
-        onView(withId(R.id.button1)).perform(click())
-        onView(withId(R.id.buttonEquals)).perform(click())
+        clickButtonWithId(R.id.button5)
+        clickButtonWithId(R.id.buttonPlus)
+        clickButtonWithId(R.id.button1)
+        clickButtonWithId(R.id.buttonEquals)
 
         // when
-        onView(withId(R.id.buttonPlus)).perform(click())
-        onView(withId(R.id.button1)).perform(click())
+        clickButtonWithId(R.id.buttonPlus)
+        clickButtonWithId(R.id.button1)
 
         // then
-        onView(withId(R.id.textView)).check(matches(withText("6 + 1")))
+        checkResultMatches("6 + 1")
+    }
+
+    private fun checkResultMatches(text: String) {
+        onView(withId(R.id.textView)).check(matches(withText(text)))
+    }
+
+    private fun clickButtonWithId(id: Int) {
+        onView(withId(id)).perform(click())
     }
 }
