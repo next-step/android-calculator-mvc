@@ -17,6 +17,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("edu.edu.nextstep.camp.calculator", appContext.packageName)
+        assertEquals("edu.nextstep.camp.calculator", appContext.packageName)
     }
 }
