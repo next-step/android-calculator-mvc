@@ -43,6 +43,7 @@ class CalculatorDomainTest {
         assertThat(calculator.calculate("2 / 1 - 1")).isEqualTo(1.0)
         assertThat(calculator.calculate("3 / 2 + 0.5")).isEqualTo(2.0)
         assertThat(calculator.calculate("4 * 2 + 2")).isEqualTo(10.0)
-        assertThat(calculator.calculate("1 * 1 * 1")).isEqualTo(1.0)
+        assertThat(calculator.calculate("1 * 2 * 3 / 6")).isEqualTo(1.0)
+        assertThat(calculator.calculate("1 * 1 - 2 / 0.25 + 4")).isEqualTo(0.0)
     }
 }
