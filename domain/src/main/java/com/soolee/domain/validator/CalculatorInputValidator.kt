@@ -1,22 +1,26 @@
 package com.soolee.domain.validator
 
-class CalculatorInputValidator {
-    fun isValidOperationMark(text: String): Boolean {
-        var regex = Regex("[×÷+\\-]")
-        return if (text.matches(regex)) {
-            true
-        } else {
-            throw IllegalArgumentException("The Mark is not operation mark use: [× - + ÷]")
-            false
-        }
-    }
+import com.soolee.domain.util.CalculatorInputUtil
 
-    fun isValueNotEmpty(text: String): Boolean {
-        return if (text != "" && text != null && text != " ") {
-            true
-        } else {
-            throw IllegalArgumentException("string is empty or null")
-            false
+class CalculatorInputValidator {
+    companion object {
+        fun isValidOperationMark(text: String): Boolean {
+            return if (CalculatorInputUtil.isOperationMarkRegex(text)) {
+                true
+            } else {
+                throw IllegalArgumentException("The Mark is not operation mark use: [× - + ÷]")
+                false
+            }
         }
+
+        fun isValueNotEmpty(text: String): Boolean {
+            return if (text != "" && text != null && text != " ") {
+                true
+            } else {
+                throw IllegalArgumentException("string is empty or null")
+                false
+            }
+        }
+
     }
 }
