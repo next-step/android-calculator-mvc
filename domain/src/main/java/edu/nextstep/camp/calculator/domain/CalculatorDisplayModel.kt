@@ -7,8 +7,6 @@ class CalculatorDisplayModel {
     private val _state: Stack<String> = Stack()
     val state get() = _state.joinToString(separator = " ")
 
-    private val calculator = Calculator()
-
     fun put(number: Int) {
         require(number in 0..9) { "Invalid number $number, must be between 0 and 9." }
         when {
@@ -58,6 +56,7 @@ class CalculatorDisplayModel {
     }
 
     fun calculate() {
+        val calculator = Calculator()
         val result = calculator.evaluate(state)
         _state.clear()
         _state.push(result.toString())
