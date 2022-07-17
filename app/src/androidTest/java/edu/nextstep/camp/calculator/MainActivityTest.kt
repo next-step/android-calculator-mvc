@@ -131,4 +131,20 @@ class MainActivityTest {
         // then
         onView(withId(R.id.textView)).check(matches(withText("5 +")))
     }
+
+    @Test
+    fun `5_더하기_1이_계산되고_더하기_1을_누르면_6_더하기_1이_표시된다`() {
+        // given
+        onView(withId(R.id.button5)).perform(click())
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+        onView(withId(R.id.buttonEquals)).perform(click())
+
+        // when
+        onView(withId(R.id.buttonPlus)).perform(click())
+        onView(withId(R.id.button1)).perform(click())
+
+        // then
+        onView(withId(R.id.textView)).check(matches(withText("6 + 1")))
+    }
 }

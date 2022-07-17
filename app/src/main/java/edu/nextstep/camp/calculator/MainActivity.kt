@@ -59,7 +59,9 @@ class MainActivity : AppCompatActivity() {
         runCatching {
             calculator.evaluate(builder.build())
         }.onSuccess { result ->
-            binding.textView.text = result.toString()
+            binding.textView.text = builder
+                .initialize(result)
+                .build()
         }.onFailure {
             Toast.makeText(this, getString(R.string.toast_incompleteExpression), Toast.LENGTH_SHORT).show()
         }
