@@ -1,4 +1,4 @@
-package edu.nextstep.camp.calculator.domain
+package edu.nextstep.camp.calculator.domain.raw
 
 import com.google.common.truth.Truth.*
 import org.junit.Before
@@ -17,7 +17,7 @@ class RawExpressionTest {
     fun `1을 입력하고 빌드하면 1이 반환된다`() {
         // when
         val actual = builder
-            .enterNumber(RawExpression.Number.ONE)
+            .enterNumber(RawNumber.ONE)
             .build()
 
         // then
@@ -27,11 +27,11 @@ class RawExpressionTest {
     @Test
     fun `1이 입력된 상태에서 더하기를 입력하고 빌드하면 1 더하기가 반환된다`() {
         // given
-        builder.enterNumber(RawExpression.Number.ONE)
+        builder.enterNumber(RawNumber.ONE)
 
         // when
         val actual = builder
-            .enterSign(RawExpression.Sign.PLUS)
+            .enterSign(RawSign.PLUS)
             .build()
 
         // then
@@ -42,7 +42,7 @@ class RawExpressionTest {
     fun `아무것도 입력되지 않은 상태에서 더하기를 입력하고 빌드하면 빈 문자열이 반환된다`() {
         // when
         val actual = builder
-            .enterSign(RawExpression.Sign.PLUS)
+            .enterSign(RawSign.PLUS)
             .build()
 
         // then
@@ -53,12 +53,12 @@ class RawExpressionTest {
     fun `1 더하기가 입력된 상태에서 빼기를 입력하고 빌드하면 1 빼기가 반환된다`() {
         // given
         builder
-            .enterNumber(RawExpression.Number.ONE)
-            .enterSign(RawExpression.Sign.PLUS)
+            .enterNumber(RawNumber.ONE)
+            .enterSign(RawSign.PLUS)
 
         // when
         val actual = builder
-            .enterSign(RawExpression.Sign.MINUS)
+            .enterSign(RawSign.MINUS)
             .build()
 
         // then
@@ -69,12 +69,12 @@ class RawExpressionTest {
     fun `1 더하기가 입력된 상태에서 1을 입력하고 빌드하면 1 더하기 1이 반환된다`() {
         // given
         builder
-            .enterNumber(RawExpression.Number.ONE)
-            .enterSign(RawExpression.Sign.PLUS)
+            .enterNumber(RawNumber.ONE)
+            .enterSign(RawSign.PLUS)
 
         // when
         val actual = builder
-            .enterNumber(RawExpression.Number.ONE)
+            .enterNumber(RawNumber.ONE)
             .build()
 
         // then
@@ -84,11 +84,11 @@ class RawExpressionTest {
     @Test
     fun `1이 입력된 상태에서 1을 입력하고 빌드하면 11이 반환된다`() {
         // given
-        builder.enterNumber(RawExpression.Number.ONE)
+        builder.enterNumber(RawNumber.ONE)
 
         // when
         val actual = builder
-            .enterNumber(RawExpression.Number.ONE)
+            .enterNumber(RawNumber.ONE)
             .build()
 
         // then
@@ -99,8 +99,8 @@ class RawExpressionTest {
     fun `1 더하기가 입력된 상태에서 지우기를 하고 빌드하면 1이 반환된다`() {
         // given
         builder
-            .enterNumber(RawExpression.Number.ONE)
-            .enterSign(RawExpression.Sign.PLUS)
+            .enterNumber(RawNumber.ONE)
+            .enterSign(RawSign.PLUS)
 
         // when
         val actual = builder

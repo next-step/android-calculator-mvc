@@ -1,4 +1,4 @@
-package edu.nextstep.camp.calculator.domain
+package edu.nextstep.camp.calculator.domain.raw
 
 sealed interface RawExpression {
 
@@ -8,15 +8,15 @@ sealed interface RawExpression {
 
         private var rawList = listOf<RawExpression>()
 
-        fun enterNumber(number: Number): Builder {
+        fun enterNumber(number: RawNumber): Builder {
             rawList = rawList + number
             return this
         }
 
-        fun enterSign(sign: Sign): Builder {
+        fun enterSign(sign: RawSign): Builder {
             when {
                 rawList.isEmpty() -> {}
-                rawList.lastOrNull() is Sign -> {
+                rawList.lastOrNull() is RawSign -> {
                     rawList = rawList.dropLast(1) + sign
                 }
                 else -> {
@@ -31,7 +31,7 @@ sealed interface RawExpression {
             return rawList.foldIndexed("") { i, acc, exp ->
                 acc + when {
                     acc.isEmpty() -> exp.char
-                    rawList[i - 1] is Number && exp is Number -> exp.char
+                    rawList[i - 1] is RawNumber && exp is RawNumber -> exp.char
                     else -> " ${exp.char}"
                 }
             }
@@ -41,25 +41,5 @@ sealed interface RawExpression {
             rawList = rawList.dropLast(1)
             return this
         }
-    }
-
-    enum class Number(override val char: Char) : RawExpression {
-        ZERO('0'),
-        ONE('1'),
-        TWO('2'),
-        THREE('3'),
-        FOUR('4'),
-        FIVE('5'),
-        SIX('6'),
-        SEVEN('7'),
-        EIGHT('8'),
-        NINE('9'),
-    }
-
-    enum class Sign(override val char: Char) : RawExpression {
-        PLUS('+'),
-        MINUS('-'),
-        TIMES('*'),
-        DIVISION('/'),
     }
 }
