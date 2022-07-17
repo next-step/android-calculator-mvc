@@ -3,7 +3,6 @@ package edu.nextstep.camp.calculator
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
-import edu.nextstep.camp.calculator.domain.Calculator
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
@@ -42,10 +41,6 @@ class MainActivity : AppCompatActivity() {
         binding.button9.setOnClickListener {
             binding.textView.text ="9"
         }
-
-
-
-        val result = Calculator().evaluatesExpression("3 + 5")
 
     }
 }
