@@ -12,5 +12,4 @@ dependencies {
 
     testImplementation "junit:junit:$junit_version"
     testImplementation "com.google.truth:truth:$truth_version"
-    testImplementation "io.mockk:mockk:$mockk_version"
 }
