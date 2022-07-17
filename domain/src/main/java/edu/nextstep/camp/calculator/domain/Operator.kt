@@ -18,6 +18,7 @@ internal enum class Operator(private val symbol: String) : Token {
     abstract fun operate(a: Int, b: Int): Int
 
     companion object {
-        fun get(value: String): Operator = valueOf(value) // 사칙연산 기호가 아닌 경우 IllegalArgumentException
+        fun get(value: String): Operator = values().find { it.symbol == value }
+            ?: throw IllegalArgumentException() // 사칙연산 기호가 아닌 경우 IllegalArgumentException
     }
 }
