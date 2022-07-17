@@ -63,11 +63,6 @@ class CalculatorTest {
         assertThat(actual).isEqualTo(6)
     }
 
-    //에러 케이스
-    @Test(expected = IllegalArgumentException::class)
-    fun `사칙연산이_아닌_특수문자를_입력하면_IllegalArgumentException_에러를_낸다`() {
-        calculator.calculate("1 a 2 * 1")
-    }
 
     @Test(expected = IllegalArgumentException::class)
     fun `빈문자열을_입력하면_IllegalArgumentException_에러를_낸다`() {
