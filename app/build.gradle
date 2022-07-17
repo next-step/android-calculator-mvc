@@ -7,7 +7,7 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        applicationId "edu.nextstep.camp.calculator"
+        applicationId "edu.edu.nextstep.camp.calculator"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
