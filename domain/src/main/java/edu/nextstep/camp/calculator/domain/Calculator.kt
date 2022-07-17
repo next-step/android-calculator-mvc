@@ -1,9 +1,9 @@
 package edu.nextstep.camp.calculator.domain
 
-class Calculator {
+internal class Calculator {
     private val parser = Parser()
 
-    fun evaluate(tokens: List<Token>): Int {
+    internal fun evaluate(tokens: List<Token>): Int {
         val exp = parser.parse(tokens)
         return exp.evaluate()
     }
