@@ -2,7 +2,7 @@ package edu.nextstep.camp.calculator.domain
 
 import java.util.Stack
 
-class CalculatorDisplayModel {
+class Calculator {
 
     private val _tokens = Stack<Token>()
     val tokens get() = _tokens.toList()
