@@ -32,24 +32,21 @@ class CalculatorTest {
         assertThat(actual).isEqualTo(1)
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException::class)
     fun 입력값이_null일_경우_IllegalArgumentException() {
         val calculator = Calculator()
-        val actual: Int = calculator.evaluate(null)
-        assertThat(actual).isEqualTo(6)
+        calculator.evaluate(null)
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException::class)
     fun 입력값이_empty일_경우_IllegalArgumentException() {
         val calculator = Calculator()
-        val actual: Int = calculator.evaluate("")
-        assertThat(actual).isEqualTo("IllegalArgumentException")
+        calculator.evaluate("")
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException::class)
     fun 사칙연산_기호가_아닌_경우_IllegalArgumentException() {
         val calculator = Calculator()
-        val actual: Int = calculator.evaluate("1 & 2")
-        assertThat(actual).isEqualTo("IllegalArgumentException")
+        calculator.evaluate("1 & 2")
     }
 }

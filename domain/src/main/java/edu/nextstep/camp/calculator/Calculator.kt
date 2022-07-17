@@ -15,17 +15,23 @@ class Calculator {
                 pushValueWhenStackIsNotEmpty(stack, it)
             }
         }
-        return if (stack.isEmpty()) throw IllegalArgumentException() else stack.pop().toInt()
+        return if (stack.isEmpty() || stack.peek().toIntOrNull() == null) {
+            throw IllegalArgumentException()
+        } else {
+            stack.pop().toInt()
+        }
     }
 
     private fun pushValueWhenStackIsNotEmpty(stack: Stack<String>, str: String) {
         if (isMathematicalSymbol(str)) {
             stack.push(str)
-        } else {
+        } else if (isNumber(str)) {
             val type = stack.pop()
             val value = stack.pop()
             val result = calculateValue(type, value.toInt(), str.toInt())
             stack.push(result.toString())
+        } else {
+            throw IllegalArgumentException()
         }
     }
 
@@ -39,13 +45,18 @@ class Calculator {
         return false
     }
 
+    private fun isNumber(str: String): Boolean {
+        if (str.toIntOrNull() == null) return false
+        return true
+    }
+
     private fun calculateValue(type: String, value: Int, value2: Int) : Int {
-        var result = 0
-        when(type) {
-            MathematicalSymbol.PLUS.type -> result = plus(value, value2)
-            MathematicalSymbol.MINUS.type -> result = minus(value, value2)
-            MathematicalSymbol.MULTIPLE.type -> result = multiple(value, value2)
-            MathematicalSymbol.DIVIDE.type -> result = divide(value, value2)
+        val result = when(type) {
+            MathematicalSymbol.PLUS.type -> plus(value, value2)
+            MathematicalSymbol.MINUS.type -> minus(value, value2)
+            MathematicalSymbol.MULTIPLE.type -> multiple(value, value2)
+            MathematicalSymbol.DIVIDE.type -> divide(value, value2)
+            else -> throw IllegalArgumentException()
         }
         return result
     }
