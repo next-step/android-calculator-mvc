@@ -1,6 +1,4 @@
-package edu.nextstep.camp.calculator.domain
-
-import kotlin.coroutines.coroutineContext
+package edu.nextstep.camp.calculator.domain.camp.calculator
 
 class Calculator {
     private companion object {

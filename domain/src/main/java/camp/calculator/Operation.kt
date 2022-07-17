@@ -1,4 +1,4 @@
-package edu.nextstep.camp.calculator.domain
+package edu.nextstep.camp.calculator.domain.camp.calculator
 
 sealed class Operation(
     internal val operator: Char,
