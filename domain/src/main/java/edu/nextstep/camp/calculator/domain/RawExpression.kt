@@ -12,9 +12,16 @@ sealed interface RawExpression {
         }
 
         fun enterSign(sign: Sign): Builder {
-            if (rawList.isEmpty()) return this
+            when {
+                rawList.isEmpty() -> {}
+                rawList.lastOrNull() is Sign -> {
+                    rawList = rawList.dropLast(1) + sign
+                }
+                else -> {
+                    rawList = rawList + sign
+                }
+            }
 
-            rawList = rawList + sign
             return this
         }
 
