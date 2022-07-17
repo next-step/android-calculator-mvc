@@ -6,14 +6,14 @@ class Calculator {
     }
 
     @Throws(IllegalArgumentException::class)
-    fun evalute(text: String?): Int {
-        requireNotNull(text) { "wrong text input : $text" }
-        require(text.isNotBlank()) { "wrong text input : $text" }
+    fun evalute(text: String?): Double {
+        require(!text.isNullOrBlank()) { "잘못된 요청입니다. : $text" }
         return compute(getNumbers(text), getOperators(text))
     }
 
     @Throws(IllegalArgumentException::class)
-    private fun compute(numbers: List<Int>, operators: List<Char>): Int {
+    private fun compute(numbers: List<Double>, operators: List<Char>): Double {
+        require(operators.size == numbers.size-1) {"완성되지 않은 수식입니다."}
         return numbers.reduceIndexed { index, left, right ->
             val operator = Operation.get(operators[index - 1])
             operator(left, right)
@@ -24,15 +24,15 @@ class Calculator {
         return text
             .split(OPERATOR_SPLIT_REGEX)
             .filter { it.isNotBlank() }
-            .map { it.trim().last() }
+            .map { it.trim().also { trimmed -> if(trimmed.length > 1) throw IllegalArgumentException("잘못된 연산자가 포함되었습니다.")  }.last() }
     }
 
     @Throws(IllegalArgumentException::class)
-    private fun getNumbers(text: String): List<Int> {
+    private fun getNumbers(text: String): List<Double> {
         return text
             .replace(" ", "")
             .split(*Operation.getChars())
             .filter { it.isNotBlank() }
-            .map { it.trim().toIntOrNull() ?: throw IllegalArgumentException("wrong operator included.") }
+            .map { it.trim().toDoubleOrNull() ?: throw IllegalArgumentException("잘못된 연산자가 포함되었습니다.") }
     }
 }

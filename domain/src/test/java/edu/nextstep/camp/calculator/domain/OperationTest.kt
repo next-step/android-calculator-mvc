@@ -10,9 +10,9 @@ import org.junit.runners.Parameterized.Parameters
 class OperationTest(
     operator: Char,
     private val operation: Operation,
-    private val left: Int,
-    private val right: Int,
-    private val expected: Int
+    private val left: Double,
+    private val right: Double,
+    private val expected: Double
 ) {
 
     companion object {
@@ -20,7 +20,7 @@ class OperationTest(
         @Parameters(name = " {2} {0} {3} = {4} ")
         fun getTestParameters() = listOf(
             arrayOf(Operation.Plus.operator, Operation.Plus, 2, 3, 5),
-            arrayOf(Operation.Minus.operator, Operation.Minus, 2, 3, -1),
+            arrayOf(Operation.Minus.operator, Operation.Minus, 2, 3, (-1)),
             arrayOf(Operation.Div.operator,  Operation.Div, 6, 3, 2),
             arrayOf(Operation.Mult.operator, Operation.Mult, 2, 3, 6),
         )

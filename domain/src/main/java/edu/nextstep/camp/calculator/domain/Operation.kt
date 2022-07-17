@@ -1,15 +1,15 @@
 package edu.nextstep.camp.calculator.domain
 
 sealed class Operation(
-    internal val operator: Char,
-    private val calculationBlock: (Int, Int) -> Int
+    val operator: Char,
+    private val calculationBlock: (Double, Double) -> Double
 ) {
     object Plus : Operation('+', { left, right -> left + right })
     object Minus : Operation('-', { left, right -> left - right })
     object Div : Operation('/', { left, right -> left / right })
     object Mult : Operation('*', { left, right -> left * right })
 
-    operator fun invoke(left: Int, right: Int) = calculationBlock(left, right)
+    operator fun invoke(left: Double, right: Double) = calculationBlock(left, right)
 
     companion object {
         @Throws(IllegalArgumentException::class)
