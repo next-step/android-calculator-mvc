@@ -37,4 +37,15 @@ class RawExpressionTest {
         // then
         assertThat(actual).isEqualTo("1 +")
     }
+
+    @Test
+    fun `아무것도 입력되지 않은 상태에서 더하기를 입력하고 빌드하면 빈 문자열이 반환된다`() {
+        // when
+        val actual = builder
+            .enterSign(RawExpression.Sign.PLUS)
+            .build()
+
+        // then
+        assertThat(actual).isEqualTo("")
+    }
 }

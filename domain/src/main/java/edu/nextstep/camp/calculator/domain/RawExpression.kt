@@ -16,6 +16,8 @@ sealed interface RawExpression {
         }
 
         fun enterSign(sign: Sign): Builder {
+            if (expression.isEmpty()) return this
+
             expression += " ${sign.char}"
             return this
         }
