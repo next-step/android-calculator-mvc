@@ -14,6 +14,11 @@ sealed interface RawExpression {
         fun build(): String {
             return expression
         }
+
+        fun enterSign(sign: Sign): Builder {
+            expression += " ${sign.char}"
+            return this
+        }
     }
 
     enum class Number(val char: Char) : RawExpression {
