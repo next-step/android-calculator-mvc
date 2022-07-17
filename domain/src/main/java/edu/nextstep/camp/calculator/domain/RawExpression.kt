@@ -31,6 +31,7 @@ sealed interface RawExpression {
             return rawList.foldIndexed("") { i, acc, exp ->
                 acc + when {
                     acc.isEmpty() -> exp.char
+                    rawList[i - 1] is Number && exp is Number -> exp.char
                     else -> " ${exp.char}"
                 }
             }

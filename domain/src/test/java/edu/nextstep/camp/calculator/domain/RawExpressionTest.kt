@@ -80,4 +80,18 @@ class RawExpressionTest {
         // then
         assertThat(actual).isEqualTo("1 + 1")
     }
+
+    @Test
+    fun `1이 입력된 상태에서 1을 입력하고 빌드하면 11이 반환된다`() {
+        // given
+        builder.enterNumber(RawExpression.Number.ONE)
+
+        // when
+        val actual = builder
+            .enterNumber(RawExpression.Number.ONE)
+            .build()
+
+        // then
+        assertThat(actual).isEqualTo("11")
+    }
 }
