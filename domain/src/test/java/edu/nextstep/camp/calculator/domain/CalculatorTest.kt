@@ -4,78 +4,159 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 class CalculatorTest {
-
     private val calculator = Calculator()
 
     @Test
-    fun `expression can not be null`() {
-        // given
-        val expression = null
-
+    fun `put a new operand when previous operand is absent`() {
         // when
-        val result = runCatching { calculator.evaluate(expression) }
+        calculator.put(1)
 
         // then
-        assertThat(result.exceptionOrNull()).isInstanceOf(IllegalArgumentException::class.java)
+        val expected = listOf(
+            Operand(1)
+        )
+        assertThat(calculator.tokens).isEqualTo(expected)
     }
 
     @Test
-    fun `expression can not be blank`() {
-        // given
-        val expression = "   "
+    fun `put a new operand when previous operand is absent 2`() {
+        // given "5 +"
+        calculator.put(5)
+        calculator.put("+")
 
         // when
-        val result = runCatching { calculator.evaluate(expression) }
+        calculator.put(1)
 
         // then
-        assertThat(result.exceptionOrNull()).isInstanceOf(IllegalArgumentException::class.java)
+        val expected = listOf(
+            Operand(5),
+            Operator.Plus,
+            Operand(1)
+        )
+        assertThat(calculator.tokens).isEqualTo(expected)
     }
 
     @Test
-    fun `add two numbers`() {
-        // given
-        val expression = "1 + 2"
+    fun `append the existing operand when previous operand is present`() {
+        // given "8"
+        calculator.put(8)
 
         // when
-        val actual = calculator.evaluate(expression)
+        calculator.put(9)
 
         // then
-        assertThat(actual).isEqualTo(3)
+        val expected = listOf(
+            Operand(89),
+        )
+        assertThat(calculator.tokens).isEqualTo(expected)
     }
 
     @Test
-    fun `minus two numbers`() {
-        // given
-        val expression = "1 - 2"
-
+    fun `do nothing when attempt to put operator on empty state`() {
         // when
-        val actual = calculator.evaluate(expression)
+        calculator.put("+")
 
         // then
-        assertThat(actual).isEqualTo(-1)
+        assertThat(calculator.tokens).isEmpty()
     }
 
     @Test
-    fun `multiply two numbers`() {
+    fun `replace the existing operator when previous operator is present`() {
         // given
-        val expression = "2 * 6"
+        calculator.put(1)
+        calculator.put("+")
 
         // when
-        val actual = calculator.evaluate(expression)
+        calculator.put("-")
 
         // then
-        assertThat(actual).isEqualTo(12)
+        val expected = listOf(
+            Operand(1),
+            Operator.Minus
+        )
+        assertThat(calculator.tokens).isEqualTo(expected)
     }
 
     @Test
-    fun `divide two numbers`() {
-        // given
-        val expression = "6 / 2"
-
+    fun `do nothing when attempt to delete token on empty state`() {
         // when
-        val actual = calculator.evaluate(expression)
+        calculator.delete()
 
         // then
-        assertThat(actual).isEqualTo(3)
+        assertThat(calculator.tokens).isEmpty()
     }
+
+    @Test
+    fun `delete the most recent token when attempt to delete token`() {
+        // given
+        calculator.put(3)
+        calculator.put(2)
+        calculator.put("+")
+        calculator.put(1)
+
+        // when
+        calculator.delete()
+
+        // then "32 +"
+        var expected = listOf(
+            Operand(32),
+            Operator.Plus
+        )
+        assertThat(calculator.tokens).isEqualTo(expected)
+
+        // when
+        calculator.delete()
+
+        // then "32"
+        expected = listOf(
+            Operand(32),
+        )
+        assertThat(calculator.tokens).isEqualTo(expected)
+
+        // when
+        calculator.delete()
+
+        // then "3"
+        expected = listOf(
+            Operand(3),
+        )
+        assertThat(calculator.tokens).isEqualTo(expected)
+
+        // when
+        calculator.delete()
+
+        // then
+        assertThat(calculator.tokens).isEmpty()
+    }
+
+    @Test
+    fun `calculate`() {
+        // given
+        calculator.put(3)
+        calculator.put("+")
+        calculator.put(2)
+
+        // when
+        calculator.calculate()
+
+        // then
+        val expected = listOf(
+            Operand(5),
+        )
+        assertThat(calculator.tokens).isEqualTo(expected)
+    }
+
+    @Test
+    fun `throw when attempt to calculate on invalid state`() {
+        // given
+        calculator.put(3)
+        calculator.put("+")
+
+        // when
+        val result = runCatching { calculator.calculate() }
+
+        // then
+        assertThat(result.exceptionOrNull()).isInstanceOf(ExpressionParsingException::class.java)
+    }
+
 }

@@ -1,6 +1,7 @@
 package edu.nextstep.camp.calculator.domain
 
-class ExpressionParsingException(message: String) : IllegalArgumentException(message)
+open class EvaluationException(message: String) : IllegalStateException(message)
+class ExpressionParsingException(message: String) : EvaluationException(message)
 
 internal class Parser {
     fun parse(tokens: List<Token>): Expression {
