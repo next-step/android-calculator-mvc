@@ -10,9 +10,9 @@ class CalculatorTest {
     @ParameterizedTest(name = "#{index}) {0} == {1}")
     @CsvSource(
         "1 + 2 + 3, 6",
-        "2 + 3 * 4 / 3, 6",
-        "0 * 1073741824 + 1, 1",
-        "1 - 5 * 1 - 18, -22",
+        "2 + 3 × 4 ÷ 3, 6",
+        "0 × 1073741824 + 1, 1",
+        "1 - 5 × 1 - 18, -22",
     )
     fun evaluatesExpression(expression: String, expected: Int) {
         val actual: Int = Calculator.evaluate(expression)
@@ -24,7 +24,7 @@ class CalculatorTest {
         "-1 + 2 + 3, Wrong Format",
         "1 + 1 + 1 +, Wrong Format",
         "nil, Wrong Format",
-        "1 /- 5 * 1 ++ 18, Wrong Format",
+        "1 ÷- 5 × 1 ++ 18, Wrong Format",
     )
     fun unsupportedStringPassed_ThrowIllegalArgumentException(expression: String, expectedMessage: String) {
         val exception = assertThrows<IllegalArgumentException> { Calculator.evaluate(expression) }
@@ -33,6 +33,6 @@ class CalculatorTest {
 
     @Test
     fun whenDividedByZeroThenThrowArithmeticException() {
-        assertThrows<ArithmeticException> { Calculator.evaluate("1 / 0") }
+        assertThrows<ArithmeticException> { Calculator.evaluate("1 ÷ 0") }
     }
 }

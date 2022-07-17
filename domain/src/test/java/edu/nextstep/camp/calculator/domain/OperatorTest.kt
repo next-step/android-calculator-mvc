@@ -33,7 +33,7 @@ class OperatorTest {
         Truth.assertThat(actual).isEqualTo(expected)
     }
 
-    @ParameterizedTest(name = "#{index}) {0} * {1} == {2}")
+    @ParameterizedTest(name = "#{index}) {0} × {1} == {2}")
     @CsvSource(
         "4, 2, 8",
         "0, 0, 0",
@@ -46,7 +46,7 @@ class OperatorTest {
         Truth.assertThat(actual).isEqualTo(expected)
     }
 
-    @ParameterizedTest(name = "#{index}) {0} / {1} == {2}")
+    @ParameterizedTest(name = "#{index}) {0} ÷ {1} == {2}")
     @CsvSource(
         "4, 2, 2",
         "1, 3, 0",

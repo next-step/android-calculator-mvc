@@ -1,13 +1,14 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
+import edu.nextstep.camp.calculator.domain.exception.ExpressionNotCompleteException
 import edu.nextstep.camp.calculator.domain.InputController
-import edu.nextstep.camp.calculator.domain.model.Operand
-import edu.nextstep.camp.calculator.domain.model.Operator
-import edu.nextstep.camp.calculator.domain.model.Symbol
+import edu.nextstep.camp.calculator.domain.model.Input
 import org.jetbrains.annotations.TestOnly
+import kotlin.runCatching
 
 class MainActivity : AppCompatActivity(), InputHandler {
     private lateinit var binding: ActivityMainBinding
@@ -24,16 +25,27 @@ class MainActivity : AppCompatActivity(), InputHandler {
         }
     }
 
-    override fun handleNumberInput(number: Int) {
-        binding.textView.text = inputController.onReceiveInput(Operand(number))
+    override fun handleInput(input: Input) {
+        runCatching {
+            binding.textView.text = inputController.onReceiveInput(input)
+        }
+            .onFailure {
+                handleExceptions(it)
+            }
     }
 
-    override fun handleOperatorInput(operator: Operator) {
-        binding.textView.text = inputController.onReceiveInput(operator)
-    }
-
-    override fun handleSymbolInput(symbol: Symbol) {
-        binding.textView.text = inputController.onReceiveInput(symbol)
+    private fun handleExceptions(throwable: Throwable) {
+        when (throwable) {
+            is ExpressionNotCompleteException -> {
+                Toast.makeText(this, R.string.expression_not_complete_message, Toast.LENGTH_SHORT).show()
+            }
+            is ArithmeticException -> {
+                Toast.makeText(this, R.string.div_by_zero_message, Toast.LENGTH_SHORT).show()
+            }
+            else -> {
+                Toast.makeText(this, R.string.unknown_error_message, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     @TestOnly

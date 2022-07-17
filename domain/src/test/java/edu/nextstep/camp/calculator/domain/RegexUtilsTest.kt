@@ -12,7 +12,7 @@ class RegexUtilsTest {
 
     @ParameterizedTest(name = "#{index}) {0} is invalid expression starting with operator")
     @ValueSource(
-        strings = ["-1+10+11", "+12+10", "*12123+1", "/12123+1"]
+        strings = ["-1+10+11", "+12+10", "×12123+1", "÷12123+1"]
     )
     fun checkInvalidExpressionStartingWithOperator(expression: String) {
         assertThat(RegexUtils.checkExpressionIsValid(expression)).isEqualTo(false)
@@ -20,7 +20,7 @@ class RegexUtilsTest {
 
     @ParameterizedTest(name = "#{index}) {0} is valid expression")
     @ValueSource(
-        strings = ["1+10+11", "1", "1/10+30110*11", "13/0+3123110*11"]
+        strings = ["1+10+11", "1", "1÷10+30110×11", "13÷0+3123110×11"]
     )
     fun checkValidExpressions(expression: String) {
         assertThat(RegexUtils.checkExpressionIsValid(expression)).isEqualTo(true)
@@ -50,15 +50,15 @@ class RegexUtilsTest {
         @JvmStatic
         private fun provideOperatorsList() : Stream<Arguments> {
             return Stream.of(
-                Arguments.of("1 + 1 / 1 + 2", listOf("+", "/", "+")),
-                Arguments.of("1 * 1231 / 1 + 2 - 4", listOf("*", "/", "+", "-")),
+                Arguments.of("1 + 1 ÷ 1 + 2", listOf("+", "÷", "+")),
+                Arguments.of("1 × 1231 ÷ 1 + 2 - 4", listOf("×", "÷", "+", "-")),
             )
         }
         @JvmStatic
         private fun provideOperandsList() : Stream<Arguments> {
             return Stream.of(
-                Arguments.of("1 + 1 / 1 + 2", listOf(1, 1, 1, 2)),
-                Arguments.of("1 * 1231 / 1 + 2 - 4", listOf(1, 1231, 1, 2, 4)),
+                Arguments.of("1 + 1 ÷ 1 + 2", listOf(1, 1, 1, 2)),
+                Arguments.of("1 × 1231 ÷ 1 + 2 - 4", listOf(1, 1231, 1, 2, 4)),
             )
         }
     }
