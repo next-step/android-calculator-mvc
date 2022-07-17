@@ -15,16 +15,18 @@ class ExpressionParser {
     private fun findSigns(expression: String): List<Sign> {
         return """[^0-9 ]""".toRegex()
             .findAll(expression)
-            .map {
-                when (it.value) {
-                    "+" -> Sign.PLUS
-                    "-" -> Sign.MINUS
-                    "*" -> Sign.TIMES
-                    "/" -> Sign.DIVISION
-                    else -> throw IllegalArgumentException("수식에는 +, -, *, /만 사용될 수 있습니다.")
-                }
-            }
+            .map(::findMappedSign)
             .toList()
+    }
+
+    private fun findMappedSign(result: MatchResult): Sign {
+        return when (result.value) {
+            "+" -> Sign.PLUS
+            "-" -> Sign.MINUS
+            "*" -> Sign.TIMES
+            "/" -> Sign.DIVISION
+            else -> throw IllegalArgumentException("수식에는 +, -, *, /만 사용될 수 있습니다.")
+        }
     }
 
     private fun findNumbers(expression: String): List<Int> {

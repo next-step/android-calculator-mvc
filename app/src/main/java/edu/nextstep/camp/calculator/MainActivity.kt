@@ -1,26 +1,69 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
+import edu.nextstep.camp.calculator.domain.Calculator
+import edu.nextstep.camp.calculator.domain.ExpressionParser
+import edu.nextstep.camp.calculator.domain.raw.RawExpression
+import edu.nextstep.camp.calculator.domain.raw.RawNumber
+import edu.nextstep.camp.calculator.domain.raw.RawSign
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
+
+    private val calculator = Calculator(ExpressionParser())
+    private val builder = RawExpression.Builder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.button0.setOnClickListener { binding.textView.text = "0" }
-        binding.button1.setOnClickListener { binding.textView.text = "1" }
-        binding.button2.setOnClickListener { binding.textView.text = "2" }
-        binding.button3.setOnClickListener { binding.textView.text = "3" }
-        binding.button4.setOnClickListener { binding.textView.text = "4" }
-        binding.button5.setOnClickListener { binding.textView.text = "5" }
-        binding.button6.setOnClickListener { binding.textView.text = "6" }
-        binding.button7.setOnClickListener { binding.textView.text = "7" }
-        binding.button8.setOnClickListener { binding.textView.text = "8" }
-        binding.button9.setOnClickListener { binding.textView.text = "9" }
+        binding.button0.setOnClickListener { enterNumber(RawNumber.ZERO) }
+        binding.button1.setOnClickListener { enterNumber(RawNumber.ONE) }
+        binding.button2.setOnClickListener { enterNumber(RawNumber.TWO) }
+        binding.button3.setOnClickListener { enterNumber(RawNumber.THREE) }
+        binding.button4.setOnClickListener { enterNumber(RawNumber.FOUR) }
+        binding.button5.setOnClickListener { enterNumber(RawNumber.FIVE) }
+        binding.button6.setOnClickListener { enterNumber(RawNumber.SIX) }
+        binding.button7.setOnClickListener { enterNumber(RawNumber.SEVEN) }
+        binding.button8.setOnClickListener { enterNumber(RawNumber.EIGHT) }
+        binding.button9.setOnClickListener { enterNumber(RawNumber.NINE) }
+        binding.buttonPlus.setOnClickListener { enterSign(RawSign.PLUS) }
+        binding.buttonMinus.setOnClickListener { enterSign(RawSign.MINUS) }
+        binding.buttonMultiply.setOnClickListener { enterSign(RawSign.TIMES) }
+        binding.buttonDivide.setOnClickListener { enterSign(RawSign.DIVISION) }
+        binding.buttonDelete.setOnClickListener { remove() }
+        binding.buttonEquals.setOnClickListener { calculate() }
+    }
+
+    private fun enterNumber(number: RawNumber) {
+        builder.enterNumber(number)
+        binding.textView.text = builder.build()
+    }
+
+    private fun enterSign(sign: RawSign) {
+        builder.enterSign(sign)
+        binding.textView.text = builder.build()
+    }
+
+    private fun remove() {
+        builder.remove()
+        binding.textView.text = builder.build()
+    }
+
+    private fun calculate() {
+        runCatching {
+            calculator.evaluate(builder.build())
+        }.onSuccess { result ->
+            binding.textView.text = builder
+                .initialize(result)
+                .build()
+        }.onFailure {
+            Toast.makeText(this, getString(R.string.toast_incompleteExpression), Toast.LENGTH_SHORT).show()
+        }
     }
 }
