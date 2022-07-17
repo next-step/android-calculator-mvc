@@ -1,7 +1,7 @@
 package edu.nextstep.camp.calculator
 
 import com.google.common.truth.Truth.assertThat
-import edu.nextstep.camp.calculator.domain.Operation
+import edu.nextstep.camp.calculator.domain.camp.calculator.Operation
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
