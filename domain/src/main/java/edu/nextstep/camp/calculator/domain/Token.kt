@@ -1,4 +1,3 @@
 package edu.nextstep.camp.calculator.domain
 
-class MyClass {
-}
+internal sealed interface Token
