@@ -94,4 +94,20 @@ class RawExpressionTest {
         // then
         assertThat(actual).isEqualTo("11")
     }
+
+    @Test
+    fun `1 더하기가 입력된 상태에서 지우기를 하고 빌드하면 1이 반환된다`() {
+        // given
+        builder
+            .enterNumber(RawExpression.Number.ONE)
+            .enterSign(RawExpression.Sign.PLUS)
+
+        // when
+        val actual = builder
+            .remove()
+            .build()
+
+        // then
+        assertThat(actual).isEqualTo("1")
+    }
 }

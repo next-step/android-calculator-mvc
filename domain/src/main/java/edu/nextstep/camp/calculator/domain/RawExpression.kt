@@ -36,6 +36,11 @@ sealed interface RawExpression {
                 }
             }
         }
+
+        fun remove(): Builder {
+            rawList = rawList.dropLast(1)
+            return this
+        }
     }
 
     enum class Number(override val char: Char) : RawExpression {
