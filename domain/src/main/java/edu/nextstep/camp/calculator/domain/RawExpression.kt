@@ -4,22 +4,27 @@ sealed interface RawExpression {
 
     class Builder {
 
-        private var expression = ""
+        private var rawList = listOf<RawExpression>()
 
         fun enterNumber(number: Number): Builder {
-            expression += number.char
+            rawList = rawList + number
+            return this
+        }
+
+        fun enterSign(sign: Sign): Builder {
+            if (rawList.isEmpty()) return this
+
+            rawList = rawList + sign
             return this
         }
 
         fun build(): String {
-            return expression
-        }
-
-        fun enterSign(sign: Sign): Builder {
-            if (expression.isEmpty()) return this
-
-            expression += " ${sign.char}"
-            return this
+            return rawList.fold("") { acc, exp ->
+                acc + when (exp) {
+                    is Number -> exp.char
+                    is Sign -> " ${exp.char}"
+                }
+            }
         }
     }
 
