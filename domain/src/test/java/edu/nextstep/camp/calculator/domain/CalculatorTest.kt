@@ -3,6 +3,7 @@ package edu.nextstep.camp.calculator.domain
 import org.junit.Before
 import org.junit.Test
 import com.google.common.truth.Truth.assertThat
+import org.junit.Assert.assertThrows
 
 class CalculatorTest {
 
@@ -19,33 +20,45 @@ class CalculatorTest {
         assertThat(actual).isEqualTo(10)
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun 사칙연산_기호_외에_다른_문자가_들어오면_예외를_발생시킨다() {
-        calculator.evaluate("2 * 3 ) 2")
+        assertThrows(IllegalArgumentException::class.java) {
+            calculator.evaluate("2 * 3 ) 2")
+        }
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun 첫번째_항목에_연산자가_들어오면_예외를_발생시킨다() {
-        calculator.evaluate("+ 2 / 3")
+        assertThrows(IllegalArgumentException::class.java) {
+            calculator.evaluate("+ 2 / 3")
+        }
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun 마지막_항목에_연산자가_들어오면_예외를_발생시킨다() {
-        calculator.evaluate("3 + 2 /")
+        assertThrows(IllegalArgumentException::class.java) {
+            calculator.evaluate("3 + 2 /")
+        }
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun 공백으로_나누어지지_않은_문자가_들어오면_예외를_발생시킨다() {
-        calculator.evaluate("3+ 2 / 3")
+        assertThrows(IllegalArgumentException::class.java) {
+            calculator.evaluate("3+ 2 / 3")
+        }
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun 입력값으로_null이_들어오면_예외를_발생시킨다() {
-        calculator.evaluate(null)
+        assertThrows(IllegalArgumentException::class.java) {
+            calculator.evaluate(null)
+        }
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun 입력값으로_공백문자가_들어오면_예외를_발생시킨다() {
-        calculator.evaluate(" ")
+        assertThrows(IllegalArgumentException::class.java) {
+            calculator.evaluate(" ")
+        }
     }
 }
