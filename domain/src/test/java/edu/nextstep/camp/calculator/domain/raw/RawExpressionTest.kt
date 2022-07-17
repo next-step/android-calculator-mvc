@@ -121,4 +121,18 @@ class RawExpressionTest {
         // then
         assertThat(actual).isEqualTo("123")
     }
+
+    @Test
+    fun `123으로 초기화된 상태에서 지우기를 하고 빌드하면 12가 반환된다`() {
+        // given
+        builder.initialize(123)
+
+        // when
+        val actual = builder
+            .remove()
+            .build()
+
+        // then
+        assertThat(actual).isEqualTo("12")
+    }
 }
