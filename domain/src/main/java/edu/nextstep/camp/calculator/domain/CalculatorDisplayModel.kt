@@ -66,8 +66,8 @@ class CalculatorDisplayModel {
     }
 
     fun calculate() {
-        val calculator = Calculator()
-        val result = calculator.evaluate(tokens)
+        val parser = Parser()
+        val result = parser.parse(tokens).evaluate()
         tokens.clear()
         tokens.push(result.toOperand())
     }

@@ -1,5 +1,6 @@
 package edu.nextstep.camp.calculator.domain
 
+open class EvaluationException(message: String) : IllegalStateException(message)
 class ExpressionParsingException(message: String) : EvaluationException(message)
 
 internal class Parser {
