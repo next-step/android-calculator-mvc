@@ -1,5 +1,7 @@
 package edu.nextstep.camp.calculator.domain
 
+open class EvaluationException(message: String) : IllegalStateException(message)
+
 internal class Calculator {
     private val parser = Parser()
 

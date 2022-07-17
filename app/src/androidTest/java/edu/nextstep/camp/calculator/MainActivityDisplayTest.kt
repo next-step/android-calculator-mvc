@@ -51,6 +51,11 @@ class MainActivityDisplayTest {
     }
 
     @Test
+    fun `display_nothing_when_press_equals_on_empty_display`() {
+        clicks("=") shouldHaveText ""
+    }
+
+    @Test
     fun `delete_from_the_most_recent_value_when_press_delete`() {
         clicks(3, 2, "+", 1) shouldHaveText "32 + 1"
         clicks("<") shouldHaveText "32 +"

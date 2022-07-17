@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.CalculatorDisplayModel
-import edu.nextstep.camp.calculator.domain.ExpressionParsingException
+import edu.nextstep.camp.calculator.domain.EvaluationException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         binding.buttonEquals.setOnClickListener {
             try {
                 model.calculate()
-            } catch (error: ExpressionParsingException) {
+            } catch (error: EvaluationException) {
                 Toast.makeText(
                     this,
                     R.string.calculator_invalid_expression_message,

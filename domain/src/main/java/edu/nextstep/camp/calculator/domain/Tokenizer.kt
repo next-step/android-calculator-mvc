@@ -2,7 +2,7 @@ package edu.nextstep.camp.calculator.domain
 
 internal sealed interface Token
 
-open class InvalidTokenException(message: String) : IllegalArgumentException(message)
+open class InvalidTokenException(message: String) : EvaluationException(message)
 class UnsupportedOperatorException(message: String) : InvalidTokenException(message)
 
 internal enum class Operator(
