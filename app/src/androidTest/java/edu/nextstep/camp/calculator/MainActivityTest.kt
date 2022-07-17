@@ -15,7 +15,7 @@ import org.junit.runners.Parameterized.Parameters
 @RunWith(Parameterized::class)
 class MainActivityTest(
     private val buttonID: Int,
-    private val expected: String
+    private val expectedButtonValue: String
 ) {
     @get:Rule
     val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
@@ -42,6 +42,6 @@ class MainActivityTest(
         //when
         onView(withId(buttonID)).perform(click())
         //then
-        onView(withId(R.id.textView)).check(matches(withText(expected)))
+        onView(withId(R.id.textView)).check(matches(withText(expectedButtonValue)))
     }
 }

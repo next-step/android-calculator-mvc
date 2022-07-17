@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_7"
-            android:onClick="onClickNumber"
+            android:onClick="onClickCalculatorButton"
             />
 
         <Button
@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_8"
-            android:onClick="onClickNumber"
+            android:onClick="onClickCalculatorButton"
             />
 
         <Button
@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_9"
-            android:onClick="onClickNumber"
+            android:onClick="onClickCalculatorButton"
             />
 
         <Button
@@ -91,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_divide"
-            android:onClick="onClickOperation"
+            android:onClick="onClickCalculatorButton"
             />
 
         <Button
@@ -100,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_4"
-            android:onClick="onClickNumber"
+            android:onClick="onClickCalculatorButton"
             />
 
         <Button
@@ -109,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_5"
-            android:onClick="onClickNumber"
+            android:onClick="onClickCalculatorButton"
             />
 
         <Button
@@ -118,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_6"
-            android:onClick="onClickNumber"
+            android:onClick="onClickCalculatorButton"
             />
 
         <Button
@@ -127,7 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_multiply"
-            android:onClick="onClickOperation"
+            android:onClick="onClickCalculatorButton"
 
             />
 
@@ -137,7 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_1"
-            android:onClick="onClickNumber"
+            android:onClick="onClickCalculatorButton"
             />
 
         <Button
@@ -146,7 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_2"
-            android:onClick="onClickNumber"
+            android:onClick="onClickCalculatorButton"
             />
 
         <Button
@@ -155,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_3"
-            android:onClick="onClickNumber"
+            android:onClick="onClickCalculatorButton"
             />
 
         <Button
@@ -164,7 +164,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_minus"
-            android:onClick="onClickOperation"
+            android:onClick="onClickCalculatorButton"
             />
 
         <Button
@@ -173,7 +173,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_0"
-            android:onClick="onClickNumber"
+            android:onClick="onClickCalculatorButton"
             />
 
         <Space
@@ -197,7 +197,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculator_plus"
-            android:onClick="onClickOperation"
+            android:onClick="onClickCalculatorButton"
             />
     </GridLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
