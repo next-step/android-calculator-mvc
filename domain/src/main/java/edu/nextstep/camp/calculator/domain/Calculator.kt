@@ -1,24 +1,24 @@
 package edu.nextstep.camp.calculator.domain
 
-import java.lang.IllegalArgumentException
-
 class Calculator {
+
     fun calculate(input: String?): Double {
         require(!input.isNullOrEmpty())
         val inputs = input.split(" ")
+        return executeFunction(inputs)
+    }
+
+    private fun executeFunction(inputs: List<String>): Double {
         var acc = inputs.first().toDouble()
         var index = 1
         while (index < inputs.size) {
-            val operator = inputs[index++]
+            val operatorSymbol = inputs[index++]
+            val operator = operatorSymbol.findOperatorBySymbol()
             val newValue = inputs[index++].toDouble()
-            when (operator) {
-                "+" -> acc += newValue
-                "-" -> acc -= newValue
-                "/" -> acc /= newValue
-                "*" -> acc *= newValue
-                else -> throw IllegalArgumentException()
-            }
+            acc = operator.execute(acc, newValue)
         }
         return acc
     }
+
+    private fun String.findOperatorBySymbol(): Operator = Operator.findBySymbol(this)
 }
