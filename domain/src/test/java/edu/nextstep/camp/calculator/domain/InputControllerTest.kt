@@ -12,9 +12,9 @@ import java.util.stream.Stream
 
 class InputControllerTest {
 
-    @ParameterizedTest(name = "#{index}) displayedText is {0}")
+    @ParameterizedTest(name = "#{index}) when {1} is received, displayedText is {0}")
     @MethodSource("provideInputList")
-    fun onReceiveInput(inputList: List<Input>, expected: String) {
+    fun whenInputListReceived_outputIsExpected(inputList: List<Input>, expected: String) {
         val inputController = InputController()
         var actual = ""
         inputList.forEach {
