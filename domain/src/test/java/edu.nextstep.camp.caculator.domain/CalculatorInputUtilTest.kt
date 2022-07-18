@@ -1,4 +1,4 @@
-package edu.nextstep.camp.calculator.domain
+package edu.nextstep.camp.calculator.domain.util
 
 import com.google.common.truth.Truth
 import org.junit.Test

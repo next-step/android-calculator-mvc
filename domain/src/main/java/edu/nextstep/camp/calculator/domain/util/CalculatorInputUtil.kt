@@ -1,14 +1,13 @@
-package edu.nextstep.camp.calculator.domain
+package edu.nextstep.camp.calculator.domain.util
 
-class CalculatorInputUtil {
-    companion object {
-        fun isNumberRegex(text: String): Boolean {
-            var regex = Regex("[0-9]")
-            return (text.matches(regex))
-        }
-        fun isOperationMarkRegex(text:String):Boolean{
-            var regex = Regex("[×÷+\\-]")
-            return (text.matches(regex))
-        }
+object CalculatorInputUtil {
+    fun isNumberRegex(text: String): Boolean {
+        val regex = Regex("[0-9]")
+        return (text.matches(regex))
+    }
+
+    fun isOperationMarkRegex(text: String): Boolean {
+        val regex = Regex("[×÷+\\-]")
+        return (text.matches(regex))
     }
 }

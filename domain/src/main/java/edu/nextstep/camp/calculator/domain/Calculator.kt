@@ -1,23 +1,24 @@
 package edu.nextstep.camp.calculator.domain
 
-class Calculator {
-    fun calculate(input: String): Int {
-        var accumulated = 0
-        var operationMark = ""
+import edu.nextstep.camp.calculator.domain.util.CalculatorInputUtil
 
-        Generator.getCaculatorInputToTextArr(input).forEach { text ->
+class Calculator {
+    fun calculate(inputTextArray: List<String>): Int {
+        var accumulated = 0
+        var operatorMark = ""
+
+        inputTextArray.forEach { text ->
             if (CalculatorInputUtil.isNumberRegex(text)) {
                 accumulated = Operator
                     .getOperated(
-                        accumulated,
-                        text.toInt(),
-                        operationMark
+                        accumulated = accumulated,
+                        nextInt = text.toInt(),
+                        operatorMark = operatorMark
                     )
             } else {
-                operationMark = text
+                operatorMark = text
                 return@forEach
             }
-            println(accumulated)
         }
         return accumulated
     }
