@@ -13,7 +13,7 @@ object Splitter {
         return if (number != null) {
             Operand(number)
         } else {
-            Operator(token)
+            Operator.getFrom(token)
         }
     }
 }
