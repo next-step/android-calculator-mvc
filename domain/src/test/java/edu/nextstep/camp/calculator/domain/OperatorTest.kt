@@ -1,6 +1,6 @@
 package edu.nextstep.camp.calculator.domain
 
-import com.google.common.truth.Truth
+import com.google.common.truth.Truth.*
 import edu.nextstep.camp.calculator.domain.model.Operand
 import edu.nextstep.camp.calculator.domain.model.Operator
 import org.junit.jupiter.api.Test
@@ -19,7 +19,7 @@ class OperatorTest {
     )
     fun addition(firstOperand: Int, secondOperand: Int, expected: Int) {
         val actual: Int = Operator.ADDITION.evaluate(Operand(firstOperand), Operand(secondOperand)).value
-        Truth.assertThat(actual).isEqualTo(expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @ParameterizedTest(name = "#{index}) {0} - {1} == {2}")
@@ -30,10 +30,10 @@ class OperatorTest {
     )
     fun subtraction(firstOperand: Int, secondOperand: Int, expected: Int) {
         val actual: Int = Operator.SUBTRACTION.evaluate(Operand(firstOperand), Operand(secondOperand)).value
-        Truth.assertThat(actual).isEqualTo(expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
-    @ParameterizedTest(name = "#{index}) {0} × {1} == {2}")
+    @ParameterizedTest(name = "#{index}) {0} * {1} == {2}")
     @CsvSource(
         "4, 2, 8",
         "0, 0, 0",
@@ -43,7 +43,7 @@ class OperatorTest {
     )
     fun multiplication(firstOperand: Int, secondOperand: Int, expected: Int) {
         val actual: Int = Operator.MULTIPLICATION.evaluate(Operand(firstOperand), Operand(secondOperand)).value
-        Truth.assertThat(actual).isEqualTo(expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @ParameterizedTest(name = "#{index}) {0} ÷ {1} == {2}")
@@ -54,7 +54,7 @@ class OperatorTest {
     )
     fun division(firstOperand: Int, secondOperand: Int, expected: Int) {
         val actual: Int = Operator.DIVISION.evaluate(Operand(firstOperand), Operand(secondOperand)).value
-        Truth.assertThat(actual).isEqualTo(expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test

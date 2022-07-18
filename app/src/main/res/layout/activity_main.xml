@@ -6,10 +6,7 @@
     <data>
         <variable
             name="inputHandler"
-            type="edu.nextstep.camp.calculator.InputHandler" />
-        <import type="edu.nextstep.camp.calculator.domain.model.NumberInput" />
-        <import type="edu.nextstep.camp.calculator.domain.model.OperatorInput" />
-        <import type="edu.nextstep.camp.calculator.domain.model.OtherInput" />
+            type="edu.nextstep.camp.calculator.UserInputActionReceiver" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,7 +51,7 @@
             app:icon="@drawable/ic_baseline_keyboard_backspace_24"
             app:layout_constraintBottom_toTopOf="@id/input"
             app:layout_constraintEnd_toEndOf="@id/input"
-            android:onClick="@{() -> inputHandler.handleInput(OtherInput.DEL)}"
+            android:onClick="@{(v) -> inputHandler.onReceiveUserInputAction(v)}"
             />
 
         <GridLayout
@@ -74,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_7"
-                android:onClick="@{() -> inputHandler.handleInput(NumberInput.SEVEN)}"
+                android:onClick="@{(v) -> inputHandler.onReceiveUserInputAction(v)}"
                 />
 
             <Button
@@ -83,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_8"
-                android:onClick="@{() -> inputHandler.handleInput(NumberInput.EIGHT)}"
+                android:onClick="@{(v) -> inputHandler.onReceiveUserInputAction(v)}"
                 />
 
             <Button
@@ -92,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_9"
-                android:onClick="@{() -> inputHandler.handleInput(NumberInput.NINE)}"
+                android:onClick="@{(v) -> inputHandler.onReceiveUserInputAction(v)}"
                 />
 
             <Button
@@ -101,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_divide"
-                android:onClick="@{() -> inputHandler.handleInput(OperatorInput.DIV)}"
+                android:onClick="@{(v) -> inputHandler.onReceiveUserInputAction(v)}"
                 />
 
             <Button
@@ -110,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_4"
-                android:onClick="@{() -> inputHandler.handleInput(NumberInput.FOUR)}"
+                android:onClick="@{(v) -> inputHandler.onReceiveUserInputAction(v)}"
                 />
 
             <Button
@@ -119,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_5"
-                android:onClick="@{() -> inputHandler.handleInput(NumberInput.FIVE)}"
+                android:onClick="@{(v) -> inputHandler.onReceiveUserInputAction(v)}"
                 />
 
             <Button
@@ -128,7 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_6"
-                android:onClick="@{() -> inputHandler.handleInput(NumberInput.SIX)}"
+                android:onClick="@{(v) -> inputHandler.onReceiveUserInputAction(v)}"
                 />
 
             <Button
@@ -137,7 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_multiply"
-                android:onClick="@{() -> inputHandler.handleInput(OperatorInput.MULTIPLY)}"
+                android:onClick="@{(v) -> inputHandler.onReceiveUserInputAction(v)}"
                 />
 
             <Button
@@ -146,7 +143,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_1"
-                android:onClick="@{() -> inputHandler.handleInput(NumberInput.ONE)}"
+                android:onClick="@{(v) -> inputHandler.onReceiveUserInputAction(v)}"
                 />
 
             <Button
@@ -155,7 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_2"
-                android:onClick="@{() -> inputHandler.handleInput(NumberInput.TWO)}"
+                android:onClick="@{(v) -> inputHandler.onReceiveUserInputAction(v)}"
                 />
 
             <Button
@@ -164,7 +161,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_3"
-                android:onClick="@{() -> inputHandler.handleInput(NumberInput.THREE)}"
+                android:onClick="@{(v) -> inputHandler.onReceiveUserInputAction(v)}"
                 />
 
             <Button
@@ -173,7 +170,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_minus"
-                android:onClick="@{() -> inputHandler.handleInput(OperatorInput.MINUS)}"
+                android:onClick="@{(v) -> inputHandler.onReceiveUserInputAction(v)}"
                 />
 
             <Button
@@ -182,7 +179,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_0"
-                android:onClick="@{() -> inputHandler.handleInput(NumberInput.ZERO)}"
+                android:onClick="@{(v) -> inputHandler.onReceiveUserInputAction(v)}"
                 />
 
             <Space
@@ -197,7 +194,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_equals"
-                android:onClick="@{() -> inputHandler.handleInput(OtherInput.EQUALS)}"
+                android:onClick="@{(v) -> inputHandler.onReceiveUserInputAction(v)}"
                 />
 
             <Button
@@ -206,7 +203,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calculator_plus"
-                android:onClick="@{() -> inputHandler.handleInput(OperatorInput.PLUS)}"
+                android:onClick="@{(v) -> inputHandler.onReceiveUserInputAction(v)}"
                 />
         </GridLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

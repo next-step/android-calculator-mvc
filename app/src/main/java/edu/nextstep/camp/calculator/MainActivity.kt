@@ -1,18 +1,21 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.exception.ExpressionNotCompleteException
-import edu.nextstep.camp.calculator.domain.InputController
-import edu.nextstep.camp.calculator.domain.model.Input
+import edu.nextstep.camp.calculator.domain.UserInputActionProcessor
+import edu.nextstep.camp.calculator.domain.model.OtherInputAction
+import edu.nextstep.camp.calculator.domain.model.UserInputAction
 import org.jetbrains.annotations.TestOnly
 import kotlin.runCatching
 
-class MainActivity : AppCompatActivity(), InputHandler {
+class MainActivity : AppCompatActivity(), UserInputActionReceiver {
     private lateinit var binding: ActivityMainBinding
-    private val inputController by lazy { InputController() }
+    private val userInputActionProcessor by lazy { UserInputActionProcessor() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +28,25 @@ class MainActivity : AppCompatActivity(), InputHandler {
         }
     }
 
-    override fun handleInput(input: Input) {
+    override fun onReceiveUserInputAction(v: View) {
+        kotlin.runCatching { v as Button }
+            .onFailure { handleExceptions(IllegalArgumentException("Input action view type must be Button")) }
+            .onSuccess { processInputButton(it) }
+    }
+
+    private fun processInputButton(btn: Button) {
+        if (btn.text.isNullOrEmpty()) {
+            if (btn.id == R.id.buttonDelete) processInputAction(OtherInputAction.DEL)
+            else handleExceptions(IllegalArgumentException("Unknown Input"))
+        }
+        else {
+            processInputAction(UserInputAction.getFromValue(btn.text.toString()))
+        }
+    }
+
+    private fun processInputAction(inputAction: UserInputAction) {
         runCatching {
-            binding.textView.text = inputController.onReceiveInput(input)
+            binding.textView.text = userInputActionProcessor.processUserInputAction(inputAction)
         }
             .onFailure {
                 handleExceptions(it)
@@ -50,6 +69,6 @@ class MainActivity : AppCompatActivity(), InputHandler {
 
     @TestOnly
     fun setDisplayedText(displayedText: String) {
-        binding.textView.text = inputController.setCurrentDisplayedText(displayedText)
+        binding.textView.text = userInputActionProcessor.setCurrentDisplayedText(displayedText)
     }
 }

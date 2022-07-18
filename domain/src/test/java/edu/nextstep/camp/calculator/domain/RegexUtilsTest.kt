@@ -34,6 +34,22 @@ class RegexUtilsTest {
         assertThat(RegexUtils.checkExpressionIsValid(expression)).isEqualTo(false)
     }
 
+    @ParameterizedTest(name = "#{index}) {0} is one digit number expression")
+    @ValueSource(
+        strings = ["1", "3", "0", "9", "2"]
+    )
+    fun checkValidOneDigitExpression(expression: String) {
+        assertThat(RegexUtils.checkExpressionIsOneDigitNumber(expression)).isEqualTo(true)
+    }
+
+    @ParameterizedTest(name = "#{index}) {0} is one digit number expression")
+    @ValueSource(
+        strings = ["11", "-3", "401", "19", "t"]
+    )
+    fun checkInvalidOneDigitExpression(expression: String) {
+        assertThat(RegexUtils.checkExpressionIsOneDigitNumber(expression)).isEqualTo(false)
+    }
+
     @ParameterizedTest(name = "#{index}) operators in \"{0}\" is {1}")
     @MethodSource("provideOperatorsList")
     fun givenValidExpressions_WhenGetOperatorsList_ThenReturnOperatorsList(expression: String, expected: List<String>) {

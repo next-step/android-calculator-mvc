@@ -1,6 +1,6 @@
 package edu.nextstep.camp.calculator.domain.model
 
-enum class Operator(val value: String) {
+enum class Operator(override val value: String?) : UserInputAction {
     ADDITION("+") {
         override fun evaluate(firstOperand: Operand, secondOperand: Operand): Operand = firstOperand + secondOperand
     },
@@ -13,7 +13,7 @@ enum class Operator(val value: String) {
     DIVISION("÷") {
         override fun evaluate(firstOperand: Operand, secondOperand: Operand): Operand = firstOperand / secondOperand
     },
-    UNKNOWN("") {
+    UNKNOWN(null) {
         override fun evaluate(firstOperand: Operand, secondOperand: Operand): Operand {
             throw IllegalArgumentException("Unknown Operator")
         }
