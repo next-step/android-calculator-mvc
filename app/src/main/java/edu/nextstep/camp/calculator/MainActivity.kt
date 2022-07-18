@@ -28,28 +28,29 @@ class MainActivity : AppCompatActivity() {
         binding.button9.setOnClickListener { clickOperand(9) }
 
         binding.buttonPlus.setOnClickListener { clickOperator("+") }
-        binding.buttonMinus.setOnClickListener {clickOperator("-")}
-        binding.buttonDivide.setOnClickListener {clickOperator("/")}
-        binding.buttonMultiply.setOnClickListener {clickOperator("*")}
+        binding.buttonMinus.setOnClickListener { clickOperator("-") }
+        binding.buttonDivide.setOnClickListener { clickOperator("/") }
+        binding.buttonMultiply.setOnClickListener { clickOperator("*") }
 
         binding.buttonDelete.setOnClickListener { clickDelete() }
         binding.buttonEquals.setOnClickListener { clickEquals() }
 
 
     }
-    private fun clickOperator(operator: String){
+
+    private fun clickOperator(operator: String) {
         binding.textView.text = expressionTool.addOperator(operator)
     }
 
-    private fun clickOperand(value: Int){
+    private fun clickOperand(value: Int) {
         binding.textView.text = expressionTool.addOperand(value)
     }
 
-    private fun clickDelete(){
+    private fun clickDelete() {
         binding.textView.text = expressionTool.delete()
     }
 
-    private fun clickEquals(){
+    private fun clickEquals() {
         if (!expressionTool.isCompletedExpression()) {
             Toast.makeText(this, WRONG_EXPRESSION, Toast.LENGTH_SHORT).show()
         } else {
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    companion object{
+    companion object {
         private const val WRONG_EXPRESSION = "완성되지 않은 수식입니다"
     }
 
