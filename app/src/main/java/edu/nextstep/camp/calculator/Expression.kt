@@ -30,12 +30,19 @@ class Expression {
     fun delete(): String {
         if (expression.isEmpty()) return expression
         // 앞의문자가 공백이거나 소수점이면 같이 지워버리기
-        val deleteSize =
-            if (expression.length > 1 && (expression[expression.lastIndex - 1] == ' ' || expression[expression.lastIndex - 1] == '.')) 2 else 1
+        val deleteSize = if (prevCharIsBlankOrPoint()) INCLUDING_PREVIOUS else ONLY_CURRENT
         expression = expression.substring(0, expression.length - deleteSize)
         return expression
     }
 
     fun isCompletedExpression() = expression.last().isDigit()
+
+    private fun prevCharIsBlankOrPoint() =
+        expression.length > 1 && (expression[expression.lastIndex - 1] == ' ' || expression[expression.lastIndex - 1] == '.')
+
+    companion object {
+        private const val INCLUDING_PREVIOUS = 2
+        private const val ONLY_CURRENT = 1
+    }
 
 }
