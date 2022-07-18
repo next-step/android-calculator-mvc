@@ -10,7 +10,7 @@ class CalculatorTest {
 
 	@Before
 	fun setup() {
-		target = Calculator(ExpressionTokenConverterImpl())
+		target = Calculator(OperatorImpl())
 	}
 
 	@Test(expected = IllegalArgumentException::class)
@@ -39,51 +39,7 @@ class CalculatorTest {
 	}
 
 	@Test
-	fun `processAddition 호출시 연산 결과에 피연산자를 더한다`() {
-		val result = target.processAddition(3.toDouble(), NumberOperandToken("3"))
-		assertThat(result).isEqualTo(6)
-	}
-
-	@Test
-	fun `processSubtraction 호출시 연산 결과에 피연산자를 뺀다`() {
-		val result = target.processSubtraction(3.toDouble(), NumberOperandToken("3"))
-		assertThat(result).isEqualTo(0)
-	}
-
-	@Test
-	fun `processMultiplication 호출시 연산 결과에 피연산자를 곱한다`() {
-		val result = target.processMultiplication(3.toDouble(), NumberOperandToken("3"))
-		assertThat(result).isEqualTo(9)
-	}
-
-	@Test
-	fun `processMultiplication 호출시 연산 결과에 피연산자를 나눈다`() {
-		val result = target.processDivision(3.toDouble(), NumberOperandToken("3"))
-		assertThat(result).isEqualTo(1)
-	}
-
-	@Test(expected = IllegalArgumentException::class)
-	fun `processMultiplication 호출시 0으로 나누는 경우 IllegalArgumentException 를 throw 해야한다`() {
-		target.processDivision(3.toDouble(), NumberOperandToken("0"))
-	}
-
-	@Test(expected = IllegalArgumentException::class)
-	fun `processOperator 호출시 Number, Number 인자가 넘어오면 IllegalArgumentException 를 throw 해야한다`() {
-		target.processOperator(3.0, NumberOperandToken("3.0"), NumberOperandToken("3.0"))
-	}
-
-	@Test(expected = IllegalArgumentException::class)
-	fun `processOperator 호출시 Operator, Operator 인자가 넘어오면 IllegalArgumentException 를 throw 해야한다`() {
-		target.processOperator(3.0, OperatorToken.Addition, OperatorToken.Addition)
-	}
-
-	@Test(expected = IllegalArgumentException::class)
-	fun `processOperator 호출시 Number, Operator 인자가 넘어오면 IllegalArgumentException 를 throw 해야한다`() {
-		target.processOperator(3.0, NumberOperandToken("3.0"), OperatorToken.Addition)
-	}
-
-	@Test
-	fun evaluatesExpression() {
+	fun `1 + 2 + 3 연산 수행시 6을 반환해야한다`() {
 		val actual: Double = target.evaluate("1 + 2 + 3")
 		assertThat(actual).isEqualTo(6)
 	}
