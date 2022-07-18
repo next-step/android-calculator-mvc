@@ -20,8 +20,8 @@ class MainActivityTest {
     val scenarioExtension = ActivityScenarioExtension.launch<MainActivity>()
 
     @Nested
-    @DisplayName("버튼 동작")
-    inner class `버튼_기본_동작` {
+    @DisplayName("버튼을 누르면")
+    inner class `버튼을_누르면` {
 
 
         @CsvSource("'버튼0', ${R.id.button0}, '0'",
@@ -34,7 +34,7 @@ class MainActivityTest {
             "'버튼7', ${R.id.button7}, '7'",
             "'버튼8', ${R.id.button8}, '8'",
             "'버튼9', ${R.id.button9}, '9'")
-        @DisplayName("동작")
+        @DisplayName("해당 버튼의 값이 표시된다")
         @ParameterizedTest(name = "{0} 선택, 예상결과 = {2}")
         fun `버튼_동작`(buttonDescription: String, buttonId: Int, expectedText: String) {
             //when: 버튼을 누르면
@@ -45,8 +45,8 @@ class MainActivityTest {
     }
 
     @Nested
-    @DisplayName("연산 동작")
-    inner class `연산_동작` {
+    @DisplayName("연속적으로 버튼을 누르면 결과가 표시된다.")
+    inner class `연속적으로_버튼을_누르면_올바른_결과가_노출된다` {
         //기능 요구 사항
         /* 입력된 피연산자가 없을 때, 사용자가 피연산자 0 ~ 9 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
         -> 1 클릭 -> 1 */
@@ -112,7 +112,7 @@ class MainActivityTest {
         }
 
         @Test
-        @DisplayName("' ' -> '<-' 클릭 = ' '")
+        @DisplayName("' ' -> '삭제' 클릭 = ' '")
         fun `입력된_수식이_없을때_지우기_클릭은_변화가_없다`() {
             onView(withId(R.id.buttonDelete)).perform(ViewActions.click())
 
@@ -120,7 +120,7 @@ class MainActivityTest {
         }
 
         @Test
-        @DisplayName("'32 + 1' -> '<-' 5 회 클릭 = ' '")
+        @DisplayName("'32 + 1' -> '삭제' 5 회 클릭 = ' '")
         fun `입력된_수식이_있을때_지우기_클릭은_마지막_연산자_또는_피연산자가_삭제된다`() {
             //given
             onView(withId(R.id.button3)).perform(ViewActions.click())
