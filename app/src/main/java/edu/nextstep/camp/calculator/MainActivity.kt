@@ -7,15 +7,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.exception.ExpressionNotCompleteException
-import edu.nextstep.camp.calculator.domain.UserInputActionProcessor
-import edu.nextstep.camp.calculator.domain.model.OtherInputAction
-import edu.nextstep.camp.calculator.domain.model.UserInputAction
+import edu.nextstep.camp.calculator.domain.ExpressionTokenProcessor
+import edu.nextstep.camp.calculator.domain.model.OtherExpressionToken
+import edu.nextstep.camp.calculator.domain.model.ExpressionToken
 import org.jetbrains.annotations.TestOnly
 import kotlin.runCatching
 
 class MainActivity : AppCompatActivity(), UserInputActionReceiver {
     private lateinit var binding: ActivityMainBinding
-    private val userInputActionProcessor by lazy { UserInputActionProcessor() }
+    private val expressionTokenProcessor by lazy { ExpressionTokenProcessor() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,17 +36,17 @@ class MainActivity : AppCompatActivity(), UserInputActionReceiver {
 
     private fun processInputButton(btn: Button) {
         if (btn.text.isNullOrEmpty()) {
-            if (btn.id == R.id.buttonDelete) processInputAction(OtherInputAction.DEL)
+            if (btn.id == R.id.buttonDelete) processInputAction(OtherExpressionToken.DEL)
             else handleExceptions(IllegalArgumentException("Unknown Input"))
         }
         else {
-            processInputAction(UserInputAction.getFromValue(btn.text.toString()))
+            processInputAction(ExpressionToken.getFromValue(btn.text.toString()))
         }
     }
 
-    private fun processInputAction(inputAction: UserInputAction) {
+    private fun processInputAction(inputAction: ExpressionToken) {
         runCatching {
-            binding.textView.text = userInputActionProcessor.processUserInputAction(inputAction)
+            binding.textView.text = expressionTokenProcessor.processUserInputAction(inputAction)
         }
             .onFailure {
                 handleExceptions(it)
@@ -69,6 +69,6 @@ class MainActivity : AppCompatActivity(), UserInputActionReceiver {
 
     @TestOnly
     fun setDisplayedText(displayedText: String) {
-        binding.textView.text = userInputActionProcessor.setCurrentDisplayedText(displayedText)
+        binding.textView.text = expressionTokenProcessor.setCurrentDisplayedText(displayedText)
     }
 }

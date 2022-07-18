@@ -3,63 +3,63 @@ package edu.nextstep.camp.calculator.domain
 import edu.nextstep.camp.calculator.domain.exception.ExpressionNotCompleteException
 import edu.nextstep.camp.calculator.domain.model.Operand
 import edu.nextstep.camp.calculator.domain.model.Operator
-import edu.nextstep.camp.calculator.domain.model.UserInputAction
-import edu.nextstep.camp.calculator.domain.model.OtherInputAction
+import edu.nextstep.camp.calculator.domain.model.ExpressionToken
+import edu.nextstep.camp.calculator.domain.model.OtherExpressionToken
 import org.jetbrains.annotations.TestOnly
 
-class UserInputActionProcessor {
-    private val userInputActionList = mutableListOf<UserInputAction>()
+class ExpressionTokenProcessor {
+    private val expressionTokenList = mutableListOf<ExpressionToken>()
 
-    fun processUserInputAction(userInputAction: UserInputAction) : String {
-        return when (userInputAction) {
-            is OtherInputAction -> processOtherInput(userInputAction)
-            is Operator -> processOperatorInput(userInputAction)
-            is Operand -> processNumberInput(userInputAction)
+    fun processUserInputAction(expressionToken: ExpressionToken) : String {
+        return when (expressionToken) {
+            is OtherExpressionToken -> processOtherInput(expressionToken)
+            is Operator -> processOperatorInput(expressionToken)
+            is Operand -> processNumberInput(expressionToken)
             else -> throw IllegalArgumentException("Unknown Input Type")
         }
     }
 
     private fun processNumberInput(input: Operand) : String {
-        return userInputActionList.run {
+        return expressionTokenList.run {
             add(input)
             toExpression()
         }
     }
 
     private fun processOperatorInput(input: Operator) : String {
-        return userInputActionList.run {
+        return expressionTokenList.run {
             if (lastOrNull() is Operand) add(input)
             else if (lastOrNull() is Operator) this[lastIndex] = input
             toExpression()
         }
     }
 
-    private fun processOtherInput(input: OtherInputAction) : String {
+    private fun processOtherInput(input: OtherExpressionToken) : String {
         return when (input) {
-            OtherInputAction.DEL -> userInputActionList.run {
+            OtherExpressionToken.DEL -> expressionTokenList.run {
                 removeLastOrNull()
                 toExpression()
             }
-            OtherInputAction.EQUALS -> evaluate()
+            OtherExpressionToken.EQUALS -> evaluate()
             else -> throw IllegalArgumentException("Unknown Input")
         }
     }
 
     private fun evaluate(): String {
-        val parsedStr = userInputActionList.toExpression()
+        val parsedStr = expressionTokenList.toExpression()
         if (!RegexUtils.checkExpressionIsValid(parsedStr)) {
             throw ExpressionNotCompleteException()
         }
         val result = Calculator.evaluate(parsedStr)
-        userInputActionList.clear()
+        expressionTokenList.clear()
         result.toString().forEach {
-            userInputActionList.add(UserInputAction.getFromValue(it.toString()))
+            expressionTokenList.add(ExpressionToken.getFromValue(it.toString()))
         }
 
-        return userInputActionList.toExpression()
+        return expressionTokenList.toExpression()
     }
     
-    private fun List<UserInputAction>.toExpression() : String {
+    private fun List<ExpressionToken>.toExpression() : String {
         val sb = StringBuilder()
         forEach {
             sb.append(it.value)
@@ -69,17 +69,17 @@ class UserInputActionProcessor {
 
     @TestOnly
     fun setCurrentDisplayedText(displayedText: String) : String{
-        userInputActionList.clear()
+        expressionTokenList.clear()
         val operands = RegexUtils.getOperandsList(displayedText)
         val operators = RegexUtils.getOperatorsList(displayedText)
         operands.forEachIndexed { index, operand ->
             operand.toString().forEach {
-                userInputActionList.add(UserInputAction.getFromValue(it.toString()))
+                expressionTokenList.add(ExpressionToken.getFromValue(it.toString()))
             }
             operators.getOrNull(index)?.let {
-                userInputActionList.add(UserInputAction.getFromValue(it))
+                expressionTokenList.add(ExpressionToken.getFromValue(it))
             }
         }
-        return userInputActionList.toExpression()
+        return expressionTokenList.toExpression()
     }
 }

@@ -1,6 +1,6 @@
 package edu.nextstep.camp.calculator.domain.model
 
-enum class Operator(override val value: String?) : UserInputAction {
+enum class Operator(override val value: String?) : ExpressionToken {
     ADDITION("+") {
         override fun evaluate(firstOperand: Operand, secondOperand: Operand): Operand = firstOperand + secondOperand
     },

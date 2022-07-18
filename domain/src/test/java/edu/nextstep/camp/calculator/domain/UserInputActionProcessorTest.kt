@@ -1,7 +1,7 @@
 package edu.nextstep.camp.calculator.domain
 
 import com.google.common.truth.Truth.*
-import edu.nextstep.camp.calculator.domain.model.UserInputAction
+import edu.nextstep.camp.calculator.domain.model.ExpressionToken
 import edu.nextstep.camp.calculator.domain.model.Operand
 import edu.nextstep.camp.calculator.domain.model.Operator
 import org.junit.jupiter.params.ParameterizedTest
@@ -14,8 +14,8 @@ class UserInputActionProcessorTest {
 
     @ParameterizedTest(name = "#{index}) when {1} is received, displayedText is {0}")
     @MethodSource("provideInputList")
-    fun whenInputListReceived_outputIsExpected(userInputActionList: List<UserInputAction>, expected: String) {
-        val inputController = UserInputActionProcessor()
+    fun whenInputListReceived_outputIsExpected(userInputActionList: List<ExpressionToken>, expected: String) {
+        val inputController = ExpressionTokenProcessor()
         var actual = ""
         userInputActionList.forEach {
             actual = inputController.processUserInputAction(it)
@@ -29,7 +29,7 @@ class UserInputActionProcessorTest {
         "1+1-1-"
     )
     fun setCurrentDisplayedText(text: String) {
-        val inputController = UserInputActionProcessor()
+        val inputController = ExpressionTokenProcessor()
         assertThat(inputController.setCurrentDisplayedText(text)).isEqualTo(text)
     }
 
