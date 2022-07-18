@@ -1,10 +1,48 @@
 package edu.nextstep.camp.calculator.domain
 
-class Calculator(private val delimiter: Char) {
-    fun evaluate(input: String?): Int {
-        require(!input.isNullOrBlank()) { IllegalArgumentException(IS_NULL_OR_BLANK) }
+import java.util.*
 
-        val inputList = Splitter.splitByDelimiter(input, delimiter)
+class Calculator(private val delimiter: Char) {
+    private val _expressionStack = Stack<String>()
+    val expression: String
+        get() = _expressionStack.joinToString(delimiter.toString())
+
+    fun addOperand(number: String) {
+        if (_expressionStack.isNotEmpty() && _expressionStack.last().toIntOrNull() != null) {
+            _expressionStack.push(_expressionStack.pop() + number)
+        } else {
+            _expressionStack.push(number)
+        }
+    }
+
+    fun addOperator(operator: String) {
+        if (_expressionStack.isEmpty()) return
+        if (_expressionStack.last().toIntOrNull() == null) {
+            _expressionStack.pop()
+        }
+        _expressionStack.push(operator)
+    }
+
+    fun delete() {
+        if (_expressionStack.isEmpty()) return
+        val value = _expressionStack.pop()
+        if (value.toIntOrNull() == null) return
+        if (value.toInt() >= SMALLEST_OF_TWO_DIGITS) {
+            _expressionStack.push(value.dropLast(1))
+        }
+    }
+
+
+    fun evaluate(onError: (() -> Unit)? = null) {
+        if (_expressionStack.isEmpty() || _expressionStack.last().toIntOrNull() == null) {
+            onError?.invoke()
+            return
+        }
+
+        val expression = _expressionStack.joinToString(delimiter.toString())
+        require(expression.isNotBlank()) { IllegalArgumentException(IS_NULL_OR_BLANK) }
+
+        val inputList = Splitter.splitByDelimiter(expression, delimiter)
         require(inputList.size % EVEN_COMPARISON_NUMBER == RESULT_WHEN_ODD_NUMBER) {
             IllegalArgumentException(NOT_MATCH_OPERATORS_AND_OPERANDS)
         }
@@ -17,7 +55,8 @@ class Calculator(private val delimiter: Char) {
                     .calculate(output, Operand.of(inputList[index + INDEX_OF_NUMBER]))
         }
 
-        return output.value
+        _expressionStack.clear()
+        _expressionStack.push(output.value.toString())
     }
 
 
@@ -27,6 +66,8 @@ class Calculator(private val delimiter: Char) {
 
         private const val NUMBER_OF_EXCLUDING_THE_FIRST_INDEX = 1
         private const val SIZE_OF_CALCULATION_UNIT = 2
+
+        private const val SMALLEST_OF_TWO_DIGITS = 10
 
         private const val INDEX_OF_NUMBER = 1
 

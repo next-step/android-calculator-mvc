@@ -3,14 +3,12 @@ package edu.nextstep.camp.calculator
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.isDigitsOnly
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Calculator
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val expressionStack = Stack<String>()
+    private val calculator: Calculator = Calculator(DELIMITER)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,46 +36,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickOperand(number: String) {
-        if (expressionStack.isNotEmpty() && expressionStack.last().isDigitsOnly()) {
-            expressionStack.push(expressionStack.pop() + number)
-        } else {
-            expressionStack.push(number)
-        }
+        calculator.addOperand(number)
         updateText()
     }
 
     private fun onClickOperator(operator: String) {
-        if (expressionStack.isEmpty()) return
-
-        if (!expressionStack.last().isDigitsOnly()) {
-            expressionStack.pop()
-        }
-        expressionStack.push(operator)
+        calculator.addOperator(operator)
         updateText()
     }
 
     private fun onClickDelete() {
-        if (expressionStack.isEmpty()) return
-        val value = expressionStack.pop()
-        if (value.isDigitsOnly() && value.toInt() >= 10) {
-            expressionStack.push(value.dropLast(1))
-        }
+        calculator.delete()
         updateText()
     }
 
     private fun onClickEquals() {
-        if (expressionStack.isEmpty() || !expressionStack.last().isDigitsOnly()) {
+        calculator.evaluate {
             Toast.makeText(this, getText(R.string.not_completed_expression), Toast.LENGTH_SHORT)
                 .show()
-            return
         }
-        binding.textView.text =
-            Calculator(DELIMITER).evaluate(expressionStack.joinToString(DELIMITER.toString()))
-                .toString()
+        updateText()
     }
 
     private fun updateText() {
-        binding.textView.text = expressionStack.joinToString(DELIMITER.toString())
+        binding.textView.text = calculator.expression
     }
 
     companion object {
