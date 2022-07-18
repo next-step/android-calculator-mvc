@@ -9,12 +9,6 @@ import java.lang.IllegalArgumentException
 class CalculatorDomainTest {
 
     @Test(expected = IllegalArgumentException::class)
-    fun 입력값이_null일_경우_IlligalArgumentException_발생() {
-        val calculator = Calculator()
-        calculator.calculate(null)
-    }
-
-    @Test(expected = IllegalArgumentException::class)
     fun 입력이_공백일_경우_IlligalArgumentException_발생() {
         val calculator = Calculator()
         calculator.calculate(" ")

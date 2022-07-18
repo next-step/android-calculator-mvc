@@ -2,8 +2,8 @@ package edu.nextstep.camp.calculator.domain
 
 class Calculator {
 
-    fun calculate(input: String?): Double {
-        require(!input.isNullOrEmpty())
+    fun calculate(input: String): Double {
+        require(!input.isEmpty())
         val inputs = input.split(" ")
         return executeFunction(inputs)
     }
