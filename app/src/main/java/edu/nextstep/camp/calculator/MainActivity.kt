@@ -54,8 +54,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun clickDelete(){
         if(expression.isEmpty()) return
-        // 공백있으면 공백까지 지우기
-        val deleteSize = if(expression.length > 1 && expression[expression.lastIndex - 1] == ' ') 2 else 1
+        // 앞의문자가 공백이거나 소수점이면 같이 지워버리기
+        val deleteSize =
+            if (expression.length > 1 && (expression[expression.lastIndex - 1] == ' ' || expression[expression.lastIndex - 1] == '.')) 2 else 1
         expression = expression.substring(0, expression.length - deleteSize)
 
         binding.textView.text = expression
@@ -65,7 +66,9 @@ class MainActivity : AppCompatActivity() {
         if(!expression.last().isDigit()){
             Toast.makeText(this, WRONG_EXPRESSION, Toast.LENGTH_SHORT).show()
         }else{
-            binding.textView.text = Calculator().evaluatesExpression(expression).toString()
+            val result = Calculator().evaluatesExpression(expression).toString()
+            binding.textView.text = result
+            expression = result
         }
     }
 
