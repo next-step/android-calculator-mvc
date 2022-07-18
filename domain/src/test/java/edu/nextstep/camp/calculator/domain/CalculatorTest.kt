@@ -1,6 +1,7 @@
 package edu.nextstep.camp.calculator.domain
 
 import com.google.common.truth.Truth.assertThat
+import org.junit.Assert.assertThrows
 import org.junit.Before
 import org.junit.Test
 
@@ -16,14 +17,14 @@ class CalculatorTest {
         calculator = Calculator()
     }
 
-    @Test(expected = java.lang.IllegalArgumentException::class)
+    @Test
     fun Input이_Null_이거나_공백이면_IllegalArgumentException_throw() {
-        calculator.evaluatesExpression("  ")
+        assertThrows(IllegalArgumentException::class.java) { calculator.evaluatesExpression("  ") }
     }
 
-    @Test(expected = java.lang.IllegalArgumentException::class)
+    @Test
     fun 사칙연산_기호가_아닌_경우_IllegalArgumentException_throw() {
-        calculator.evaluatesExpression("3 ~ 4")
+        assertThrows(IllegalArgumentException::class.java) { calculator.evaluatesExpression("3 ~ 4") }
     }
 
     @Test
@@ -44,9 +45,9 @@ class CalculatorTest {
         assertThat(result).isEqualTo(3.0 / 4)
     }
 
-    @Test(expected = java.lang.IllegalArgumentException::class)
+    @Test
     fun 피연산자_0으로_나누면_IllegalArgumentException_throw() {
-        calculator.evaluatesExpression("3 / 0")
+        assertThrows(IllegalArgumentException::class.java) { calculator.evaluatesExpression("3 / 0") }
     }
 
     @Test
