@@ -1,4 +1,4 @@
-package com.soolee.domain.util
+package edu.nextstep.camp.calculator.domain
 
 class CalculatorInputUtil {
     companion object {

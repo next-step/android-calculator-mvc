@@ -1,7 +1,4 @@
-package com.soolee.domain
-
-import com.soolee.domain.util.CalculatorInputUtil
-import com.soolee.domain.validator.CalculatorInputValidator
+package edu.nextstep.camp.calculator.domain
 
 class Generator {
     companion object {

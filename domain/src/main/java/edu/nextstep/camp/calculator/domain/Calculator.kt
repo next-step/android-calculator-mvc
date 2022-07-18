@@ -1,6 +1,4 @@
-package com.soolee.domain
-
-import com.soolee.domain.util.CalculatorInputUtil
+package edu.nextstep.camp.calculator.domain
 
 class Calculator {
     fun calculate(input: String): Int {

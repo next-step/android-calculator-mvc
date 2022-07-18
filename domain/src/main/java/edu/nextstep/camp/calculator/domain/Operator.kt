@@ -1,4 +1,4 @@
-package com.soolee.domain
+package edu.nextstep.camp.calculator.domain
 
 enum class Operator(
     val operatorMark: String,

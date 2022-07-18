@@ -1,6 +1,4 @@
-package com.soolee.domain.validator
-
-import com.soolee.domain.util.CalculatorInputUtil
+package edu.nextstep.camp.calculator.domain
 
 class CalculatorInputValidator {
     companion object {

@@ -1,6 +1,5 @@
-package edu.nextstep.camp.calculator
+package edu.nextstep.camp.calculator.domain
 
-import com.soolee.domain.validator.CalculatorInputValidator
 import org.junit.Test
 
 class CalculatorValidatorTest {
