@@ -6,6 +6,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Calculator
+import edu.nextstep.camp.calculator.domain.CalculatorInputConverter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -23,7 +24,10 @@ class MainActivity : AppCompatActivity() {
 
     fun onClickEqual(view: View) {
         val text = binding.textView.text.toString()
-        val value = calculator.calculate(text)
+        val value = calculator.calculate(
+            CalculatorInputConverter
+                .getCalculatorInputToTextArr(text)
+        )
         binding.textView.text = value.toString()
     }
 
