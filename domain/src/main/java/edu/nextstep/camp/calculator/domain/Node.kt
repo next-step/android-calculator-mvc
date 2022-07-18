@@ -2,10 +2,9 @@ package edu.nextstep.camp.calculator.domain
 
 sealed class Node
 
-data class Operator(val symbol: String): Node() {
-
+data class Operator(val symbol: String) : Node() {
     fun calculate(left: Int, right: Int): Int {
-        return when(symbol) {
+        return when (symbol) {
             "+" -> left + right
             "-" -> left - right
             "*" -> left * right
@@ -17,4 +16,4 @@ data class Operator(val symbol: String): Node() {
 
 data class Operand(
     val value: Int
-    ): Node()
+) : Node()

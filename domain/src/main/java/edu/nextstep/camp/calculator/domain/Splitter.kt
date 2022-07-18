@@ -2,7 +2,6 @@ package edu.nextstep.camp.calculator.domain
 
 
 object Splitter {
-
     fun split(expression: String): List<Node> {
         val splitList = expression.split(" ")
 

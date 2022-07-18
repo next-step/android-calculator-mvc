@@ -2,8 +2,8 @@ package edu.nextstep.camp.calculator.domain
 
 class Calculator {
 
-    fun evaluate(inputExpression: String?):Int {
-        require(!inputExpression.isNullOrBlank()) {"입력값은 null이거나 빈값일 수 없습니다."}
+    fun evaluate(inputExpression: String?): Int {
+        require(!inputExpression.isNullOrBlank()) { "입력값은 null이거나 빈값일 수 없습니다." }
 
         val expressionNodeList = Splitter.split(inputExpression)
 
@@ -15,7 +15,7 @@ class Calculator {
         //이전 연산 결과값을 저장
         var result = (firstNode as Operand).value
 
-        for(i in 1 until expressionNodeList.size step 2) {
+        for (i in 1 until expressionNodeList.size step 2) {
             val operator = expressionNodeList[i]
             val operand = expressionNodeList[i + 1]
 
