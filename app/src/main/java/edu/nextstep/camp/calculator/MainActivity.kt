@@ -63,10 +63,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun clickEquals(){
         if(!expression.last().isDigit()){
-            Toast.makeText(this, "완성되지 않은 수식입니다",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, WRONG_EXPRESSION, Toast.LENGTH_SHORT).show()
         }else{
             binding.textView.text = Calculator().evaluatesExpression(expression).toString()
         }
+    }
+
+    companion object{
+        private const val WRONG_EXPRESSION = "완성되지 않은 수식입니다"
     }
 
 }
