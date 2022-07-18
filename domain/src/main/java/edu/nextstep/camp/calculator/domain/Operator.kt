@@ -1,5 +1,6 @@
 package edu.nextstep.camp.calculator.domain
 
+import edu.nextstep.camp.calculator.domain.CalculatorExceptionType.OPERATOR_MUST_PREFIXED
 import java.lang.IllegalArgumentException
 
 enum class Operator(
@@ -15,6 +16,8 @@ enum class Operator(
 
     companion object {
         fun findBySymbol(symbol: String): Operator =
-            values().find { it.symbol == symbol } ?: throw IllegalArgumentException()
+            values().find { it.symbol == symbol } ?: throw IllegalArgumentException(
+               "Operator : $symbol  $OPERATOR_MUST_PREFIXED"
+            )
     }
 }
