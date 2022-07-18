@@ -7,7 +7,7 @@ enum class Operator(val operator: String, val calculate: (Int, Int) -> Int) {
     MULTIPLICATION("*", { first, second -> first * second });
 
     companion object {
-        fun get(operator: String) = values().find {
+        fun find(operator: String) = values().find {
             it.operator == operator
         } ?: throw IllegalArgumentException()
     }
