@@ -99,4 +99,54 @@ class MainActivityTest{
 
     }
 
+    @Test
+    fun 입력된_피연산자가_없을_때_숫자버튼을_클릭하면_해당_숫자가_화면에_보여야_한다() {
+        //given 피연산자가 없을때
+        //when: 숫자를 클릭하면
+        Espresso.onView(ViewMatchers.withId(R.id.button1)).perform(click())
+        //then: 화면에 숫자가 보여야 한다
+        Espresso.onView(ViewMatchers.withId(R.id.textView)).check(ViewAssertions.matches(ViewMatchers.withText("1")))
+    }
+    @Test
+    fun 연산자입력후에_숫자버튼을_클릭하면_해당_숫자가_화면에_보여야_한다() {
+        //given 연산자가 있을때
+        Espresso.onView(ViewMatchers.withId(R.id.button1)).perform(click())
+        Espresso.onView(ViewMatchers.withId(R.id.buttonPlus)).perform(click())
+        //when: 숫자를 클릭하면
+        Espresso.onView(ViewMatchers.withId(R.id.button1)).perform(click())
+        //then: 화면에 숫자가 보여야 한다
+        Espresso.onView(ViewMatchers.withId(R.id.textView)).check(ViewAssertions.matches(ViewMatchers.withText("1 + 1")))
+    }
+
+    @Test
+    fun 입력된_피연산자가_있을_때_숫자버튼을_클릭하면_해당_숫자가_화면에_보여야_한다() {
+        //given 피연산자가 있을때
+        Espresso.onView(ViewMatchers.withId(R.id.button1)).perform(click())
+        //when: 숫자를 클릭하면
+        Espresso.onView(ViewMatchers.withId(R.id.button2)).perform(click())
+        //then: 기존 숫자 뒤에 숫자가 보여야한다
+        Espresso.onView(ViewMatchers.withId(R.id.textView)).check(ViewAssertions.matches(ViewMatchers.withText("12")))
+    }
+
+    @Test
+    fun 입력된_피연산자가_없을_때_연산자버튼을_클릭하면_아무런_변화가_없어야_한다() {
+        //given 피연산자가 없을때
+        //when: 연산자버튼을 클릭하면
+        Espresso.onView(ViewMatchers.withId(R.id.buttonMinus)).perform(click())
+        //then: 아무런 변화가 없어야 한다
+        Espresso.onView(ViewMatchers.withId(R.id.textView)).check(ViewAssertions.matches(ViewMatchers.withText("")))
+    }
+
+    @Test
+    fun 입력된_피연산자가_있을_때_연산자버튼을_클릭하면_해당_기호가_화면에_보여야_한다() {
+        //given 피연산자가 있을때
+        Espresso.onView(ViewMatchers.withId(R.id.button1)).perform(click())
+        //when: 연산자버튼을 클릭하면
+        Espresso.onView(ViewMatchers.withId(R.id.buttonPlus)).perform(click())
+        //then: 해당 기호가 화면에 보여야 한다
+        Espresso.onView(ViewMatchers.withId(R.id.textView)).check(ViewAssertions.matches(ViewMatchers.withText("1 +")))
+    }
+
+
+
 }
