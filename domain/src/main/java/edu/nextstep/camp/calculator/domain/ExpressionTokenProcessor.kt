@@ -32,8 +32,8 @@ class ExpressionTokenProcessor {
             lastOrNull().also { lastToken ->
                 when {
                     lastToken is Operand -> add(input)
-                    lastToken is Operator && input == Operator.SUBTRACTION || lastToken == null -> add(NegativeExpressionToken())
-                    lastToken is Operator && input != Operator.SUBTRACTION -> this[lastIndex] = input
+                    input == Operator.SUBTRACTION && (lastToken is Operator || lastToken == null) -> add(NegativeExpressionToken())
+                    input != Operator.SUBTRACTION && lastToken is Operator -> this[lastIndex] = input
                 }
             }
             toExpression()

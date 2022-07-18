@@ -7,7 +7,10 @@ interface ExpressionToken {
     val value : Any?
 
     companion object {
-        fun getFromValue(value: String) : ExpressionToken {
+        fun getFromValue(value: String) : ExpressionToken =
+            getFromNonBlankValue(value.filterNot { it.isWhitespace() })
+
+        private fun getFromNonBlankValue(value: String) : ExpressionToken {
             val enumExpression = OtherExpressionToken.values().find {
                 it.value == value
             } ?: Operator.values().find {
