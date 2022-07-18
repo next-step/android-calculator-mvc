@@ -147,6 +147,37 @@ class MainActivityTest{
         Espresso.onView(ViewMatchers.withId(R.id.textView)).check(ViewAssertions.matches(ViewMatchers.withText("1 +")))
     }
 
+    @Test
+    fun 입력된_수식이_없을_때_지우기_버튼을_누르면_아무런_변화가_없어야_한다() {
+        //given 수식이 없을때
+        //when: 지우기버튼을 클릭하면
+        Espresso.onView(ViewMatchers.withId(R.id.buttonDelete)).perform(click())
+        //then: 아무런 변화가 없어야 한다
+        Espresso.onView(ViewMatchers.withId(R.id.textView)).check(ViewAssertions.matches(ViewMatchers.withText("")))
+    }
+
+    @Test
+    fun 마지막이_연산자일때_지우기_버튼을_누르면_마지막_연산자가_지워져야_한다() {
+        //given 마지막이 연산자일때
+        Espresso.onView(ViewMatchers.withId(R.id.button2)).perform(click())
+        Espresso.onView(ViewMatchers.withId(R.id.buttonPlus)).perform(click())
+        //when: 지우기버튼을 클릭하면
+        Espresso.onView(ViewMatchers.withId(R.id.buttonDelete)).perform(click())
+        //then: 연산자가 지워져야 한다
+        Espresso.onView(ViewMatchers.withId(R.id.textView)).check(ViewAssertions.matches(ViewMatchers.withText("2")))
+    }
+
+    @Test
+    fun 마지막이_피연산자일때_지우기_버튼을_누르면_마지막_피연산자가_지워져야_한다() {
+        //given 마지막이 피연산자일때
+        Espresso.onView(ViewMatchers.withId(R.id.button2)).perform(click())
+        Espresso.onView(ViewMatchers.withId(R.id.button3)).perform(click())
+        //when: 지우기버튼을 클릭하면
+        Espresso.onView(ViewMatchers.withId(R.id.buttonDelete)).perform(click())
+        //then: 연산자가 지워져야 한다
+        Espresso.onView(ViewMatchers.withId(R.id.textView)).check(ViewAssertions.matches(ViewMatchers.withText("2")))
+    }
+
 
 
 }

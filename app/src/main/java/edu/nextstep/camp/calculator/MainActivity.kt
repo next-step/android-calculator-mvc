@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         binding.buttonDivide.setOnClickListener {clickOperator("/")}
         binding.buttonMultiply.setOnClickListener {clickOperator("*")}
 
+        binding.buttonDelete.setOnClickListener { clickDelete() }
+
 
     }
     private fun clickOperator(operator: String){
@@ -43,6 +45,15 @@ class MainActivity : AppCompatActivity() {
             expression += " "
         }
         expression += value.toString()
+        binding.textView.text = expression
+    }
+
+    private fun clickDelete(){
+        if(expression.isEmpty()) return
+        // 공백있으면 공백까지 지우기
+        val deleteSize = if(expression.length > 1 && expression[expression.lastIndex - 1] == ' ') 2 else 1
+        expression = expression.substring(0, expression.length - deleteSize)
+
         binding.textView.text = expression
     }
 
