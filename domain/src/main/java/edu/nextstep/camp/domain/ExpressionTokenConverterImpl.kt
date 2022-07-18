@@ -11,7 +11,7 @@ internal class ExpressionTokenConverterImpl : ExpressionTokenConverter {
 			return convertOperator(tokenString)
 		}
 
-		return Number(tokenString)
+		return NumberOperand(tokenString)
 	}
 
 	private fun convertOperator(tokenString: String): ExpressionToken {

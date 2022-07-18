@@ -40,36 +40,36 @@ class CalculatorTest {
 
 	@Test
 	fun `processAddition 호출시 연산 결과에 피연산자를 더한다`() {
-		val result = target.processAddition(3.toDouble(), Number("3"))
+		val result = target.processAddition(3.toDouble(), NumberOperand("3"))
 		assertThat(result).isEqualTo(6)
 	}
 
 	@Test
 	fun `processSubtraction 호출시 연산 결과에 피연산자를 뺀다`() {
-		val result = target.processSubtraction(3.toDouble(), Number("3"))
+		val result = target.processSubtraction(3.toDouble(), NumberOperand("3"))
 		assertThat(result).isEqualTo(0)
 	}
 
 	@Test
 	fun `processMultiplication 호출시 연산 결과에 피연산자를 곱한다`() {
-		val result = target.processMultiplication(3.toDouble(), Number("3"))
+		val result = target.processMultiplication(3.toDouble(), NumberOperand("3"))
 		assertThat(result).isEqualTo(9)
 	}
 
 	@Test
 	fun `processMultiplication 호출시 연산 결과에 피연산자를 나눈다`() {
-		val result = target.processDivision(3.toDouble(), Number("3"))
+		val result = target.processDivision(3.toDouble(), NumberOperand("3"))
 		assertThat(result).isEqualTo(1)
 	}
 
 	@Test(expected = IllegalArgumentException::class)
 	fun `processMultiplication 호출시 0으로 나누는 경우 IllegalArgumentException 를 throw 해야한다`() {
-		target.processDivision(3.toDouble(), Number("0"))
+		target.processDivision(3.toDouble(), NumberOperand("0"))
 	}
 
 	@Test(expected = IllegalArgumentException::class)
 	fun `processOperator 호출시 Number, Number 인자가 넘어오면 IllegalArgumentException 를 throw 해야한다`() {
-		target.processOperator(3.0, Number("3.0"), Number("3.0"))
+		target.processOperator(3.0, NumberOperand("3.0"), NumberOperand("3.0"))
 	}
 
 	@Test(expected = IllegalArgumentException::class)
@@ -79,7 +79,7 @@ class CalculatorTest {
 
 	@Test(expected = IllegalArgumentException::class)
 	fun `processOperator 호출시 Number, Operator 인자가 넘어오면 IllegalArgumentException 를 throw 해야한다`() {
-		target.processOperator(3.0, Number("3.0"), Operator.Addition)
+		target.processOperator(3.0, NumberOperand("3.0"), Operator.Addition)
 	}
 
 	@Test

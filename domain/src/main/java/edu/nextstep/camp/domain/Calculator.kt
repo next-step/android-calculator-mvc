@@ -11,12 +11,12 @@ class Calculator(
 		val tokens = expressionString.split(" ")
 
 		val firstExpressionToken = expressionTokenConverter.convert(tokens.first())
-		if (firstExpressionToken !is Number) {
+		if (firstExpressionToken !is NumberOperand) {
 			throw IllegalArgumentException("Invalid Expression")
 		}
 
 		val lastExpressionToken = expressionTokenConverter.convert(tokens.last())
-		if (lastExpressionToken !is Number) {
+		if (lastExpressionToken !is NumberOperand) {
 			throw IllegalArgumentException("Invalid Expression")
 		}
 
@@ -33,7 +33,7 @@ class Calculator(
 	}
 
 	internal fun processOperator(tempResult: Double, operatorToken: ExpressionToken, numberToken: ExpressionToken): Double {
-		if (operatorToken !is Operator || numberToken !is Number) {
+		if (operatorToken !is Operator || numberToken !is NumberOperand) {
 			throw IllegalArgumentException("operatorToken must be a Operator and numberToken must be a Number")
 		}
 
@@ -45,23 +45,23 @@ class Calculator(
 		}
 	}
 
-	internal fun processAddition(tempResult: Double, numberToken: Number): Double {
-		return tempResult + numberToken.value
+	internal fun processAddition(tempResult: Double, numberOperand: NumberOperand): Double {
+		return tempResult + numberOperand.value
 	}
 
-	internal fun processSubtraction(tempResult: Double, numberToken: Number): Double {
-		return tempResult - numberToken.value
+	internal fun processSubtraction(tempResult: Double, numberOperand: NumberOperand): Double {
+		return tempResult - numberOperand.value
 	}
 
-	internal fun processMultiplication(tempResult: Double, numberToken: Number): Double {
-		return tempResult * numberToken.value
+	internal fun processMultiplication(tempResult: Double, numberOperand: NumberOperand): Double {
+		return tempResult * numberOperand.value
 	}
 
-	internal fun processDivision(tempResult: Double, numberToken: Number): Double {
-		if (numberToken.value == 0.toDouble()) {
+	internal fun processDivision(tempResult: Double, numberOperand: NumberOperand): Double {
+		if (numberOperand.value == 0.toDouble()) {
 			throw IllegalArgumentException("Operand value of Division must not be zero")
 		}
 
-		return tempResult / numberToken.value
+		return tempResult / numberOperand.value
 	}
 }

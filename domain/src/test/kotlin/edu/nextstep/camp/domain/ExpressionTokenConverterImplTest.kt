@@ -43,7 +43,7 @@ class ExpressionTokenConverterImplTest {
 	fun `숫자 형태의 문자열을 전달하는 경우 Number 객체를 반환해야 한다`() {
 		val result = target.convert("123")
 
-		assertThat(result).isInstanceOf(Number::class.java)
+		assertThat(result).isInstanceOf(NumberOperand::class.java)
 	}
 
 	@Test
