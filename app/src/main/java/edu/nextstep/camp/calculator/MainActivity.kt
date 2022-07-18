@@ -9,7 +9,7 @@ import edu.nextstep.camp.calculator.domain.Calculator
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private var expression = ""
+    private var expressionTool = Expression()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,37 +38,24 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun clickOperator(operator: String){
-        if(expression.isNotEmpty() && expression.last().isDigit()){
-            expression += " $operator"
-        }
-        binding.textView.text = expression
+        binding.textView.text = expressionTool.addOperator(operator)
     }
 
     private fun clickOperand(value: Int){
-        if(expression.isNotEmpty() && !expression.last().isDigit()){
-            expression += " "
-        }
-        expression += value.toString()
-        binding.textView.text = expression
+        binding.textView.text = expressionTool.addOperand(value)
     }
 
     private fun clickDelete(){
-        if(expression.isEmpty()) return
-        // 앞의문자가 공백이거나 소수점이면 같이 지워버리기
-        val deleteSize =
-            if (expression.length > 1 && (expression[expression.lastIndex - 1] == ' ' || expression[expression.lastIndex - 1] == '.')) 2 else 1
-        expression = expression.substring(0, expression.length - deleteSize)
-
-        binding.textView.text = expression
+        binding.textView.text = expressionTool.delete()
     }
 
     private fun clickEquals(){
-        if(!expression.last().isDigit()){
+        if (!expressionTool.isCompletedExpression()) {
             Toast.makeText(this, WRONG_EXPRESSION, Toast.LENGTH_SHORT).show()
-        }else{
-            val result = Calculator().evaluatesExpression(expression).toString()
-            binding.textView.text = result
-            expression = result
+        } else {
+            val result = Calculator().evaluatesExpression(expressionTool.expression)
+            binding.textView.text = result.toString()
+            expressionTool.initializeValue(result)
         }
     }
 
