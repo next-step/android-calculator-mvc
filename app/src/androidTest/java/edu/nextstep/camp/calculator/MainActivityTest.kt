@@ -174,10 +174,20 @@ class MainActivityTest{
         Espresso.onView(ViewMatchers.withId(R.id.button3)).perform(click())
         //when: 지우기버튼을 클릭하면
         Espresso.onView(ViewMatchers.withId(R.id.buttonDelete)).perform(click())
-        //then: 연산자가 지워져야 한다
+        //then: 피연산자가 지워져야 한다
         Espresso.onView(ViewMatchers.withId(R.id.textView)).check(ViewAssertions.matches(ViewMatchers.withText("2")))
     }
 
-
+    @Test
+    fun 입력된_수식이_완전할_때_등호버튼을_누르면_결과값이_나온다() {
+        //given 입력된 수식이 완전할때
+        Espresso.onView(ViewMatchers.withId(R.id.button2)).perform(click())
+        Espresso.onView(ViewMatchers.withId(R.id.buttonPlus)).perform(click())
+        Espresso.onView(ViewMatchers.withId(R.id.button2)).perform(click())
+        //when: 등호버튼을 누르면
+        Espresso.onView(ViewMatchers.withId(R.id.buttonEquals)).perform(click())
+        //then: 결과값이 나온다
+        Espresso.onView(ViewMatchers.withId(R.id.textView)).check(ViewAssertions.matches(ViewMatchers.withText("${4f}")))
+    }
 
 }

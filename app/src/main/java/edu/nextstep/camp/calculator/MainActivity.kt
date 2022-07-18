@@ -1,8 +1,11 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
+import edu.nextstep.camp.calculator.domain.Calculator
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
@@ -30,18 +33,19 @@ class MainActivity : AppCompatActivity() {
         binding.buttonMultiply.setOnClickListener {clickOperator("*")}
 
         binding.buttonDelete.setOnClickListener { clickDelete() }
+        binding.buttonEquals.setOnClickListener { clickEquals() }
 
 
     }
     private fun clickOperator(operator: String){
-        if(expression.isNotEmpty() && expression[expression.lastIndex].isDigit()){
+        if(expression.isNotEmpty() && expression.last().isDigit()){
             expression += " $operator"
         }
         binding.textView.text = expression
     }
 
     private fun clickOperand(value: Int){
-        if(expression.isNotEmpty() && !expression[expression.lastIndex].isDigit()){
+        if(expression.isNotEmpty() && !expression.last().isDigit()){
             expression += " "
         }
         expression += value.toString()
@@ -55,6 +59,14 @@ class MainActivity : AppCompatActivity() {
         expression = expression.substring(0, expression.length - deleteSize)
 
         binding.textView.text = expression
+    }
+
+    private fun clickEquals(){
+        if(!expression.last().isDigit()){
+            Toast.makeText(this, "완성되지 않은 수식입니다",Toast.LENGTH_SHORT).show()
+        }else{
+            binding.textView.text = Calculator().evaluatesExpression(expression).toString()
+        }
     }
 
 }
