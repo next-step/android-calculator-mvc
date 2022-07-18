@@ -13,12 +13,10 @@ class Calculator {
         var index = 1
         while (index < inputs.size) {
             val operatorSymbol = inputs[index++]
-            val operator = operatorSymbol.findOperatorBySymbol()
+            val operator = Operator.findBySymbol(operatorSymbol)
             val newValue = inputs[index++].toDouble()
             acc = operator.execute(acc, newValue)
         }
         return acc
     }
-
-    private fun String.findOperatorBySymbol(): Operator = Operator.findBySymbol(this)
 }
