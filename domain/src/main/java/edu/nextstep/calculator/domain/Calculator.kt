@@ -2,7 +2,7 @@ package edu.nextstep.calculator.domain
 
 object Calculator {
     private fun splitExpression(expression: String): List<String> {
-        ExpressionValidation.isValidExpression(expression)
+        ExpressionValidator.isValidExpression(expression)
         return expression.split(" ")
     }
 

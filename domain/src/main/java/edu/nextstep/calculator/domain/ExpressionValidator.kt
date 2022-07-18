@@ -1,6 +1,6 @@
 package edu.nextstep.calculator.domain
 
-object ExpressionValidation {
+object ExpressionValidator {
     private val expressionRegex = Regex("-?\\d+( [+\\-*/] -?\\d+)*")
 
     fun isValidExpression(expression: String) {
