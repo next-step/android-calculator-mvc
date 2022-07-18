@@ -6,7 +6,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
-import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
 
@@ -30,33 +29,21 @@ internal class CalculatorTest {
             Arguments.of("3 *//* 4", IllegalArgumentException("잘못된 연산자가 포함되었습니다.")),
         )
 
-        fun evaluteOrException(calculator: Calculator, requested: String?) = try {
-            calculator.evalute(requested)
-        } catch (e: Exception) {
-            e
-        }
-
-        fun assertThat(actual: Any, expected: Any?) {
-            when {
-                actual is Throwable && expected is Throwable -> {
-                    assertThat(actual).isInstanceOf(expected::class.java)
-                    assertThat(actual.message).startsWith(expected.message)
-                }
-                else -> assertThat(actual).isEqualTo(expected)
-            }
-        }
+        @JvmStatic
+        fun givenRightOperationsTestSource() : Stream<Arguments> = Stream.of(
+            Arguments.of("11 +    222", 233.toDouble()),
+            Arguments.of("11 -    222", (-211).toDouble()),
+            Arguments.of("222 /    2 / 111", 1.toDouble()),
+            Arguments.of("222 *    2 * 3", 1332.toDouble()),
+            Arguments.of("2 + 3 * 4 / 2", 10.toDouble()),
+        )
     }
 
     @Nested
     @DisplayName("올바른 연산이 주어지면")
     inner class GivenRightOperationsTest {
-        @CsvSource(
-            "'11 +    222', ${233.toDouble()}",
-            "'11 -    222', ${(-211).toDouble()}",
-            "'222 /    2 / 111', ${1.toDouble()}",
-            "'222 *    2 * 3', ${1332.toDouble()}",
-            "'2 + 3 * 4 / 2', ${10.toDouble()}"
-        )
+
+        @MethodSource("edu.nextstep.camp.calculator.domain.CalculatorTest#givenRightOperationsTestSource")
         @ParameterizedTest(name = "{0} = {1}")
         @DisplayName("계산은 성공해야 한다.")
         fun `연산을 한다`(requested: String?, expected: Double) {
@@ -81,6 +68,22 @@ internal class CalculatorTest {
 
             //then
             assertThat(actual, expected)
+        }
+    }
+
+    fun evaluteOrException(calculator: Calculator, requested: String?) = try {
+        calculator.evalute(requested)
+    } catch (e: Exception) {
+        e
+    }
+
+    fun assertThat(actual: Any, expected: Any?) {
+        when {
+            actual is Throwable && expected is Throwable -> {
+                assertThat(actual).isInstanceOf(expected::class.java)
+                assertThat(actual.message).startsWith(expected.message)
+            }
+            else -> assertThat(actual).isEqualTo(expected)
         }
     }
 }
