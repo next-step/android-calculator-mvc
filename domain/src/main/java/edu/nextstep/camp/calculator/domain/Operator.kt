@@ -7,7 +7,7 @@ package edu.nextstep.camp.calculator.domain
 enum class Operator(val operator: String, val calculate: (Double,Double) -> Double) {
     PLUS("+", { first, second -> first + second }),
     MINUS("-", { first, second -> first - second }),
-    DIVISION("/", { first, second -> first / second }),
+    DIVISION("/", { first, second -> if(second == 0.0) throw IllegalArgumentException("0으로 나눌수 없습니다") else first / second }),
     MULTIPLICATION("*", { first, second -> first * second });
 
     companion object{

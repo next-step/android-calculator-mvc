@@ -44,6 +44,11 @@ class CalculatorTest{
         assertThat(result).isEqualTo(3.0 / 4)
     }
 
+    @Test(expected = java.lang.IllegalArgumentException::class)
+    fun 피연산자_0으로_나누면_IllegalArgumentException_throw() {
+        calculator.evaluatesExpression("3 / 0")
+    }
+
     @Test
     fun 피연산자들을_곱하면_곱한_값을_얻습니다(){
         val result = calculator.evaluatesExpression("3 * 4")
