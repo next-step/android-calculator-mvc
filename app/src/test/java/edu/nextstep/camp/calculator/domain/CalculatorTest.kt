@@ -6,7 +6,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import java.lang.IllegalArgumentException
 
-class CalculatorDomainTest {
+class CalculatorTest {
 
     @Test(expected = IllegalArgumentException::class)
     fun 입력이_공백일_경우_IlligalArgumentException_발생() {
