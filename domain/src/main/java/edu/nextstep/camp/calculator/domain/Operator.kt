@@ -25,7 +25,7 @@ enum class Operator(
     });
 
     companion object {
-        fun find(input: String) = values().find { operator: Operator ->
+        fun find(input: String): Operator? = values().find { operator: Operator ->
             operator.operator == input
         }
     }

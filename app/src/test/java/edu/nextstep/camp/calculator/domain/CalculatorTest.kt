@@ -1,6 +1,7 @@
 package edu.nextstep.camp.calculator.domain
 
 import com.google.common.truth.Truth
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -12,7 +13,16 @@ class CalculatorTest(
     private val result: BigDecimal
 ) {
 
-    private val calculator = Calculator(BlankSplitter(), Validator())
+    private lateinit var blankSplitter: BlankSplitter
+    private lateinit var validator: Validator
+    private lateinit var calculator: Calculator
+
+    @Before
+    fun setUp() {
+        blankSplitter = BlankSplitter()
+        validator = Validator()
+        calculator = Calculator(blankSplitter, validator)
+    }
 
     @Test
     fun 계산기_기능_테스트() {
@@ -33,6 +43,31 @@ class CalculatorTest(
             arrayOf("1 / 0 + 3", BigDecimal(3)),
             arrayOf("5 + 4 - 3 * 2 / 2", BigDecimal(6)),
         )
+    }
+
+}
+
+class CalculatorExceptionTest {
+
+    private lateinit var blankSplitter: BlankSplitter
+    private lateinit var validator: Validator
+    private lateinit var calculator: Calculator
+
+    @Before
+    fun setUp() {
+        blankSplitter = BlankSplitter()
+        validator = Validator()
+        calculator = Calculator(blankSplitter, validator)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun 공백_입력_테스트() {
+        Truth.assertThat(calculator.evaluate("")).isEqualTo("")
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun 사칙연산_기호가_아닌_다른_기호입력_테스트() {
+        Truth.assertThat(calculator.evaluate("1 & 2")).isEqualTo("")
     }
 
 }
