@@ -13,7 +13,7 @@ internal class Calculation {
             check(operator is Operator)
             val operand2 = queue.poll()
             check(operand2 is Operand)
-            result = Expression(operand1.operand, operand2.operand, operator).expose()
+            result = Expression(result, operand2.operand, operator).expose()
         }
         result
     }

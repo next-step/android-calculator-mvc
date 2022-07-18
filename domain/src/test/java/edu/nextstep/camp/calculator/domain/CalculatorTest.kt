@@ -76,4 +76,14 @@ class CalculatorTest {
         //then
         assertThat(actual).isEqualTo(72)
     }
+
+    @Test
+    fun `12과_6을_더한뒤_2로_곱하면_36이다`() {
+        //given
+        val input = "12 + 6 * 2"
+        //when
+        val actual = calculator.evaluate(input)
+        //then
+        assertThat(actual).isEqualTo(36)
+    }
 }
