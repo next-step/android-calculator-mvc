@@ -8,18 +8,15 @@ interface ExpressionToken {
 
     companion object {
         fun getFromValue(value: String) : ExpressionToken {
-            return when (value) {
-                Operator.SUBTRACTION.value -> Operator.SUBTRACTION
-                Operator.ADDITION.value -> Operator.ADDITION
-                Operator.MULTIPLICATION.value -> Operator.MULTIPLICATION
-                Operator.DIVISION.value -> Operator.DIVISION
-                OtherExpressionToken.DEL.value -> OtherExpressionToken.DEL
-                OtherExpressionToken.EQUALS.value -> OtherExpressionToken.EQUALS
-                else -> {
-                    // ExpressionToken은 숫자 하나씩만 처리하기위해 1자리수 숫자만 허용한다
-                    if (RegexUtils.checkExpressionIsOneDigitNumber(value)) Operand(Integer.parseInt(value))
-                    else OtherExpressionToken.UNKNOWN
-                }
+            val enumExpression = OtherExpressionToken.values().find {
+                it.value == value
+            } ?: Operator.values().find {
+                it.value == value
+            }
+            return when {
+                enumExpression != null -> enumExpression
+                RegexUtils.checkExpressionIsOneDigitNumber(value) -> Operand(Integer.parseInt(value))
+                else -> Operand(Integer.parseInt(value))
             }
         }
     }
