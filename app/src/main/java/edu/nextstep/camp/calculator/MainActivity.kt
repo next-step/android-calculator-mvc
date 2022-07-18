@@ -35,12 +35,10 @@ class MainActivity : AppCompatActivity(), UserInputActionReceiver {
     }
 
     private fun processInputButton(btn: Button) {
-        if (btn.text.isNullOrEmpty()) {
-            if (btn.id == R.id.buttonDelete) processInputAction(OtherExpressionToken.DEL)
-            else handleExceptions(IllegalArgumentException("Unknown Input"))
-        }
-        else {
-            processInputAction(ExpressionToken.getFromValue(btn.text.toString()))
+        when {
+            !btn.text.isNullOrBlank() -> processInputAction(ExpressionToken.getFromValue(btn.text.toString()))
+            btn.id == R.id.buttonDelete -> processInputAction(OtherExpressionToken.DEL)
+            else -> handleExceptions(IllegalArgumentException("Unknown Input"))
         }
     }
 

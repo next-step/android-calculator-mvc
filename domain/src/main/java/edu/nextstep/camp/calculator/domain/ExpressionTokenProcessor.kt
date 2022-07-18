@@ -28,8 +28,12 @@ class ExpressionTokenProcessor {
 
     private fun processOperatorInput(input: Operator) : String {
         return expressionTokenList.run {
-            if (lastOrNull() is Operand) add(input)
-            else if (lastOrNull() is Operator) this[lastIndex] = input
+            if (lastOrNull() is Operand) {
+                add(input)
+            }
+            else if (lastOrNull() is Operator) {
+                this[lastIndex] = input
+            }
             toExpression()
         }
     }
