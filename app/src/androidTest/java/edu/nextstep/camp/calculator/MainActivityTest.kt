@@ -27,25 +27,6 @@ class MainActivityTest{
     }
 
     @Test
-    fun `버튼_0을_2번_누르면_화면에_00이_보여야_한다`() {
-
-        onView(ViewMatchers.withId(R.id.button0)).perform(click())
-        onView(ViewMatchers.withId(R.id.button0)).perform(click())
-
-        onView(ViewMatchers.withId(R.id.textView)).check(matches(withText("00")))
-    }
-
-    @Test
-    fun `버튼_0을_3번_누르면_화면에_000이_보여야_한다`() {
-
-        onView(ViewMatchers.withId(R.id.button0)).perform(click())
-        onView(ViewMatchers.withId(R.id.button0)).perform(click())
-        onView(ViewMatchers.withId(R.id.button0)).perform(click())
-
-        onView(ViewMatchers.withId(R.id.textView)).check(matches(withText("000")))
-    }
-
-    @Test
     fun `버튼_1을_누르면_화면에_1이_보여야_한다`() {
 
         onView(ViewMatchers.withId(R.id.button1)).perform(click())
