@@ -5,10 +5,7 @@ import edu.nextstep.camp.calculator.domain.model.Operator
 
 
 object Calculator {
-    fun evaluate(expression: String) : Int =
-        evaluateNonEmptyExpression(expression.filter { !it.isWhitespace() })
-
-    private fun evaluateNonEmptyExpression(expression: String) : Int {
+    fun evaluate(expression: String) : Int {
         if (!RegexUtils.checkExpressionIsValid(expression)) {
             throw IllegalArgumentException("Wrong Format")
         }

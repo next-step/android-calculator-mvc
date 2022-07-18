@@ -23,7 +23,7 @@ enum class Operator(override val value: String?) : ExpressionToken {
 
     companion object {
         fun getFromRaw(raw: String) : Operator {
-            return when (raw) {
+            return when (raw.filterNot { it.isWhitespace() }) {
                 ADDITION.value -> ADDITION
                 SUBTRACTION.value -> SUBTRACTION
                 MULTIPLICATION.value -> MULTIPLICATION

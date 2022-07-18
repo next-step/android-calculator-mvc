@@ -21,7 +21,7 @@ class CalculatorTest {
 
     @ParameterizedTest(name = "#{index}) {0} throws IllegalArgumentException({1})")
     @CsvSource(
-        "-1 + 2 + 3, Wrong Format",
+        "*1 + 2 + 3, Wrong Format",
         "1 + 1 + 1 +, Wrong Format",
         "nil, Wrong Format",
         "1 ÷- 5 × 1 ++ 18, Wrong Format",

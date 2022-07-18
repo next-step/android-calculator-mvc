@@ -4,6 +4,7 @@ import edu.nextstep.camp.calculator.domain.exception.ExpressionNotCompleteExcept
 import edu.nextstep.camp.calculator.domain.model.Operand
 import edu.nextstep.camp.calculator.domain.model.Operator
 import edu.nextstep.camp.calculator.domain.model.ExpressionToken
+import edu.nextstep.camp.calculator.domain.model.NegativeExpressionToken
 import edu.nextstep.camp.calculator.domain.model.OtherExpressionToken
 import org.jetbrains.annotations.TestOnly
 
@@ -28,11 +29,12 @@ class ExpressionTokenProcessor {
 
     private fun processOperatorInput(input: Operator) : String {
         return expressionTokenList.run {
-            if (lastOrNull() is Operand) {
-                add(input)
-            }
-            else if (lastOrNull() is Operator) {
-                this[lastIndex] = input
+            lastOrNull().also { lastToken ->
+                when {
+                    lastToken is Operand -> add(input)
+                    lastToken is Operator && input == Operator.SUBTRACTION || lastToken == null -> add(NegativeExpressionToken())
+                    lastToken is Operator && input != Operator.SUBTRACTION -> this[lastIndex] = input
+                }
             }
             toExpression()
         }
@@ -57,18 +59,22 @@ class ExpressionTokenProcessor {
         val result = Calculator.evaluate(parsedStr)
         expressionTokenList.clear()
         result.toString().forEach {
-            expressionTokenList.add(ExpressionToken.getFromValue(it.toString()))
+            ExpressionToken.getFromValue(it.toString()).let { token ->
+                expressionTokenList.add(if (token == Operator.SUBTRACTION) NegativeExpressionToken() else token)
+            }
         }
 
         return expressionTokenList.toExpression()
     }
     
     private fun List<ExpressionToken>.toExpression() : String {
-        val sb = StringBuilder()
-        forEach {
-            sb.append(it.value)
+        return joinToString(separator = "") {
+            if (it is Operator) {
+                " ${it.value} "
+            } else {
+                it.value.toString()
+            }
         }
-        return sb.toString()
     }
 
     @TestOnly

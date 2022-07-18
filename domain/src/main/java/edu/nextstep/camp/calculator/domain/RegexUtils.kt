@@ -3,7 +3,7 @@ package edu.nextstep.camp.calculator.domain
 import edu.nextstep.camp.calculator.domain.model.Operator
 
 object RegexUtils {
-    private const val NUMBER_REGEX = "\\d+"
+    private const val NUMBER_REGEX = "-?\\d+"
     private const val ONE_DIGIT_NUMBER_REGEX = "\\d"
 
     fun getOperatorsList(expression: String) =
@@ -21,8 +21,8 @@ object RegexUtils {
     private fun getRegexForOperators() = Operator.values()
         .filter { it.value != null }
         .map { it.value }
-        .joinToString(separator = "|\\", prefix = "[\\", postfix = "]")
+        .joinToString(separator = "|\\", prefix = "\\s[\\", postfix = "]\\s")
         .toRegex()
 
-    private fun  getRegexForValidExpression() = "(((\\d+)(${getRegexForOperators().pattern}))*)(\\d+)".toRegex()
+    private fun getRegexForValidExpression() = "((($NUMBER_REGEX)(${getRegexForOperators().pattern}))*)($NUMBER_REGEX)".toRegex()
 }

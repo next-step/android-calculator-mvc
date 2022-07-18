@@ -27,3 +27,5 @@ enum class OtherExpressionToken(override val value: String?) : ExpressionToken {
     EQUALS("="),
     UNKNOWN(null);
 }
+
+data class NegativeExpressionToken(override val value: String = "-") : ExpressionToken
