@@ -10,12 +10,17 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.google.android.material.button.MaterialButton
 import de.mannodermaus.junit5.ActivityScenarioExtension
+import edu.nextstep.camp.calculator.domain.model.Operand
+import edu.nextstep.camp.calculator.domain.model.Operator
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.CsvSource
+import org.junit.jupiter.params.provider.MethodSource
+import java.util.stream.Stream
 
 class MainActivityTest {
     @JvmField
@@ -63,22 +68,16 @@ class MainActivityTest {
     @ParameterizedTest(name = "Given no output, When button {0} is pressed, Then output is none")
     @CsvSource(
         "+",
-        "-",
         "×",
         "÷"
     )
-    fun givenNoDisplayedText_WhenOperatorButtonPressed_ThenNothing(buttonText: String) {
+    fun givenNoDisplayedText_WhenOperatorButtonExceptForSubtractionPressed_ThenNothing(buttonText: String) {
         onView(withText(buttonText)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText("")))
     }
 
     @ParameterizedTest(name = "Given number {0} displayed, When button {1} is pressed, Then output is {2}")
-    @CsvSource(
-        "1, +, 1+",
-        "1, -, 1-",
-        "33, ×, 33×",
-        "1, ÷, 1÷"
-    )
+    @MethodSource("provide_GivenNumberDisplayed_WhenOperatorButtonPressed_ThenAppendsOperator")
     fun givenNumberDisplayed_WhenOperatorButtonPressed_ThenAppendsOperator(
         displayedText: String, buttonText: String, expected: String, scenario: ActivityScenario<MainActivity>
     ) {
@@ -99,12 +98,7 @@ class MainActivityTest {
     }
 
     @ParameterizedTest
-    @CsvSource(
-        "1, ",
-        "1+, 1",
-        "12, 1",
-        "1×4÷, 1×4"
-    )
+    @MethodSource("provide_GivenDisplayedText_WhenDelBtnPressed_ThenDelLastElement")
     fun givenDisplayedText_WhenDelBtnPressed_ThenDelLastElement(
         displayedText: String, expected: String?, scenario: ActivityScenario<MainActivity>
     ) {
@@ -118,10 +112,10 @@ class MainActivityTest {
 
     @ParameterizedTest
     @CsvSource(
-        "1+12, 13",
-        "1+14÷2, 7",
-        "12-14, -2",
-        "1×4÷3, 1"
+        "1 + 12, 13",
+        "1 + 14 ÷ 2, 7",
+        "12 - 14, -2",
+        "1 × 4 ÷ 3, 1"
     )
     fun givenCompleteExpression_WhenEqualsBtnPressed_ThenResultIsDisplayed(
         displayedText: String, expected: String, scenario: ActivityScenario<MainActivity>
@@ -132,5 +126,26 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(withText(displayedText)))
         onView(withId(R.id.buttonEquals)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText(expected)))
+    }
+
+    companion object {
+        @JvmStatic
+        private fun provide_GivenNumberDisplayed_WhenOperatorButtonPressed_ThenAppendsOperator(): Stream<Arguments> {
+            return Stream.of(
+                Arguments.of("1", "+", "1 + "),
+                Arguments.of("1", "-", "1 - "),
+                Arguments.of("33", "×", "33 × "),
+                Arguments.of("1", "÷", "1 ÷ "),
+            )
+        }
+        @JvmStatic
+        private fun provide_GivenDisplayedText_WhenDelBtnPressed_ThenDelLastElement(): Stream<Arguments> {
+            return Stream.of(
+                Arguments.of("1", ""),
+                Arguments.of("1 + ", "1"),
+                Arguments.of("12", "1"),
+                Arguments.of("1 × 4 ÷ ", "1 × 4"),
+            )
+        }
     }
 }

@@ -13,6 +13,7 @@ class CalculatorTest {
         "2 + 3 × 4 ÷ 3, 6",
         "0 × 1073741824 + 1, 1",
         "1 - 5 × 1 - 18, -22",
+        "-1 - 5 × 1 - 18, -24",
     )
     fun evaluatesExpression(expression: String, expected: Int) {
         val actual: Int = Calculator.evaluate(expression)
