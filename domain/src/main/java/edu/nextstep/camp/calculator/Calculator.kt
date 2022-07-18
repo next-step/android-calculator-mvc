@@ -6,7 +6,7 @@ class Calculator {
 
     fun evaluate(expression: String?): Int {
         val stack = Stack<String>()
-        val expressionWithoutBlank = expression?.split(BLANK) ?: throw IllegalArgumentException()
+        val expressionWithoutBlank = expression?.split(DELIMITER) ?: throw IllegalArgumentException()
 
         expressionWithoutBlank.forEach {
             if (stack.isEmpty()) {
@@ -36,13 +36,7 @@ class Calculator {
     }
 
     private fun isMathematicalSymbol(symbol: String): Boolean {
-        when(symbol) {
-            MathematicalSymbol.PLUS.type -> return true
-            MathematicalSymbol.MINUS.type -> return true
-            MathematicalSymbol.MULTIPLE.type -> return true
-            MathematicalSymbol.DIVIDE.type -> return true
-        }
-        return false
+        return MathematicalSymbol.values().any() {it.type == symbol}
     }
 
     private fun isNumber(str: String): Boolean {
@@ -78,6 +72,6 @@ class Calculator {
     }
 
     companion object {
-        const val BLANK = " "
+        const val DELIMITER = " "
     }
 }
