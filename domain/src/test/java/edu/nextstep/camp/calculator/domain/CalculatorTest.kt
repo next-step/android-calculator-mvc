@@ -27,31 +27,31 @@ class CalculatorTest{
     }
 
     @Test
-    fun 덧셈이_정상적으로_수행되는가(){
+    fun 피연산자들을_더하면_더한_값을_얻습니다(){
         val result = calculator.evaluatesExpression("3 + 4")
         assertThat(result).isEqualTo(3 + 4)
     }
 
     @Test
-    fun 뺄셈이_정상적으로_수행되는가(){
+    fun 피연산자들을_빼면_뺀_값을_얻습니다(){
         val result = calculator.evaluatesExpression("3 - 4")
         assertThat(result).isEqualTo(3 - 4)
     }
 
     @Test
-    fun 나눗셈이_정상적으로_수행되는가(){
+    fun 피연산자들을_나누면_나눈_값을_얻습니다(){
         val result = calculator.evaluatesExpression("3 / 4")
         assertThat(result).isEqualTo(3.0 / 4)
     }
 
     @Test
-    fun 곱셈이_정상적으로_수행되는가(){
+    fun 피연산자들을_곱하면_곱한_값을_얻습니다(){
         val result = calculator.evaluatesExpression("3 * 4")
         assertThat(result).isEqualTo(3 * 4)
     }
 
     @Test
-    fun 모든_사칙연산을_포함한_식이_잘_수행되는가(){
+    fun 모든_사칙연산을_포함한_식을_연산하면_연산된_값을_얻습니다(){
         val result = calculator.evaluatesExpression("2 + 3 * 4 / 2")
         assertThat(result).isEqualTo((2 + 3) * 4 / 2)
     }

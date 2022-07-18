@@ -12,13 +12,8 @@ enum class Operator(val operator: String, val calculate: (Double,Double) -> Doub
 
     companion object{
         fun get(operator: String): Operator{
-            return when(operator){
-                PLUS.operator -> PLUS
-                MINUS.operator -> MINUS
-                DIVISION.operator -> DIVISION
-                MULTIPLICATION.operator -> MULTIPLICATION
-                else -> throw IllegalArgumentException("연산자가 올바르지 않습니다  $operator")
-            }
+            return values().firstOrNull { it.operator == operator }
+                ?: throw IllegalArgumentException("연산자가 올바르지 않습니다  $operator")
         }
     }
 }
