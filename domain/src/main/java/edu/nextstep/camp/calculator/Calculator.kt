@@ -1,47 +1,21 @@
 package edu.nextstep.camp.calculator
 
-import java.util.Stack
-
 class Calculator {
 
     fun evaluate(expression: String?): Int {
-        val stack = Stack<String>()
+        val expressionStack = ExpressionStack()
         val expressionWithoutBlank = expression?.split(DELIMITER) ?: throw IllegalArgumentException()
 
-        expressionWithoutBlank.forEach {
-            if (stack.isEmpty()) {
-                stack.push(it)
-            } else {
-                pushValueWhenStackIsNotEmpty(stack, it)
+        expressionWithoutBlank.forEach { str ->
+            val stack = expressionStack.getStackForCalculating(str)
+            stack?.let {
+                val type = it.pop()
+                val value = it.pop()
+                val result = calculateValue(type, value.toInt(), str.toInt())
+                expressionStack.pushResult(result.toString())
             }
         }
-        return if (stack.isEmpty() || stack.peek().toIntOrNull() == null) {
-            throw IllegalArgumentException()
-        } else {
-            stack.pop().toInt()
-        }
-    }
-
-    private fun pushValueWhenStackIsNotEmpty(stack: Stack<String>, str: String) {
-        if (isMathematicalSymbol(str)) {
-            stack.push(str)
-        } else if (isNumber(str)) {
-            val type = stack.pop()
-            val value = stack.pop()
-            val result = calculateValue(type, value.toInt(), str.toInt())
-            stack.push(result.toString())
-        } else {
-            throw IllegalArgumentException()
-        }
-    }
-
-    private fun isMathematicalSymbol(symbol: String): Boolean {
-        return MathematicalSymbol.values().any() {it.type == symbol}
-    }
-
-    private fun isNumber(str: String): Boolean {
-        if (str.toIntOrNull() == null) return false
-        return true
+        return expressionStack.getStackPeekIntegerValue()
     }
 
     private fun calculateValue(type: String, value: Int, value2: Int) : Int {
