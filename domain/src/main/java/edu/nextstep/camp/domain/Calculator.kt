@@ -11,12 +11,12 @@ class Calculator(
 		val tokens = expressionString.split(" ")
 
 		val firstExpressionToken = expressionTokenConverter.convert(tokens.first())
-		if (firstExpressionToken !is NumberOperand) {
+		if (firstExpressionToken !is NumberOperandToken) {
 			throw IllegalArgumentException("Invalid Expression")
 		}
 
 		val lastExpressionToken = expressionTokenConverter.convert(tokens.last())
-		if (lastExpressionToken !is NumberOperand) {
+		if (lastExpressionToken !is NumberOperandToken) {
 			throw IllegalArgumentException("Invalid Expression")
 		}
 
@@ -33,35 +33,35 @@ class Calculator(
 	}
 
 	internal fun processOperator(tempResult: Double, operatorToken: ExpressionToken, numberToken: ExpressionToken): Double {
-		if (operatorToken !is Operator || numberToken !is NumberOperand) {
+		if (operatorToken !is OperatorToken || numberToken !is NumberOperandToken) {
 			throw IllegalArgumentException("operatorToken must be a Operator and numberToken must be a Number")
 		}
 
 		return when(operatorToken) {
-			Operator.Addition -> processAddition(tempResult, numberToken)
-			Operator.Subtraction -> processSubtraction(tempResult, numberToken)
-			Operator.Multiplication -> processMultiplication(tempResult, numberToken)
-			Operator.Division -> processDivision(tempResult, numberToken)
+			OperatorToken.Addition -> processAddition(tempResult, numberToken)
+			OperatorToken.Subtraction -> processSubtraction(tempResult, numberToken)
+			OperatorToken.Multiplication -> processMultiplication(tempResult, numberToken)
+			OperatorToken.Division -> processDivision(tempResult, numberToken)
 		}
 	}
 
-	internal fun processAddition(tempResult: Double, numberOperand: NumberOperand): Double {
-		return tempResult + numberOperand.value
+	internal fun processAddition(tempResult: Double, numberOperandToken: NumberOperandToken): Double {
+		return tempResult + numberOperandToken.value
 	}
 
-	internal fun processSubtraction(tempResult: Double, numberOperand: NumberOperand): Double {
-		return tempResult - numberOperand.value
+	internal fun processSubtraction(tempResult: Double, numberOperandToken: NumberOperandToken): Double {
+		return tempResult - numberOperandToken.value
 	}
 
-	internal fun processMultiplication(tempResult: Double, numberOperand: NumberOperand): Double {
-		return tempResult * numberOperand.value
+	internal fun processMultiplication(tempResult: Double, numberOperandToken: NumberOperandToken): Double {
+		return tempResult * numberOperandToken.value
 	}
 
-	internal fun processDivision(tempResult: Double, numberOperand: NumberOperand): Double {
-		if (numberOperand.value == 0.toDouble()) {
+	internal fun processDivision(tempResult: Double, numberOperandToken: NumberOperandToken): Double {
+		if (numberOperandToken.value == 0.toDouble()) {
 			throw IllegalArgumentException("Operand value of Division must not be zero")
 		}
 
-		return tempResult / numberOperand.value
+		return tempResult / numberOperandToken.value
 	}
 }

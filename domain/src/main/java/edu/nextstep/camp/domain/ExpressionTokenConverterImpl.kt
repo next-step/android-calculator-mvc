@@ -11,15 +11,15 @@ internal class ExpressionTokenConverterImpl : ExpressionTokenConverter {
 			return convertOperator(tokenString)
 		}
 
-		return NumberOperand(tokenString)
+		return NumberOperandToken(tokenString)
 	}
 
 	private fun convertOperator(tokenString: String): ExpressionToken {
 		return when (tokenString) {
-			Operator.Addition.tokenString -> Operator.Addition
-			Operator.Subtraction.tokenString -> Operator.Subtraction
-			Operator.Multiplication.tokenString -> Operator.Multiplication
-			Operator.Division.tokenString -> Operator.Division
+			OperatorToken.Addition.tokenString -> OperatorToken.Addition
+			OperatorToken.Subtraction.tokenString -> OperatorToken.Subtraction
+			OperatorToken.Multiplication.tokenString -> OperatorToken.Multiplication
+			OperatorToken.Division.tokenString -> OperatorToken.Division
 			else -> throw IllegalArgumentException("Unknown operator token string")
 		}
 	}
