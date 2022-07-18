@@ -13,9 +13,8 @@ class CalculatorTest {
         calculator = Calculator()
     }
 
-    // 덧셈이 되어야 한다.
     @Test
-    fun add() {
+    fun `덧셈이 되어야 한다`() {
         
         // given
         val requestedValue = "11 +             222"
@@ -29,9 +28,8 @@ class CalculatorTest {
         
     }
 
-    // 뺄셈이 되어야 한다.
     @Test
-    fun minus() {
+    fun `뺄셈이 되어야 한다`() {
         //given
         val requestedValue = "11 -    222"
         val expectedValue = -211
@@ -43,9 +41,8 @@ class CalculatorTest {
         assertThat(actual).isEqualTo(expectedValue)
     }
 
-    // 나눗셈이 되어야 한다.
     @Test
-    fun divide() {
+    fun `나눗셈이 되어야 한다`() {
         //given
         val requestedValue = "222 /    2 / 111"
         val expectedValue = 1
@@ -57,9 +54,8 @@ class CalculatorTest {
         assertThat(actual).isEqualTo(expectedValue)
     }
 
-    // 곱셈이 되어야 한다.
     @Test
-    fun multiply() {
+    fun `곱셈이 되어야 한다`() {
         //given
         val requestedValue = "222 *    2 * 3"
         val expectedValue = 1332
@@ -71,9 +67,8 @@ class CalculatorTest {
         assertThat(actual).isEqualTo(expectedValue)
     }
 
-    // 입력값이 null일 경우 IllegalArgumentException throw!
     @Test
-    fun nullCheck() {
+    fun `입력값이 null일 경우 IllegalArgumentException throw`() {
         
         // given
         val requestedValue = null
@@ -89,9 +84,8 @@ class CalculatorTest {
 
     }
 
-    // 입력값이 공백일 경우 IllegalArgumentException throw!
     @Test
-    fun blankCheck() {
+    fun `입력값이 공백일 경우 IllegalArgumentException throw`() {
         
         // given
         val requestedValue = " "
@@ -107,9 +101,8 @@ class CalculatorTest {
         assertThat(actualValue?.message?.startsWith("not valid inputValue")).isTrue()
     }
 
-    // 사칙연산 기호가 아닌 경우 IllegalArgumentException throw
     @Test
-    fun operationSignCheck() {
+    fun `사칙연산 기호가 아닌 경우 IllegalArgumentException throw`() {
         //given
         val requestedValue = "121  % 222"
         val expectedInstance = IllegalArgumentException::class.java
@@ -125,7 +118,7 @@ class CalculatorTest {
     }
 
     @Test
-    fun containsAllOperation() {
+    fun `사칙 연산을 모두 포함하는 기능 구현`() {
         //given
         val requestedValue = "2 + 3 * 4 / 2"
         val expectedValue = 10

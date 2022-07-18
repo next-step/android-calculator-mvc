@@ -28,11 +28,11 @@ class OperationTest(
     }
 
     @Test
-    fun `연산`() {
+    fun `입력된 값을 사칙연산 처리한다`() {
         //when
-        val actual = operation(left, right)
+        val actualValue = operation(left, right)
 
         //then
-        assertThat(actual).isEqualTo(expected)
+        assertThat(actualValue).isEqualTo(expected)
     }
 }

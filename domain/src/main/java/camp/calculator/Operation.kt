@@ -12,6 +12,9 @@ sealed class Operation(
     operator fun invoke(left: Int, right: Int) = calculationBlock(left, right)
 
     companion object {
+
+        val OPERATOR_SPLIT_REGEX = "[0-9]".toRegex()
+
         @Throws(IllegalArgumentException::class)
         fun get(operator: Char): Operation = when (operator) {
             Plus.operator -> Plus
@@ -22,5 +25,13 @@ sealed class Operation(
         }
 
         fun getChars() = charArrayOf(Plus.operator, Minus.operator, Div.operator, Mult.operator)
+
+        fun getOperators(inputValueStr: String) : List<Char> {
+            val refinedValueList = inputValueStr
+                .split(OPERATOR_SPLIT_REGEX)
+                .filter { it.isNotBlank() }
+                .map { it.trim().last() }
+            return refinedValueList
+        }
     }
 }
