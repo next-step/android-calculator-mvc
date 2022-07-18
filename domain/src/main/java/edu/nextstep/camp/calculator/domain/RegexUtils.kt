@@ -18,15 +18,11 @@ object RegexUtils {
     fun checkExpressionIsOneDigitNumber(expression: String) =
         ONE_DIGIT_NUMBER_REGEX.toRegex().matches(expression)
 
-    private fun getRegexForOperators() = "[${StringBuilder().run {
-        Operator.values().forEach { operator ->
-            operator.value?.also {
-                append("\\$it|")
-            }
-        }
-        delete(lastIndex, length)
-        toString()
-    }}]".toRegex()
+    private fun getRegexForOperators() = Operator.values()
+        .filter { it.value != null }
+        .map { it.value }
+        .joinToString(separator = "|\\", prefix = "[\\", postfix = "]")
+        .toRegex()
 
     private fun  getRegexForValidExpression() = "(((\\d+)(${getRegexForOperators().pattern}))*)(\\d+)".toRegex()
 }
