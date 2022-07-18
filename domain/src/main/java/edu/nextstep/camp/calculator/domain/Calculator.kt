@@ -6,7 +6,7 @@ class Calculator {
         return calculate(expressionList)
     }
 
-    private fun calculate(expressionList: List<String>): Int {
+    fun calculate(expressionList: List<String>): Int {
         var result = toOperand(expressionList[0])
 
         for (index in 1 until expressionList.size step 2) {
