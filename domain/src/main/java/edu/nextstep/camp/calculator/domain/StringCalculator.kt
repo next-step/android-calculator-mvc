@@ -12,7 +12,7 @@ object StringCalculator {
         val operands = parseOperands(rawOperands)
         val operators = parseOperators(rawOperators)
         require(operands.size - OPERATOR_INDEX_BUFFER == operators.size) {
-            "완전하지 않은 수식이 입력되었습니다."
+            "완전하지 않은 수식($expression)이 입력되었습니다."
         }
         return operands.reduceIndexed { index, first, second ->
             operators[index - OPERATOR_INDEX_BUFFER].action(first, second)

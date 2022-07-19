@@ -19,6 +19,6 @@ value class Operand(val value: Double) : Term {
 
     companion object {
         fun of(raw: String): Operand =
-            Operand(raw.toDoubleOrNull() ?: throw IllegalArgumentException("해당하는 Operand를 찾을 수 없습니다."))
+            Operand(raw.toDoubleOrNull() ?: throw IllegalArgumentException("${raw}에 해당하는 Operand를 찾을 수 없습니다."))
     }
 }

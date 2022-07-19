@@ -16,7 +16,7 @@ enum class Operator(
         fun of(raw: String): Operator =
             values()
                 .find { it.symbol == raw }
-                ?: throw IllegalArgumentException("해당하는 Operator를 찾을 수 없습니다.")
+                ?: throw IllegalArgumentException("${raw}에 해당하는 Operator를 찾을 수 없습니다.")
     }
 }
 
