@@ -12,7 +12,7 @@ enum class Operator(
     DIVIDE(symbol = "/", operatorBlock = { oldValue, newValue -> oldValue / newValue }),
     MULTIPLY(symbol = "*", operatorBlock = { oldValue, newValue -> oldValue * newValue });
 
-    fun execute(oldValue: Double, newValue: Double) = operatorBlock.invoke(oldValue, newValue)
+    fun execute(oldValue: Double, newValue: Double):Double = operatorBlock.invoke(oldValue, newValue)
 
     companion object {
         fun findBySymbol(symbol: String): Operator =
