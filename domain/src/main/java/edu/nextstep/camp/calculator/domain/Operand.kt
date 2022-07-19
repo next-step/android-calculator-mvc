@@ -1,7 +1,7 @@
 package edu.nextstep.camp.calculator.domain
 
 @JvmInline
-value class Operand(val value: Double) {
+value class Operand(val value: Double) : Term {
 
     constructor(value: Int) : this(value.toDouble())
 

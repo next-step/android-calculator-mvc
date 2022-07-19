@@ -21,7 +21,7 @@ internal class StringExpressionStateTest {
         val result = givenExpression.plusElement(operand)
 
         // then
-        assertThat(result.value).isEqualTo(expected)
+        assertThat(result.toString()).isEqualTo(expected)
     }
 
     @ParameterizedTest(name = "{0} 수식에 연산자 {1}을 추가하면 {2}가 된다.")
@@ -39,7 +39,7 @@ internal class StringExpressionStateTest {
         val result = givenExpression.plusElement(operator)
 
         // then
-        assertThat(result.value).isEqualTo(expected)
+        assertThat(result.toString()).isEqualTo(expected)
     }
 
     @ParameterizedTest(name = "{0} 수식에서 마지막 요소를 제거하면 {1}가 된다.")
@@ -47,6 +47,7 @@ internal class StringExpressionStateTest {
         "9, ''",
         "123 -, 123",
         "1 + 23, 1 + 2",
+        "1 + 234, 1 + 23",
         "'', ''",
     )
     fun `수식의 마지막 요소를 제거할 수 있다`(given: String, expected: String) {
@@ -57,6 +58,6 @@ internal class StringExpressionStateTest {
         val result = givenExpression.minusElement()
 
         // then
-        assertThat(result.value).isEqualTo(expected)
+        assertThat(result.toString()).isEqualTo(expected)
     }
 }
