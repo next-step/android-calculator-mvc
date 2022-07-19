@@ -20,4 +20,3 @@ enum class Operator(
     }
 }
 
-interface Term
