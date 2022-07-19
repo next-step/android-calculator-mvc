@@ -5,7 +5,10 @@ import edu.nextstep.camp.calculator.domain.Calculator
 
 //logic
 class MainActivityViewModel {
-    val viewState: MutableLiveData<MainState> = MutableLiveData(MainState.DisplayText(""))
+    val viewState: MutableLiveData<MainState>
+        get() = _viewState
+
+    private val _viewState: MutableLiveData<MainState> = MutableLiveData(MainState.DisplayText(""))
 
     fun onEvent(event: MainEvent) {
         when(event) {
