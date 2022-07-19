@@ -1,8 +1,8 @@
 package edu.nextstep.camp.calculator.domain
 
 class Calculator {
-    fun evaluate(expression: String): Int {
-        val expressionList = expression.split(" ")
+    fun evaluate(expression: Expression): Int {
+        val expressionList = expression.expressionText.split(" ")
         return calculate(expressionList)
     }
 
@@ -17,7 +17,7 @@ class Calculator {
         return result
     }
 
-    private fun toOperand(expression: String): Int {
+    fun toOperand(expression: String): Int {
         return if (expression.isEmpty() || expression.toIntOrNull() == null) {
             throw IllegalArgumentException()
         } else {
