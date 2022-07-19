@@ -51,15 +51,5 @@ class MainActivity : AppCompatActivity() {
         binding.button9.setOnClickListener {
             binding.textView.text="9";
         }
-
-
-
-
-
-
-
-
-
-
     }
 }

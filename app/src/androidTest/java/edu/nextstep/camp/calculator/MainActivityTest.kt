@@ -20,6 +20,7 @@ class MainActivityTest {
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
+=======
     //    사용자가 피연산자 0 ~ 9 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
     @Test
     fun 버튼_0을_누르면_화면에_0이_보여야_한다(){
@@ -37,7 +38,6 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("1")));
     }
 
-
     @Test
     fun 버튼_2을_누르면_화면에_2이_보여야_한다(){
         // when : 0 버튼을 누르면
@@ -45,7 +45,6 @@ class MainActivityTest {
         // then : 화면에 0이 보여야 한다.
         onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("2")));
     }
-
 
     @Test
     fun 버튼_3을_누르면_화면에_3이_보여야_한다(){
@@ -101,6 +100,4 @@ class MainActivityTest {
         // then : 화면에 0이 보여야 한다.
         onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("9")));
     }
-
-
 }
