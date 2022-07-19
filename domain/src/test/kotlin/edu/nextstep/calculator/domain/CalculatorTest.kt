@@ -1,7 +1,6 @@
 package edu.nextstep.calculator.domain
 
 import org.junit.Assert.assertThrows
-import org.junit.Before
 import org.junit.Test
 
 class CalculatorTest {
