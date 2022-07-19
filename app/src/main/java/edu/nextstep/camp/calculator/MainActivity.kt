@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
-import edu.nextstep.camp.calculator.domain.Calculator
+import edu.nextstep.camp.calculator.domain.Expression
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val calculator: Calculator = Calculator(DELIMITER)
+    private val expression = Expression(DELIMITER)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,22 +36,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickOperand(number: String) {
-        calculator.addOperand(number)
+        expression.addOperand(number)
         updateText()
     }
 
     private fun onClickOperator(operator: String) {
-        calculator.addOperator(operator)
+        expression.addOperator(operator)
         updateText()
     }
 
     private fun onClickDelete() {
-        calculator.delete()
+        expression.delete()
         updateText()
     }
 
     private fun onClickEquals() {
-        calculator.evaluate {
+        expression.evaluate {
             Toast.makeText(this, getText(R.string.not_completed_expression), Toast.LENGTH_SHORT)
                 .show()
         }
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateText() {
-        binding.textView.text = calculator.expression
+        binding.textView.text = expression.expression
     }
 
     companion object {

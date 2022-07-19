@@ -3,6 +3,9 @@ package edu.nextstep.camp.calculator.domain
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
+import org.junit.jupiter.params.provider.NullAndEmptySource
 
 /**
  * Created by link.js on 2022. 07. 13..
@@ -11,65 +14,50 @@ import org.junit.jupiter.api.assertThrows
 class CalculatorTest {
     private val calculator = Calculator(' ')
 
-    @Test
-    fun `"2 + 5" 는 7 이다`() {
-        calculator.addOperand("2")
-        calculator.addOperator("+")
-        calculator.addOperand("5")
-        calculator.evaluate()
-        assertEquals(calculator.expression, "7")
+    @ParameterizedTest(name = "{0} = {1}")
+    @CsvSource("2 + 3, 5",
+        "5 - 2, 3",
+        "5 * 3, 15",
+        "5 + 3 / 4, 2",
+        "2 + 3 * 4 / 2, 10",
+        "200 - 10 / 10, 19")
+    fun `계산기가 정상 동작한다`(expression: String, answer: Int) {
+        assertEquals(calculator.evaluate(expression), answer)
     }
 
-    @Test
-    fun `"6 나누기 3" 는 2 이다`() {
-        calculator.addOperand("6")
-        calculator.addOperator("/")
-        calculator.addOperand("3")
-        calculator.evaluate()
-        assertEquals(calculator.expression, "2")
-    }
-
-    @Test
-    fun `"4 * 3" 는 12 이다`() {
-        calculator.addOperand("4")
-        calculator.addOperator("*")
-        calculator.addOperand("3")
-        calculator.evaluate()
-        assertEquals(calculator.expression, "12")
+    @ParameterizedTest
+    @NullAndEmptySource
+    fun `입력값이 null이거나 빈 공백 문자일 경우 IllegalArgumentException throw`(source: String?) {
+        assertThrows<IllegalArgumentException> {
+            calculator.evaluate(source)
+        }
     }
 
     @Test
     fun `사칙연산 기호가 아닌 경우 IllegalArgumentException throw`() {
         assertThrows<IllegalArgumentException> {
-            calculator.addOperand("3")
-            calculator.addOperator("]")
-            calculator.addOperand("3")
-            calculator.evaluate()
+            calculator.evaluate("2 ] 3")
+        }
+    }
+
+    @Test
+    fun `숫자 위치에 숫자가 아닌 경우 IllegalArgumentException throw`() {
+        assertThrows<IllegalArgumentException> {
+            calculator.evaluate("2 3 3")
         }
     }
 
     @Test
     fun `0으로 나눌 경우 IllegalArgumentException throw`() {
         assertThrows<IllegalArgumentException> {
-            calculator.addOperand("3")
-            calculator.addOperator("/")
-            calculator.addOperand("0")
-            calculator.evaluate()
+            calculator.evaluate("2 / 0")
         }
     }
 
     @Test
-    fun `5를 넣으면 식에 5가 잘 저장 된다`() {
-        calculator.addOperand("5")
-        assertEquals(calculator.expression, "5")
-    }
-
-    @Test
-    fun `"5 + 3"에서 delete를 누르면 "5 +"만 남는다`() {
-        calculator.addOperand("5")
-        calculator.addOperator("+")
-        calculator.addOperand("3")
-        calculator.delete()
-        assertEquals(calculator.expression, "5 +")
+    fun `연산자와 피연산자 갯수가 맞지 않는 경우 IllegalArgumentException throw`() {
+        assertThrows<IllegalArgumentException> {
+            calculator.evaluate("2 / 0 +")
+        }
     }
 }
