@@ -35,9 +35,9 @@ class Expression(private val delimiter: Char) {
         }
     }
 
-    fun evaluate(onError: (() -> Unit)? = null) {
+    fun evaluate(onShowErrorToast: (() -> Unit)? = null) {
         if (expressionStack.isEmpty() || expressionStack.last().toIntOrNull() == null) {
-            onError?.invoke()
+            onShowErrorToast?.invoke()
             return
         }
         val expression = expressionStack.joinToString(delimiter.toString())
