@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
-import edu.nextstep.camp.calculator.domain.Operation
+import edu.nextstep.camp.calculator.domain.Operator
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -31,10 +31,10 @@ class MainActivity : AppCompatActivity() {
         binding.button8.setOnClickListener { mainLogic.onEvent(MainEvent.AddNumber("${binding.textView.text}", 8)) }
         binding.button9.setOnClickListener { mainLogic.onEvent(MainEvent.AddNumber("${binding.textView.text}", 9)) }
         binding.buttonDelete.setOnClickListener { mainLogic.onEvent(MainEvent.DeleteLast("${binding.textView.text}")) }
-        binding.buttonDivide.setOnClickListener { mainLogic.onEvent(MainEvent.AddOperator("${binding.textView.text}", Operation.Div.operator)) }
-        binding.buttonPlus.setOnClickListener { mainLogic.onEvent(MainEvent.AddOperator("${binding.textView.text}", Operation.Plus.operator)) }
-        binding.buttonMinus.setOnClickListener { mainLogic.onEvent(MainEvent.AddOperator("${binding.textView.text}", Operation.Minus.operator)) }
-        binding.buttonMultiply.setOnClickListener { mainLogic.onEvent(MainEvent.AddOperator("${binding.textView.text}", Operation.Mult.operator)) }
+        binding.buttonDivide.setOnClickListener { mainLogic.onEvent(MainEvent.AddOperator("${binding.textView.text}", Operator.Div.operator)) }
+        binding.buttonPlus.setOnClickListener { mainLogic.onEvent(MainEvent.AddOperator("${binding.textView.text}", Operator.Plus.operator)) }
+        binding.buttonMinus.setOnClickListener { mainLogic.onEvent(MainEvent.AddOperator("${binding.textView.text}", Operator.Minus.operator)) }
+        binding.buttonMultiply.setOnClickListener { mainLogic.onEvent(MainEvent.AddOperator("${binding.textView.text}", Operator.Mult.operator)) }
         binding.buttonEquals.setOnClickListener { mainLogic.onEvent(MainEvent.Evalute("${binding.textView.text}")) }
     }
 
