@@ -5,9 +5,17 @@ class Editor {
 
     fun input(content: String) {
         if (ExpressionValidator.isNumber(content) &&
-            (expression.isEmpty()) || ExpressionValidator.isNumber(expression.last().toString())
+            (expression.isEmpty()) || ExpressionValidator.isNumber(getExpressionLast())
         ) {
             expression = expression.plus(content)
         }
+    }
+
+    private fun getExpressionLast(): String? {
+        if (expression.isEmpty() || expression.isBlank()) {
+            return null
+        }
+
+        return expression.last().toString()
     }
 }

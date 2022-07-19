@@ -10,5 +10,9 @@ object ExpressionValidator {
         }
     }
 
-    fun isNumber(content: String): Boolean = numberRegex.matches(content)
+    fun isNumber(content: String?): Boolean {
+        content ?: return false
+
+        return numberRegex.matches(content)
+    }
 }
