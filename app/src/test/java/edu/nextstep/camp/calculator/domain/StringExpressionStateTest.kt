@@ -18,7 +18,7 @@ internal class StringExpressionStateTest {
         val operand = Operand(operandNumber)
 
         // when
-        val result = givenExpression.plusElement(operand)
+        val result = givenExpression.addElement(operand)
 
         // then
         assertThat(result.toString()).isEqualTo(expected)
@@ -36,7 +36,7 @@ internal class StringExpressionStateTest {
         val operator = Operator.of(operatorSymbol)
 
         // when
-        val result = givenExpression.plusElement(operator)
+        val result = givenExpression.addElement(operator)
 
         // then
         assertThat(result.toString()).isEqualTo(expected)
@@ -55,7 +55,7 @@ internal class StringExpressionStateTest {
         val givenExpression = StringExpressionState.of(given)
 
         // when
-        val result = givenExpression.minusElement()
+        val result = givenExpression.removeElement()
 
         // then
         assertThat(result.toString()).isEqualTo(expected)

@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setOperandButtonListener(button: Button, operand: Operand) {
         button.setOnClickListener {
-            binding.textView.text = stringExpressionState.plusElement(operand).toString()
+            binding.textView.text = stringExpressionState.addElement(operand).toString()
         }
     }
 
@@ -62,13 +62,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setOperatorButtonListener(button: Button, operator: Operator) {
         button.setOnClickListener {
-            binding.textView.text = stringExpressionState.plusElement(operator).toString()
+            binding.textView.text = stringExpressionState.addElement(operator).toString()
         }
     }
 
     private fun initDeleteButton() {
         binding.buttonDelete.setOnClickListener {
-            binding.textView.text = stringExpressionState.minusElement().toString()
+            binding.textView.text = stringExpressionState.removeElement().toString()
         }
     }
 
