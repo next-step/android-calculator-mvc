@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Expression
+import edu.nextstep.camp.calculator.domain.ExpressionNotReadyException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -51,7 +52,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickEquals() {
-        expression.evaluate {
+        try {
+            expression.evaluate()
+        } catch (e: ExpressionNotReadyException) {
             Toast.makeText(this, getText(R.string.not_completed_expression), Toast.LENGTH_SHORT)
                 .show()
         }

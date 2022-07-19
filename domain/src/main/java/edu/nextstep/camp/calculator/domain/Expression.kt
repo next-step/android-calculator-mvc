@@ -35,10 +35,9 @@ class Expression(private val delimiter: Char) {
         }
     }
 
-    fun evaluate(onShowErrorToast: (() -> Unit)? = null) {
+    fun evaluate() {
         if (expressionStack.isEmpty() || expressionStack.last().toIntOrNull() == null) {
-            onShowErrorToast?.invoke()
-            return
+            throw ExpressionNotReadyException()
         }
         val expression = expressionStack.joinToString(delimiter.toString())
         val result = Calculator(delimiter).evaluate(expression)
@@ -52,3 +51,5 @@ class Expression(private val delimiter: Char) {
     }
 
 }
+
+class ExpressionNotReadyException(message: String? = null) : Exception(message)
