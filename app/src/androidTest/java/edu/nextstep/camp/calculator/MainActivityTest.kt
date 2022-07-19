@@ -73,4 +73,80 @@ class MainActivityTest {
         onView(withId(R.id.button9)).perform(click())
         onView(withId(R.id.textView)).check(matches(withText("9")))
     }
+
+    @Test
+    fun 입력한_값이_올바르게_들어오는지_확인한다() {
+        val expected = "3 + 2"
+
+        performClick(R.id.button3)
+        performClick(R.id.buttonPlus)
+        performClick(R.id.button2)
+
+        assertText(expected)
+    }
+
+    @Test
+    fun 버튼8과_버튼9를_누르면_89가_입력되야_한다() {
+        performClick(R.id.button8)
+        performClick(R.id.button9)
+
+        assertText("89")
+    }
+
+    @Test
+    fun 입력된_피연산자가_없을_때_연산자_버튼을_누르면_변화가_없어야_한다() {
+        val expected = ""
+        performClick(R.id.buttonDivide)
+
+        assertText(expected)
+    }
+
+    @Test
+    fun 마지막에_연산자가_입력된_상태로_다른_연산자가_들어오면_마지막_연산자를_교체한다() {
+        val expected = "6 -"
+        performClick(R.id.button6)
+        performClick(R.id.buttonPlus)
+        performClick(R.id.buttonMinus)
+
+        assertText(expected)
+    }
+
+    @Test
+    fun 지우기_버튼이_잘_작동하는지_확인한다() {
+        val expected = "5"
+
+        performClick(R.id.button5)
+        performClick(R.id.buttonMinus)
+        performClick(R.id.button4)
+
+        performClick(R.id.buttonDelete)
+        performClick(R.id.buttonDelete)
+
+        assertText(expected)
+    }
+
+    @Test
+    fun 식_입력_후_계산_버튼을_눌렀을_때_올바르게_계산_되는지_확인한다() {
+        val expected = "36" // '8 - 2 * 12 / 2'
+
+        performClick(R.id.button8)
+        performClick(R.id.buttonMinus)
+        performClick(R.id.button2)
+        performClick(R.id.buttonMultiply)
+        performClick(R.id.button1)
+        performClick(R.id.button2)
+        performClick(R.id.buttonDivide)
+        performClick(R.id.button2)
+        performClick(R.id.buttonEquals)
+
+        assertText(expected)
+    }
+
+    private fun performClick(id: Int) {
+        onView(withId(id)).perform(click())
+    }
+
+    private fun assertText(expected: String) {
+        onView(withId(R.id.textView)).check(matches(withText(expected)))
+    }
 }
