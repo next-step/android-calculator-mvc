@@ -1,10 +1,11 @@
 package edu.nextstep.camp.calculator.domain
 
-class Calculator {
-    fun evaluate(input: String?): Int {
-        require(!input.isNullOrBlank()) { IllegalArgumentException(IS_NULL_OR_BLANK) }
+class Calculator(private val delimiter: Char) {
 
-        val inputList = Splitter.splitByDelimiter(input)
+    fun evaluate(expression: String?): Int {
+        require(!expression.isNullOrEmpty()) { IllegalArgumentException(IS_NULL_OR_BLANK) }
+
+        val inputList = Splitter.splitByDelimiter(expression, delimiter)
         require(inputList.size % EVEN_COMPARISON_NUMBER == RESULT_WHEN_ODD_NUMBER) {
             IllegalArgumentException(NOT_MATCH_OPERATORS_AND_OPERANDS)
         }
@@ -16,7 +17,6 @@ class Calculator {
                 Operator.of(inputList[index])
                     .calculate(output, Operand.of(inputList[index + INDEX_OF_NUMBER]))
         }
-
         return output.value
     }
 

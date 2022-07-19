@@ -1,8 +1,6 @@
 package edu.nextstep.camp.calculator.domain
 
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
-import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
@@ -14,7 +12,7 @@ import org.junit.jupiter.params.provider.NullAndEmptySource
  */
 
 class CalculatorTest {
-    private val calculator = Calculator()
+    private val calculator = Calculator(' ')
 
     @ParameterizedTest(name = "{0} = {1}")
     @CsvSource("2 + 3, 5",
@@ -24,7 +22,7 @@ class CalculatorTest {
         "2 + 3 * 4 / 2, 10",
         "200 - 10 / 10, 19")
     fun `계산기가 정상 동작한다`(expression: String, answer: Int) {
-        assertEquals(Calculator().evaluate(expression), answer)
+        assertEquals(calculator.evaluate(expression), answer)
     }
 
     @ParameterizedTest
