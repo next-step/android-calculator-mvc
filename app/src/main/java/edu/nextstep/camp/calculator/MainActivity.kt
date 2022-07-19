@@ -74,16 +74,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun initEqualsButton() {
         binding.buttonEquals.setOnClickListener {
-            try {
-                binding.textView.text = StringCalculator
-                    .calculate(stringExpressionState)
-                    .value
-                    .toString()
-            } catch (e: IllegalArgumentException) {
-                Toast
-                    .makeText(this, R.string.illegal_expression_toast, Toast.LENGTH_SHORT)
-                    .show()
+            runCatching {
+                StringCalculator.calculate(stringExpressionState)
             }
+                .onSuccess {
+                    binding.textView.text = it.value.toString()
+                }
+                .onFailure {
+                    Toast
+                        .makeText(this, R.string.illegal_expression_toast, Toast.LENGTH_SHORT)
+                        .show()
+                }
         }
     }
 
