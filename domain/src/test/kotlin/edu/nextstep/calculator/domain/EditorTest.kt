@@ -19,4 +19,13 @@ class EditorTest {
         editor.input(content)
         assertThat(editor.expression).isEqualTo(content)
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["1", "0", "2", "5", "8", "9"])
+    fun `입력된 피연산자가 있을 때, 기존 숫자 뒤에 해당 숫자가 식에 붙는다`(content: String) {
+        editor.input("1")
+
+        editor.input(content)
+        assertThat(editor.expression).isEqualTo("1$content")
+    }
 }
