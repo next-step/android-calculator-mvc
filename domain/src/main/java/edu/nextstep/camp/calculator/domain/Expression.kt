@@ -1,4 +1,4 @@
-package edu.nextstep.camp.calculator
+package edu.nextstep.camp.calculator.domain
 
 /**
  * 계산식 관리 도구
