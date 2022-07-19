@@ -3,43 +3,43 @@ package edu.nextstep.camp.calculator.domain
 import java.util.*
 
 class Calculator(private val delimiter: Char) {
-    private val _expressionStack = Stack<String>()
+    private val expressionStack = Stack<String>()
     val expression: String
-        get() = _expressionStack.joinToString(delimiter.toString())
+        get() = expressionStack.joinToString(delimiter.toString())
 
     fun addOperand(number: String) {
-        if (_expressionStack.isNotEmpty() && _expressionStack.last().toIntOrNull() != null) {
-            _expressionStack.push(_expressionStack.pop() + number)
+        if (expressionStack.isNotEmpty() && expressionStack.last().toIntOrNull() != null) {
+            expressionStack.push(expressionStack.pop() + number)
         } else {
-            _expressionStack.push(number)
+            expressionStack.push(number)
         }
     }
 
     fun addOperator(operator: String) {
-        if (_expressionStack.isEmpty()) return
-        if (_expressionStack.last().toIntOrNull() == null) {
-            _expressionStack.pop()
+        if (expressionStack.isEmpty()) return
+        if (expressionStack.last().toIntOrNull() == null) {
+            expressionStack.pop()
         }
-        _expressionStack.push(operator)
+        expressionStack.push(operator)
     }
 
     fun delete() {
-        if (_expressionStack.isEmpty()) return
-        val value = _expressionStack.pop()
+        if (expressionStack.isEmpty()) return
+        val value = expressionStack.pop()
         if (value.toIntOrNull() == null) return
         if (value.toInt() >= SMALLEST_OF_TWO_DIGITS) {
-            _expressionStack.push(value.dropLast(1))
+            expressionStack.push(value.dropLast(1))
         }
     }
 
 
     fun evaluate(onError: (() -> Unit)? = null) {
-        if (_expressionStack.isEmpty() || _expressionStack.last().toIntOrNull() == null) {
+        if (expressionStack.isEmpty() || expressionStack.last().toIntOrNull() == null) {
             onError?.invoke()
             return
         }
 
-        val expression = _expressionStack.joinToString(delimiter.toString())
+        val expression = expressionStack.joinToString(delimiter.toString())
         require(expression.isNotBlank()) { IllegalArgumentException(IS_NULL_OR_BLANK) }
 
         val inputList = Splitter.splitByDelimiter(expression, delimiter)
@@ -55,8 +55,8 @@ class Calculator(private val delimiter: Char) {
                     .calculate(output, Operand.of(inputList[index + INDEX_OF_NUMBER]))
         }
 
-        _expressionStack.clear()
-        _expressionStack.push(output.value.toString())
+        expressionStack.clear()
+        expressionStack.push(output.value.toString())
     }
 
 
