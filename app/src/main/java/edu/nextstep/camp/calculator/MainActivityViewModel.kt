@@ -21,7 +21,7 @@ class MainActivityViewModel {
 
     private fun eventDeleteLast(event: MainEvent.DeleteLast) {
         val text = deleteLastOperatorOrNumber(event.displayedText)
-        viewState.value = MainState.DisplayText(text)
+        _viewState.value = MainState.DisplayText(text)
     }
 
     private fun eventAddOperator(event: MainEvent.AddOperator) {
@@ -32,21 +32,21 @@ class MainActivityViewModel {
         }
 
         val text = "$displayedText ${event.operator}"
-        viewState.value = MainState.DisplayText(text)
+        _viewState.value = MainState.DisplayText(text)
     }
 
     private fun eventEvalute(event: MainEvent.Evalute) {
         runCatching {
             Calculator().evalute(event.displayedText)
         }.onSuccess {
-            viewState.value = MainState.DisplayText(getEvalutedDisplayText(it))
+            _viewState.value = MainState.DisplayText(getEvalutedDisplayText(it))
         }.onFailure {
-            viewState.value = MainState.ShowToast("${it.message}")
+            _viewState.value = MainState.ShowToast("${it.message}")
         }
     }
 
     private fun eventAddNumber(event: MainEvent.AddNumber) {
-        viewState.value = MainState.DisplayText(getNumberAddedDisplayText(event))
+        _viewState.value = MainState.DisplayText(getNumberAddedDisplayText(event))
     }
 
     private fun deleteLastOperatorOrNumber(displayedText: String) = displayedText
