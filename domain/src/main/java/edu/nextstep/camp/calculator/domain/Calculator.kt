@@ -2,13 +2,20 @@ package edu.nextstep.camp.calculator.domain
 
 class Calculator {
     private companion object {
-        val OPERATOR_SPLIT_REGEX = "[0-9]".toRegex()
+        val OPERATOR_SPLIT_REGEX = "[0-9\\.]".toRegex()
     }
 
     @Throws(IllegalArgumentException::class)
     fun evalute(text: String?): Double {
         require(!text.isNullOrBlank()) { "잘못된 요청입니다. : $text" }
-        return compute(getNumbers(text), getOperators(text))
+        val arrangedRequest = getArrangedRequest(text)
+        return compute(getNumbers(arrangedRequest), getOperators(arrangedRequest))
+    }
+
+    private fun getArrangedRequest(text: String) = if (text[0] == '-') {
+        "0$text"
+    } else {
+        text
     }
 
     @Throws(IllegalArgumentException::class)

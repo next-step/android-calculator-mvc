@@ -28,6 +28,9 @@ internal class CalculatorTest {
             Arguments.of("222 /    2 / 111", 1.toDouble()),
             Arguments.of("222 *    2 * 3", 1332.toDouble()),
             Arguments.of("2 + 3 * 4 / 2", 10.toDouble()),
+            Arguments.of("-1 + 2", 1.toDouble()),
+            Arguments.of("3 / 2 - 2 * 2", (-1).toDouble()),
+            Arguments.of("-1.5 + 2", 0.5),
         )
     }
 
