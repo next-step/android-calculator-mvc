@@ -4,6 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
@@ -20,15 +21,6 @@ internal class CalculatorTest {
     }
 
     companion object {
-        @JvmStatic
-        fun givenWrongOperationsTestSource() : Stream<Arguments> = Stream.of(
-            Arguments.of(null, IllegalArgumentException("잘못된 요청입니다.")),
-            Arguments.of(" ", IllegalArgumentException("잘못된 요청입니다.")),
-            Arguments.of("121  % 222", IllegalArgumentException("잘못된 연산자가 포함되었습니다.")),
-            Arguments.of("3 * 4 / ", IllegalArgumentException("완성되지 않은 수식입니다.")),
-            Arguments.of("3 *//* 4", IllegalArgumentException("잘못된 연산자가 포함되었습니다.")),
-        )
-
         @JvmStatic
         fun givenRightOperationsTestSource() : Stream<Arguments> = Stream.of(
             Arguments.of("11 +    222", 233.toDouble()),
@@ -59,10 +51,64 @@ internal class CalculatorTest {
     @DisplayName("잘못된 연산이 주어지면")
     inner class GivenWrongOperationsTest {
 
-        @MethodSource("edu.nextstep.camp.calculator.domain.CalculatorTest#givenWrongOperationsTestSource")
-        @ParameterizedTest(name = "[{0}] -> {1}")
-        @DisplayName("throw IllegalArgumentExcetion 해야 한다.")
-        fun `잘못된 연산을 한다`(requested: String?, expected: IllegalArgumentException) {
+        @Test
+        fun `입력값이 null일 경우 IllegalArgumentException throw`() {
+            //given
+            val requested = null
+            val expected = IllegalArgumentException("잘못된 요청입니다.")
+
+            //when
+            val actual = evaluteOrException(calculator, requested)
+
+            //then
+            assertThat(actual, expected)
+        }
+
+        @Test
+        fun `입력값이 공백 일 경우 IllegalArgumentException throw`() {
+            //given
+            val requested = " "
+            val expected = IllegalArgumentException("잘못된 요청입니다.")
+
+            //when
+            val actual = evaluteOrException(calculator, requested)
+
+            //then
+            assertThat(actual, expected)
+        }
+
+        @Test
+        fun `사칙연산 기호가 아닌 경우 IllegalArgumentException throw`() {
+            //given
+            val requested = "121  % 222"
+            val expected = IllegalArgumentException("잘못된 연산자가 포함되었습니다.")
+
+            //when
+            val actual = evaluteOrException(calculator, requested)
+
+            //then
+            assertThat(actual, expected)
+        }
+
+        @Test
+        fun `완성되지 않는 수식 요청의 경우 IllegaArgumentException throw`() {
+            //given
+            val requested = "3 * 4 / "
+            val expected = IllegalArgumentException("완성되지 않은 수식입니다.")
+
+            //when
+            val actual = evaluteOrException(calculator, requested)
+
+            //then
+            assertThat(actual, expected)
+        }
+
+        @Test
+        fun `연산자가 연속적으로 입력되었을 경우 IllegalArgumentException throw`() {
+            //given
+            val requested = "3 *//* 4"
+            val expected = IllegalArgumentException("잘못된 연산자가 포함되었습니다.")
+
             //when
             val actual = evaluteOrException(calculator, requested)
 

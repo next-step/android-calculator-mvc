@@ -45,7 +45,6 @@ class MainActivityTest {
 
     }
 
-
     // -> 1 클릭 -> 1
     @Test
     @DisplayName("입력된 피연산자가 없을 때, 숫자 클릭은 해당 숫자가 표시된다")
