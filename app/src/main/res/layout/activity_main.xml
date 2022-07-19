@@ -14,7 +14,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
-        android:hint="0"
         android:textAlignment="viewEnd"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@id/divider"
@@ -44,7 +43,7 @@
         app:icon="@drawable/ic_baseline_keyboard_backspace_24"
         app:layout_constraintBottom_toTopOf="@id/input"
         app:layout_constraintEnd_toEndOf="@id/input"
-        />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <GridLayout
         android:id="@+id/input"
