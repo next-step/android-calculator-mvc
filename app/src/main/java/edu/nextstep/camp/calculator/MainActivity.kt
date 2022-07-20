@@ -1,9 +1,12 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.domain.*
+import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -92,12 +95,30 @@ class MainActivity : AppCompatActivity() {
         }
         binding.buttonEquals.setOnClickListener {
             if (expression.isCompleteExpression().not()) {
+                Toast.makeText(this, "완성되지 않은 수식입니다", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val evaluatedValue = calculator.evaluate(expression.toString())
-            binding.textView.text = "$evaluatedValue"
-            expression = Expression() + NumberOperandToken("${evaluatedValue.toInt()}")
+            processOperation()
         }
+    }
+
+    private fun processOperation() {
+        try {
+            val evaluatedValue = calculator.evaluate(expression.toString())
+            val evaluatedValueText = getEvaluatedValueText(evaluatedValue)
+
+            binding.textView.text = evaluatedValueText
+            expression = Expression() + NumberOperandToken(evaluatedValueText)
+        } catch (e: Exception) {
+            Log.w(MainActivity::class.simpleName, e)
+            Toast.makeText(this, "유효하지 않은 수식입니다", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun getEvaluatedValueText(evaluatedValue: Double) = if (evaluatedValue.roundToInt() == evaluatedValue.toInt()) {
+        "${evaluatedValue.toInt()}"
+    } else {
+        "$evaluatedValue"
     }
 }
