@@ -29,7 +29,7 @@ class OperatorTest {
         @ParameterizedTest(name = "입력값: {1}, {2}, 결과: {3}, 연산자: {0}")
         fun `연산`(operator: Operator, left: Double, right: Double, expected: Double) {
             //when
-            val actual = operator(left, right)
+            val actual = operator.calculate(left, right)
 
             //then
             assertThat(actual).isEqualTo(expected)

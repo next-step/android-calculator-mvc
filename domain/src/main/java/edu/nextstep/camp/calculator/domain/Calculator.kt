@@ -22,8 +22,8 @@ class Calculator {
     private fun compute(numbers: List<Double>, operators: List<Char>): Double {
         require(operators.size == numbers.size-1) {"완성되지 않은 수식입니다."}
         return numbers.reduceIndexed { index, left, right ->
-            val operator = Operator.get(operators[index - 1])
-            operator(left, right)
+            val operator = Operator.find(operators[index - 1])
+            operator.calculate(left, right)
         }
     }
 
