@@ -4,7 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
-internal class NumberTest {
+internal class OperandTest {
 
     @ParameterizedTest(name = "{0}와 {1}을 더하면 {2}가 된다.")
     @CsvSource(
@@ -14,10 +14,10 @@ internal class NumberTest {
     )
     fun `두 숫자는 덧셈 연산을 할 수 있다`(first: Int, second: Int, expected: Int) {
         // when
-        val result = Number(first) + Number(second)
+        val result = Operand(first) + Operand(second)
 
         // then
-        assertThat(result).isEqualTo(Number(expected))
+        assertThat(result).isEqualTo(Operand(expected))
     }
 
     @ParameterizedTest(name = "{0}에서 {1}을 빼면 {2}가 된다.")
@@ -28,10 +28,10 @@ internal class NumberTest {
     )
     fun `두 숫자는 뺄셈 연산을 할 수 있다`(first: Int, second: Int, expected: Int) {
         // when
-        val result = Number(first) - Number(second)
+        val result = Operand(first) - Operand(second)
 
         // then
-        assertThat(result).isEqualTo(Number(expected))
+        assertThat(result).isEqualTo(Operand(expected))
     }
 
     @ParameterizedTest(name = "{0}와 {1}을 곱하면 {2}가 된다.")
@@ -42,10 +42,10 @@ internal class NumberTest {
     )
     fun `두 숫자는 곱하기 연산을 할 수 있다`(first: Int, second: Int, expected: Int) {
         // when
-        val result = Number(first) * Number(second)
+        val result = Operand(first) * Operand(second)
 
         // then
-        assertThat(result).isEqualTo(Number(expected))
+        assertThat(result).isEqualTo(Operand(expected))
     }
 
     @ParameterizedTest(name = "{0}에서 {1}을 나누면 {2}가 된다.")
@@ -56,9 +56,9 @@ internal class NumberTest {
     )
     fun `두 숫자는 나누기 연산을 할 수 있다`(first: Int, second: Int, expected: Int) {
         // when
-        val result = Number(first) / Number(second)
+        val result = Operand(first) / Operand(second)
 
         // then
-        assertThat(result).isEqualTo(Number(expected))
+        assertThat(result).isEqualTo(Operand(expected))
     }
 }

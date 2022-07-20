@@ -1,46 +1,94 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
+import edu.nextstep.camp.calculator.domain.Operand
+import edu.nextstep.camp.calculator.domain.Operator
+import edu.nextstep.camp.calculator.domain.StringCalculator
+import edu.nextstep.camp.calculator.domain.StringExpressionState
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
+    private val stringExpressionState: StringExpressionState
+        get() = StringExpressionState.of(binding.textView.text.toString())
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        initViewBinding()
+        initOperandButtons()
+        initOperatorButtons()
+        initDeleteButton()
+        initEqualsButton()
+    }
+
+    private fun initViewBinding() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+    }
 
-        binding.button0.setOnClickListener {
-            binding.textView.text = "0"
+    private fun initOperandButtons() {
+        (0..9).forEach { number ->
+            val viewId = resources.getIdentifier("$BUTTON_VIEW_PREFIX$number", "id", packageName)
+            val button = findViewById(viewId) as? Button ?: return@forEach
+            setOperandButtonListener(button, Operand(number))
         }
-        binding.button1.setOnClickListener {
-            binding.textView.text = "1"
+    }
+
+    private fun setOperandButtonListener(button: Button, operand: Operand) {
+        button.setOnClickListener {
+            binding.textView.text = stringExpressionState.addElement(operand).toString()
         }
-        binding.button2.setOnClickListener {
-            binding.textView.text = "2"
+    }
+
+    private fun initOperatorButtons() {
+        listOf(
+            binding.buttonPlus to Operator.PLUS,
+            binding.buttonMinus to Operator.MINUS,
+            binding.buttonMultiply to Operator.MULTIPLY,
+            binding.buttonDivide to Operator.DIVIDE,
+        ).forEach { (button, operator) ->
+            setOperatorButtonListener(
+                button = button,
+                operator = operator
+            )
         }
-        binding.button3.setOnClickListener {
-            binding.textView.text = "3"
+    }
+
+    private fun setOperatorButtonListener(button: Button, operator: Operator) {
+        button.setOnClickListener {
+            binding.textView.text = stringExpressionState.addElement(operator).toString()
         }
-        binding.button4.setOnClickListener {
-            binding.textView.text = "4"
+    }
+
+    private fun initDeleteButton() {
+        binding.buttonDelete.setOnClickListener {
+            binding.textView.text = stringExpressionState.removeElement().toString()
         }
-        binding.button5.setOnClickListener {
-            binding.textView.text = "5"
+    }
+
+    private fun initEqualsButton() {
+        binding.buttonEquals.setOnClickListener {
+            runCatching {
+                StringCalculator.calculate(stringExpressionState)
+            }
+                .onSuccess {
+                    binding.textView.text = it.value.toString()
+                }
+                .onFailure {
+                    Toast
+                        .makeText(this, R.string.illegal_expression_toast, Toast.LENGTH_SHORT)
+                        .show()
+                }
         }
-        binding.button6.setOnClickListener {
-            binding.textView.text = "6"
-        }
-        binding.button7.setOnClickListener {
-            binding.textView.text = "7"
-        }
-        binding.button8.setOnClickListener {
-            binding.textView.text = "8"
-        }
-        binding.button9.setOnClickListener {
-            binding.textView.text = "9"
-        }
+    }
+
+    companion object {
+        private const val BUTTON_VIEW_PREFIX = "button"
     }
 }

@@ -4,7 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import org.junit.jupiter.params.provider.NullAndEmptySource
+import org.junit.jupiter.params.provider.EmptySource
 
 internal class StringCalculatorTest {
 
@@ -22,7 +22,7 @@ internal class StringCalculatorTest {
         val result = stringCalculator.calculate(input)
 
         // then
-        assertThat(result).isEqualTo(Number(expected))
+        assertThat(result).isEqualTo(Operand(expected))
     }
 
     @ParameterizedTest(name = "사칙연산자 여러 개가 포함된 {0}의 계산 결과가 {1}를 만족한다.")
@@ -36,12 +36,12 @@ internal class StringCalculatorTest {
         val result = stringCalculator.calculate(input)
 
         // then
-        assertThat(result).isEqualTo(Number(expected))
+        assertThat(result).isEqualTo(Operand(expected))
     }
 
     @ParameterizedTest
-    @NullAndEmptySource
-    fun `입력값이 null이거나 빈 공백 문자일 경우 IllegalArgumentException이 발생한다`(input: String?) {
+    @EmptySource
+    fun `입력값이 빈 공백 문자일 경우 IllegalArgumentException이 발생한다`(input: String) {
         // then
         assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
     }
@@ -49,11 +49,35 @@ internal class StringCalculatorTest {
     @ParameterizedTest(name = "사칙연산 기호가 아닌 {0}의 경우 IllegalArgumentException이 발생한다")
     @CsvSource(
         "1 @ 2",
-        "1 + 2(3)",
-        "1 # %",
+        "1 + 2 ( 3",
+        "1 # 3",
     )
-    fun `사칙연산 기호가 아닌 경우 IllegalArgumentException이 발생한다`(input: String?) {
+    fun `사칙연산 기호가 아닌 경우 IllegalArgumentException이 발생한다`(input: String) {
         // then
-        assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
+        val exception = assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
+        assertThat(exception.message).contains("해당하는 Operator를 찾을 수 없습니다.")
+    }
+
+    @ParameterizedTest(name = "피연산자가 숫자가 아닌 {0}의 경우 IllegalArgumentException이 발생한다")
+    @CsvSource(
+        "+",
+        "- + 3",
+        "1(3)",
+    )
+    fun `피연산자가 숫자가 아닌 경우 IllegalArgumentException이 발생한다`(input: String) {
+        // then
+        val exception = assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
+        assertThat(exception.message).contains("해당하는 Operand를 찾을 수 없습니다.")
+    }
+
+    @ParameterizedTest(name = "완전하지 않은 수식인 {0}의 경우 IllegalArgumentException이 발생한다")
+    @CsvSource(
+        "1 +",
+        "2 - 8 +",
+    )
+    fun `완전하지 않은 수식인 경우 IllegalArgumentException이 발생한다`(input: String) {
+        // then
+        val exception = assertThrows<IllegalArgumentException> { stringCalculator.calculate(input) }
+        assertThat(exception.message).contains("완전하지 않은 수식")
     }
 }
