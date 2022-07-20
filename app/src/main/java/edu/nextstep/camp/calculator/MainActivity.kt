@@ -20,34 +20,37 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val tokenClickListener = View.OnClickListener {
+        val operandClickListener = View.OnClickListener {
             val button = it as Button
-            val token = button.text.toString()
-            if (token.toIntOrNull() == null) {
-                expressionBuilder.addOperator(token)
-            } else {
-                expressionBuilder.addOperand(token)
-            }
+            val operand = button.text.toString()
+            expressionBuilder.addOperand(operand)
 
             binding.textView.text = expressionBuilder.getUiExpressionText()
-            Log.w("Main", "*${binding.textView.text}*")
         }
 
-        binding.button0.setOnClickListener(tokenClickListener)
-        binding.button1.setOnClickListener(tokenClickListener)
-        binding.button2.setOnClickListener(tokenClickListener)
-        binding.button3.setOnClickListener(tokenClickListener)
-        binding.button4.setOnClickListener(tokenClickListener)
-        binding.button5.setOnClickListener(tokenClickListener)
-        binding.button6.setOnClickListener(tokenClickListener)
-        binding.button7.setOnClickListener(tokenClickListener)
-        binding.button8.setOnClickListener(tokenClickListener)
-        binding.button9.setOnClickListener(tokenClickListener)
-        binding.buttonPlus.setOnClickListener(tokenClickListener)
-        binding.buttonMinus.setOnClickListener(tokenClickListener)
-        binding.buttonMultiply.setOnClickListener(tokenClickListener)
-        binding.buttonDivide.setOnClickListener(tokenClickListener)
+        val operatorClickListener = View.OnClickListener {
+            val button = it as Button
+            val operator = button.text.toString()
+            expressionBuilder.addOperator(operator)
 
+            binding.textView.text = expressionBuilder.getUiExpressionText()
+        }
+
+        binding.button0.setOnClickListener(operandClickListener)
+        binding.button1.setOnClickListener(operandClickListener)
+        binding.button2.setOnClickListener(operandClickListener)
+        binding.button3.setOnClickListener(operandClickListener)
+        binding.button4.setOnClickListener(operandClickListener)
+        binding.button5.setOnClickListener(operandClickListener)
+        binding.button6.setOnClickListener(operandClickListener)
+        binding.button7.setOnClickListener(operandClickListener)
+        binding.button8.setOnClickListener(operandClickListener)
+        binding.button9.setOnClickListener(operandClickListener)
+
+        binding.buttonPlus.setOnClickListener(operatorClickListener)
+        binding.buttonMinus.setOnClickListener(operatorClickListener)
+        binding.buttonMultiply.setOnClickListener(operatorClickListener)
+        binding.buttonDivide.setOnClickListener(operatorClickListener)
 
         binding.buttonDelete.setOnClickListener{
             expressionBuilder.removeLastToken()
