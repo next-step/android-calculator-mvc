@@ -1,21 +1,17 @@
 package edu.nextstep.camp.calculator
 
+import java.util.*
+
 class Calculator {
 
-    fun evaluate(expression: String?): Int {
-        val expressionStack = ExpressionStack()
-        val expressionWithoutBlank = expression?.split(DELIMITER) ?: throw IllegalArgumentException()
-
-        expressionWithoutBlank.forEach { str ->
-            val stack = expressionStack.getStackForCalculating(str)
-            stack?.let {
-                val type = it.pop()
-                val value = it.pop()
-                val result = calculateValue(type, value.toInt(), str.toInt())
-                expressionStack.pushResult(result.toString())
-            }
-        }
-        return expressionStack.getStackPeekIntegerValue()
+    fun evaluate(stack: Stack<String>): Int {
+        if (stack.size == 1) return stack.pop().toInt()
+        val value = stack.pop().toInt()
+        val type = stack.pop()
+        val value2 = stack.pop().toInt()
+        val result = calculateValue(type, value, value2)
+        stack.push(result.toString())
+        return evaluate(stack)
     }
 
     private fun calculateValue(type: String, value: Int, value2: Int) : Int {
@@ -43,9 +39,5 @@ class Calculator {
 
     private fun minus (value: Int, value2: Int) : Int {
         return value - value2
-    }
-
-    companion object {
-        const val DELIMITER = " "
     }
 }

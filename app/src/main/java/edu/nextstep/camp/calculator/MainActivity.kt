@@ -9,6 +9,7 @@ import java.lang.IllegalArgumentException
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var calculator: Calculator
+    private lateinit var expression: Expression
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         calculator = Calculator()
+        expression = Expression()
         setViewClickListener()
     }
 
@@ -47,9 +49,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun calculateString() {
-        val expression = binding.tvResult.text.toString()
+        val inputs = binding.tvResult.text.toString()
         try {
-            binding.tvResult.text = calculator.evaluate(expression).toString()
+            val expressions = expression.getStackForCalculating(inputs)
+            binding.tvResult.text = calculator.evaluate(expressions).toString()
         } catch (e: IllegalArgumentException) {
             Toast.makeText(this, ERROR_MESSAGE, Toast.LENGTH_SHORT).show()
         }
