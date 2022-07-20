@@ -1,0 +1,5 @@
+dependencies {
+    testImplementation "junit:junit:${versions.junit}"
+    testImplementation "com.google.truth:truth:${versions.truth}"
+    testImplementation "io.mockk:mockk:${versions.mockk}"
+}
