@@ -25,28 +25,28 @@ class OperatorTokenTest {
 	fun `+ 문자를 전달하는 경우 Operator_Addition 객체를 반환해야한다`() {
 		val result = OperatorToken.convertOperatorToken("+")
 
-		assertThat(result).isEqualTo(Addition)
+		assertThat(result).isEqualTo(OperatorToken.Addition)
 	}
 
 	@Test
 	fun `- 문자를 전달하는 경우 Operator_Subtraction 객체를 반환해야한다`() {
 		val result = OperatorToken.convertOperatorToken("-")
 
-		assertThat(result).isEqualTo(Subtraction)
+		assertThat(result).isEqualTo(OperatorToken.Subtraction)
 	}
 
 	@Test
 	fun `× 문자를 전달하는 경우 Operator_Multiplication 객체를 반환해야한다`() {
 		val result = OperatorToken.convertOperatorToken("×")
 
-		assertThat(result).isEqualTo(Multiplication)
+		assertThat(result).isEqualTo(OperatorToken.Multiplication)
 	}
 
 	@Test
 	fun `÷ 문자를 전달하는 경우 Operator_Addition 객체를 반환해야한다`() {
 		val result = OperatorToken.convertOperatorToken("÷")
 
-		assertThat(result).isEqualTo(Division)
+		assertThat(result).isEqualTo(OperatorToken.Division)
 	}
 
 }
