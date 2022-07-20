@@ -33,8 +33,8 @@ class CalculatorTest {
 		target.evaluate("3 & 4")
 	}
 
-	@Test(expected = NumberFormatException::class)
-	fun `계산식에 숫자 형태가 아닌 문자열을 입력하는 경우 NumberFormatException 을 throw 해야한다`() {
+	@Test(expected = IllegalArgumentException::class)
+	fun `계산식에 숫자 형태가 아닌 문자열을 입력하는 경우 IllegalArgumentException 을 throw 해야한다`() {
 		target.evaluate("abcd + 12")
 	}
 
