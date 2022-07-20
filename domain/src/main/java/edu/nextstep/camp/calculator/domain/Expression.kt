@@ -44,7 +44,7 @@ class Expression {
         return if (isPrevCharBlank || isPrevCharDecimal) INCLUDING_PREVIOUS else ONLY_CURRENT
     }
 
-    fun isCompletedExpression() = expression.last().isDigit()
+    fun isCompletedExpression() = expression.isNotEmpty() && expression.last().isDigit()
 
     companion object {
         private const val INCLUDING_PREVIOUS = 2
