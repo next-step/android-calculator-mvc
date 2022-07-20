@@ -10,7 +10,7 @@ class CalculatorTest {
 
 	@Before
 	fun setup() {
-		target = Calculator(OperatorImpl())
+		target = Calculator()
 	}
 
 	@Test(expected = IllegalArgumentException::class)
