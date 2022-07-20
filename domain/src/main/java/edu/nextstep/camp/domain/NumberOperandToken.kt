@@ -1,7 +1,7 @@
 package edu.nextstep.camp.domain
 
-class NumberOperandToken @Throws(NumberFormatException::class) constructor(
-	tokenString: String
-) : ExpressionToken(tokenString) {
+internal class NumberOperandToken @Throws(NumberFormatException::class) constructor(
+	override val tokenString: String
+) : ExpressionToken() {
 	val value = java.lang.Double.parseDouble(tokenString)
 }

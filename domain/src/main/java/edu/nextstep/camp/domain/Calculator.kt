@@ -1,8 +1,6 @@
 package edu.nextstep.camp.domain
 
-class Calculator(
-	private val operator: Operator
-) {
+class Calculator {
 	fun evaluate(expressionString: String?): Double {
 		val expressionTokens = getValidExpressionTokenListOrThrow(expressionString)
 
@@ -12,7 +10,7 @@ class Calculator(
 			val operatorToken = expressionTokens[index] as OperatorToken
 			val numberToken = expressionTokens[index + 1] as NumberOperandToken
 
-			result = operator.processOperation(result, operatorToken, numberToken)
+			result = operatorToken.processOperation(result, numberToken)
 		}
 
 		return result
@@ -28,7 +26,7 @@ class Calculator(
 		return List(tokens.size) { index ->
 			when {
 				index.rem(2) == 0 -> NumberOperandToken(tokens[index])
-				else -> operator.convertOperatorToken(tokens[index])
+				else -> OperatorToken.convertOperatorToken(tokens[index])
 			}
 		}
 	}
