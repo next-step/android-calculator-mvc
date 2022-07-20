@@ -7,10 +7,10 @@ internal abstract class OperatorToken : ExpressionToken() {
 	companion object {
 		fun convertOperatorToken(tokenString: String): OperatorToken {
 			return when (tokenString) {
-				Addition.tokenString -> Addition
-				Subtraction.tokenString -> Subtraction
-				Multiplication.tokenString -> Multiplication
-				Division.tokenString -> Division
+				Addition.token -> Addition
+				Subtraction.token -> Subtraction
+				Multiplication.token -> Multiplication
+				Division.token -> Division
 				else -> throw IllegalArgumentException("Unknown operator token string")
 			}
 		}
