@@ -4,7 +4,6 @@ sealed class Operation(
     val operator: Char,
     private val calculationBlock: (Double, Double) -> Double
 ) {
-
     object Plus : Operation('+', { left, right -> left + right })
     object Minus : Operation('-', { left, right -> left - right })
     object Div : Operation('/', { left, right -> left / right })
@@ -34,5 +33,4 @@ sealed class Operation(
                 .map { it.trim().also { trimmed -> if(trimmed.length > 1) throw IllegalArgumentException("잘못된 연산자가 포함되었습니다.")  }.last() }
         }
     }
-
 }

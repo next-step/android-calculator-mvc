@@ -27,5 +27,4 @@ class Calculator {
             .filter { it.isNotBlank() }
             .map { it.trim().toDoubleOrNull() ?: throw IllegalArgumentException("잘못된 연산자가 포함되었습니다.") }
     }
-
 }
