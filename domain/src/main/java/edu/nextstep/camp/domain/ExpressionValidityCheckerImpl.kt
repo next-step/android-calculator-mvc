@@ -14,7 +14,7 @@ class ExpressionValidityCheckerImpl: ExpressionValidityChecker {
 	}
 
 	companion object {
-		private const val numberOperandRegexFormat = "[+-]?(0|[1-9][0-9]*)"
+		private const val numberOperandRegexFormat = "[+-]?(0|[1-9][0-9]*)(.[0-9]+)?"
 		private val expressionRegex = """$numberOperandRegexFormat( [+\-×÷] $numberOperandRegexFormat)*""".toRegex()
 	}
 }

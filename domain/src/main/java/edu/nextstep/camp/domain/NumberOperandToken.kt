@@ -10,10 +10,14 @@ class NumberOperandToken @Throws(NumberFormatException::class) constructor(
 	}
 
 	fun removeLastDigit(): NumberOperandToken? {
-		return if (token.length == 1) {
-			null
-		} else {
-			NumberOperandToken(token.substring(0, token.lastIndex))
+		return when {
+			token.length == 1 -> null
+			token[token.lastIndex - 1] == FLOATING_POINT_CHARACTER -> NumberOperandToken(token.substring(0, token.lastIndex - 1))
+			else -> NumberOperandToken(token.substring(0, token.lastIndex))
 		}
+	}
+
+	companion object {
+		private const val FLOATING_POINT_CHARACTER = '.'
 	}
 }
