@@ -1,10 +1,6 @@
 package edu.nextstep.camp.domain
 
 class Calculator {
-	companion object {
-		private const val numberOperandRegexFormat = "[+-]?(0|[1-9][0-9]*)"
-		private val expressionRegex = """$numberOperandRegexFormat( [+\-×÷] $numberOperandRegexFormat)*""".toRegex()
-	}
 
 	fun evaluate(expressionString: String?): Double {
 		val expressionTokens = getValidExpressionTokenListOrThrow(expressionString)
@@ -38,5 +34,10 @@ class Calculator {
 				else -> OperatorToken.convertOperatorToken(tokens[index])
 			}
 		}
+	}
+
+	companion object {
+		private const val numberOperandRegexFormat = "[+-]?(0|[1-9][0-9]*)"
+		private val expressionRegex = """$numberOperandRegexFormat( [+\-×÷] $numberOperandRegexFormat)*""".toRegex()
 	}
 }
