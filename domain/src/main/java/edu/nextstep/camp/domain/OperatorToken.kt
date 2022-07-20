@@ -2,7 +2,7 @@ package edu.nextstep.camp.domain
 
 sealed class OperatorToken : ExpressionToken() {
 
-	internal object Addition : OperatorToken() {
+	object Addition : OperatorToken() {
 		override val token: String = "+"
 
 		override fun processOperation(tempResult: Double, numberOperandToken: NumberOperandToken): Double {
@@ -10,7 +10,7 @@ sealed class OperatorToken : ExpressionToken() {
 		}
 	}
 
-	internal object Subtraction : OperatorToken() {
+	object Subtraction : OperatorToken() {
 		override val token: String = "-"
 
 		override fun processOperation(tempResult: Double, numberOperandToken: NumberOperandToken): Double {
@@ -18,7 +18,7 @@ sealed class OperatorToken : ExpressionToken() {
 		}
 	}
 
-	internal object Multiplication : OperatorToken() {
+	object Multiplication : OperatorToken() {
 		override val token: String = "×"
 
 		override fun processOperation(tempResult: Double, numberOperandToken: NumberOperandToken): Double {
@@ -26,7 +26,7 @@ sealed class OperatorToken : ExpressionToken() {
 		}
 	}
 
-	internal object Division : OperatorToken() {
+	object Division : OperatorToken() {
 		override val token: String = "÷"
 
 		override fun processOperation(tempResult: Double, numberOperandToken: NumberOperandToken): Double {

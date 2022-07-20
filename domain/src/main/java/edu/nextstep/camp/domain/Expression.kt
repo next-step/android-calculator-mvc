@@ -37,6 +37,8 @@ data class Expression(
 		return Expression(newExpressionValues)
 	}
 
+	fun isCompleteExpression() = expressionTokenList.lastOrNull() !is OperatorToken
+
 	private fun List<ExpressionToken>.removeLastNumberOperandTokenDigit(lastToken: NumberOperandToken): List<ExpressionToken> {
 		val newLastNumberOperandToken = lastToken.removeLastDigit() ?: return this.dropLast(1)
 		return this.dropLast(1) + newLastNumberOperandToken
