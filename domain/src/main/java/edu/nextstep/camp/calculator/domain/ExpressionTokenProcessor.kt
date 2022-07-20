@@ -32,7 +32,7 @@ class ExpressionTokenProcessor {
             lastOrNull().also { lastToken ->
                 when {
                     lastToken is Operand -> add(input)
-                    input == Operator.SUBTRACTION && (lastToken is Operator || lastToken == null) -> add(NegativeExpressionToken())
+                    input == Operator.SUBTRACTION && (lastToken is Operator || lastToken == null) -> add(NegativeExpressionToken)
                     input != Operator.SUBTRACTION && lastToken is Operator -> this[lastIndex] = input
                 }
             }
@@ -58,11 +58,11 @@ class ExpressionTokenProcessor {
         }
         val result = Calculator.evaluate(parsedStr)
         expressionTokenList.clear()
-        result.toString().forEach {
-            ExpressionToken.getFromValue(it.toString()).let { token ->
-                expressionTokenList.add(if (token == Operator.SUBTRACTION) NegativeExpressionToken() else token)
-            }
+        val calculatedTokens = result.toString().map {
+            val token = ExpressionToken.getFromValue(it.toString())
+            if (token == Operator.SUBTRACTION) NegativeExpressionToken else token
         }
+        expressionTokenList.addAll(calculatedTokens)
 
         return expressionTokenList.toExpression()
     }

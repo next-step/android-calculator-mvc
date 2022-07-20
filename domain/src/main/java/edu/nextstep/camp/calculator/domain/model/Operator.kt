@@ -22,14 +22,10 @@ enum class Operator(override val value: String?) : ExpressionToken {
     abstract fun evaluate(firstOperand: Operand, secondOperand: Operand) : Operand
 
     companion object {
-        fun getFromRaw(raw: String) : Operator {
-            return when (raw.filterNot { it.isWhitespace() }) {
-                ADDITION.value -> ADDITION
-                SUBTRACTION.value -> SUBTRACTION
-                MULTIPLICATION.value -> MULTIPLICATION
-                DIVISION.value -> DIVISION
-                else -> UNKNOWN
-            }
-        }
+        fun getFromRaw(raw: String) : Operator =
+            values().find { it.value == raw.filterNot { c -> c.isWhitespace() } } ?: UNKNOWN
+
+        fun find(value: String) : Operator? =
+            values().find { it.value == value }
     }
 }

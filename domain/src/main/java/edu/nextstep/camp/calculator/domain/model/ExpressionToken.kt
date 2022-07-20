@@ -11,15 +11,11 @@ interface ExpressionToken {
             getFromNonBlankValue(value.filterNot { it.isWhitespace() })
 
         private fun getFromNonBlankValue(value: String) : ExpressionToken {
-            val enumExpression = OtherExpressionToken.values().find {
-                it.value == value
-            } ?: Operator.values().find {
-                it.value == value
-            }
+            val enumExpression = OtherExpressionToken.find(value) ?: Operator.find(value)
             return when {
                 enumExpression != null -> enumExpression
                 RegexUtils.checkExpressionIsOneDigitNumber(value) -> Operand(Integer.parseInt(value))
-                else -> Operand(Integer.parseInt(value))
+                else -> OtherExpressionToken.UNKNOWN
             }
         }
     }
@@ -29,6 +25,12 @@ enum class OtherExpressionToken(override val value: String?) : ExpressionToken {
     DEL("del"),
     EQUALS("="),
     UNKNOWN(null);
+
+    companion object {
+        fun find(value: String) : OtherExpressionToken? = values().find { it.value == value }
+    }
 }
 
-data class NegativeExpressionToken(override val value: String = "-") : ExpressionToken
+object NegativeExpressionToken : ExpressionToken {
+    override val value: String = "-"
+}
