@@ -36,10 +36,10 @@ class CalculatorTest {
                 return listOf(
                     arrayOf("1 + 1", 2.0),
                     arrayOf("2 - 1", 1.0),
-                    arrayOf("2 / 1", 2.0),
-                    arrayOf("3 / 2", 1.5),
-                    arrayOf("4 * 2", 8.0),
-                    arrayOf("1 * 1", 1.0),
+                    arrayOf("2 ÷ 1", 2.0),
+                    arrayOf("3 ÷ 2", 1.5),
+                    arrayOf("4 × 2", 8.0),
+                    arrayOf("1 × 1", 1.0),
                 )
             }
         }
@@ -64,11 +64,11 @@ class CalculatorTest {
                 return listOf(
                     arrayOf("1 + 1 + 1", 3.0),
                     arrayOf("2 - 1 - 1", 0.0),
-                    arrayOf("2 / 1 - 1", 1.0),
-                    arrayOf("3 / 2 + 0.5", 2.0),
-                    arrayOf("4 * 2 + 2", 10.0),
-                    arrayOf("1 * 2 * 3 / 6", 1.0),
-                    arrayOf("1 * 1 - 2 / 0.25 + 4", 0.0)
+                    arrayOf("2 ÷ 1 - 1", 1.0),
+                    arrayOf("3 ÷ 2 + 0.5", 2.0),
+                    arrayOf("4 × 2 + 2", 10.0),
+                    arrayOf("1 × 2 × 3 ÷ 6", 1.0),
+                    arrayOf("1 × 1 - 2 ÷ 0.25 + 4", 0.0)
                 )
             }
         }
