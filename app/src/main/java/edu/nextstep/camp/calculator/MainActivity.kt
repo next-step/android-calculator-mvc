@@ -1,26 +1,72 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
+import edu.nextstep.camp.calculator.domain.exception.ExpressionNotCompleteException
+import edu.nextstep.camp.calculator.domain.ExpressionTokenProcessor
+import edu.nextstep.camp.calculator.domain.model.OtherExpressionToken
+import edu.nextstep.camp.calculator.domain.model.ExpressionToken
+import org.jetbrains.annotations.TestOnly
+import kotlin.runCatching
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), UserInputActionReceiver {
     private lateinit var binding: ActivityMainBinding
+    private val expressionTokenProcessor by lazy { ExpressionTokenProcessor() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.button0.setOnClickListener { binding.textView.text = "0" }
-        binding.button1.setOnClickListener { binding.textView.text = "1" }
-        binding.button2.setOnClickListener { binding.textView.text = "2" }
-        binding.button3.setOnClickListener { binding.textView.text = "3" }
-        binding.button4.setOnClickListener { binding.textView.text = "4" }
-        binding.button5.setOnClickListener { binding.textView.text = "5" }
-        binding.button6.setOnClickListener { binding.textView.text = "6" }
-        binding.button7.setOnClickListener { binding.textView.text = "7" }
-        binding.button8.setOnClickListener { binding.textView.text = "8" }
-        binding.button9.setOnClickListener { binding.textView.text = "9" }
+        binding.apply {
+            lifecycleOwner = this@MainActivity
+            inputHandler = this@MainActivity
+        }
+    }
+
+    override fun onReceiveUserInputAction(v: View) {
+        kotlin.runCatching { v as Button }
+            .onFailure { handleExceptions(IllegalArgumentException("Input action view type must be Button")) }
+            .onSuccess { processInputButton(it) }
+    }
+
+    private fun processInputButton(btn: Button) {
+        when {
+            !btn.text.isNullOrBlank() -> processInputAction(ExpressionToken.getFromValue(btn.text.toString()))
+            btn.id == R.id.buttonDelete -> processInputAction(OtherExpressionToken.DEL)
+            else -> handleExceptions(IllegalArgumentException("Unknown Input"))
+        }
+    }
+
+    private fun processInputAction(inputAction: ExpressionToken) {
+        runCatching {
+            binding.textView.text = expressionTokenProcessor.processUserInputAction(inputAction)
+        }
+            .onFailure {
+                handleExceptions(it)
+            }
+    }
+
+    private fun handleExceptions(throwable: Throwable) {
+        when (throwable) {
+            is ExpressionNotCompleteException -> {
+                Toast.makeText(this, R.string.expression_not_complete_message, Toast.LENGTH_SHORT).show()
+            }
+            is ArithmeticException -> {
+                Toast.makeText(this, R.string.div_by_zero_message, Toast.LENGTH_SHORT).show()
+            }
+            else -> {
+                Toast.makeText(this, R.string.unknown_error_message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    @TestOnly
+    fun setDisplayedText(displayedText: String) {
+        binding.textView.text = expressionTokenProcessor.setCurrentDisplayedText(displayedText)
     }
 }
