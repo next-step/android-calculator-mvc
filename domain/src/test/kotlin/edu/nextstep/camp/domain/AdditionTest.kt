@@ -1,6 +1,6 @@
 package edu.nextstep.camp.domain
 
-import com.google.common.truth.Truth
+import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 @Suppress("NonAsciiCharacters")
@@ -12,7 +12,7 @@ class AdditionTest {
 		val result = Addition.processOperation(3.toDouble(), NumberOperandToken("3"))
 
 		// then
-		Truth.assertThat(result).isEqualTo(6)
+		assertThat(result).isEqualTo(6)
 	}
 
 }
