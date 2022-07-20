@@ -18,7 +18,7 @@ class EditorTest {
     @ValueSource(strings = ["1", "0", "2", "5", "8", "9"])
     fun `입력된 피연산자가 없을 때, 사용자가 피연산자 0 ~ 9를 입력하면 화면에 해당 숫자가 식에 입력된다`(content: String) {
         editor.input(content)
-        assertThat(editor.expression).isEqualTo(content)
+        assertThat(editor.getExpression()).isEqualTo(content)
     }
 
     @ParameterizedTest
@@ -27,14 +27,15 @@ class EditorTest {
         editor.input("1")
 
         editor.input(content)
-        assertThat(editor.expression).isEqualTo("1$content")
+        assertThat(editor.getExpression()).isEqualTo("1$content")
     }
 
     @ParameterizedTest
     @ValueSource(strings = ["+", "-", "*", "/"])
     fun `입력된 피연산자가 없을 때, 사용자가 연산자 덧셈,뺄셈,곱셈,나눗셈을 입력하면 식에 아무런 변화가 없다`(content: String) {
-        editor.input(content)
-        assertThat(editor.expression).isEqualTo("")
+        val operator = Operator.fromValue(content) ?: return
+        editor.input(operator)
+        assertThat(editor.getExpression()).isEqualTo("")
     }
 
     @ParameterizedTest
@@ -42,13 +43,14 @@ class EditorTest {
     fun `입력된 피연산자가 있을 때, 사용자가 연산자 덧셈,뺄셈,곱셈,나눗셈을 입력하면 해당 기호가 식에 입력된다`(content: String) {
         editor.input("1")
 
-        editor.input(content)
-        assertThat(editor.expression).isEqualTo("1 $content")
+        val operator = Operator.fromValue(content) ?: return
+        editor.input(operator)
+        assertThat(editor.getExpression()).isEqualTo("1 $content")
     }
 
     @Test
     fun `입력된 수식이 없을 때, 사용자가 지우기를 입력하면 식에 아무런 변화가 없다`() {
         editor.erase()
-        assertThat(editor.expression).isEqualTo("")
+        assertThat(editor.getExpression()).isEqualTo("")
     }
 }
