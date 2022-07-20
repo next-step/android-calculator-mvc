@@ -2,131 +2,89 @@ package edu.nextstep.camp.calculator
 
 import com.google.common.truth.Truth.assertThat
 import edu.nextstep.camp.calculator.domain.camp.calculator.Calculator
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
+import java.util.stream.Stream
 
-class CalculatorTest {
-    lateinit var calculator: Calculator
+@DisplayName("문자열 계산기 테스트")
+internal class CalculatorTest {
 
-    @Before
+    private lateinit var calculator: Calculator
+
+    @BeforeEach
     fun setUp() {
         calculator = Calculator()
     }
 
-    @Test
-    fun `덧셈이 되어야 한다`() {
-        
-        // given
-        val requestedValue = "11 +             222"
-        val expectedValue = 233
+    companion object {
+        @JvmStatic
+        fun givenWrongOperationsTestSource() : Stream<Arguments> = Stream.of(
+            Arguments.of(null, IllegalArgumentException("잘못된 요청입니다.")),
+            Arguments.of(" ", IllegalArgumentException("잘못된 요청입니다.")),
+            Arguments.of("121  % 222", IllegalArgumentException("잘못된 연산자가 포함되었습니다.")),
+            Arguments.of("3 * 4 / ", IllegalArgumentException("완성되지 않은 수식입니다.")),
+            Arguments.of("3 *//* 4", IllegalArgumentException("잘못된 연산자가 포함되었습니다.")),
+        )
 
-        // when
-        val actualValue = calculator.evaluate(requestedValue)
-        
-        //then
-        assertThat(actualValue).isEqualTo(expectedValue)
-        
+        @JvmStatic
+        fun givenRightOperationsTestSource() : Stream<Arguments> = Stream.of(
+            Arguments.of("11 +    222", 233.toDouble()),
+            Arguments.of("11 -    222", (-211).toDouble()),
+            Arguments.of("222 /    2 / 111", 1.toDouble()),
+            Arguments.of("222 *    2 * 3", 1332.toDouble()),
+            Arguments.of("2 + 3 * 4 / 2", 10.toDouble()),
+        )
     }
 
-    @Test
-    fun `뺄셈이 되어야 한다`() {
-        //given
-        val requestedValue = "11 -    222"
-        val expectedValue = -211
+    @Nested
+    @DisplayName("올바른 연산이 주어지면")
+    inner class GivenRightOperationsTest {
 
-        //when
-        val actual = calculator.evaluate(requestedValue)
+        @MethodSource("edu.nextstep.camp.calculator.domain.CalculatorTest#givenRightOperationsTestSource")
+        @ParameterizedTest(name = "{0} = {1}")
+        @DisplayName("계산은 성공해야 한다.")
+        fun `연산을 한다`(requested: String?, expected: Double) {
+            //when
+            val actual = evaluteOrException(calculator, requested)
 
-        //then
-        assertThat(actual).isEqualTo(expectedValue)
+            //then
+            assertThat(actual, expected)
+        }
     }
 
-    @Test
-    fun `나눗셈이 되어야 한다`() {
-        //given
-        val requestedValue = "222 /    2 / 111"
-        val expectedValue = 1
+    @Nested
+    @DisplayName("잘못된 연산이 주어지면")
+    inner class GivenWrongOperationsTest {
 
-        //when
-        val actual = calculator.evaluate(requestedValue)
+        @MethodSource("edu.nextstep.camp.calculator.domain.CalculatorTest#givenWrongOperationsTestSource")
+        @ParameterizedTest(name = "[{0}] -> {1}")
+        @DisplayName("throw IllegalArgumentExcetion 해야 한다.")
+        fun `잘못된 연산을 한다`(requested: String?, expected: IllegalArgumentException) {
+            //when
+            val actual = evaluteOrException(calculator, requested)
 
-        //then
-        assertThat(actual).isEqualTo(expectedValue)
+            //then
+            assertThat(actual, expected)
+        }
     }
 
-    @Test
-    fun `곱셈이 되어야 한다`() {
-        //given
-        val requestedValue = "222 *    2 * 3"
-        val expectedValue = 1332
-
-        //when
-        val actual = calculator.evaluate(requestedValue)
-
-        //then
-        assertThat(actual).isEqualTo(expectedValue)
+    fun evaluteOrException(calculator: Calculator, requested: String?) = try {
+        calculator.evaluate(requested)
+    } catch (e: Exception) {
+        e.printStackTrace();
     }
 
-    @Test
-    fun `입력값이 null일 경우 IllegalArgumentException throw`() {
-        
-        // given
-        val requestedValue = null
-        val expectedInstance = IllegalArgumentException::class.java
-
-        // when
-        val actualValue = runCatching {
-            calculator.evaluate(requestedValue)
-        }.exceptionOrNull()
-
-        // then
-        assertThat(actualValue).isInstanceOf(expectedInstance)
-
-    }
-
-    @Test
-    fun `입력값이 공백일 경우 IllegalArgumentException throw`() {
-        
-        // given
-        val requestedValue = " "
-        val expectedInstance = IllegalArgumentException::class.java
-        
-        // when
-        val actualValue = runCatching { 
-            calculator.evaluate(requestedValue)
-        }.exceptionOrNull()
-        
-        // then
-        assertThat(actualValue).isInstanceOf(expectedInstance)
-        assertThat(actualValue?.message?.startsWith("not valid inputValue")).isTrue()
-    }
-
-    @Test
-    fun `사칙연산 기호가 아닌 경우 IllegalArgumentException throw`() {
-        //given
-        val requestedValue = "121  % 222"
-        val expectedInstance = IllegalArgumentException::class.java
-
-        //when
-        val actualValue = runCatching {
-            calculator.evaluate(requestedValue)
-        }.exceptionOrNull()
-
-        //then
-        assertThat(actualValue).isInstanceOf(expectedInstance)
-        assertThat(actualValue?.message).isEqualTo("not valid operator included.")
-    }
-
-    @Test
-    fun `사칙 연산을 모두 포함하는 기능 구현`() {
-        //given
-        val requestedValue = "2 + 3 * 4 / 2"
-        val expectedValue = 10
-
-        //when
-        val actual = calculator.evaluate(requestedValue)
-
-        //then
-        assertThat(actual).isEqualTo(expectedValue)
+    fun assertThat(actual: Any, expected: Any?) {
+        when {
+            actual is Throwable && expected is Throwable -> {
+                assertThat(actual).isInstanceOf(expected::class.java)
+                assertThat(actual.message).startsWith(expected.message)
+            }
+            else -> assertThat(actual).isEqualTo(expected)
+        }
     }
 }

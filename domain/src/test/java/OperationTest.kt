@@ -2,37 +2,38 @@ package edu.nextstep.camp.calculator
 
 import com.google.common.truth.Truth.assertThat
 import edu.nextstep.camp.calculator.domain.camp.calculator.Operation
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
-import org.junit.runners.Parameterized.Parameters
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
+import java.util.stream.Stream
 
-@RunWith(Parameterized::class)
-class OperationTest(
-    operator: Char,
-    private val operation: Operation,
-    private val left: Int,
-    private val right: Int,
-    private val expected: Int
-) {
-
+@DisplayName("연산자 기능 테스트")
+class OperationTest {
     companion object {
         @JvmStatic
-        @Parameters(name = " {2} {0} {3} = {4} ")
-        fun getTestParameters() = listOf(
-            arrayOf(Operation.Plus.operator, Operation.Plus, 2, 3, 5),
-            arrayOf(Operation.Minus.operator, Operation.Minus, 2, 3, -1),
-            arrayOf(Operation.Div.operator,  Operation.Div, 6, 3, 2),
-            arrayOf(Operation.Mult.operator, Operation.Mult, 2, 3, 6),
+        fun getTestParameters(): Stream<Arguments> = Stream.of(
+            Arguments.of(Operation.Plus, 2, Operation.Plus.operator, 3, 5),
+            Arguments.of(Operation.Minus, 2, Operation.Minus.operator, 3, (-1)),
+            Arguments.of(Operation.Div, 6, Operation.Div.operator, 3, 2),
+            Arguments.of(Operation.Mult, 2, Operation.Mult.operator, 3, 6),
         )
     }
 
-    @Test
-    fun `입력된 값을 사칙연산 처리한다`() {
-        //when
-        val actualValue = operation(left, right)
+    @Nested
+    @DisplayName("연산자와 주어진 값에 대해")
+    inner class ComputeTest {
 
-        //then
-        assertThat(actualValue).isEqualTo(expected)
+        @MethodSource("edu.nextstep.camp.calculator.domain.OperationTest#getTestParameters")
+        @DisplayName("연산이 성공해야 한다")
+        @ParameterizedTest(name = "{1} {2} {3} = {4}")
+        fun `연산`(operation: Operation, left: Double, operatorChar: Char, right: Double, expected: Double) {
+            //when
+            val actual = operation(left, right)
+
+            //then
+            assertThat(actual).isEqualTo(expected)
+        }
     }
 }
