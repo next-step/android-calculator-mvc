@@ -8,14 +8,13 @@ import edu.nextstep.camp.calculator.domain.Operator
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val mainLogic: MainActivityViewModel = MainActivityViewModel()
+    private val mainLogic: MainActivityController = MainActivityController(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         initializeLayout()
-        observeViewState()
     }
 
     private fun initializeLayout() {
@@ -38,12 +37,8 @@ class MainActivity : AppCompatActivity() {
         binding.buttonEquals.setOnClickListener { mainLogic.onEvent(MainEvent.Evalute("${binding.textView.text}")) }
     }
 
-    private fun observeViewState(){
-        mainLogic.viewState.observe(this, this::onViewState)
-    }
-
     //ui update
-    private fun onViewState(state: MainState) = when(state) {
+    fun onViewState(state: MainState) = when(state) {
         is MainState.DisplayText -> binding.textView.text = state.displayText
         is MainState.ShowToast -> Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
     }

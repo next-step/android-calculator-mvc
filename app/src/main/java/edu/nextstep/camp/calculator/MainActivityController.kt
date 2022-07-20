@@ -1,15 +1,9 @@
 package edu.nextstep.camp.calculator
 
-import androidx.lifecycle.MutableLiveData
 import edu.nextstep.camp.calculator.domain.Calculator
 
 //logic
-class MainActivityViewModel {
-    val viewState: MutableLiveData<MainState>
-        get() = _viewState
-
-    private val _viewState: MutableLiveData<MainState> = MutableLiveData(MainState.DisplayText(""))
-
+class MainActivityController(val activity: MainActivity) {
     fun onEvent(event: MainEvent) {
         when(event) {
             is MainEvent.DeleteLast -> eventDeleteLast(event)
@@ -21,7 +15,7 @@ class MainActivityViewModel {
 
     private fun eventDeleteLast(event: MainEvent.DeleteLast) {
         val text = deleteLastOperatorOrNumber(event.displayedText)
-        _viewState.value = MainState.DisplayText(text)
+        activity.onViewState(MainState.DisplayText(text))
     }
 
     private fun eventAddOperator(event: MainEvent.AddOperator) {
@@ -32,21 +26,21 @@ class MainActivityViewModel {
         }
 
         val text = "$displayedText ${event.operator}"
-        _viewState.value = MainState.DisplayText(text)
+        activity.onViewState(MainState.DisplayText(text))
     }
 
     private fun eventEvalute(event: MainEvent.Evalute) {
         runCatching {
             Calculator().evalute(event.displayedText)
         }.onSuccess {
-            _viewState.value = MainState.DisplayText(getEvalutedDisplayText(it))
+            activity.onViewState(MainState.DisplayText(getEvalutedDisplayText(it)))
         }.onFailure {
-            _viewState.value = MainState.ShowToast("${it.message}")
+            activity.onViewState(MainState.ShowToast("${it.message}"))
         }
     }
 
     private fun eventAddNumber(event: MainEvent.AddNumber) {
-        _viewState.value = MainState.DisplayText(getNumberAddedDisplayText(event))
+        activity.onViewState(MainState.DisplayText(getNumberAddedDisplayText(event)))
     }
 
     private fun deleteLastOperatorOrNumber(displayedText: String) = displayedText
