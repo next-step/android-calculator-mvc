@@ -10,8 +10,8 @@ import edu.nextstep.camp.calculator.domain.Expression
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private var expressionTool = Expression()
-    private var calculator = Calculator()
+    private val expressionTool = Expression()
+    private val calculator = Calculator()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
