@@ -30,15 +30,21 @@ class Expression {
     fun delete(): String {
         if (expression.isEmpty()) return expression
         // 앞의문자가 공백이거나 소수점이면 같이 지워버리기
-        val deleteSize = if (prevCharIsBlankOrPoint()) INCLUDING_PREVIOUS else ONLY_CURRENT
+        val deleteSize = getDeleteSizeDependingOnExistenceOfSpacesOrDecimal()
         expression = expression.substring(0, expression.length - deleteSize)
         return expression
     }
 
-    fun isCompletedExpression() = expression.last().isDigit()
+    private fun getDeleteSizeDependingOnExistenceOfSpacesOrDecimal(): Int {
+        val hasPrevChar = expression.length > 1
+        if (!hasPrevChar) return ONLY_CURRENT
 
-    private fun prevCharIsBlankOrPoint() =
-        expression.length > 1 && (expression[expression.lastIndex - 1] == ' ' || expression[expression.lastIndex - 1] == '.')
+        val isPrevCharBlank = expression[expression.lastIndex - 1] == ' '
+        val isPrevCharDecimal = expression[expression.lastIndex - 1] == '.'
+        return if (isPrevCharBlank || isPrevCharDecimal) INCLUDING_PREVIOUS else ONLY_CURRENT
+    }
+
+    fun isCompletedExpression() = expression.last().isDigit()
 
     companion object {
         private const val INCLUDING_PREVIOUS = 2
