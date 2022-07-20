@@ -3,6 +3,7 @@ package edu.nextstep.calculator.domain
 object ExpressionValidator {
     private val expressionRegex = Regex("-?\\d+( [+\\-*/] -?\\d+)*")
     private val numberRegex = Regex("-?\\d+")
+    private val operatorRegex = Regex("[+\\-*/]")
 
     fun isValidExpression(expression: String) {
         require(expression.matches(expressionRegex)) {
@@ -14,5 +15,11 @@ object ExpressionValidator {
         content ?: return false
 
         return numberRegex.matches(content)
+    }
+
+    fun isOperator(content: String?): Boolean {
+        content ?: return false
+
+        return operatorRegex.matches(content)
     }
 }

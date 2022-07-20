@@ -35,4 +35,13 @@ class EditorTest {
         editor.input(content)
         assertThat(editor.expression).isEqualTo("")
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["+", "-", "*", "/"])
+    fun `입력된 피연산자가 있을 때, 사용자가 연산자 덧셈,뺄셈,곱셈,나눗셈을 입력하면 해당 기호가 식에 입력된다`(content: String) {
+        editor.input("1")
+
+        editor.input(content)
+        assertThat(editor.expression).isEqualTo("1 $content")
+    }
 }

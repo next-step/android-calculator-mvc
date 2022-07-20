@@ -5,9 +5,13 @@ class Editor {
 
     fun input(content: String) {
         if (ExpressionValidator.isNumber(content) &&
-            (expression.isEmpty()) || ExpressionValidator.isNumber(getExpressionLast())
+            ((expression.isEmpty()) || ExpressionValidator.isNumber(getExpressionLast()))
         ) {
             expression = expression.plus(content)
+        } else if (ExpressionValidator.isOperator(content) &&
+            ExpressionValidator.isNumber(getExpressionLast())
+        ) {
+            expression = expression.plus(" ").plus(content)
         }
     }
 
