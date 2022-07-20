@@ -14,8 +14,11 @@ class CalculatorTest {
         val delimiter = " "
         val expected = 5
 
+        //when
+        val result = Calculator.evaluate(expression, delimiter)
+
         //then
-        assertThat(Calculator.evaluate(expression, delimiter)).isEqualTo(expected)
+        assertThat(result).isEqualTo(expected)
     }
 
     //뺄셈
@@ -26,8 +29,11 @@ class CalculatorTest {
         val delimiter = " "
         val expected = -1
 
+        //when
+        val result = Calculator.evaluate(expression, delimiter)
+
         //then
-        assertThat(Calculator.evaluate(expression, delimiter)).isEqualTo(expected)
+        assertThat(result).isEqualTo(expected)
     }
 
     //곱셈
@@ -38,8 +44,11 @@ class CalculatorTest {
         val delimiter = " "
         val expected = 6
 
+        //when
+        val result = Calculator.evaluate(expression, delimiter)
+
         //then
-        assertThat(Calculator.evaluate(expression, delimiter)).isEqualTo(expected)
+        assertThat(result).isEqualTo(expected)
     }
 
     //나눗셈
@@ -50,8 +59,11 @@ class CalculatorTest {
         val delimiter = " "
         val expected = 1
 
+        //when
+        val result = Calculator.evaluate(expression, delimiter)
+
         //then
-        assertThat(Calculator.evaluate(expression, delimiter)).isEqualTo(expected)
+        assertThat(result).isEqualTo(expected)
     }
 
     //입력값이 null이거나 빈 공백 문자일 경우 IllegalArgumentException throw
@@ -60,8 +72,11 @@ class CalculatorTest {
         //given
         val expression = null
 
+        //when
+        val result = Calculator.requiredInput(expression)
+
         //then
-        assertThrows(IllegalArgumentException::class.java){Calculator.requiredInput(expression)}
+        assertThrows(IllegalArgumentException::class.java){result}
     }
 
     @Test
@@ -69,8 +84,11 @@ class CalculatorTest {
         //given
         val expression = " "
 
+        //when
+        val result = Calculator.requiredInput(expression)
+
         //then
-        assertThrows(IllegalArgumentException::class.java){Calculator.requiredInput(expression)}
+        assertThrows(IllegalArgumentException::class.java){result}
     }
 
     //사칙연산 기호가 아닌 경우 IllegalArgumentException throw
@@ -80,20 +98,37 @@ class CalculatorTest {
         val expression = "2 $ 3"
         val delimiter = " "
 
+        //when
+        val result = Calculator.evaluate(expression, delimiter)
+
         //then
-        assertThrows(IllegalArgumentException::class.java) { Calculator.evaluate(expression, delimiter) }
+        assertThrows(IllegalArgumentException::class.java) { result }
     }
 
     //사칙 연산을 모두 포함하는 기능 구현
     @Test
     fun `testEvaluate1`() {
-        val actual: Int = Calculator.evaluate("1 + 2 + 3", " ")
+        //given
+        val input = "1 + 2 + 3"
+        val delimiter = " "
+
+        //when
+        val actual: Int = Calculator.evaluate(input, delimiter)
+
+        //then
         assertThat(actual).isEqualTo(6)
     }
 
     @Test
     fun `testEvaluate2`() {
-        val actual: Int = Calculator.evaluate("2 + 3 * 4 / 2", " ")
+        //given
+        val input = "2 + 3 * 4 / 2"
+        val delimiter = " "
+
+        //when
+        val actual: Int = Calculator.evaluate(input, delimiter)
+
+        //then
         assertThat(actual).isEqualTo(10)
     }
 }
