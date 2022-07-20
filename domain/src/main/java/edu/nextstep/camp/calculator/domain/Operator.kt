@@ -4,13 +4,6 @@ enum class Operator(
     val operatorMark: String,
     val calculator: (accumulated: Int, nextInt: Int) -> Int
 ) {
-    NONE(
-        operatorMark = "",
-        calculator =
-        { accumulated, nextInt ->
-            (accumulated.toString() + nextInt.toString()).toInt()
-        }
-    ),
     PLUS(
         operatorMark = "+",
         calculator =
@@ -42,9 +35,9 @@ enum class Operator(
 
     companion object {
         private fun getOperator(operatorMark: String): Operator = values()
-            .first {
+            .find {
                 it.operatorMark == operatorMark
-            }
+            } ?: throw IllegalArgumentException("The Mark is not operation mark use: [× - + ÷]")
 
         fun getOperated(accumulated: Int, nextInt: Int, operatorMark: String): Int {
             return getOperator(operatorMark).calculator(accumulated, nextInt)
