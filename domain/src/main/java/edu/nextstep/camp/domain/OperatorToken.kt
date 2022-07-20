@@ -1,6 +1,6 @@
 package edu.nextstep.camp.domain
 
-internal sealed class OperatorToken : ExpressionToken() {
+sealed class OperatorToken : ExpressionToken() {
 
 	internal object Addition : OperatorToken() {
 		override val token: String = "+"
