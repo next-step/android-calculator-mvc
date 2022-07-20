@@ -53,4 +53,24 @@ class EditorTest {
         editor.erase()
         assertThat(editor.getExpression()).isEqualTo("")
     }
+
+    @Test
+    fun `숫자 연산자인 식에 지우기를 입력하면 식에 숫자만 남는다`() {
+        editor.input("1")
+        editor.input("1")
+        editor.input(Operator.PLUS)
+        editor.erase()
+        assertThat(editor.getExpression()).isEqualTo("11")
+    }
+
+    @Test
+    fun `숫자 연산자 숫자인 식에 지우기를 입력하면 식에 숫자 연산자가 남는다`() {
+        editor.input("1")
+        editor.input("1")
+        editor.input(Operator.PLUS)
+        editor.input("1")
+        editor.erase()
+        print(editor.getExpression())
+        assertThat(editor.getExpression()).isEqualTo("11 +")
+    }
 }

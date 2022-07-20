@@ -33,7 +33,22 @@ class Editor {
         return expression.dropLast(1)
     }
 
-    fun erase() {}
+    fun erase() {
+        if (ExpressionValidator.isNumber(getExpressionLast())) {
+            val lastContent = expressionContents.last()
+            expressionContents.removeLast()
+
+            addExpressionContentIfNotEmptyContent(lastContent.dropLast(1))
+        } else if (ExpressionValidator.isOperator(getExpressionLast())){
+            expressionContents.removeLast()
+        }
+    }
+
+    private fun addExpressionContentIfNotEmptyContent(lastContent: String) {
+        if (lastContent.isEmpty().not()) {
+            expressionContents.add(lastContent)
+        }
+    }
 
     private fun getExpressionLast(): String? {
         if (expressionContents.isEmpty()) return null
