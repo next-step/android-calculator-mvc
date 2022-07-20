@@ -2,6 +2,7 @@ package edu.nextstep.calculator.domain
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
@@ -43,5 +44,11 @@ class EditorTest {
 
         editor.input(content)
         assertThat(editor.expression).isEqualTo("1 $content")
+    }
+
+    @Test
+    fun `입력된 수식이 없을 때, 사용자가 지우기를 입력하면 식에 아무런 변화가 없다`() {
+        editor.erase()
+        assertThat(editor.expression).isEqualTo("")
     }
 }

@@ -15,6 +15,8 @@ class Editor {
         }
     }
 
+    fun erase() {}
+
     private fun getExpressionLast(): String? {
         if (expression.isEmpty() || expression.isBlank()) {
             return null
