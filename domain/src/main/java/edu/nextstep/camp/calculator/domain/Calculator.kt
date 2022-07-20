@@ -1,8 +1,9 @@
 package edu.nextstep.camp.calculator.domain
 
 class Calculator {
-    fun evaluatesExpression(expression: String?): Double {
-        if (expression.isNullOrBlank()) throw IllegalArgumentException("입력값이 null이거나 빈 공백 문자")
+    fun evaluatesExpression(expressionTool: Expression): Double {
+        val expression = expressionTool.expression
+        if (expression.isBlank()) throw IllegalArgumentException("입력값이 빈 공백 문자")
 
         val inputList = splitExpression(expression)
 

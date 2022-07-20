@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         if (!expressionTool.isCompletedExpression()) {
             Toast.makeText(this, WRONG_EXPRESSION, Toast.LENGTH_SHORT).show()
         } else {
-            val result = calculator.evaluatesExpression(expressionTool.expression)
+            val result = calculator.evaluatesExpression(expressionTool)
             binding.textView.text = result.toString()
             expressionTool.initializeValue(result)
         }
