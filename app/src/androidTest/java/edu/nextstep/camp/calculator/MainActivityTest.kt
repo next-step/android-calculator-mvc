@@ -2,10 +2,13 @@ package edu.nextstep.camp.calculator
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import edu.nextstep.camp.calculator.AndroidUITestHelper.onClickViewWithResId
+import edu.nextstep.camp.calculator.AndroidUITestHelper.onClickViewsWithResIds
+import edu.nextstep.camp.calculator.AndroidUITestHelper.onMatchTextWithResId
 import org.junit.Rule
 import org.junit.Test
 
@@ -13,81 +16,118 @@ class MainActivityTest {
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
-    //사용자가 피연산자 0 ~ 9 버튼을 누르면 화면에 해당 숫자가 화면에 보여야 한다.
-
     @Test
-    fun `버튼_0을_누르면_화면에_0이_보여야한다`() {
-        //when : 0 click
-        onView(ViewMatchers.withId(R.id.button0)).perform(click())
-        //then : display 0
-        onView(ViewMatchers.withId(R.id.tv_result)).check(ViewAssertions.matches(withText("0")))
+    fun 버튼_5과_더하기와_1를_누르면_화면에_그대로_수식이_보여야한다() {
+        //when
+        onClickViewsWithResIds(R.id.button5, R.id.buttonPlus, R.id.button1)
+        //then
+        onMatchTextWithResId(R.id.tv_result, "5 + 1")
     }
 
     @Test
-    fun `버튼_1을_누르면_화면에_1이_보여야한다`() {
-        //when : 0 click
-        onView(ViewMatchers.withId(R.id.button1)).perform(click())
-        //then : display 0
-        onView(ViewMatchers.withId(R.id.tv_result)).check(ViewAssertions.matches(withText("1")))
+    fun 버튼_8과_9를_연속으로_누르면_화면에_89로_보여야한다() {
+        //when
+        onView(withId(R.id.button8)).perform(click())
+        onView(withId(R.id.button9)).perform(click())
+        //then
+        onMatchTextWithResId(R.id.tv_result, "89")
     }
 
     @Test
-    fun `버튼_2을_누르면_화면에_2이_보여야한다`() {
-        //when : 0 click
-        onView(ViewMatchers.withId(R.id.button2)).perform(click())
-        //then : display 0
-        onView(ViewMatchers.withId(R.id.tv_result)).check(ViewAssertions.matches(withText("2")))
+    fun 피연산자없이_더하기를_누르면_화면에_아무런변화가_없어야한다() {
+        //when
+        onClickViewWithResId(R.id.buttonPlus)
+        //then
+        onMatchTextWithResId(R.id.tv_result, "")
     }
 
     @Test
-    fun `버튼_3을_누르면_화면에_3이_보여야한다`() {
-        //when : 0 click
-        onView(ViewMatchers.withId(R.id.button3)).perform(click())
-        //then : display 0
-        onView(ViewMatchers.withId(R.id.tv_result)).check(ViewAssertions.matches(withText("3")))
+    fun 피연산자없이_빼기를_누르면_화면에_아무런변화가_없어야한다() {
+        //when
+        onClickViewWithResId(R.id.buttonMinus)
+        //then
+        onMatchTextWithResId(R.id.tv_result, "")
     }
 
     @Test
-    fun `버튼_4을_누르면_화면에_4이_보여야한다`() {
-        //when : 0 click
-        onView(ViewMatchers.withId(R.id.button4)).perform(click())
-        //then : display 0
-        onView(ViewMatchers.withId(R.id.tv_result)).check(ViewAssertions.matches(withText("4")))
+    fun 피연산자없이_곱하기를_누르면_화면에_아무런변화가_없어야한다() {
+        //when
+        onClickViewWithResId(R.id.buttonMultiply)
+        //then
+        onMatchTextWithResId(R.id.tv_result, "")
     }
 
     @Test
-    fun `버튼_5을_누르면_화면에_5이_보여야한다`() {
-        //when : 0 click
-        onView(ViewMatchers.withId(R.id.button5)).perform(click())
-        //then : display 0
-        onView(ViewMatchers.withId(R.id.tv_result)).check(ViewAssertions.matches(withText("5")))
+    fun 피연산자없이_나누기를_누르면_화면에_아무런변화가_없어야한다() {
+        //when
+        onClickViewWithResId(R.id.buttonDivide)
+        //then
+        onMatchTextWithResId(R.id.tv_result, "")
     }
+
     @Test
-    fun `버튼_6을_누르면_화면에_6이_보여야한다`() {
-        //when : 0 click
-        onView(ViewMatchers.withId(R.id.button6)).perform(click())
-        //then : display 0
-        onView(ViewMatchers.withId(R.id.tv_result)).check(ViewAssertions.matches(withText("6")))
+    fun 피연산자_있을때_더하기를_누르면_화면에_해당_기호가_보여야한다() {
+        //given
+        onClickViewWithResId(R.id.button1)
+        //when
+        onClickViewWithResId(R.id.buttonPlus)
+        //then
+        onMatchTextWithResId(R.id.tv_result, "1 + ")
     }
+
     @Test
-    fun `버튼_7을_누르면_화면에_7이_보여야한다`() {
-        //when : 0 click
-        onView(ViewMatchers.withId(R.id.button7)).perform(click())
-        //then : display 0
-        onView(ViewMatchers.withId(R.id.tv_result)).check(ViewAssertions.matches(withText("7")))
+    fun 피연산자_있을때_빼기를_누르면_화면에_해당_기호가_보여야한다() {
+        //given
+        onClickViewWithResId(R.id.button1)
+        //when
+        onClickViewWithResId(R.id.buttonMinus)
+        //then
+        onMatchTextWithResId(R.id.tv_result, "1 - ")
     }
+
     @Test
-    fun `버튼_8을_누르면_화면에_8이_보여야한다`() {
-        //when : 0 click
-        onView(ViewMatchers.withId(R.id.button8)).perform(click())
-        //then : display 0
-        onView(ViewMatchers.withId(R.id.tv_result)).check(ViewAssertions.matches(withText("8")))
+    fun 입력된_수식이_없을때_지우기_버튼을_누르면_화면에_변화가_없어야한다() {
+        //when
+        onClickViewWithResId(R.id.buttonDivide)
+        //then
+        onMatchTextWithResId(R.id.tv_result, "")
     }
+
     @Test
-    fun `버튼_9을_누르면_화면에_9이_보여야한다`() {
-        //when : 0 click
-        onView(ViewMatchers.withId(R.id.button9)).perform(click())
-        //then : display 0
-        onView(ViewMatchers.withId(R.id.tv_result)).check(ViewAssertions.matches(withText("9")))
+    fun 입력된_수식이_있을때_지우기_버튼을_누르면_마지막으로_입력된_피연산자가_사라져야한다() {
+        //given
+        onClickViewsWithResIds(R.id.button3, R.id.button2, R.id.buttonPlus, R.id.button1)
+        //when~then:1
+        onClickViewWithResId(R.id.buttonDelete)
+        onMatchTextWithResId(R.id.tv_result, "32 + ")
+        //when~then:2
+        onClickViewWithResId(R.id.buttonDelete)
+        onMatchTextWithResId(R.id.tv_result, "32")
+        //when~then:3
+        onClickViewWithResId(R.id.buttonDelete)
+        onMatchTextWithResId(R.id.tv_result, "3")
+        //when~then:4
+        onClickViewWithResId(R.id.buttonDelete)
+        onMatchTextWithResId(R.id.tv_result, "")
+    }
+
+    @Test
+    fun 입력된_수식이_완전할_때_equal_버튼을_누르면_결과가_나와야한다() {
+        //given
+        onClickViewsWithResIds(R.id.button3, R.id.buttonPlus, R.id.button2)
+        //when
+        onClickViewWithResId(R.id.buttonEquals)
+        //then
+        onMatchTextWithResId(R.id.tv_result, "5")
+    }
+
+    @Test
+    fun 입력된_수식이_완전하지_않을때_equal_버튼을_누르면_토스트가_떠야한다() {
+        //given
+        onClickViewsWithResIds(R.id.button3, R.id.buttonPlus)
+        //when
+        onClickViewWithResId(R.id.buttonEquals)
+        //then
+        onMatchTextWithResId(R.id.tv_result, "3 + ")
     }
 }

@@ -2,28 +2,27 @@ package edu.nextstep.camp.calculator
 
 class Calculator {
 
-    fun evaluate(expression: String?): Int {
-        val expressionStack = ExpressionStack()
-        val expressionWithoutBlank = expression?.split(DELIMITER) ?: throw IllegalArgumentException()
-
-        expressionWithoutBlank.forEach { str ->
-            val stack = expressionStack.getStackForCalculating(str)
-            stack?.let {
-                val type = it.pop()
-                val value = it.pop()
-                val result = calculateValue(type, value.toInt(), str.toInt())
-                expressionStack.pushResult(result.toString())
-            }
+    fun evaluate(expression: Expression): Int {
+        if (expression.isReadyForCalculating().not()) {
+            return expression.getCurrentValue()
         }
-        return expressionStack.getStackPeekIntegerValue()
+
+        val operand1 = expression.getOperand()
+        val operator = expression.getOperator()
+        val operand2 = expression.getOperand()
+        val result = calculateValue(operator, operand1, operand2)
+
+        expression.pushResult(result)
+
+        return evaluate(expression)
     }
 
-    private fun calculateValue(type: String, value: Int, value2: Int) : Int {
-        val result = when(type) {
-            MathematicalSymbol.PLUS.type -> plus(value, value2)
-            MathematicalSymbol.MINUS.type -> minus(value, value2)
-            MathematicalSymbol.MULTIPLE.type -> multiple(value, value2)
-            MathematicalSymbol.DIVIDE.type -> divide(value, value2)
+    private fun calculateValue(operator: String, operand1: Int, operand2: Int) : Int {
+        val result = when(operator) {
+            MathematicalSymbol.PLUS.type -> plus(operand1, operand2)
+            MathematicalSymbol.MINUS.type -> minus(operand1, operand2)
+            MathematicalSymbol.MULTIPLE.type -> multiple(operand1, operand2)
+            MathematicalSymbol.DIVIDE.type -> divide(operand1, operand2)
             else -> throw IllegalArgumentException()
         }
         return result
@@ -43,9 +42,5 @@ class Calculator {
 
     private fun minus (value: Int, value2: Int) : Int {
         return value - value2
-    }
-
-    companion object {
-        const val DELIMITER = " "
     }
 }
