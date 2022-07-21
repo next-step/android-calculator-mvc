@@ -8,9 +8,7 @@ class Calculator(
 ) {
 
     fun evaluate(inputCalculatorContents: String): BigDecimal {
-        if (inputCalculatorContents.isBlank()) {
-            throw IllegalArgumentException("빈 값은 들어올 수 없습니다.")
-        }
+        require(inputCalculatorContents.isNotBlank()) { IllegalArgumentException("공백이나 null은 들어올 수 없습니다.") }
 
         return calculate(blankSplitter.removeBlankCalculatorContent(inputCalculatorContents))
     }
@@ -22,8 +20,8 @@ class Calculator(
             if (validator.isOperator(inputString)) {
                 val operator = Operator.find(inputString)
                 val calculateValue =
-                    operator?.calculate?.invoke(result, BigDecimal(calculatorContent[index + 1]))
-                calculateValue?.also { result = calculateValue }
+                    operator.calculate.invoke(result, BigDecimal(calculatorContent[index + 1]))
+                calculateValue.also { result = calculateValue }
             }
 
             if (validator.isOperator(inputString).not()) {

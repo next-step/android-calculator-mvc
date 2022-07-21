@@ -25,9 +25,9 @@ enum class Operator(
     });
 
     companion object {
-        fun find(input: String): Operator? = values().find { operator: Operator ->
+        fun find(input: String): Operator = values().find { operator: Operator ->
             operator.operator == input
-        }
+        } ?: throw IllegalArgumentException("연산자가 아닙니다.")
     }
 
 }
