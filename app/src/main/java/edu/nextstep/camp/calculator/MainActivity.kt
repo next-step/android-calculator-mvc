@@ -22,27 +22,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setViewClickListener() {
-        binding.button0.setOnClickListener { addString("0") }
-        binding.button1.setOnClickListener { addString("1") }
-        binding.button2.setOnClickListener { addString("2") }
-        binding.button3.setOnClickListener { addString("3") }
-        binding.button4.setOnClickListener { addString("4") }
-        binding.button5.setOnClickListener { addString("5") }
-        binding.button6.setOnClickListener { addString("6") }
-        binding.button7.setOnClickListener { addString("7") }
-        binding.button8.setOnClickListener { addString("8") }
-        binding.button9.setOnClickListener { addString("9") }
-        binding.buttonDivide.setOnClickListener { addString(" / ", true) }
-        binding.buttonMinus.setOnClickListener { addString(" - ", true) }
-        binding.buttonMultiply.setOnClickListener { addString(" * ", true) }
-        binding.buttonPlus.setOnClickListener { addString(" + ", true) }
+        binding.button0.setOnClickListener { addNumber("0") }
+        binding.button1.setOnClickListener { addNumber("1") }
+        binding.button2.setOnClickListener { addNumber("2") }
+        binding.button3.setOnClickListener { addNumber("3") }
+        binding.button4.setOnClickListener { addNumber("4") }
+        binding.button5.setOnClickListener { addNumber("5") }
+        binding.button6.setOnClickListener { addNumber("6") }
+        binding.button7.setOnClickListener { addNumber("7") }
+        binding.button8.setOnClickListener { addNumber("8") }
+        binding.button9.setOnClickListener { addNumber("9") }
+        binding.buttonDivide.setOnClickListener { addOperator(" / ") }
+        binding.buttonMinus.setOnClickListener { addOperator(" - ") }
+        binding.buttonMultiply.setOnClickListener { addOperator(" * ") }
+        binding.buttonPlus.setOnClickListener { addOperator(" + ") }
         binding.buttonEquals.setOnClickListener { calculateString() }
-        binding.buttonDelete.setOnClickListener { deleteString() }
+        binding.buttonDelete.setOnClickListener { deleteInputString() }
     }
 
-    private fun addString(text: String, isMathematicalSymbol: Boolean = false) {
+    private fun addNumber(text: String) {
         val expression = binding.tvResult.text
-        if (expression.isEmpty() && isMathematicalSymbol) {
+        binding.tvResult.text = "$expression$text"
+    }
+
+    private fun addOperator(text: String) {
+        val expression = binding.tvResult.text
+        if (expression.isEmpty()) {
             return
         }
         binding.tvResult.text = "$expression$text"
@@ -51,15 +56,28 @@ class MainActivity : AppCompatActivity() {
     private fun calculateString() {
         val inputs = binding.tvResult.text.toString()
         try {
-            val expressions = expression.getStackForCalculating(inputs)
-            binding.tvResult.text = calculator.evaluate(expressions).toString()
+            expression.setStackForCalculating(inputs)
+            binding.tvResult.text = calculator.evaluate(expression).toString()
         } catch (e: IllegalArgumentException) {
             Toast.makeText(this, ERROR_MESSAGE, Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun deleteString() {
+    private fun deleteInputString() {
+        val lastValue = binding.tvResult.text.last()
+        if (lastValue.digitToIntOrNull() == null) {
+            deleteOperator()
+        } else {
+            deleteNumber()
+        }
+    }
+
+    private fun deleteNumber() {
         binding.tvResult.text = binding.tvResult.text.dropLast(1)
+    }
+
+    private fun deleteOperator() {
+        binding.tvResult.text = binding.tvResult.text.dropLast(3)
     }
 
     companion object {

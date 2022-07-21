@@ -5,14 +5,25 @@ import java.util.*
 class Expression {
     private val stack: Stack<String> = Stack()
 
-    fun getStackForCalculating(input: String?): Stack<String> {
+    fun setStackForCalculating(input: String?) {
         val expressionWithoutBlank = input?.split(DELIMITER) ?: throw IllegalArgumentException()
 
         for (index in expressionWithoutBlank.size -1 downTo 0) {
             val str = expressionWithoutBlank[index]
             pushedValuesStack(str)
         }
-        return stack
+    }
+
+    fun isReadyForCalculating(): Boolean = stack.size != 1
+
+    fun getCurrentValue(): Int = stack.peek().toInt()
+
+    fun getOperand(): Int = stack.pop().toInt()
+
+    fun getOperator(): String = stack.pop()
+
+    fun pushResult(value: Int) {
+        stack.push(value.toString())
     }
 
     private fun pushedValuesStack(str: String) {

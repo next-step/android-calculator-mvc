@@ -7,79 +7,62 @@ import java.util.*
 
 class ExpressionTest {
     private lateinit var expression: Expression
-    private lateinit var stack: Stack<String>
 
     @Before
     fun setUp() {
         expression = Expression()
-        stack = Stack()
     }
 
     @Test
-    fun 사용자가_입력한대로_더하기_수식을_넣을_경우() {
+    fun 사용자가_입력한대로_더하기_수식을_넣을때_계산할_준비가_되어있는_경우() {
         //given
-        stack.push("3")
-        stack.push("+")
-        stack.push("2")
-        stack.push("+")
-        stack.push("10")
-
-        //when
         val input = "10 + 2 + 3"
-        val actual = expression.getStackForCalculating(input)
+        expression.setStackForCalculating(input)
+
+        //when
+        val actual = expression.isReadyForCalculating()
 
         //then
-        assertThat(actual).isEqualTo(stack)
+        assertThat(actual).isEqualTo(true)
     }
 
     @Test
-    fun 사용자가_입력한대로_빼기_수식을_넣을_경우() {
+    fun 사용자가_수식을_입력했을_때_현재_가장_위에있는_값() {
         //given
-        stack.push("3")
-        stack.push("-")
-        stack.push("2")
-        stack.push("-")
-        stack.push("10")
-
-        //when
         val input = "10 - 2 - 3"
-        val actual = expression.getStackForCalculating(input)
+        expression.setStackForCalculating(input)
+
+        //when
+        val actual = expression.getCurrentValue()
 
         //then
-        assertThat(actual).isEqualTo(stack)
+        assertThat(actual).isEqualTo(10)
     }
 
     @Test
-    fun 사용자가_입력한대로_곱하기_수식을_넣을_경우() {
+    fun 사용자가_수식을_입력했을_때_현재_Operator_값() {
         //given
-        stack.push("3")
-        stack.push("*")
-        stack.push("2")
-        stack.push("*")
-        stack.push("10")
-
-        //when
         val input = "10 * 2 * 3"
-        val actual = expression.getStackForCalculating(input)
+        expression.setStackForCalculating(input)
+        expression.getOperand()
+
+        //when
+        val actual = expression.getOperator()
 
         //then
-        assertThat(actual).isEqualTo(stack)
+        assertThat(actual).isEqualTo("*")
     }
 
     @Test
-    fun 사용자가_입력한대로_나누기_수식을_넣을_경우() {
+    fun 사용자가_수식을_입력했을_떄_현재_Operand_경우() {
         //given
-        stack.push("3")
-        stack.push("/")
-        stack.push("2")
-        stack.push("/")
-        stack.push("10")
+        val input = "10 / 2 / 3"
+        expression.setStackForCalculating(input)
 
         //when
-        val input = "10 / 2 / 3"
-        val actual = expression.getStackForCalculating(input)
+        val actual = expression.getOperand()
 
         //then
-        assertThat(actual).isEqualTo(stack)
+        assertThat(actual).isEqualTo(10)
     }
 }
