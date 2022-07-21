@@ -73,4 +73,37 @@ class EditorTest {
         print(editor.getExpression())
         assertThat(editor.getExpression()).isEqualTo("11 +")
     }
+
+    @Test
+    fun `입력된 수식이 비어있으면 false를 반환한다`() {
+        assertThat(editor.isEnableCalculateExpression()).isEqualTo(false)
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["1", "0", "2", "5", "8", "9"])
+    fun `입력된 수식이 숫자만 있으면 true를 반환한다`(content: String) {
+        editor.input(content)
+        assertThat(editor.isEnableCalculateExpression()).isEqualTo(true)
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["+", "-", "*", "/"])
+    fun `입력된 수식의 마지막이 연산자라면 false를 반환한다`(content: String) {
+        editor.input("1")
+
+        val operator = Operator.fromValue(content) ?: return
+        editor.input(operator)
+        assertThat(editor.isEnableCalculateExpression()).isEqualTo(false)
+    }
+
+    @Test
+    fun `입력된 수식의 숫자 연산자 숫자의 형식이라면 true를 반환한다`() {
+        editor.input("1")
+        editor.input(Operator.MULTIPLY)
+        editor.input("1")
+        editor.input("1")
+        editor.input(Operator.MULTIPLY)
+        editor.input("0")
+        assertThat(editor.isEnableCalculateExpression()).isEqualTo(true)
+    }
 }

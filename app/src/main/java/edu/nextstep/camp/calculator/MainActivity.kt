@@ -1,7 +1,9 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import edu.nextstep.calculator.domain.Calculator
 import edu.nextstep.calculator.domain.Editor
 import edu.nextstep.calculator.domain.Operator
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
@@ -20,65 +22,77 @@ class MainActivity : AppCompatActivity() {
 
     private fun bindViews() {
         binding.button0.setOnClickListener {
-            editor.input("0")
-            binding.textView.text = editor.getExpression()
+            onClickNumberButton("0")
         }
         binding.button1.setOnClickListener {
-            editor.input("1")
-            binding.textView.text = editor.getExpression()
+            onClickNumberButton("1")
         }
         binding.button2.setOnClickListener {
-            editor.input("2")
-            binding.textView.text = editor.getExpression()
+            onClickNumberButton("2")
         }
         binding.button3.setOnClickListener {
-            editor.input("3")
-            binding.textView.text = editor.getExpression()
+            onClickNumberButton("3")
         }
         binding.button4.setOnClickListener {
-            editor.input("4")
-            binding.textView.text = editor.getExpression()
+            onClickNumberButton("4")
         }
         binding.button5.setOnClickListener {
-            editor.input("5")
-            binding.textView.text = editor.getExpression()
+            onClickNumberButton("5")
         }
         binding.button6.setOnClickListener {
-            editor.input("6")
-            binding.textView.text = editor.getExpression()
+            onClickNumberButton("6")
         }
         binding.button7.setOnClickListener {
-            editor.input("7")
-            binding.textView.text = editor.getExpression()
+            onClickNumberButton("7")
         }
         binding.button8.setOnClickListener {
-            editor.input("8")
-            binding.textView.text = editor.getExpression()
+            onClickNumberButton("8")
         }
         binding.button9.setOnClickListener {
-            editor.input("9")
-            binding.textView.text = editor.getExpression()
+            onClickNumberButton("9")
         }
 
         binding.buttonDelete.setOnClickListener {
-            editor.erase()
-            binding.textView.text = editor.getExpression()
+            onClickEraseButton()
         }
         binding.buttonPlus.setOnClickListener {
-            editor.input(Operator.PLUS)
-            binding.textView.text = editor.getExpression()
+            onClickOperatorButton(Operator.PLUS)
         }
         binding.buttonMinus.setOnClickListener {
-            editor.input(Operator.MINUS)
-            binding.textView.text = editor.getExpression()
+            onClickOperatorButton(Operator.MINUS)
         }
         binding.buttonMultiply.setOnClickListener {
-            editor.input(Operator.MULTIPLY)
-            binding.textView.text = editor.getExpression()
+            onClickOperatorButton(Operator.MULTIPLY)
         }
         binding.buttonDivide.setOnClickListener {
-            editor.input(Operator.DIVIDE)
-            binding.textView.text = editor.getExpression()
+            onClickOperatorButton(Operator.DIVIDE)
+        }
+
+        binding.buttonEquals.setOnClickListener {
+            onClickEqualsButton()
+        }
+    }
+
+    private fun onClickNumberButton(number: String) {
+        editor.input(number)
+        binding.textView.text = editor.getExpression()
+    }
+
+    private fun onClickOperatorButton(operator: Operator) {
+        editor.input(operator)
+        binding.textView.text = editor.getExpression()
+    }
+
+    private fun onClickEraseButton() {
+        editor.erase()
+        binding.textView.text = editor.getExpression()
+    }
+
+    private fun onClickEqualsButton() {
+        if (editor.isEnableCalculateExpression()) {
+            binding.textView.text = Calculator.calculate(editor.getExpression()).toString()
+        } else {
+            Toast.makeText(this@MainActivity, "완성되지 않은 수식입니다", Toast.LENGTH_SHORT).show()
         }
     }
 }

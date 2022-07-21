@@ -33,6 +33,10 @@ class Editor {
         return expression.dropLast(1)
     }
 
+    fun isEnableCalculateExpression(): Boolean {
+        return ExpressionValidator.isNumber(getExpressionLast())
+    }
+
     fun erase() {
         if (ExpressionValidator.isNumber(getExpressionLast())) {
             val lastContent = expressionContents.last()
