@@ -1,18 +1,6 @@
 package edu.nextstep.camp.calculator
 
-import java.util.*
-
 class Calculator {
-
-    fun evaluate2(stack: Stack<String>): Int {
-        if (stack.size == 1) return stack.pop().toInt()
-        val value = stack.pop().toInt()
-        val type = stack.pop()
-        val value2 = stack.pop().toInt()
-        val result = calculateValue(type, value, value2)
-        stack.push(result.toString())
-        return evaluate2(stack)
-    }
 
     fun evaluate(expression: Expression): Int {
         if (expression.isReadyForCalculating().not()) {
