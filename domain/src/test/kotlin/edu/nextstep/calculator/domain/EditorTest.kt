@@ -31,6 +31,14 @@ class EditorTest {
     }
 
     @ParameterizedTest
+    @ValueSource(strings = ["1", "0", "2", "5", "8", "9"])
+    fun `입력된 수식의 마지막이 0일 때 숫자가 입력되면 0에서 입력된 숫자로 마지막 값이 바뀐다`(content: String) {
+        editor.input("0")
+        editor.input(content)
+        assertThat(editor.getExpression()).isEqualTo(content)
+    }
+
+    @ParameterizedTest
     @ValueSource(strings = ["+", "-", "*", "/"])
     fun `입력된 피연산자가 없을 때, 사용자가 연산자 덧셈,뺄셈,곱셈,나눗셈을 입력하면 식에 아무런 변화가 없다`(content: String) {
         val operator = Operator.fromValue(content) ?: return

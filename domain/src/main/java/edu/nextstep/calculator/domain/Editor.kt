@@ -1,11 +1,13 @@
 package edu.nextstep.calculator.domain
 
-import kotlin.math.exp
-
 class Editor {
     private val expressionContents = mutableListOf<String>()
 
     fun input(content: String) {
+        if (getExpressionLast().equals("0") && ExpressionValidator.isNumber(content)) {
+            expressionContents.removeLast()
+        }
+
         if (ExpressionValidator.isNumber(content) && ExpressionValidator.isNumber(getExpressionLast()).not()) {
             expressionContents.add(content)
         } else if (ExpressionValidator.isNumber(content) && ExpressionValidator.isNumber(getExpressionLast())) {
