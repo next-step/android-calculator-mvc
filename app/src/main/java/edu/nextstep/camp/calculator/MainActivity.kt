@@ -90,7 +90,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun onClickEqualsButton() {
         if (editor.isEnableCalculateExpression()) {
-            binding.textView.text = Calculator.calculate(editor.getExpression()).toString()
+            val result = Calculator.calculate(editor.getExpression()).toString()
+            binding.textView.text = result
+
+            editor.resetExpression(result)
         } else {
             Toast.makeText(this@MainActivity, "완성되지 않은 수식입니다", Toast.LENGTH_SHORT).show()
         }

@@ -1,5 +1,7 @@
 package edu.nextstep.calculator.domain
 
+import kotlin.math.exp
+
 class Editor {
     private val expressionContents = mutableListOf<String>()
 
@@ -45,6 +47,13 @@ class Editor {
             addExpressionContentIfNotEmptyContent(lastContent.dropLast(1))
         } else if (ExpressionValidator.isOperator(getExpressionLast())){
             expressionContents.removeLast()
+        }
+    }
+
+    fun resetExpression(content: String?) {
+        expressionContents.clear()
+        content?.let {
+            expressionContents.add(it)
         }
     }
 
