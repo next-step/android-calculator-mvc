@@ -14,10 +14,9 @@ object Calculator {
                         nextInt = text.toInt(),
                         operatorMark = operatorMark
                     )
-            } else {
-                operatorMark = text
                 return@forEach
             }
+            operatorMark = text
         }
         return accumulated
     }
