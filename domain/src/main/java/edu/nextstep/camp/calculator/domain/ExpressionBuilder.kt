@@ -2,30 +2,23 @@ package edu.nextstep.camp.calculator.domain
 
 class ExpressionBuilder {
 
-    private val expressionValue = mutableListOf<String>()
+    private val expressionValue = mutableListOf<Node>()
 
-    fun addOperand(token: String) {
-        when (lastTokenType()) {
-            TokenType.Operand -> {
-                expressionValue[expressionValue.lastIndex] = "${expressionValue.last()}${token}"
-            }
-            TokenType.Operator, null -> {
-                expressionValue.add(token)
+    fun addOperand(operand: Operand) {
+        when (val lastNode = expressionValue.lastOrNull()) {
+            is Operator, null -> expressionValue.add(operand)
+            is Operand -> {
+                val number = ("${lastNode.value}${operand.value}").toInt()
+                expressionValue[expressionValue.lastIndex] = Operand(number)
             }
         }
     }
 
-    fun addOperator(token: String) {
-        when (lastTokenType()) {
-            TokenType.Operand -> {
-                expressionValue.add(token)
-            }
-            TokenType.Operator -> {
-                expressionValue[expressionValue.lastIndex] = token
-            }
-            null -> {
-                return
-            }
+    fun addOperator(operator: Operator) {
+        when (expressionValue.lastOrNull()) {
+            is Operand -> expressionValue.add(operator)
+            is Operator -> expressionValue[expressionValue.lastIndex] = operator
+            null -> return
         }
     }
 
@@ -33,35 +26,14 @@ class ExpressionBuilder {
         expressionValue.removeLastOrNull()
     }
 
-    fun getUiExpressionText() = expressionValue.joinToString(" ")
-
-    fun getValidExpressionText(): String {
-        when (lastTokenType()) {
-            null, TokenType.Operator -> throw IllegalArgumentException("완성되지 않은 수식입니다")
-            else -> return expressionValue.joinToString(" ") { toValidToken(it) }
+    fun build(): String = expressionValue.map {
+        when (it) {
+            is Operand -> it.value
+            is Operator -> it.symbol
         }
-    }
+    }.joinToString(" ")
 
     fun clear() {
         expressionValue.clear()
-    }
-
-    private fun toValidToken(token: String): String {
-        return when (token) {
-            "×" -> "*"
-            "÷" -> "/"
-            else -> token
-        }
-    }
-
-    private fun lastTokenType(): TokenType? {
-        val last = expressionValue.lastOrNull() ?: return null
-
-        val number = last.toIntOrNull()
-        return if (number == null) {
-            TokenType.Operator
-        } else {
-            TokenType.Operand
-        }
     }
 }
