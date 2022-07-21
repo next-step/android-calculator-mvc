@@ -1,6 +1,7 @@
 package edu.nextstep.camp.calculator
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Expression
@@ -39,22 +40,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickNumberButton(string: String) {
-        binding.textView.append(string)
         Expression.addNumber(string)
+        binding.textView.text = Expression.express
     }
 
     private fun onClickOperatorButton(string: String) {
-        binding.textView.append(string)
         Expression.addOperator(string)
+        binding.textView.text = Expression.express
     }
 
-    private fun onClickEqualButton(){
-        val value = Expression.getResult()
-        binding.textView.text = value.toString()
+    private fun onClickEqualButton() {
+        try {
+            val value = Expression.getResult()
+            binding.textView.text = value.toString()
+        } catch (e: IllegalArgumentException) {
+            Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun onClickDelete() {
-        binding.textView.text = ""
-        Expression.reset()
+        Expression.delete()
+        binding.textView.text = Expression.express
     }
 }
