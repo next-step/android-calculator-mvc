@@ -3,8 +3,8 @@ package edu.nextstep.camp.calculator.domain
 import java.math.BigDecimal
 
 class Calculator(
-    private val blankSplitter: BlankSplitter,
-    private val validator: Validator
+    private val blankSplitter: BlankSplitter = BlankSplitter(),
+    private val validator: Validator = Validator()
 ) {
 
     fun evaluate(inputCalculatorContents: String): BigDecimal {
