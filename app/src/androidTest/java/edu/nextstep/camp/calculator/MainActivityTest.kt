@@ -137,7 +137,11 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("9 +")))
     }
 
-//    입력된_수식이_없을_때_사용자가_지우기_버튼을_누르면_화면에_아무런_변화가_없어야_한다
+    @Test
+    fun `입력된_수식이_없을_때_사용자가_지우기_버튼을_누르면_화면에_아무런_변화가_없어야_한다`() {
+        onView(withId(R.id.buttonDelete)).perform(ViewActions.click())
+        onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("")))
+    }
 
 //    입력된_수식이_있을_때_사용자가_지우기_버튼을_누르면_수식에_마지막으로_입력된_연산자_또는_피연산자가_지워져야_한다
 
