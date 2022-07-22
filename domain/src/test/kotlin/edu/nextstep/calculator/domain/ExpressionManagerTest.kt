@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
-class EditorTest {
-    private lateinit var editor: Editor
+class ExpressionManagerTest {
+    private lateinit var editor: ExpressionManager
 
     @BeforeEach
     fun init() {
-        editor = Editor()
+        editor = ExpressionManager()
     }
 
     @ParameterizedTest
@@ -58,7 +58,7 @@ class EditorTest {
 
     @Test
     fun `입력된 수식이 없을 때, 사용자가 지우기를 입력하면 식에 아무런 변화가 없다`() {
-        editor.erase()
+        editor.input(ExpressionManager.DELETE)
         assertThat(editor.getExpression()).isEqualTo("")
     }
 
@@ -67,7 +67,7 @@ class EditorTest {
         editor.input("1")
         editor.input("1")
         editor.input(Operator.PLUS)
-        editor.erase()
+        editor.input(ExpressionManager.DELETE)
         assertThat(editor.getExpression()).isEqualTo("11")
     }
 
@@ -77,7 +77,7 @@ class EditorTest {
         editor.input("1")
         editor.input(Operator.PLUS)
         editor.input("1")
-        editor.erase()
+        editor.input(ExpressionManager.DELETE)
         print(editor.getExpression())
         assertThat(editor.getExpression()).isEqualTo("11 +")
     }

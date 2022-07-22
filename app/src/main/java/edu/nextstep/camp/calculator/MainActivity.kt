@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.calculator.domain.Calculator
-import edu.nextstep.calculator.domain.Editor
+import edu.nextstep.calculator.domain.ExpressionManager
 import edu.nextstep.calculator.domain.Operator
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val editor = Editor()
+    private val expressionManager = ExpressionManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,50 +22,50 @@ class MainActivity : AppCompatActivity() {
 
     private fun bindViews() {
         binding.button0.setOnClickListener {
-            onClickNumberButton("0")
+            onClickButton("0")
         }
         binding.button1.setOnClickListener {
-            onClickNumberButton("1")
+            onClickButton("1")
         }
         binding.button2.setOnClickListener {
-            onClickNumberButton("2")
+            onClickButton("2")
         }
         binding.button3.setOnClickListener {
-            onClickNumberButton("3")
+            onClickButton("3")
         }
         binding.button4.setOnClickListener {
-            onClickNumberButton("4")
+            onClickButton("4")
         }
         binding.button5.setOnClickListener {
-            onClickNumberButton("5")
+            onClickButton("5")
         }
         binding.button6.setOnClickListener {
-            onClickNumberButton("6")
+            onClickButton("6")
         }
         binding.button7.setOnClickListener {
-            onClickNumberButton("7")
+            onClickButton("7")
         }
         binding.button8.setOnClickListener {
-            onClickNumberButton("8")
+            onClickButton("8")
         }
         binding.button9.setOnClickListener {
-            onClickNumberButton("9")
+            onClickButton("9")
         }
 
         binding.buttonDelete.setOnClickListener {
-            onClickEraseButton()
+            onClickButton(ExpressionManager.DELETE)
         }
         binding.buttonPlus.setOnClickListener {
-            onClickOperatorButton(Operator.PLUS)
+            onClickButton(Operator.PLUS.value)
         }
         binding.buttonMinus.setOnClickListener {
-            onClickOperatorButton(Operator.MINUS)
+            onClickButton(Operator.MINUS.value)
         }
         binding.buttonMultiply.setOnClickListener {
-            onClickOperatorButton(Operator.MULTIPLY)
+            onClickButton(Operator.MULTIPLY.value)
         }
         binding.buttonDivide.setOnClickListener {
-            onClickOperatorButton(Operator.DIVIDE)
+            onClickButton(Operator.DIVIDE.value)
         }
 
         binding.buttonEquals.setOnClickListener {
@@ -73,29 +73,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onClickNumberButton(number: String) {
-        editor.input(number)
-        binding.textView.text = editor.getExpression()
-    }
-
-    private fun onClickOperatorButton(operator: Operator) {
-        editor.input(operator)
-        binding.textView.text = editor.getExpression()
-    }
-
-    private fun onClickEraseButton() {
-        editor.erase()
-        binding.textView.text = editor.getExpression()
+    private fun onClickButton(content: String) {
+        expressionManager.input(content)
+        binding.textView.text = expressionManager.getExpression()
     }
 
     private fun onClickEqualsButton() {
-        if (editor.isEnableCalculateExpression()) {
-            val result = Calculator.calculate(editor.getExpression()).toString()
-            binding.textView.text = result
-
-            editor.resetExpression(result)
-        } else {
+        if (expressionManager.isEnableCalculateExpression().not()) {
             Toast.makeText(this@MainActivity, "완성되지 않은 수식입니다", Toast.LENGTH_SHORT).show()
+            return
         }
+
+        val result = Calculator.calculate(expressionManager.getExpression()).toString()
+        binding.textView.text = result
+
+        expressionManager.resetExpression(result)
     }
 }
