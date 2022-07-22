@@ -160,7 +160,17 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("9 /")))
     }
 
-//    입력된_수신이_완전할_때_사용자가_=_버튼을_누르면_입력된_수식의_결과가_화면에_보여야_한다
+    @Test
+    fun `입력된_수신이_완전할_때_사용자가_이퀄_버튼을_누르면_입력된_수식의_결과가_화면에_보여야_한다`() {
+        onView(withId(R.id.button9)).perform(ViewActions.click())
+        onView(withId(R.id.button9)).perform(ViewActions.click())
+        onView(withId(R.id.buttonPlus)).perform(ViewActions.click())
+        onView(withId(R.id.button7)).perform(ViewActions.click())
+        onView(withId(R.id.buttonMultiply)).perform(ViewActions.click())
+        onView(withId(R.id.button2)).perform(ViewActions.click())
+        onView(withId(R.id.buttonEquals)).perform(ViewActions.click())
+        onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("212")))
+    }
 
 //    입력된_수식이_완전하지_않을_때_사용자가_=_버튼을_눌렀을_때_완성되지_않은_수식입니다_토스트_메세지가_화면에_보여야_한다
 }
