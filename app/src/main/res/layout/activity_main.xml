@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".MainActivity"
     >
 
@@ -17,6 +16,7 @@
         android:hint="0"
         android:textAlignment="viewEnd"
         android:textSize="24sp"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="@id/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
 
     <GridLayout
         android:id="@+id/input"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:columnCount="4"
         android:rowCount="4"
