@@ -103,4 +103,26 @@ class MainActivityTest {
         // then: 화면에 9이 보여야 한다
         onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("9")))
     }
+
+    @Test
+    fun `입력된_피연산자가_있을_때_기존_숫자_뒤에_해당_숫자가_화면에_보여야_한다`() {
+        onView(withId(R.id.button9)).perform(ViewActions.click())
+        onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("9")))
+        onView(withId(R.id.button9)).perform(ViewActions.click())
+        onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("99")))
+        onView(withId(R.id.button5)).perform(ViewActions.click())
+        onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("995")))
+    }
+
+//    입력된_피연산자가 없을_때_사용자가_연산자_+_-_×_÷_버튼을_누르면_화면에_아무런_변화가_없어야_한다
+
+//    입력된_피연산자가_있을_때_사용자가_연산자_+_-_×_÷_버튼을_누르면_해당_기호가_화면에_보여야_한다
+
+//    입력된_수식이_없을_때_사용자가_지우기_버튼을_누르면_화면에_아무런_변화가_없어야_한다
+
+//    입력된_수식이_있을_때_사용자가_지우기_버튼을_누르면_수식에_마지막으로_입력된_연산자_또는_피연산자가_지워져야_한다
+
+//    입력된_수신이_완전할_때_사용자가_=_버튼을_누르면_입력된_수식의_결과가_화면에_보여야_한다
+
+//    입력된_수식이_완전하지_않을_때_사용자가_=_버튼을_눌렀을_때_완성되지_않은_수식입니다_토스트_메세지가_화면에_보여야_한다
 }
