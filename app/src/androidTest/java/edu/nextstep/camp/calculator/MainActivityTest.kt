@@ -114,7 +114,20 @@ class MainActivityTest {
         onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("995")))
     }
 
-//    입력된_피연산자가 없을_때_사용자가_연산자_+_-_×_÷_버튼을_누르면_화면에_아무런_변화가_없어야_한다
+    @Test
+    fun `입력된_피연산자가_없을_때_사용자가_연산자_덧셈_뺄셈_곱셈_나눗셈_버튼을_누르면_화면에_아무런_변화가_없어야_한다`() {
+        onView(withId(R.id.buttonPlus)).perform(ViewActions.click())
+        onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("")))
+
+        onView(withId(R.id.buttonMinus)).perform(ViewActions.click())
+        onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("")))
+
+        onView(withId(R.id.buttonMultiply)).perform(ViewActions.click())
+        onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("")))
+
+        onView(withId(R.id.buttonDivide)).perform(ViewActions.click())
+        onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("")))
+    }
 
 //    입력된_피연산자가_있을_때_사용자가_연산자_+_-_×_÷_버튼을_누르면_해당_기호가_화면에_보여야_한다
 
