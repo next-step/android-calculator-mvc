@@ -13,13 +13,16 @@ class ExpressionManager {
             return
         }
 
-        if (expressionContents.lastOrNull().equals("0") && ExpressionValidator.isNumber(content)) {
+        val isNumberByContent: Boolean = ExpressionValidator.isNumber(content)
+        val isNumberByExpressionContentLast: Boolean = ExpressionValidator.isNumber(expressionContents.lastOrNull())
+
+        if (expressionContents.lastOrNull().equals("0") && isNumberByContent) {
             expressionContents.removeLastOrNull()
         }
 
-        if (ExpressionValidator.isNumber(content) && ExpressionValidator.isNumber(expressionContents.lastOrNull()).not()) {
+        if (isNumberByContent && isNumberByExpressionContentLast.not()) {
             expressionContents.add(content)
-        } else if (ExpressionValidator.isNumber(content) && ExpressionValidator.isNumber(expressionContents.lastOrNull())) {
+        } else if (isNumberByContent && isNumberByExpressionContentLast) {
             val lastContent = expressionContents.lastOrNull()
             expressionContents.removeLastOrNull()
             expressionContents.add(lastContent.plus(content))
