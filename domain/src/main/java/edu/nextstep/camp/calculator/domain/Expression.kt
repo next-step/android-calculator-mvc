@@ -1,18 +1,14 @@
 package edu.nextstep.camp.calculator.domain
 
-import java.lang.StringBuilder
-
 class Expression {
-    private val list: MutableList<String> = mutableListOf()
-    private val operandRange: CharRange = '0'..'9'
-    private val operatorSet: Set<Char> = setOf('÷', '×', '-', '+')
+    private val list: MutableList<Operational> = mutableListOf()
 
     fun add(value: Char) {
-        if (value in operandRange) {
+        if (Operand.isOperandValue(value)) {
             addOperand(value)
             return
         }
-        if (value.isOperator() && list.isNotEmpty()) {
+        if (Operator.isThisOperator(value) && list.isNotEmpty()) {
             addOperator(value)
         }
     }
@@ -21,32 +17,34 @@ class Expression {
         if (list.size == 0) {
             return
         }
-        if (list.last().length == 1) {
+        if (list.last().isRemoveAble()) {
             list.removeLast()
             return
         }
-        val lastOperand = list.last()
-        list.removeLast()
-        list.add(lastOperand.dropLast(1))
+        if (!list.last().isRemoveAble()) {
+            val lastOperand = list.last() as Operand
+            list.removeLast()
+            list.add(lastOperand.lastValueDropped())
+        }
     }
 
-    fun isCompleted(): Boolean = list.size > 1 && list.last().isNotOperator()
+    fun isCompleted(): Boolean = list.size > 1 && list.last().isOperand()
 
     private fun addOperand(value: Char) {
-        val operand: StringBuilder = StringBuilder()
-        if (list.isNotEmpty() && list.last().isNotOperator()) {
-            operand.append(list.last())
+        if (list.isNotEmpty() && list.last().isOperand()) {
+            val lastOperand = list.last() as Operand
             list.removeLast()
+            list.add(Operand(lastOperand.toString() + value))
+            return
         }
-        operand.append(value)
-        list.add(operand.toString())
+        list.add(Operand(value.toString()))
     }
 
     private fun addOperator(value: Char) {
-        if (list.last().isOperator()) {
+        if (list.last().isNotOperand()) {
             list.removeLast()
         }
-        list.add(value.toString())
+        list.add(Operator.findBySymbol(value.toString()))
     }
 
     override fun toString(): String {
@@ -56,10 +54,5 @@ class Expression {
         return list.joinToString(" ")
     }
 
-    private fun String.isOperator(): Boolean = length == 1 && last().isOperator()
-
-    private fun String.isNotOperator(): Boolean = !isOperator()
-
-    private fun Char.isOperator(): Boolean = this in operatorSet
-
+    private fun Operational.isNotOperand(): Boolean = !this.isOperand()
 }
