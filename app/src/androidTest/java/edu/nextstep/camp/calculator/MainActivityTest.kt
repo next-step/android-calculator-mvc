@@ -171,6 +171,4 @@ class MainActivityTest {
         onView(withId(R.id.buttonEquals)).perform(ViewActions.click())
         onView(withId(R.id.textView)).check(matches(ViewMatchers.withText("212")))
     }
-
-//    입력된_수식이_완전하지_않을_때_사용자가_=_버튼을_눌렀을_때_완성되지_않은_수식입니다_토스트_메세지가_화면에_보여야_한다
 }
