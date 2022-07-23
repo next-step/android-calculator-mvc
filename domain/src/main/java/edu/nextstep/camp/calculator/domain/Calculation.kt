@@ -16,5 +16,7 @@ internal class Calculation {
             result = Expression(result, operand2.operand, operator).expose()
         }
         result
+    }.onFailure {
+        throw IllegalArgumentException("invalid tokens ${tokens}")
     }
 }
