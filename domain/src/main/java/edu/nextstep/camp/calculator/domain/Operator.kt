@@ -11,7 +11,7 @@ internal enum class Operator(
     DIVIDE("/", { a, b -> a / b });
 
     companion object {
-        fun get(value: String): Operator = values().find { it.symbol == value }
-            ?: throw IllegalArgumentException() // 사칙연산 기호가 아닌 경우 IllegalArgumentException
+        fun get(symbol: String): Operator = values().find { it.symbol == symbol }
+            ?: throw IllegalArgumentException("operator $symbol is not arithmetic operation") // 사칙연산 기호가 아닌 경우 IllegalArgumentException
     }
 }
