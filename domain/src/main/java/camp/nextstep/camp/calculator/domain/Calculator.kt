@@ -8,7 +8,6 @@ object Calculator {
 
         val inputList: List<String> = input.split(delimiter)
 
-        inputList.forEach { println(it) }
         var result = inputList[0].toInt()
 
         for (index in 1 until inputList.size step 2) {
