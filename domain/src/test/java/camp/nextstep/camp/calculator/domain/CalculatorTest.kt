@@ -6,9 +6,8 @@ import org.junit.Test
 
 class CalculatorTest {
 
-    //덧셈
     @Test
-    fun testPlus() {
+    fun `덧셈 테스트`() {
         //given
         val expression = "2 + 3"
         val delimiter = " "
@@ -21,9 +20,8 @@ class CalculatorTest {
         assertThat(result).isEqualTo(expected)
     }
 
-    //뺄셈
     @Test
-    fun testMinus() {
+    fun `뺄셈 테스트`() {
         //given
         val expression = "2 - 3"
         val delimiter = " "
@@ -36,9 +34,8 @@ class CalculatorTest {
         assertThat(result).isEqualTo(expected)
     }
 
-    //곱셈
     @Test
-    fun testMultiply() {
+    fun `곱셈 테스트`() {
         //given
         val expression = "2 * 3"
         val delimiter = " "
@@ -51,9 +48,8 @@ class CalculatorTest {
         assertThat(result).isEqualTo(expected)
     }
 
-    //나눗셈
     @Test
-    fun testDivide() {
+    fun `나눗셈 테스트`() {
         //given
         val expression = "3 / 3"
         val delimiter = " "
@@ -66,9 +62,8 @@ class CalculatorTest {
         assertThat(result).isEqualTo(expected)
     }
 
-    //입력값이 null이거나 빈 공백 문자일 경우 IllegalArgumentException throw
     @Test
-    fun testNullInput() {
+    fun `입력값이 null일 경우 IllegalArgumentException throw 테스트`() {
         //given
         val expression = null
 
@@ -80,7 +75,7 @@ class CalculatorTest {
     }
 
     @Test
-    fun testBlankInput() {
+    fun `입력값이 공백 문자일 경우 IllegalArgumentException throw 테스트`() {
         //given
         val expression = " "
 
@@ -91,9 +86,8 @@ class CalculatorTest {
         assertThrows(IllegalArgumentException::class.java){result}
     }
 
-    //사칙연산 기호가 아닌 경우 IllegalArgumentException throw
     @Test
-    fun testNonOperatorInput() {
+    fun `사칙연산 기호가 아닌 문자인 경우 IllegalArgumentException throw 테스트`() {
         //given
         val expression = "2 $ 3"
         val delimiter = " "
@@ -105,9 +99,8 @@ class CalculatorTest {
         assertThrows(IllegalArgumentException::class.java) { result }
     }
 
-    //사칙 연산을 모두 포함하는 기능 구현
     @Test
-    fun `testEvaluate1`() {
+    fun `사칙 연산을 모두 포함하는 기능 구현 테스트1`() {
         //given
         val input = "1 + 2 + 3"
         val delimiter = " "
@@ -120,7 +113,7 @@ class CalculatorTest {
     }
 
     @Test
-    fun `testEvaluate2`() {
+    fun `사칙 연산을 모두 포함하는 기능 구현 테스트2`() {
         //given
         val input = "2 + 3 * 4 / 2"
         val delimiter = " "
