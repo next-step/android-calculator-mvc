@@ -6,10 +6,6 @@ class Validator {
         operator.operator == inputString
     } != null
 
-    fun isNumeric(toCheck: String): Boolean {
-        if (toCheck.matches("-?[0-9]+(\\.[0-9]+)?".toRegex()).not()) {
-            throw IllegalArgumentException("사칙연산 기호와 숫자만 입력할 수 있습니다.")
-        } else return true
-    }
+    fun isNumeric(toCheck: String): Boolean = if (toCheck[0] in '0'..'9') true else throw IllegalArgumentException("숫자가 아닌 다른 기호는 들어올 수 없습니다.")
 
 }

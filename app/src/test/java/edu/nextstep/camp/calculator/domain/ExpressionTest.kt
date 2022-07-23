@@ -18,68 +18,48 @@ class ExpressionTest {
     }
 
     @Test
-    fun 연산자_추가_테스트() {
-        expression.addInputString("1")
-        expression.addInputString("+")
-        assertThat(expression.values).isEqualTo("1 + ")
+    fun 숫자_입력_후_연산자_추가_테스트() {
+        expression += "1"
+        expression += " + "
+        assertThat(expression.toString()).isEqualTo("1 + ")
     }
 
     @Test
-    fun 제거_테스트() {
-        expression.addInputString("1")
-        expression.addInputString("+")
-        expression.addInputString("2")
-        expression.dropLast()
-        assertThat(expression.values).isEqualTo("1 + ")
+    fun 숫자_연산자_숫자_입력_후_마지막_문자_제거_테스트() {
+        expression += "1"
+        expression += " + "
+        expression += "2"
+        expression = expression.dropLast()
+        assertThat(expression.toString()).isEqualTo("1 + ")
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun 잘못된_값_입력_테스트() {
-        expression.addInputString("r")
+        expression += "r"
     }
 
     @Test
-    fun 연산자_중복_테스트() {
-        expression.addInputString("1")
-        expression.addInputString("+")
-        expression.addInputString("+")
-        assertThat(expression.values).isEqualTo("1 + ")
+    fun 마지막_연산자가_현재_입력한_연산자와_중복일_경우_테스트() {
+        expression += "1"
+        expression += " + "
+        expression += " + "
+        assertThat(expression.toString()).isEqualTo("1 + ")
     }
 
     @Test
-    fun 연산자_변경_테스트() {
-        expression.addInputString("1")
-        expression.addInputString("+")
-        expression.addInputString("*")
-        assertThat(expression.values).isEqualTo("1 * ")
-    }
-
-    @Test
-    fun 마지막_값_버리기_테스트() {
-        expression.addInputString("1")
-        expression.addInputString("+")
-        expression.dropLast()
-        assertThat(expression.values).isEqualTo("1")
-    }
-
-    @Test(expected = IllegalArgumentException::class)
-    fun 마지막_값_버리기_에러_테스트() {
-        expression.dropLast()
-        assertThat(expression.values).isEqualTo("1")
+    fun 마지막_문자열이_연산자인_경우_다른_연산자_입력_시_연산자_변경_테스트() {
+        expression += "1"
+        expression += " + "
+        expression += " * "
+        assertThat(expression.toString()).isEqualTo("1 * ")
     }
 
     @Test
     fun 마지막_값_연산자_성공_테스트() {
-        expression.addInputString("1")
-        expression.addInputString("+")
+        expression += "1"
+        expression += " + "
         val actual = expression.isLastValueOperatorCheck()
         assertThat(actual).isTrue()
-    }
-
-    @Test
-    fun 계산성공_테스트() {
-        val actual = expression.complete("150")
-        assertThat(actual).isEqualTo("150")
     }
 
 }

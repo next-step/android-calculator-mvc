@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
-    private val expression = Expression()
+    private var expression = Expression()
     private val calculator = Calculator()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,9 +34,9 @@ class MainActivity : AppCompatActivity() {
         bindOnClickOperator(buttons = operatorButtonArray)
 
         binding.buttonDelete.setOnClickListener {
-            if (expression.values.isNotEmpty()) {
-                expression.dropLast()
-                binding.textView.text = expression.values
+            if (expression.toString().isNotEmpty()) {
+                expression = expression.dropLast()
+                binding.textView.text = expression.toString()
                 return@setOnClickListener
             }
 
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buttonEquals.setOnClickListener {
-            if (expression.values.isEmpty()) {
+            if (expression.toString().isEmpty()) {
                 Toast.makeText(applicationContext, "완성되지 않은 수식입니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -54,16 +54,17 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val value = calculator.evaluate(expression.values).toString()
-            binding.textView.text = expression.complete(value)
+            val value = calculator.evaluate(expression.toString()).toString()
+            binding.textView.text = value
+            expression = Expression(listOf(value))
         }
     }
 
     private fun bindOnClickOperand(vararg buttons: Button) {
         buttons.forEachIndexed { index, button ->
             button.setOnClickListener {
-                expression.addInputString(button.text.toString())
-                binding.textView.text = expression.values
+                expression += button.text.toString()
+                binding.textView.text = expression.toString()
             }
         }
     }
@@ -72,11 +73,10 @@ class MainActivity : AppCompatActivity() {
     private fun bindOnClickOperator(vararg buttons: Button) {
         buttons.forEach { button ->
             button.setOnClickListener {
-                expression.addInputString(button.text.toString())
-                binding.textView.text = expression.values
+                expression += button.text.toString()
+                binding.textView.text = expression.toString()
             }
         }
     }
-
 
 }

@@ -14,14 +14,12 @@ class CalculatorTest(
 ) {
 
     private lateinit var blankSplitter: BlankSplitter
-    private lateinit var validator: Validator
     private lateinit var calculator: Calculator
 
     @Before
     fun setUp() {
         blankSplitter = BlankSplitter()
-        validator = Validator()
-        calculator = Calculator(blankSplitter, validator)
+        calculator = Calculator(blankSplitter)
     }
 
     @Test
@@ -50,14 +48,12 @@ class CalculatorTest(
 class CalculatorExceptionTest {
 
     private lateinit var blankSplitter: BlankSplitter
-    private lateinit var validator: Validator
     private lateinit var calculator: Calculator
 
     @Before
     fun setUp() {
         blankSplitter = BlankSplitter()
-        validator = Validator()
-        calculator = Calculator(blankSplitter, validator)
+        calculator = Calculator(blankSplitter)
     }
 
     @Test(expected = IllegalArgumentException::class)

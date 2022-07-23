@@ -4,7 +4,6 @@ import java.math.BigDecimal
 
 class Calculator(
     private val blankSplitter: BlankSplitter = BlankSplitter(),
-    private val validator: Validator = Validator()
 ) {
 
     fun evaluate(inputCalculatorContents: String): BigDecimal {
@@ -16,20 +15,13 @@ class Calculator(
     private fun calculate(calculatorContent: List<String>): BigDecimal {
         var result = BigDecimal(calculatorContent.first())
 
-        return calculatorContent.forEachIndexed { index, inputString ->
-            if (validator.isOperator(inputString)) {
-                val operator = Operator.find(inputString)
-                val calculateValue =
-                    operator.calculate.invoke(result, BigDecimal(calculatorContent[index + 1]))
-                calculateValue.also { result = calculateValue }
-            }
-
-            if (validator.isOperator(inputString).not()) {
-                validator.isNumeric(inputString)
-            }
-        }.run {
-            result
+        for (index in 1 until calculatorContent.size step 2) {
+            val operator = Operator.find(calculatorContent[index])
+            val calculateValue =
+                operator.calculate.invoke(result, BigDecimal(calculatorContent[index + 1]))
+            calculateValue.also { result = calculateValue }
         }
+        return result
     }
 
 }

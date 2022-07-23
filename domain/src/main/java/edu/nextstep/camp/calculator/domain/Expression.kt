@@ -1,52 +1,36 @@
 package edu.nextstep.camp.calculator.domain
 
 data class Expression(
-    private val inputCalculatorContents: MutableList<String> = mutableListOf(),
+    private val inputCalculatorContents: List<String> = emptyList(),
     private val validator: Validator = Validator()
 ) {
 
-    val values: String get() = inputCalculatorContents.joinToString("")
-
-    fun addInputString(inputString: String) {
-        if (validator.isOperator(inputString)) {
-            isRepeatOperator(inputString)
-            return
+    operator fun plus(inputString: String): Expression {
+        if (validator.isOperator(inputString.trim())) {
+            return lastIndexValidateExpression(inputString.trim())
         }
 
-        if (validator.isNumeric(inputString)) {
-            inputCalculatorContents.add(inputString)
-            return
-        }
+        if (validator.isNumeric(inputString)) return Expression(inputCalculatorContents + inputString)
 
-        throw IllegalArgumentException("잘못된 값이 전달 되었습니다.")
+        throw IllegalArgumentException("잘못된 값이 전달 되었습니다. 입력 값 : $inputString")
     }
 
-    private fun isRepeatOperator(inputString: String) {
-        if (inputCalculatorContents.isEmpty()) {
-            return
+    private fun lastIndexValidateExpression(inputString: String): Expression {
+        val lastValue = inputCalculatorContents.lastOrNull()
+        return when {
+            lastValue == null -> this
+            validator.isOperator(lastValue.trim()) -> Expression(inputCalculatorContents.dropLast(1) + " $inputString ")
+            validator.isNumeric(lastValue.trim()) -> Expression(inputCalculatorContents + " $inputString ")
+            else -> throw IllegalArgumentException("마지막 값 검증을 실패했습니다. 입력값 : $inputString 마지막값 : $lastValue")
         }
-
-        val compareContent = inputCalculatorContents.last().trim()
-
-        if (compareContent == inputString) {
-            return
-        }
-
-        if (compareContent != inputString && validator.isOperator(compareContent)) {
-            inputCalculatorContents[inputCalculatorContents.size - 1] = " $inputString "
-            return
-        }
-
-        inputCalculatorContents.add(" $inputString ")
     }
 
-    fun dropLast() {
+    fun dropLast(): Expression {
         if (inputCalculatorContents.isNotEmpty()) {
-            inputCalculatorContents.removeLast()
-            return
+            return Expression(inputCalculatorContents.dropLast(1))
         }
 
-        throw IllegalArgumentException("마지막 값이 존재하지 않습니다.")
+        return this
     }
 
     fun isLastValueOperatorCheck(): Boolean {
@@ -54,10 +38,8 @@ data class Expression(
         return validator.isOperator(lastValue)
     }
 
-    fun complete(calculateString: String): String {
-        inputCalculatorContents.clear()
-        inputCalculatorContents.add(calculateString)
-        return inputCalculatorContents.first()
+    override fun toString(): String {
+        return inputCalculatorContents.joinToString("")
     }
 
 }
