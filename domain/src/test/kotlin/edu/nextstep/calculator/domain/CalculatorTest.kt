@@ -1,15 +1,16 @@
 package edu.nextstep.calculator.domain
 
 import org.junit.Assert.assertThrows
-import org.junit.Test
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class CalculatorTest {
     @Test
     fun `빈 문자열이나 null을 input하면 IllegalArgumentException이 나온다`() {
-        assertThrows(IllegalArgumentException::class.java) {
+        assertThrows<IllegalArgumentException> {
             Calculator.calculate("")
         }
-        assertThrows(IllegalArgumentException::class.java) {
+        assertThrows<IllegalArgumentException> {
             Calculator.calculate(null)
         }
     }
@@ -25,13 +26,17 @@ class CalculatorTest {
         }
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun `피연산자 자리에 연산자가 들어가는 경우 IllegalArgumentException가 발생한다`() {
-        Calculator.calculate("+ + 5")
+        assertThrows<IllegalArgumentException> {
+            Calculator.calculate("+ + 5")
+        }
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun `연산자와 피연산자를 구분하지 않는 경우 IllegalArgumentException가 발생한다`() {
-        Calculator.calculate("5+5")
+        assertThrows<IllegalArgumentException> {
+            Calculator.calculate("5+5")
+        }
     }
 }

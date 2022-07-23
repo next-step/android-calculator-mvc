@@ -41,8 +41,7 @@ class ExpressionManagerTest {
     @ParameterizedTest
     @ValueSource(strings = ["+", "-", "*", "/"])
     fun `입력된 피연산자가 없을 때, 사용자가 연산자 덧셈,뺄셈,곱셈,나눗셈을 입력하면 식에 아무런 변화가 없다`(content: String) {
-        val operator = Operator.fromValue(content) ?: return
-        editor.input(operator)
+        editor.input(content)
         assertThat(editor.getExpression()).isEqualTo("")
     }
 
@@ -50,15 +49,13 @@ class ExpressionManagerTest {
     @ValueSource(strings = ["+", "-", "*", "/"])
     fun `입력된 피연산자가 있을 때, 사용자가 연산자 덧셈,뺄셈,곱셈,나눗셈을 입력하면 해당 기호가 식에 입력된다`(content: String) {
         editor.input("1")
-
-        val operator = Operator.fromValue(content) ?: return
-        editor.input(operator)
+        editor.input(content)
         assertThat(editor.getExpression()).isEqualTo("1 $content")
     }
 
     @Test
     fun `입력된 수식이 없을 때, 사용자가 지우기를 입력하면 식에 아무런 변화가 없다`() {
-        editor.input(ExpressionManager.DELETE)
+        editor.erase()
         assertThat(editor.getExpression()).isEqualTo("")
     }
 
@@ -66,8 +63,8 @@ class ExpressionManagerTest {
     fun `숫자 연산자인 식에 지우기를 입력하면 식에 숫자만 남는다`() {
         editor.input("1")
         editor.input("1")
-        editor.input(Operator.PLUS)
-        editor.input(ExpressionManager.DELETE)
+        editor.input("+")
+        editor.erase()
         assertThat(editor.getExpression()).isEqualTo("11")
     }
 
@@ -75,9 +72,9 @@ class ExpressionManagerTest {
     fun `숫자 연산자 숫자인 식에 지우기를 입력하면 식에 숫자 연산자가 남는다`() {
         editor.input("1")
         editor.input("1")
-        editor.input(Operator.PLUS)
+        editor.input("+")
         editor.input("1")
-        editor.input(ExpressionManager.DELETE)
+        editor.erase()
         print(editor.getExpression())
         assertThat(editor.getExpression()).isEqualTo("11 +")
     }
@@ -98,19 +95,17 @@ class ExpressionManagerTest {
     @ValueSource(strings = ["+", "-", "*", "/"])
     fun `입력된 수식의 마지막이 연산자라면 false를 반환한다`(content: String) {
         editor.input("1")
-
-        val operator = Operator.fromValue(content) ?: return
-        editor.input(operator)
+        editor.input(content)
         assertThat(editor.isEnableCalculateExpression()).isEqualTo(false)
     }
 
     @Test
     fun `입력된 수식의 숫자 연산자 숫자의 형식이라면 true를 반환한다`() {
         editor.input("1")
-        editor.input(Operator.MULTIPLY)
+        editor.input("*")
         editor.input("1")
         editor.input("1")
-        editor.input(Operator.MULTIPLY)
+        editor.input("*")
         editor.input("0")
         assertThat(editor.isEnableCalculateExpression()).isEqualTo(true)
     }

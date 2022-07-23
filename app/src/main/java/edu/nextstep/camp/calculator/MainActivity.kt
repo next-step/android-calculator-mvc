@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buttonDelete.setOnClickListener {
-            onClickButton(ExpressionManager.DELETE)
+            onClickEraseButton()
         }
         binding.buttonPlus.setOnClickListener {
             onClickButton(Operator.PLUS.value)
@@ -75,6 +75,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun onClickButton(content: String) {
         expressionManager.input(content)
+        binding.textView.text = expressionManager.getExpression()
+    }
+
+    private fun onClickEraseButton() {
+        expressionManager.erase()
         binding.textView.text = expressionManager.getExpression()
     }
 
