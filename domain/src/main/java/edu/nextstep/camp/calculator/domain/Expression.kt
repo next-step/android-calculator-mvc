@@ -2,8 +2,9 @@ package edu.nextstep.camp.calculator.domain
 
 import edu.nextstep.camp.calculator.domain.util.CalculatorInputUtil
 
-object Expression {
+class Expression {
     var express: String = ""
+        private set
 
     fun addNumber(input: String) {
         if (express.isEmpty()) {
