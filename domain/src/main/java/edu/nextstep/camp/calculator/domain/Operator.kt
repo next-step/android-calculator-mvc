@@ -1,21 +1,14 @@
 package edu.nextstep.camp.calculator.domain
 
-internal enum class Operator(private val symbol: String) : Token {
+internal enum class Operator(
+    private val symbol: String,
+    val operate: (Int, Int) -> Int
+) : Token {
 
-    PLUS("+") {
-        override fun operate(a: Int, b: Int) = a + b
-    },
-    MINUS("-") {
-        override fun operate(a: Int, b: Int) = a - b
-    },
-    MULTIPLY("*") {
-        override fun operate(a: Int, b: Int) = a * b
-    },
-    DIVIDE("/") {
-        override fun operate(a: Int, b: Int) = a / b
-    };
-
-    abstract fun operate(a: Int, b: Int): Int
+    PLUS("+", { a, b -> a + b }),
+    MINUS("-", { a, b -> a - b }),
+    MULTIPLY("*", { a, b -> a * b }),
+    DIVIDE("/", { a, b -> a / b });
 
     companion object {
         fun get(value: String): Operator = values().find { it.symbol == value }
