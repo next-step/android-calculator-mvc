@@ -1,5 +1,7 @@
 package camp.nextstep.camp.calculator.domain
 
+import camp.nextstep.camp.calculator.domain.Calculator.Operators.*
+
 
 object Calculator {
 
@@ -24,10 +26,10 @@ object Calculator {
 
     private fun calculate(operator: String, operandFirst: Int, operandSecond: Int): Int {
         return when (operator) {
-            "+" -> plus(operandFirst, operandSecond)
-            "-" -> minus(operandFirst, operandSecond)
-            "*" -> multiply(operandFirst, operandSecond)
-            "/" -> divide(operandFirst, operandSecond)
+            Plus.operator -> plus(operandFirst, operandSecond)
+            Minus.operator -> minus(operandFirst, operandSecond)
+            Multiply.operator -> multiply(operandFirst, operandSecond)
+            Divide.operator -> divide(operandFirst, operandSecond)
             else -> throw IllegalArgumentException() //사칙연산 기호가 아닌 경우 IllegalArgumentException throw
         }
     }
@@ -43,4 +45,11 @@ object Calculator {
 
     private fun divide(operandFirst: Int, operandSecond: Int) =
         operandFirst / operandSecond
+
+    enum class Operators(val operator: String) {
+        Plus("+"),
+        Minus("-"),
+        Multiply("*"),
+        Divide("/")
+    }
 }
