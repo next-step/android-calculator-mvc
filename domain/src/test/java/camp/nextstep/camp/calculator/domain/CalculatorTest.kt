@@ -67,11 +67,8 @@ class CalculatorTest {
         //given
         val expression = null
 
-        //when
-        val result = Calculator.requiredInput(expression)
-
         //then
-        assertThrows(IllegalArgumentException::class.java){result}
+        assertThrows(IllegalArgumentException::class.java){Calculator.requiredInput(expression)}
     }
 
     @Test
@@ -79,11 +76,9 @@ class CalculatorTest {
         //given
         val expression = " "
 
-        //when
-        val result = Calculator.requiredInput(expression)
-
         //then
-        assertThrows(IllegalArgumentException::class.java){result}
+        assertThrows(IllegalArgumentException::class.java){Calculator.requiredInput(expression)
+        }
     }
 
     @Test
@@ -92,11 +87,8 @@ class CalculatorTest {
         val expression = "2 $ 3"
         val delimiter = " "
 
-        //when
-        val result = Calculator.evaluate(expression, delimiter)
-
         //then
-        assertThrows(IllegalArgumentException::class.java) { result }
+        assertThrows(IllegalArgumentException::class.java) { Calculator.evaluate(expression, delimiter) }
     }
 
     @Test
