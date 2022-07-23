@@ -18,16 +18,6 @@ class CalculatorTest {
     }
 
     @Test
-    fun `입력값으로_NULL이_들어오면_예외를_발생시킨다`() {
-        //given
-        val input: String? = null
-        //when
-        val actual = runCatching { calculator.evaluate(input) }.exceptionOrNull()
-        //then
-        assertThat(actual).isInstanceOf(IllegalArgumentException::class.java)
-    }
-
-    @Test
     fun `사칙연산_이외의_기호가_들어오면_예외를_발생시킨다`() {
         //given
         val input = "1 % 2"
