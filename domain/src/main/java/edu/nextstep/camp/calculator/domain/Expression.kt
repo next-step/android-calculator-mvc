@@ -1,10 +1,20 @@
 package edu.nextstep.camp.calculator.domain
 
-internal class Expression(
-    private val operand1: Int,
-    private val operand2: Int,
-    private val operator: Operator,
-) {
-    fun expose(): Int = operator.operate(operand1, operand2)
-}
 
+internal sealed class Expression {
+    internal data class Calculation(
+        private val operand1: Expression,
+        private val operand2: Expression,
+        private val operator: Operator
+    ) : Expression() {
+        override fun excute(): Int = operator.operate(operand1.excute(), operand2.excute())
+    }
+
+    internal data class Value(
+        private val value: Int
+    ) : Expression() {
+        override fun excute(): Int = value
+    }
+
+    abstract fun excute(): Int
+}

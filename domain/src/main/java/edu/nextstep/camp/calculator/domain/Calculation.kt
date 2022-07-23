@@ -7,15 +7,19 @@ internal class Calculation {
         val queue: Queue<Token> = LinkedList(tokens)
         val operand1 = queue.poll()
         check(operand1 is Operand)
-        var result: Int = operand1.operand
+        var result: Expression = Expression.Value(operand1.operand)
         while (queue.isNotEmpty()) {
             val operator = queue.poll()
             check(operator is Operator)
             val operand2 = queue.poll()
             check(operand2 is Operand)
-            result = Expression(result, operand2.operand, operator).expose()
+            result = Expression.Calculation(
+                result,
+                Expression.Value(operand2.operand),
+                operator
+            )
         }
-        result
+        result.excute()
     }.onFailure {
         throw IllegalArgumentException("invalid tokens ${tokens}")
     }
