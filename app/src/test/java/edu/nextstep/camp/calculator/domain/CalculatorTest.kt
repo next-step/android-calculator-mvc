@@ -1,6 +1,6 @@
 package edu.nextstep.camp.calculator.domain
 
-import com.google.common.truth.Truth
+import com.google.common.truth.Truth.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,19 +14,17 @@ class CalculatorTest(
 ) {
 
     private lateinit var blankSplitter: BlankSplitter
-    private lateinit var validator: Validator
     private lateinit var calculator: Calculator
 
     @Before
     fun setUp() {
         blankSplitter = BlankSplitter()
-        validator = Validator()
-        calculator = Calculator(blankSplitter, validator)
+        calculator = Calculator(blankSplitter)
     }
 
     @Test
     fun 계산기_기능_테스트() {
-        Truth.assertThat(calculator.evaluate(inputString)).isEqualTo(result)
+        assertThat(calculator.evaluate(inputString)).isEqualTo(result)
     }
 
     companion object {
@@ -50,24 +48,22 @@ class CalculatorTest(
 class CalculatorExceptionTest {
 
     private lateinit var blankSplitter: BlankSplitter
-    private lateinit var validator: Validator
     private lateinit var calculator: Calculator
 
     @Before
     fun setUp() {
         blankSplitter = BlankSplitter()
-        validator = Validator()
-        calculator = Calculator(blankSplitter, validator)
+        calculator = Calculator(blankSplitter)
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun 공백_입력_테스트() {
-        Truth.assertThat(calculator.evaluate("")).isEqualTo("")
+        assertThat(calculator.evaluate("")).isEqualTo("")
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun 사칙연산_기호가_아닌_다른_기호입력_테스트() {
-        Truth.assertThat(calculator.evaluate("1 & 2")).isEqualTo("")
+        assertThat(calculator.evaluate("1 & 2")).isEqualTo("")
     }
 
 }

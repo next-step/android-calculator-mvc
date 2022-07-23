@@ -1,44 +1,36 @@
 package edu.nextstep.camp.calculator.domain
 
-import com.google.common.truth.Truth
+import com.google.common.truth.Truth.assertThat
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 import java.math.BigDecimal
 
-class OperatorTest {
+@RunWith(Parameterized::class)
+class OperatorTest(
+    private val operator: String,
+    private val firstOperand: BigDecimal,
+    private val secondOperand: BigDecimal,
+    private val result: BigDecimal
+) {
 
     @Test
-    fun 덧셈_테스트() {
-        val operator = Operator.find("+")?.calculate?.invoke(BigDecimal(1), BigDecimal(1))
+    fun 연산_테스트() {
+        val operator = Operator.find(operator).calculate.invoke(firstOperand, secondOperand)
 
-        Truth.assertThat(operator).isEqualTo(BigDecimal(2))
+        assertThat(operator).isEqualTo(result)
     }
 
-    @Test
-    fun 뺄셈_테스트() {
-        val operator = Operator.find("-")?.calculate?.invoke(BigDecimal(1), BigDecimal(1))
-
-        Truth.assertThat(operator).isEqualTo(BigDecimal(0))
-    }
-
-    @Test
-    fun 곱셈_테스트() {
-        val operator = Operator.find("*")?.calculate?.invoke(BigDecimal(1), BigDecimal(1))
-
-        Truth.assertThat(operator).isEqualTo(BigDecimal(1))
-    }
-
-    @Test
-    fun 나눗셈_테스트() {
-        val operator = Operator.find("/")?.calculate?.invoke(BigDecimal(1), BigDecimal(1))
-
-        Truth.assertThat(operator).isEqualTo(BigDecimal(1))
-    }
-
-    @Test
-    fun 나눗셈_0_값_테스트() {
-        val operator = Operator.find("/")?.calculate?.invoke(BigDecimal(1), BigDecimal(0))
-
-        Truth.assertThat(operator).isEqualTo(BigDecimal(0))
+    companion object {
+        @JvmStatic
+        @Parameterized.Parameters
+        fun parameterizedTestData() = listOf(
+            arrayOf("+", BigDecimal(1), BigDecimal(1), BigDecimal(2)),
+            arrayOf("-", BigDecimal(1), BigDecimal(1), BigDecimal(0)),
+            arrayOf("*", BigDecimal(1), BigDecimal(1), BigDecimal(1)),
+            arrayOf("/", BigDecimal(1), BigDecimal(1), BigDecimal(1)),
+            arrayOf("/", BigDecimal(1), BigDecimal(0), BigDecimal(0)),
+        )
     }
 
 }
