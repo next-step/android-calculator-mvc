@@ -6,13 +6,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import java.lang.IllegalArgumentException
 
-class CalculatorDomainTest {
-
-    @Test(expected = IllegalArgumentException::class)
-    fun 입력값이_null일_경우_IlligalArgumentException_발생() {
-        val calculator = Calculator()
-        calculator.calculate(null)
-    }
+class CalculatorTest {
 
     @Test(expected = IllegalArgumentException::class)
     fun 입력이_공백일_경우_IlligalArgumentException_발생() {
@@ -42,10 +36,10 @@ class CalculatorDomainTest {
                 return listOf(
                     arrayOf("1 + 1", 2.0),
                     arrayOf("2 - 1", 1.0),
-                    arrayOf("2 / 1", 2.0),
-                    arrayOf("3 / 2", 1.5),
-                    arrayOf("4 * 2", 8.0),
-                    arrayOf("1 * 1", 1.0),
+                    arrayOf("2 ÷ 1", 2.0),
+                    arrayOf("3 ÷ 2", 1.5),
+                    arrayOf("4 × 2", 8.0),
+                    arrayOf("1 × 1", 1.0),
                 )
             }
         }
@@ -70,11 +64,11 @@ class CalculatorDomainTest {
                 return listOf(
                     arrayOf("1 + 1 + 1", 3.0),
                     arrayOf("2 - 1 - 1", 0.0),
-                    arrayOf("2 / 1 - 1", 1.0),
-                    arrayOf("3 / 2 + 0.5", 2.0),
-                    arrayOf("4 * 2 + 2", 10.0),
-                    arrayOf("1 * 2 * 3 / 6", 1.0),
-                    arrayOf("1 * 1 - 2 / 0.25 + 4", 0.0)
+                    arrayOf("2 ÷ 1 - 1", 1.0),
+                    arrayOf("3 ÷ 2 + 0.5", 2.0),
+                    arrayOf("4 × 2 + 2", 10.0),
+                    arrayOf("1 × 2 × 3 ÷ 6", 1.0),
+                    arrayOf("1 × 1 - 2 ÷ 0.25 + 4", 0.0)
                 )
             }
         }
