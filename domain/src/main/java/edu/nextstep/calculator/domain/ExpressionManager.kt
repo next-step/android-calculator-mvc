@@ -5,11 +5,11 @@ class ExpressionManager {
 
     fun input(content: String) {
         when {
-            ExpressionValidator.isOperator(content) -> {
+            content.isOperator() -> {
                 val operator: Operator = Operator.fromValue(content) ?: return
                 inputOperator(operator)
             }
-            ExpressionValidator.isNumber(content) -> {
+            content.isNumber() -> {
                 inputNumber(content.toInt())
             }
         }
@@ -21,19 +21,21 @@ class ExpressionManager {
         }
 
         val expressionItem = number.toString()
-        val isNumberByExpressionContentLast: Boolean = ExpressionValidator.isNumber(expressionContents.lastOrNull())
 
-        if (isNumberByExpressionContentLast.not()) {
-            expressionContents.add(expressionItem)
-        } else if (isNumberByExpressionContentLast) {
-            val lastContent = expressionContents.lastOrNull()
-            expressionContents.removeLastOrNull()
-            expressionContents.add(lastContent.plus(expressionItem))
+        when (expressionContents.lastOrNull().isNumber()) {
+            true -> {
+                val lastContent = expressionContents.lastOrNull()
+                expressionContents.removeLastOrNull()
+                expressionContents.add(lastContent.plus(expressionItem))
+            }
+            false -> {
+                expressionContents.add(expressionItem)
+            }
         }
     }
 
     private fun inputOperator(operator: Operator) {
-        if (ExpressionValidator.isOperator(expressionContents.lastOrNull())) {
+        if (expressionContents.lastOrNull().isOperator()) {
             expressionContents.removeLastOrNull()
         }
 
@@ -45,17 +47,20 @@ class ExpressionManager {
     fun getExpression(): String = expressionContents.joinToString(" ")
 
     fun isEnableCalculateExpression(): Boolean {
-        return ExpressionValidator.isNumber(expressionContents.lastOrNull())
+        return expressionContents.lastOrNull().isNumber()
     }
 
     fun erase() {
-        if (ExpressionValidator.isNumber(expressionContents.lastOrNull())) {
-            val lastContent = expressionContents.lastOrNull() ?: return
-            expressionContents.removeLastOrNull()
+        when {
+            expressionContents.lastOrNull().isNumber() -> {
+                val lastContent = expressionContents.lastOrNull() ?: return
+                expressionContents.removeLastOrNull()
 
-            addExpressionContentIfNotEmptyContent(lastContent.dropLast(1))
-        } else if (ExpressionValidator.isOperator(expressionContents.lastOrNull())) {
-            expressionContents.removeLastOrNull()
+                addExpressionContentIfNotEmptyContent(lastContent.dropLast(1))
+            }
+            expressionContents.lastOrNull().isOperator() -> {
+                expressionContents.removeLastOrNull()
+            }
         }
     }
 
@@ -72,4 +77,7 @@ class ExpressionManager {
             expressionContents.add(lastContent)
         }
     }
+
+    private fun String?.isOperator() = ExpressionValidator.isOperator(this)
+    private fun String?.isNumber() = ExpressionValidator.isNumber(this)
 }
