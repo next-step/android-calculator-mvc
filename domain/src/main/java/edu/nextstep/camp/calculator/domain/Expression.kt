@@ -2,15 +2,17 @@ package edu.nextstep.camp.calculator.domain
 
 import edu.nextstep.camp.calculator.domain.util.CalculatorInputUtil
 
-object Expression {
+class Expression {
     var express: String = ""
+        private set
+
     fun addNumber(input: String) {
         if (express.isEmpty()) {
             express = input
             return
         }
 
-        if(input.isEmpty() || input.isBlank()){
+        if (input.isEmpty() || input.isBlank()) {
             return
         }
         express = if (express.isNotEmpty() &&
@@ -18,7 +20,7 @@ object Expression {
         ) {
             "$express$input"
         } else {
-            "$express,$input"
+            "$express $input"
         }
     }
 
@@ -27,26 +29,38 @@ object Expression {
             express = ""
             return
         }
-        if(input.isEmpty() || input.isBlank()){
+        if (input.isEmpty() || input.isBlank()) {
             return
         }
         express = if (express.isNotEmpty() &&
             CalculatorInputUtil.isNumberRegex(express.last().toString())
         ) {
-            "$express,$input"
+            "$express $input"
         } else {
             ""
         }
     }
 
-    fun getResult(): Int {
-        val operandArray = express.split(",").filter {
-            it != " " && it != ""
+    fun delete() {
+        if (express.isEmpty()) {
+            express = ""
+            return
         }
-        return Calculator.calculate(operandArray)
+        if(CalculatorInputUtil.isOperationMarkRegex(express.last().toString())){
+           express = express.dropLast(2)
+            return
+        }
+        express = express.dropLast(1)
     }
 
-    fun reset() {
-        express = ""
+    fun getResult(): Int {
+        if (CalculatorInputUtil.isOperationMarkRegex(express.last().toString())) {
+            throw IllegalArgumentException("유효하지 않은 수식입니다.")
+        }
+        val operandArray = express.split(" ").filter {
+            it.isNotBlank() && it.isNotEmpty()
+        }
+        express = Calculator.calculate(operandArray).toString()
+        return Calculator.calculate(operandArray)
     }
 }
