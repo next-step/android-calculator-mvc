@@ -5,26 +5,25 @@ import camp.nextstep.camp.calculator.domain.Calculator.Operators.*
 
 object Calculator {
 
-    fun evaluate(input: String, delimiter: String): Int {
-        requiredInput(input)
+    private val rewExpressionCheck = RawExpressionCheck()
 
-        val inputList: List<String> = input.split(delimiter)
+    fun evaluate(expression: String, delimiter: String): Int {
+        rewExpressionCheck.isNullOrBlankCheck(expression)
 
-        var result = inputList[0].toInt()
+        val expressionSplitList: List<String> = expression.split(delimiter)
 
-        for (index in 1 until inputList.size step 2) {
-            result = calculate(inputList[index], result, inputList[index + 1].toInt())
+        rewExpressionCheck.isNumericCheck(expressionSplitList[0])
+        var result = expressionSplitList[0].toInt()
+
+        for (index in 1 until expressionSplitList.size step 2) {
+            rewExpressionCheck.isNumericCheck(expressionSplitList[index + 1])
+            result = calculate(result, expressionSplitList[index], expressionSplitList[index + 1].toInt())
         }
 
         return result
     }
 
-    fun requiredInput(input: String?) {
-        //입력값이 null이거나 빈 공백 문자일 경우 IllegalArgumentException throw
-        if (input.isNullOrBlank()) throw IllegalArgumentException()
-    }
-
-    private fun calculate(operator: String, operandFirst: Int, operandSecond: Int): Int {
+    private fun calculate(operandFirst: Int, operator: String, operandSecond: Int): Int {
         return when (operator) {
             Plus.operator -> plus(operandFirst, operandSecond)
             Minus.operator -> minus(operandFirst, operandSecond)

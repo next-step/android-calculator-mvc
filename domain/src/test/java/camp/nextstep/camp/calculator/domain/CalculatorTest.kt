@@ -2,9 +2,17 @@ package camp.nextstep.camp.calculator.domain
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertThrows
+import org.junit.Before
 import org.junit.Test
 
 class CalculatorTest {
+
+    private lateinit var rawExpressionCheck: RawExpressionCheck
+
+    @Before
+    fun settings(){
+        rawExpressionCheck = RawExpressionCheck()
+    }
 
     @Test
     fun `덧셈 테스트`() {
@@ -68,7 +76,11 @@ class CalculatorTest {
         val expression = null
 
         //then
-        assertThrows(IllegalArgumentException::class.java){Calculator.requiredInput(expression)}
+        assertThrows(IllegalArgumentException::class.java) {
+            rawExpressionCheck.isNullOrBlankCheck(
+                expression
+            )
+        }
     }
 
     @Test
@@ -77,7 +89,7 @@ class CalculatorTest {
         val expression = " "
 
         //then
-        assertThrows(IllegalArgumentException::class.java){Calculator.requiredInput(expression)
+        assertThrows(IllegalArgumentException::class.java){rawExpressionCheck.isNullOrBlankCheck(expression)
         }
     }
 
@@ -94,26 +106,66 @@ class CalculatorTest {
     @Test
     fun `사칙 연산을 모두 포함하는 기능 구현 테스트1`() {
         //given
-        val input = "1 + 2 + 3"
+        val expression = "1 + 2 + 3"
         val delimiter = " "
 
         //when
-        val actual: Int = Calculator.evaluate(input, delimiter)
+        val actual: Int = Calculator.evaluate(expression, delimiter)
 
         //then
         assertThat(actual).isEqualTo(6)
     }
 
     @Test
-    fun `사칙 연산을 모두 포함하는 기능 구현 테스트2`() {
+    fun `사칙 연산을 모두 포함하는 기능 구현 테스트 2`() {
         //given
-        val input = "2 + 3 * 4 / 2"
+        val expression = "2 + 3 * 4 / 2"
         val delimiter = " "
 
         //when
-        val actual: Int = Calculator.evaluate(input, delimiter)
+        val actual: Int = Calculator.evaluate(expression, delimiter)
 
         //then
         assertThat(actual).isEqualTo(10)
     }
+
+    @Test
+    fun `파라미터로 들어오는 표현식에 대한 테스트 1`() {
+        //given
+        val expression = "1+1"
+        val delimiter = " "
+
+        //when
+        fun actual() = Calculator.evaluate(expression, delimiter)
+
+        //then
+        assertThrows(IllegalArgumentException::class.java) { actual() }
+    }
+
+    @Test
+    fun `파라미터로 들어오는 표현식에 대한 테스트 2`() {
+        //given
+        val expression = "a + 123"
+        val delimiter = " "
+
+        //when
+        fun actual() = Calculator.evaluate(expression, delimiter)
+
+        //then
+        assertThrows(IllegalArgumentException::class.java) { actual() }
+    }
+
+    @Test
+    fun `파라미터로 들어오는 표현식에 대한 테스트 3`() {
+        //given
+        val expression = "1 + + 1"
+        val delimiter = " "
+
+        //when
+        fun actual() = Calculator.evaluate(expression, delimiter)
+
+        //then
+        assertThrows(IllegalArgumentException::class.java) { actual() }
+    }
+
 }
