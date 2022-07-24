@@ -6,8 +6,9 @@ import camp.nextstep.camp.calculator.domain.Calculator.Operators.*
 object Calculator {
 
     private val rewExpressionCheck = RawExpressionCheck()
+    private const val delimiter = " "
 
-    fun evaluate(expression: String, delimiter: String): Int {
+    fun evaluate(expression: String): Int {
         rewExpressionCheck.isNullOrBlankCheck(expression)
 
         val expressionSplitList: List<String> = expression.split(delimiter)
