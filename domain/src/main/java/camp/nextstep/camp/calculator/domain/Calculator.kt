@@ -29,7 +29,7 @@ object Calculator {
             Minus.operator -> minus(operandFirst, operandSecond)
             Multiply.operator -> multiply(operandFirst, operandSecond)
             Divide.operator -> divide(operandFirst, operandSecond)
-            else -> throw IllegalArgumentException() //사칙연산 기호가 아닌 경우 IllegalArgumentException throw
+            else -> throw IllegalArgumentException("사칙연산 기호가 아닙니다.")
         }
     }
 
