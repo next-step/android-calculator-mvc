@@ -17,7 +17,11 @@ object Calculator {
 
         for (index in 1 until expressionSplitList.size step 2) {
             rewExpressionCheck.isNumericCheck(expressionSplitList[index + 1])
-            result = calculate(result, expressionSplitList[index], expressionSplitList[index + 1].toInt())
+            result = calculate(
+                result,
+                expressionSplitList[index],
+                expressionSplitList[index + 1].toInt()
+            )
         }
 
         return result

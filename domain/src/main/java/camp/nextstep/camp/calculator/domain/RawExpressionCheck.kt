@@ -7,7 +7,7 @@ class RawExpressionCheck {
     }
 
     fun isNumericCheck(operand: String) {
-        if(!isNumeric(operand)) throw NumberFormatException("입력된 표현식이 올바르지 않습니다.")
+        if (!isNumeric(operand)) throw NumberFormatException("입력된 표현식이 올바르지 않습니다.")
     }
 
     private fun isNumeric(toCheck: String): Boolean {

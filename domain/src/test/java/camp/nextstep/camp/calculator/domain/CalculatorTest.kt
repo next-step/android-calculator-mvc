@@ -10,7 +10,7 @@ class CalculatorTest {
     private lateinit var rawExpressionCheck: RawExpressionCheck
 
     @Before
-    fun settings(){
+    fun settings() {
         rawExpressionCheck = RawExpressionCheck()
     }
 
@@ -89,7 +89,8 @@ class CalculatorTest {
         val expression = " "
 
         //then
-        assertThrows(IllegalArgumentException::class.java){rawExpressionCheck.isNullOrBlankCheck(expression)
+        assertThrows(IllegalArgumentException::class.java) {
+            rawExpressionCheck.isNullOrBlankCheck(expression)
         }
     }
 
@@ -100,7 +101,12 @@ class CalculatorTest {
         val delimiter = " "
 
         //then
-        assertThrows(IllegalArgumentException::class.java) { Calculator.evaluate(expression, delimiter) }
+        assertThrows(IllegalArgumentException::class.java) {
+            Calculator.evaluate(
+                expression,
+                delimiter
+            )
+        }
     }
 
     @Test
