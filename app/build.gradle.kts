@@ -50,5 +50,5 @@ dependencies {
     testImplementation(libs.bundles.test)
     androidTestImplementation(libs.bundles.test.android)
 
-    implementation(project(":caculator"))
+    implementation(project(":domain"))
 }
