@@ -2,11 +2,11 @@ package camp.nextstep.camp.calculator.domain
 
 class RawExpressionCheck {
 
-    fun isNullOrBlankCheck(rawExpression: String?) {
+    fun checkNullOrBlank(rawExpression: String?) {
         if (rawExpression.isNullOrBlank()) throw IllegalArgumentException()
     }
 
-    fun isNumericCheck(operand: String) {
+    fun checkNumber(operand: String) {
         if (!isNumeric(operand)) throw NumberFormatException("입력된 표현식이 올바르지 않습니다.")
     }
 
