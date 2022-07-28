@@ -1,13 +1,11 @@
 package edu.nextstep.camp.calculator
 
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 
@@ -24,25 +22,6 @@ class MainActivityTest{
         onView(ViewMatchers.withId(R.id.button0)).perform(click())
 
         onView(ViewMatchers.withId(R.id.textView)).check(matches(withText("0")))
-    }
-
-    @Test
-    fun `버튼_0을_2번_누르면_화면에_00이_보여야_한다`() {
-
-        onView(ViewMatchers.withId(R.id.button0)).perform(click())
-        onView(ViewMatchers.withId(R.id.button0)).perform(click())
-
-        onView(ViewMatchers.withId(R.id.textView)).check(matches(withText("00")))
-    }
-
-    @Test
-    fun `버튼_0을_3번_누르면_화면에_000이_보여야_한다`() {
-
-        onView(ViewMatchers.withId(R.id.button0)).perform(click())
-        onView(ViewMatchers.withId(R.id.button0)).perform(click())
-        onView(ViewMatchers.withId(R.id.button0)).perform(click())
-
-        onView(ViewMatchers.withId(R.id.textView)).check(matches(withText("000")))
     }
 
     @Test
