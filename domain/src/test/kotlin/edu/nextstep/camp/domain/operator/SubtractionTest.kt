@@ -1,6 +1,8 @@
-package edu.nextstep.camp.domain
+package edu.nextstep.camp.domain.operator
 
 import com.google.common.truth.Truth.assertThat
+import edu.nextstep.camp.domain.NumberOperandToken
+import edu.nextstep.camp.domain.OperatorToken
 import org.junit.Test
 
 @Suppress("NonAsciiCharacters")
