@@ -10,7 +10,7 @@ class CalculatorTest {
 
 	@Before
 	fun setup() {
-		target = Calculator()
+		target = Calculator(ExpressionValidityCheckerImpl())
 	}
 
 	@Test(expected = IllegalArgumentException::class)
