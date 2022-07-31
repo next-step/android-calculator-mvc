@@ -1,7 +1,6 @@
 package edu.nextstep.camp.calculator
 
 import com.google.common.truth.Truth.assertThat
-import edu.nextstep.camp.calculator.domain.camp.calculator.Operation
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.params.ParameterizedTest
