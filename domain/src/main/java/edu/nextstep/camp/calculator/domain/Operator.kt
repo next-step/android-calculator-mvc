@@ -1,24 +1,17 @@
 package edu.nextstep.camp.calculator.domain
 
-internal enum class Operator(private val symbol: String) : Token {
+enum class Operator(
+    val symbol: String,
+    val operate: (Int, Int) -> Int
+) : Token {
 
-    PLUS("+") {
-        override fun operate(a: Int, b: Int) = a + b
-    },
-    MINUS("-") {
-        override fun operate(a: Int, b: Int) = a - b
-    },
-    MULTIPLY("*") {
-        override fun operate(a: Int, b: Int) = a * b
-    },
-    DIVIDE("/") {
-        override fun operate(a: Int, b: Int) = a / b
-    };
-
-    abstract fun operate(a: Int, b: Int): Int
+    PLUS("+", { a, b -> a + b }),
+    MINUS("-", { a, b -> a - b }),
+    MULTIPLY("×", { a, b -> a * b }),
+    DIVIDE("÷", { a, b -> a / b });
 
     companion object {
-        fun get(value: String): Operator = values().find { it.symbol == value }
-            ?: throw IllegalArgumentException() // 사칙연산 기호가 아닌 경우 IllegalArgumentException
+        fun get(symbol: String): Operator = values().find { it.symbol == symbol }
+            ?: throw IllegalArgumentException("operator $symbol is not arithmetic operation") // 사칙연산 기호가 아닌 경우 IllegalArgumentException
     }
 }

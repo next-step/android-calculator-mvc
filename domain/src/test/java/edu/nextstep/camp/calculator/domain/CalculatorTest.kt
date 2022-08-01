@@ -8,31 +8,41 @@ class CalculatorTest {
     private val calculator = Calculator()
 
     @Test
-    fun `입력값으로_공백문자가_들어오면_예외를_발생시킨다`() {
+    fun 수식이_연산자부터_시작하면_예외를_발생시킨다() {
         //given
-        val input = "  "
+        val tokens = listOf(Operator.PLUS, Operand(1), Operand(2))
         //when
-        val actual = runCatching { calculator.evaluate(input) }.exceptionOrNull()
+        val actual = runCatching { calculator.evaluate(tokens) }.exceptionOrNull()
         //then
         assertThat(actual).isInstanceOf(IllegalArgumentException::class.java)
     }
 
     @Test
-    fun `입력값으로_NULL이_들어오면_예외를_발생시킨다`() {
+    fun 수식이_연산자로_끝나면_예외를_발생시킨다() {
         //given
-        val input: String? = null
+        val tokens = listOf(Operand(1), Operand(2), Operator.PLUS)
         //when
-        val actual = runCatching { calculator.evaluate(input) }.exceptionOrNull()
+        val actual = runCatching { calculator.evaluate(tokens) }.exceptionOrNull()
         //then
         assertThat(actual).isInstanceOf(IllegalArgumentException::class.java)
     }
 
     @Test
-    fun `사칙연산_이외의_기호가_들어오면_예외를_발생시킨다`() {
+    fun `입력값이_공백이면_예외를_발생시킨다`() {
         //given
-        val input = "1 % 2"
+        val tokens = emptyList<Token>()
         //when
-        val actual = runCatching { calculator.evaluate(input) }.exceptionOrNull()
+        val actual = runCatching { calculator.evaluate(tokens) }.exceptionOrNull()
+        //then
+        assertThat(actual).isInstanceOf(IllegalArgumentException::class.java)
+    }
+
+    @Test
+    fun `연산자_위치에_피연산자가_들어오면_예외를_발생시킨다`() {
+        //given
+        val tokens = listOf(Operand(1), Operand(1), Operand(2))
+        //when
+        val actual = runCatching { calculator.evaluate(tokens) }.exceptionOrNull()
         //then
         assertThat(actual).isInstanceOf(IllegalArgumentException::class.java)
     }
@@ -40,9 +50,9 @@ class CalculatorTest {
     @Test
     fun `12와_6를_더하면_18이다`() {
         //given
-        val input = "12 + 6"
+        val tokens = listOf(Operand(12), Operator.PLUS, Operand(6))
         //when
-        val actual = calculator.evaluate(input)
+        val actual = calculator.evaluate(tokens)
         //then
         assertThat(actual).isEqualTo(18)
     }
@@ -50,9 +60,9 @@ class CalculatorTest {
     @Test
     fun `12에서_6을_빼면_6이다`() {
         //given
-        val input = "12 - 6"
+        val tokens = listOf(Operand(12), Operator.MINUS, Operand(6))
         //when
-        val actual = calculator.evaluate(input)
+        val actual = calculator.evaluate(tokens)
         //then
         assertThat(actual).isEqualTo(6)
     }
@@ -60,9 +70,9 @@ class CalculatorTest {
     @Test
     fun `12와_6을_나누면_2이다`() {
         //given
-        val input = "12 / 6"
+        val tokens = listOf(Operand(12), Operator.DIVIDE, Operand(6))
         //when
-        val actual = calculator.evaluate(input)
+        val actual = calculator.evaluate(tokens)
         //then
         assertThat(actual).isEqualTo(2)
     }
@@ -70,9 +80,9 @@ class CalculatorTest {
     @Test
     fun `12과_6을_곱하면_72이다`() {
         //given
-        val input = "12 * 6"
+        val tokens = listOf(Operand(12), Operator.MULTIPLY, Operand(6))
         //when
-        val actual = calculator.evaluate(input)
+        val actual = calculator.evaluate(tokens)
         //then
         assertThat(actual).isEqualTo(72)
     }
@@ -80,9 +90,9 @@ class CalculatorTest {
     @Test
     fun `12과_6을_더한뒤_2로_곱하면_36이다`() {
         //given
-        val input = "12 + 6 * 2"
+        val tokens = listOf(Operand(12), Operator.PLUS, Operand(6), Operator.MULTIPLY, Operand(2))
         //when
-        val actual = calculator.evaluate(input)
+        val actual = calculator.evaluate(tokens)
         //then
         assertThat(actual).isEqualTo(36)
     }
