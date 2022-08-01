@@ -1,5 +1,13 @@
 plugins {
     id 'java-library'
+<<<<<<<<< Temporary merge branch 1
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+=========
     id 'kotlin'
 }
 
@@ -13,4 +21,5 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'com.google.truth:truth:1.1.2'
     testImplementation 'io.mockk:mockk:1.10.6'
+>>>>>>>>> Temporary merge branch 2
 }
