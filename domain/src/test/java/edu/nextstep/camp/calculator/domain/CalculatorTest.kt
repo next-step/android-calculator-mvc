@@ -8,6 +8,26 @@ class CalculatorTest {
     private val calculator = Calculator()
 
     @Test
+    fun 수식이_연산자부터_시작하면_예외를_발생시킨다() {
+        //given
+        val tokens = listOf(Operator.PLUS, Operand(1), Operand(2))
+        //when
+        val actual = runCatching { calculator.evaluate(tokens) }.exceptionOrNull()
+        //then
+        assertThat(actual).isInstanceOf(IllegalArgumentException::class.java)
+    }
+
+    @Test
+    fun 수식이_연산자로_끝나면_예외를_발생시킨다() {
+        //given
+        val tokens = listOf(Operand(1), Operand(2), Operator.PLUS)
+        //when
+        val actual = runCatching { calculator.evaluate(tokens) }.exceptionOrNull()
+        //then
+        assertThat(actual).isInstanceOf(IllegalArgumentException::class.java)
+    }
+
+    @Test
     fun `입력값이_공백이면_예외를_발생시킨다`() {
         //given
         val tokens = emptyList<Token>()

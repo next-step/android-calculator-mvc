@@ -7,14 +7,14 @@ internal sealed class Expression {
         private val expression2: Expression,
         private val operator: Operator
     ) : Expression() {
-        override fun excute(): Int = operator.operate(expression1.excute(), expression2.excute())
+        override fun execute(): Int = operator.operate(expression1.execute(), expression2.execute())
     }
 
     internal data class Value(
         private val value: Int
     ) : Expression() {
-        override fun excute(): Int = value
+        override fun execute(): Int = value
     }
 
-    abstract fun excute(): Int
+    abstract fun execute(): Int
 }

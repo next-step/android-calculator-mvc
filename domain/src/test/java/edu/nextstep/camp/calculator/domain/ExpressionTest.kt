@@ -22,7 +22,7 @@ class ExpressionTest {
             Operator.MINUS
         )
         //when
-        val actual = expression.excute()
+        val actual = expression.execute()
         //then
         assertThat(actual).isEqualTo(12)
     }
