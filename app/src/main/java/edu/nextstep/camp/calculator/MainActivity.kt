@@ -23,20 +23,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initListener() {
-        binding.button0.setOnClickListener { clickOp(resources.getString(R.string.calculator_0)) }
-        binding.button1.setOnClickListener { clickOp(resources.getString(R.string.calculator_1)) }
-        binding.button2.setOnClickListener { clickOp(resources.getString(R.string.calculator_2)) }
-        binding.button3.setOnClickListener { clickOp(resources.getString(R.string.calculator_3)) }
-        binding.button4.setOnClickListener { clickOp(resources.getString(R.string.calculator_4)) }
-        binding.button5.setOnClickListener { clickOp(resources.getString(R.string.calculator_5)) }
-        binding.button6.setOnClickListener { clickOp(resources.getString(R.string.calculator_6)) }
-        binding.button7.setOnClickListener { clickOp(resources.getString(R.string.calculator_7)) }
-        binding.button8.setOnClickListener { clickOp(resources.getString(R.string.calculator_8)) }
-        binding.button9.setOnClickListener { clickOp(resources.getString(R.string.calculator_9)) }
-        binding.buttonPlus.setOnClickListener { clickOp(resources.getString(R.string.calculator_plus)) }
-        binding.buttonMinus.setOnClickListener { clickOp(resources.getString(R.string.calculator_minus)) }
-        binding.buttonMultiply.setOnClickListener { clickOp(resources.getString(R.string.calculator_multiply)) }
-        binding.buttonDivide.setOnClickListener { clickOp(resources.getString(R.string.calculator_divide)) }
+        binding.button0.setOnClickListener { clickToken(resources.getString(R.string.calculator_0)) }
+        binding.button1.setOnClickListener { clickToken(resources.getString(R.string.calculator_1)) }
+        binding.button2.setOnClickListener { clickToken(resources.getString(R.string.calculator_2)) }
+        binding.button3.setOnClickListener { clickToken(resources.getString(R.string.calculator_3)) }
+        binding.button4.setOnClickListener { clickToken(resources.getString(R.string.calculator_4)) }
+        binding.button5.setOnClickListener { clickToken(resources.getString(R.string.calculator_5)) }
+        binding.button6.setOnClickListener { clickToken(resources.getString(R.string.calculator_6)) }
+        binding.button7.setOnClickListener { clickToken(resources.getString(R.string.calculator_7)) }
+        binding.button8.setOnClickListener { clickToken(resources.getString(R.string.calculator_8)) }
+        binding.button9.setOnClickListener { clickToken(resources.getString(R.string.calculator_9)) }
+        binding.buttonPlus.setOnClickListener { clickToken(resources.getString(R.string.calculator_plus)) }
+        binding.buttonMinus.setOnClickListener { clickToken(resources.getString(R.string.calculator_minus)) }
+        binding.buttonMultiply.setOnClickListener { clickToken(resources.getString(R.string.calculator_multiply)) }
+        binding.buttonDivide.setOnClickListener { clickToken(resources.getString(R.string.calculator_divide)) }
         binding.buttonDelete.setOnClickListener { clickDelete() }
         binding.buttonEquals.setOnClickListener {
             runCatching { Calculator().evaluate(inputConverter.token) }
@@ -54,8 +54,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun clickOp(op: String) {
-        inputConverter.add(op)
+    private fun clickToken(token: String) {
+        inputConverter.add(token)
         updateTextView()
     }
 

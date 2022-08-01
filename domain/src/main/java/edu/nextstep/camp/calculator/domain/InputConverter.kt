@@ -6,9 +6,9 @@ class InputConverter {
     val token get() = _token as List<Token>
 
     fun add(input: String) {
-        when (val op: Token = TokenFactory(input)) {
-            is Operand -> addOperand(op)
-            is Operator -> addOperator(op)
+        when (val token: Token = TokenFactory(input)) {
+            is Operand -> addOperand(token)
+            is Operator -> addOperator(token)
         }
     }
 
