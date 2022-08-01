@@ -5,12 +5,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Calculator
-import edu.nextstep.camp.calculator.domain.InputConverter
+import edu.nextstep.camp.calculator.domain.Expression
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private val inputConverter = InputConverter()
+    private val expression = Expression()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +37,10 @@ class MainActivity : AppCompatActivity() {
         binding.buttonDivide.setOnClickListener { clickToken(resources.getString(R.string.calculator_divide)) }
         binding.buttonDelete.setOnClickListener { clickDelete() }
         binding.buttonEquals.setOnClickListener {
-            runCatching { Calculator().evaluate(inputConverter.token) }
+            runCatching { Calculator().evaluate(expression.token) }
                 .onSuccess { result ->
                     binding.textView.text = result.toString()
-                    inputConverter.clearAndAddResult(result)
+                    expression.clearAndAddResult(result)
                 }
                 .onFailure {
                     Toast.makeText(
@@ -53,16 +53,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun clickToken(token: String) {
-        inputConverter.add(token)
+        expression.add(token)
         updateTextView()
     }
 
     private fun clickDelete() {
-        inputConverter.delete()
+        expression.delete()
         updateTextView()
     }
 
     private fun updateTextView() {
-        binding.textView.text = inputConverter.getTokenToString()
+        binding.textView.text = expression.getTokenToString()
     }
 }
