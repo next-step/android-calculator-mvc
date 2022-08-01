@@ -53,6 +53,13 @@ class InputConverter {
         }
     }
 
+    fun getTokenToString() = token.joinToString(separator = " ") { token ->
+        when (token) {
+            is Operand -> token.operand.toString()
+            is Operator -> token.symbol
+        }
+    }
+
     private fun Operand.merge(operand: Operand) =
         Operand("${this.operand}${operand.operand}".toInt())
 

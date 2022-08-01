@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import edu.nextstep.camp.calculator.databinding.ActivityMainBinding
 import edu.nextstep.camp.calculator.domain.Calculator
 import edu.nextstep.camp.calculator.domain.InputConverter
-import edu.nextstep.camp.calculator.domain.Operand
-import edu.nextstep.camp.calculator.domain.Operator
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -65,11 +63,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateTextView() {
-        binding.textView.text = inputConverter.token.joinToString(separator = " ") { token ->
-            when (token) {
-                is Operand -> token.operand.toString()
-                is Operator -> token.symbol
-            }
-        }
+        binding.textView.text = inputConverter.getTokenToString()
     }
 }
