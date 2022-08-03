@@ -1,7 +1,6 @@
 package edu.nextstep.camp.caculator.domain
 
-class Expression (
-    private val expressionString: String) {
+class Expression (private val expressionString: String) {
     private val expressionList = mutableListOf<String>()
 
     init {
