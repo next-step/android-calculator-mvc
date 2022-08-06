@@ -7,6 +7,9 @@
 
     <style name="Widget.Calculator.Button.Uncolored">
         <item name="android:textColor">@color/black</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
     </style>
 
     <style name="Widget.Calculator.Button.BackgroundColored" parent="Widget.MaterialComponents.Button">

@@ -9,18 +9,46 @@ class CalculatorTest {
     private val calculator = Calculator()
 
     @Test
-    fun calculate_operators_test() {
+    fun 연산자_테스트() {
         // When
-        val actual = calculator.calculate(Expression("2 + 2 - 2 * 2 / 2"))
+        val expression = Expression()
+        expression.addExpression("2")
+        expression.addExpression("+")
+        expression.addExpression("2")
+        expression.addExpression("-")
+        expression.addExpression("2")
+        expression.addExpression("*")
+        expression.addExpression("2")
+        expression.addExpression("/")
+        expression.addExpression("2")
+        val actual = calculator.calculate(expression)
 
         // Then
         assertThat(actual).isEqualTo(2)
     }
 
     @Test
-    fun calculate_minus_result_test() {
+    fun 양수_결과_테스트() {
         // When
-        val actual = calculator.calculate(Expression("2 - 9"))
+        val expression = Expression()
+        expression.addExpression("2")
+        expression.addExpression("3")
+        expression.addExpression("-")
+        expression.addExpression("3")
+        val actual = calculator.calculate(expression)
+
+        // Then
+        assertThat(actual).isEqualTo(20)
+    }
+
+    @Test
+    fun 음수_결과_테스트() {
+        // When
+        val expression = Expression()
+        expression.addExpression("2")
+        expression.addExpression("-")
+        expression.addExpression("9")
+        val actual = calculator.calculate(expression)
 
         // Then
         assertThat(actual).isEqualTo(-7)
